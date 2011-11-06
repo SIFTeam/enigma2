@@ -258,6 +258,9 @@ lib/python/Plugins/SystemPlugins/Videomode/meta/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/meta/Makefile
 lib/python/Tools/Makefile
+lib/python/SIFTeam/Makefile
+lib/python/SIFTeam/Daemons/Makefile
+lib/python/SIFTeam/Extra/Makefile
 lib/service/Makefile
 lib/components/Makefile
 po/Makefile

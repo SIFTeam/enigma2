@@ -1,0 +1,63 @@
+def PcscdStatus():
+	import os
+	ret = False
+	pids = os.popen("ps aux | grep pcscd | grep -v grep | wc -l")
+	try:
+		count = int(pids.read())
+		if count > 0:
+			ret = True
+	except Exception, e:
+		pass
+
+	pids.close()
+	return ret
+	
+def PcscdStop():
+	import os
+	os.system("/etc/init.d/pcscd stop")
+	import time
+	time.sleep(2)
+	
+def PcscdStart():
+	from enigma import eConsoleAppContainer
+	import os
+	#os.system("/etc/init.d/pcscd start")
+	# hack for problems with os.system
+	cmd = eConsoleAppContainer()
+	cmd.execute("/etc/init.d/pcscd start")
+	import time
+	time.sleep(2)
+
+def PcscdInstalled():
+	from Tools.Directories import fileExists
+	return fileExists("/usr/sbin/pcscd")
+	
+def PcscdBoot(enabled):
+	import os
+	if enabled:
+		os.system("ln -s /etc/init.d/pcscd /etc/rc0.d/K20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc1.d/K20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc2.d/S20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc3.d/S20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc4.d/S20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc5.d/S20pcscd")
+		os.system("ln -s /etc/init.d/pcscd /etc/rc6.d/K20pcscd")
+	else:
+		os.system("rm -f /etc/rc0.d/K20pcscd")
+		os.system("rm -f /etc/rc1.d/K20pcscd")
+		os.system("rm -f /etc/rc2.d/S20pcscd")
+		os.system("rm -f /etc/rc3.d/S20pcscd")
+		os.system("rm -f /etc/rc4.d/S20pcscd")
+		os.system("rm -f /etc/rc5.d/S20pcscd")
+		os.system("rm -f /etc/rc6.d/K20pcscd")
+	
+daemon_name = "Pcscd"
+daemon_description = "PC/SC Smart Card Daemon"
+daemon_icon = "pcscd.png"
+daemon_package = "ccid"
+daemon_fnc_status = PcscdStatus
+daemon_fnc_installed = PcscdInstalled
+daemon_fnc_stop = PcscdStop
+daemon_fnc_start = PcscdStart
+daemon_fnc_boot = PcscdBoot
+daemon_class_config = None

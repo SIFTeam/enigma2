@@ -4,7 +4,7 @@ AM_CPPFLAGS = \
 	-include Python.h \
 	-include $(top_builddir)/enigma2_config.h
 
-SUBDIRS = Components Tools Screens Plugins
+SUBDIRS = Components Tools Screens Plugins SIFTeam
 
 noinst_LIBRARIES = libenigma_python.a
 
