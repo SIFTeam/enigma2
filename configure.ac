@@ -165,6 +165,9 @@ data/skin_default/menu/Makefile
 data/skin_default/icons/Makefile
 data/skin_default/buttons/Makefile
 data/skin_default/spinner/Makefile
+data/skin_default/sifteam_daemons/Makefile
+data/skin_default/sifteam_panel/Makefile
+data/skin_default/sifteam_others/Makefile
 include/Makefile
 lib/Makefile
 lib/actions/Makefile

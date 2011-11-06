@@ -1,4 +1,4 @@
-SUBDIRS = menu icons buttons spinner
+SUBDIRS = menu icons buttons spinner sifteam_others sifteam_panel sifteam_daemons
 
 installdir = $(pkgdatadir)/skin_default
 
