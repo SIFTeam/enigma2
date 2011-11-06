@@ -808,7 +808,7 @@ void eDVBScan::channelDone()
 								signal = fe->readFrontendData(iDVBFrontend_ENUMS::signalQuality);
 							
 							LogicalChannelDescriptor &d = (LogicalChannelDescriptor&)**desc;
-							for (LogicalChannelListIterator it = d.getChannelList()->begin(); it != d.getChannelList()->begin(); it++)
+							for (LogicalChannelListConstIterator it = d.getChannelList()->begin(); it != d.getChannelList()->begin(); it++)
 							{
 								LogicalChannel *ch = *it;
 								if (ch->getVisibleServiceFlag())
