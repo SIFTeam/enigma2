@@ -17,10 +17,6 @@ if [ -d /home/root ]; then
 	cd /home/root
 fi
 
-if [ ! -f /etc/enigma2/panel.conf ]; then
-       cp @datadir@/enigma2/defaults/panel.conf /etc/enigma2/
-fi
-
 LIBS=@libdir@/libopen.so.0.0.0
 
 #check for dreambox specific passthrough helper lib
