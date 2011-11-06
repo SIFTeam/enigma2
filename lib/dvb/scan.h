@@ -95,6 +95,9 @@ class eDVBScan: public Object, public iObject
 	bool m_scan_debug;
 	ePyObject m_additional_tsid_onid_check_func;
 	bool m_show_add_tsid_onid_check_failed_msg;
+	
+	FILE *m_lcn_file;
+	void addLcnToDB(eDVBNamespace ns, eOriginalNetworkID onid, eTransportStreamID tsid, eServiceID sid, uint16_t lcn);
 public:
 	eDVBScan(iDVBChannel *channel, bool usePAT=true, bool debug=true );
 	~eDVBScan();

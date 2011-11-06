@@ -3,6 +3,7 @@
 #include <dvbsi++/service_descriptor.h>
 #include <dvbsi++/satellite_delivery_system_descriptor.h>
 #include <dvbsi++/terrestrial_delivery_system_descriptor.h>
+#include <dvbsi++/terrestrial_lcn_descriptor.h>
 #include <dvbsi++/cable_delivery_system_descriptor.h>
 #include <dvbsi++/ca_identifier_descriptor.h>
 #include <dvbsi++/registration_descriptor.h>
@@ -45,10 +46,14 @@ eDVBScan::eDVBScan(iDVBChannel *channel, bool usePAT, bool debug)
 		}
 		fclose(f);
 	}
+	m_lcn_file = NULL;
 }
 
 eDVBScan::~eDVBScan()
 {
+	if (m_lcn_file)
+		fclose(m_lcn_file);
+		
 	if (m_additional_tsid_onid_check_func)
 		Py_DECREF(m_additional_tsid_onid_check_func);
 }
@@ -509,6 +514,15 @@ void eDVBScan::addKnownGoodChannel(const eDVBChannelID &chid, iDVBFrontendParame
 		m_new_channels.insert(std::pair<eDVBChannelID,ePtr<iDVBFrontendParameters> >(chid, feparm));
 }
 
+void eDVBScan::addLcnToDB(eDVBNamespace ns, eOriginalNetworkID onid, eTransportStreamID tsid, eServiceID sid, uint16_t lcn)
+{
+	if (m_lcn_file)
+	{
+		fseek(m_lcn_file, 0, SEEK_END);
+		fprintf(m_lcn_file, "%08x:%04x:%04x:%04x:%05d\n", ns.get(), onid.get(), tsid.get(), sid.get(), lcn);
+	}
+}
+
 void eDVBScan::addChannelToScan(const eDVBChannelID &chid, iDVBFrontendParameters *feparm)
 {
 		/* check if we don't already have that channel ... */
@@ -655,6 +669,7 @@ void eDVBScan::channelDone()
 				
 				eOriginalNetworkID onid = (*tsinfo)->getOriginalNetworkId();
 				eTransportStreamID tsid = (*tsinfo)->getTransportStreamId();
+				eDVBNamespace ns(0);
 				
 				for (DescriptorConstIterator desc = (*tsinfo)->getDescriptors()->begin();
 						desc != (*tsinfo)->getDescriptors()->end(); ++desc)
@@ -692,11 +707,16 @@ void eDVBScan::channelDone()
 
 						unsigned long hash=0;
 						feparm->getHash(hash);
-						eDVBNamespace ns = buildNamespace(onid, tsid, hash);
+						ns = buildNamespace(onid, tsid, hash);
 
 						addChannelToScan(
 							eDVBChannelID(ns, tsid, onid),
 							feparm);
+						break;
+					}
+					case TERRESTRIAL_LCN_DESCRIPTOR:
+					{
+						// we handle it later
 						break;
 					}
 					case SATELLITE_DELIVERY_SYSTEM_DESCRIPTOR:
@@ -743,6 +763,33 @@ void eDVBScan::channelDone()
 						break;
 					}
 				}
+				// we do this after the main loop because we absolutely need the namespace
+				for (DescriptorConstIterator desc = (*tsinfo)->getDescriptors()->begin();
+					desc != (*tsinfo)->getDescriptors()->end(); ++desc)
+				{
+					switch ((*desc)->getTag())
+					{
+						case TERRESTRIAL_LCN_DESCRIPTOR:
+						{
+							if (system != iDVBFrontend::feTerrestrial)
+								break; // when current locked transponder is no terrestrial transponder ignore this descriptor
+								
+							if (ns.get() == 0)
+								break; // invalid namespace
+								
+							TerrestrialLcnDescriptor &d = (TerrestrialLcnDescriptor&)**desc;
+							for (uint16_t i = 0; i < d.getCount(); i++)
+							{
+								addLcnToDB(ns, onid, tsid, eServiceID(d.getServiceId(i)), d.getLcn(i));
+								SCAN_eDebug("NAMESPACE: %08x TSID: %04x ONID: %04x SID: %04x LCN: %05d", ns.get(), onid.get(), tsid.get(), d.getServiceId(i), d.getLcn(i));
+							}
+							break;
+						}
+						default:
+							break;
+					}
+				}
+				
 			}
 			
 		}
@@ -954,6 +1001,26 @@ void eDVBScan::start(const eSmartPtrList<iDVBFrontendParameters> &known_transpon
 	m_new_services.clear();
 	m_last_service = m_new_services.end();
 
+	if (m_lcn_file)
+		fclose(m_lcn_file);
+		
+	if (m_flags & scanRemoveServices)
+	{
+		m_lcn_file = fopen(eEnv::resolve("${sysconfdir}/enigma2/lcndb").c_str(), "w");
+		if (!m_lcn_file)
+			eDebug("couldn't open file lcndb");
+	}
+	else
+	{
+		m_lcn_file = fopen(eEnv::resolve("${sysconfdir}/enigma2/lcndb").c_str(), "r+");
+		if (!m_lcn_file)
+		{
+			m_lcn_file = fopen(eEnv::resolve("${sysconfdir}/enigma2/lcndb").c_str(), "w");
+			if (!m_lcn_file)
+				eDebug("couldn't open file lcndb");
+		}
+	}
+	
 	for (eSmartPtrList<iDVBFrontendParameters>::const_iterator i(known_transponders.begin()); i != known_transponders.end(); ++i)
 	{
 		bool exist=false;
