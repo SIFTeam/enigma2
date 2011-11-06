@@ -807,7 +807,7 @@ void eDVBScan::channelDone()
 							if (!m_channel->getFrontend(fe))
 							signal = fe->readFrontendData(iDVBFrontend_ENUMS::signalQuality);
 							
-							TerrestrialLcnDescriptor &d = (TerrestrialLcnDescriptor&)**desc;
+							LogicalChannel &d = (LogicalChannel&)**desc;
 							for (uint16_t i = 0; i < d.getCount(); i++)
 							{
 								if (d.getVisibleServiceFlag())
