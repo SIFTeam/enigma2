@@ -17,14 +17,20 @@ class HWName(Converter, object):
 			return "DM 8000"
 		elif hwtype == "dm500hd":
 			return "DM 500hd"
-		elif hwtype == "bm750":
+		elif hwtype == "dm7025hd":
+			return "DM 7025hd"
+		elif hwtype == "vuduo":
 			return "Vu+ Duo"
 		elif hwtype == "vusolo":
 			return "Vu+ Solo"
-		elif hwtype == "et9000":
-			return "CTech et9000"
-		elif hwtype == "et5000":
-			return "XTrend et5000"
+		elif hwtype == "vuuno":
+			return "Vu+ Uno"
+		elif hwtype == "et9x00":
+			return "Clark/Xtrend et9x00"
+		elif hwtype == "et6x00":
+			return "Clark/Xtrend et6x00"
+		elif hwtype == "et5x00":
+			return "Clark/XTrend et5x00"
 			
 		return ""
 
