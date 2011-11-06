@@ -20,13 +20,22 @@
 		<item level="0" text="Timer" entryID="timer_edit"><screen module="TimerEdit" screen="TimerEditList" /></item>
 		<item level="1" text="VCR scart" entryID="scart_switch" requires="ScartSwitch"><code>self.session.scart.VCRSbChanged(3)</code></item>
 
+		<menu level="0" text="Emulator" entryID="emu">
+			<id val="emulator" />
+			<item level="0" text="Emulator" entryID="emu"><screen module="SIFTeam.Emulator" screen="Emulator" /></item>
+			<item level="0" text="Card server" entryID="cs"><screen module="SIFTeam.Emulator" screen="CardServer" /></item>
+			<item level="0" text="Emulator info" entryID="emuinfo"><screen module="SIFTeam.Emulator" screen="EmulatorInfo" /></item>
+		</menu>
+
 		<menu level="0" text="Information" entryID="info_screen">
 			<id val="information" />
 			<item level="1" text="Service" entryID="service_info_screen"><screen module="ServiceInfo" screen="ServiceInfo"/></item>
 			<item level="0" text="About" entryID="about_screen"><screen module="About" /></item>
+			<item level="0" text="AboutTeam" entryID="about"><screen module="SIFTeam.About" screen="AboutTeam"/></item>
 		</menu>
 
 		<item level="1" text="Plugins" entryID="plugin_selection"><screen module="PluginBrowser" screen="PluginBrowser" /></item>
+		<item level="0" text="Scripts" entryID="scripts"><screen module="SIFTeam.Scripts" screen="Scripts" /></item>
 		<menu level="0" text="Setup" flushConfigOnClose="1" entryID="setup_selection" >
 			<id val="setup" />
 			<!--<menu text="Service Organising">
@@ -54,6 +63,7 @@
 				<item level="0" entryID="av_setup"><setup id="avsetup"/></item>
 				<!--<item level="0" text="Video Setup" entryID="video_setup"><screen module="VideoSetup" /></item>-->
 				<item level="1" entryID="rfmod_setup" requires="RfModulator"><setup id="RFmod"/></item>
+				<!--
 				<menu level="0" text="Harddisk" entryID="hardisk_selection" requires="Harddisk">
 					<id val="harddisk" />
 					<item level="1" entryID="harddisk_setup"><setup id="harddisk"/></item>
@@ -61,9 +71,13 @@
 					<item level="0" text="Filesystem Check" entryID="harddisk_check"><screen module="HarddiskSetup" screen="HarddiskFsckSelection"/></item>
 					<item level="0" text="Convert filesystem ext3 to ext4" entryID="harddisk_convert" requires="ext4"><screen module="HarddiskSetup" screen="HarddiskConvertExt4Selection"/></item>
 				</menu>
+				-->
+				<item level="0" text="Harddisk" entryID="hardisk_selection"><screen module="SIFTeam.HddSetup" screen="HddSetup" /></item>
+				<item level="0" text="Swap" entryID="swap"><screen module="SIFTeam.Swap" screen="Swap" /></item>
 				<!--<item text="Remote Control"><setup id="rc" /></item>-->
 				<!--<item text="OSD"><setup id="osd" /></item>-->
 				<item level="0" text="Network" entryID="network_setup"><screen module="NetworkSetup" screen="NetworkAdapterSelection" /></item>
+				<item level="0" text="USB devices" entryID="usb_devices"><screen module="SIFTeam.UsbDevices" screen="UsbDevices" /></item>
 				<item level="1" text="Input devices" entryID="input_device_setup"><screen module="InputDeviceSetup" screen="InputDeviceSelection" /></item>
 				<item requires="Display" entryID="display_setup"><setup level="1" id="lcd" /></item>
 				<item text="Keyboard" entryID="keyboard_setup"><setup id="keyboard" /></item>
@@ -76,6 +90,10 @@
 				<item level="0" text="Language" entryID="language_setup"><screen module="LanguageSelection" /></item>
 				<item level="0" entryID="timezone_setup"><setup id="timezone"/></item>
 			</menu>
+			<item weight="6" level="0" text="Software Manager" entryID="softwaremanager"><screen module="SIFTeam.Addons" screen="AddonsScreenHelper" /></item>
+			<item weight="7" level="0" text="Panel setup" entryID="panel_setup"><screen module="SIFTeam.PanelConfig" screen="PanelConfig" /></item>
+			<item weight="8" level="0" text="Preferences" entryID="preferences"><screen module="SIFTeam.Preferences" screen="Preferences" /></item>
+			<item weight="9" level="0" text="Daemons" entryID="daemons"><screen module="SIFTeam.DaemonsList" screen="DaemonsList" /></item>
 			<menu weight="10" text="SoftCam / CI" entryID="cam_setup">
 				<id val="cam" />
 				<item weight="10" level="1" text="Common Interface" entryID="ci_setup" requires="CommonInterface"><screen module="Ci" screen="CiSelection" /></item>

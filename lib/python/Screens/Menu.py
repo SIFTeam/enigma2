@@ -142,7 +142,9 @@ class Menu(Screen):
 					screen = module
 
 				print module, screen
-				if module:
+				if module[:7] == "SIFTeam":
+					pass    # we don't need any change to module
+				elif module:
 					module = "Screens." + module
 				else:
 					module = ""

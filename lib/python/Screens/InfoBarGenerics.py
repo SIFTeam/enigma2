@@ -1856,7 +1856,7 @@ class InfoBarSubserviceSelection:
 		self.bsel = None
 
 	def sifpanel(self):
-		self.session.open(Panel)
+		self.session.open(Panel, self.servicelist)
 		
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)
