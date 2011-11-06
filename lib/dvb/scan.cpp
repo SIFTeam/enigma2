@@ -3,7 +3,7 @@
 #include <dvbsi++/service_descriptor.h>
 #include <dvbsi++/satellite_delivery_system_descriptor.h>
 #include <dvbsi++/terrestrial_delivery_system_descriptor.h>
-#include <dvbsi++/terrestrial_lcn_descriptor.h>
+#include <dvbsi++/logical_channel_descriptor.h>
 #include <dvbsi++/cable_delivery_system_descriptor.h>
 #include <dvbsi++/ca_identifier_descriptor.h>
 #include <dvbsi++/registration_descriptor.h>
@@ -738,7 +738,7 @@ void eDVBScan::channelDone()
 							feparm);
 						break;
 					}
-					case TERRESTRIAL_LCN_DESCRIPTOR:
+					case LOGICAL_CHANNEL_DESCRIPTOR:
 					{
 						// we handle it later
 						break;
@@ -793,7 +793,7 @@ void eDVBScan::channelDone()
 				{
 					switch ((*desc)->getTag())
 					{
-						case TERRESTRIAL_LCN_DESCRIPTOR:
+						case LOGICAL_CHANNEL_DESCRIPTOR:
 						{
 							if (system != iDVBFrontend::feTerrestrial)
 								break; // when current locked transponder is no terrestrial transponder ignore this descriptor
@@ -810,8 +810,11 @@ void eDVBScan::channelDone()
 							TerrestrialLcnDescriptor &d = (TerrestrialLcnDescriptor&)**desc;
 							for (uint16_t i = 0; i < d.getCount(); i++)
 							{
-								addLcnToDB(ns, onid, tsid, eServiceID(d.getServiceId(i)), d.getLcn(i), signal);
-								SCAN_eDebug("NAMESPACE: %08x TSID: %04x ONID: %04x SID: %04x LCN: %05d SIGNAL: %08d", ns.get(), onid.get(), tsid.get(), d.getServiceId(i), d.getLcn(i), signal);
+								if (d.getVisibleServiceFlag())
+								{
+									addLcnToDB(ns, onid, tsid, eServiceID(d.getServiceId(i)), d.getLogicalChannelNumber(i), signal);
+									SCAN_eDebug("NAMESPACE: %08x TSID: %04x ONID: %04x SID: %04x LCN: %05d SIGNAL: %08d", ns.get(), onid.get(), tsid.get(), d.getServiceId(i), d.getLogicalChannelNumber(i), signal);
+								}
 							}
 							break;
 						}
