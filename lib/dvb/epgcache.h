@@ -360,6 +360,7 @@ public:
 
 	void save();
 	void load();
+	void crossepgImportEPGv21(std::string dbroot);
 #ifndef SWIG
 	eEPGCache();
 	~eEPGCache();
