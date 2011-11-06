@@ -29,6 +29,9 @@ class ClockToText(Converter, object):
 	SHORT_DATE = 8
 	LONG_DATE = 9
 	VFD = 10
+	ANALOG_SEC = 11
+	ANALOG_MIN = 12
+	ANALOG_HOUR = 13
 	
 	# add: date, date as string, weekday, ... 
 	# (whatever you need!)
@@ -56,6 +59,12 @@ class ClockToText(Converter, object):
 		elif "Format" in type:
 			self.type = self.FORMAT
 			self.fmt_string = type[7:]
+		elif type == "AnalogSeconds":
+			self.type = self.ANALOG_SEC
+		elif type == "AnalogMinutes":
+			self.type = self.ANALOG_MIN
+		elif type == "AnalogHours":
+			self.type = self.ANALOG_HOUR
 		else:
 			self.type = self.DEFAULT
 
@@ -99,7 +108,13 @@ class ClockToText(Converter, object):
 				return str(s1+s2)
 			else:
 				return strftime(self.fmt_string, t)
-		
+		elif self.type == self.ANALOG_SEC:
+			return "%02d" % t.tm_sec
+		elif self.type == self.ANALOG_MIN:
+			return "%02d" % t.tm_min
+		elif self.type == self.ANALOG_HOUR:
+			ret = (t.tm_hour*5)+(t.tm_min/12);
+			return "%02d" % ret
 		else:
 			return "???"
 
