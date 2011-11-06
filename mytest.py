@@ -189,6 +189,9 @@ class Session:
 		from SIFTeam.Addons import startAutomatiUpdates
 		startAutomatiUpdates(self)
 		
+		from SIFTeam.Crashlogs import startSendCrashlog
+		startSendCrashlog(self)
+		
 	def processDelay(self):
 		callback = self.current_dialog.callback
 
