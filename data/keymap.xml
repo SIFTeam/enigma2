@@ -91,7 +91,7 @@
 	</map>
 
 	<map context="InfobarExtensions">
-		<key id="KEY_BLUE" mapto="extensions" flags="b" />
+		<key id="KEY_RED" mapto="extensions" flags="b" />
 	</map>
 
 	<map context="SatlistShortcutAction">
@@ -208,6 +208,7 @@
 
 	<map context="InfobarSubserviceSelectionActions">
 		<key id="KEY_GREEN" mapto="subserviceSelection" flags="b" />
+		<key id="KEY_BLUE" mapto="sifpanel" flags="b" />
 	</map>
 
 	<map context="InfobarPiPActions">

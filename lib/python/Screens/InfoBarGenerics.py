@@ -44,6 +44,8 @@ from RecordTimer import RecordTimerEntry, RecordTimer
 # hack alert!
 from Menu import MainMenu, mdom
 
+from SIFTeam.Panel import Panel
+
 def setResumePoint(session):
 	global resumePointCache, resumePointCacheLast
 	service = session.nav.getCurrentService()
@@ -741,10 +743,20 @@ class InfoBarEPG:
 			assert self.eventView
 			if self.epglist:
 				self.eventView.setEvent(self.epglist[0])
-
+				
+	def getFullEPG(self):
+		epgcache = eEPGCache.getInstance()
+		service = self.session.nav.getCurrentlyPlayingServiceReference()
+		if service:
+			self.fullepglist = epgcache.lookupEvent([ 'RIBDT', (service.toString(), 0, -1, -1) ])
+		else:
+			self.fullepglist = [ ]
+			
 	def openEventView(self):
 		ref = self.session.nav.getCurrentlyPlayingServiceReference()
 		self.getNowNext()
+		self.getFullEPG()
+		self.fullepgindex = 0
 		epglist = self.epglist
 		if not epglist:
 			self.is_now_next = False
@@ -765,6 +777,16 @@ class InfoBarEPG:
 			self.openMultiServiceEPG(False)
 
 	def eventViewCallback(self, setEvent, setService, val): #used for now/next displaying
+		if len(self.fullepglist) > 2:
+			self.fullepgindex += val
+			if self.fullepgindex < 0:
+				self.fullepgindex = 0
+			elif self.fullepgindex >= len(self.fullepglist):
+				self.fullepgindex = len(self.fullepglist) - 1
+				
+			setEvent(eEPGCache.getInstance().lookupEventId(eServiceReference(self.fullepglist[self.fullepgindex][0]), self.fullepglist[self.fullepgindex][1]))
+			return
+	
 		epglist = self.epglist
 		if len(epglist) > 1:
 			tmp = epglist[0]
@@ -1815,6 +1837,7 @@ class InfoBarSubserviceSelection:
 		self["SubserviceSelectionAction"] = HelpableActionMap(self, "InfobarSubserviceSelectionActions",
 			{
 				"subserviceSelection": (self.subserviceSelection, _("Subservice list...")),
+				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
 			})
 
 		self["SubserviceQuickzapAction"] = HelpableActionMap(self, "InfobarSubserviceQuickzapActions",
@@ -1832,6 +1855,9 @@ class InfoBarSubserviceSelection:
 
 		self.bsel = None
 
+	def sifpanel(self):
+		self.session.open(Panel)
+		
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)
 
