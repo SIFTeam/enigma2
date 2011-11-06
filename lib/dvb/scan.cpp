@@ -805,15 +805,16 @@ void eDVBScan::channelDone()
 							ePtr<iDVBFrontend> fe;
 							
 							if (!m_channel->getFrontend(fe))
-							signal = fe->readFrontendData(iDVBFrontend_ENUMS::signalQuality);
+								signal = fe->readFrontendData(iDVBFrontend_ENUMS::signalQuality);
 							
-							LogicalChannel &d = (LogicalChannel&)**desc;
-							for (uint16_t i = 0; i < d.getCount(); i++)
+							LogicalChannelDescriptor &d = (LogicalChannelDescriptor&)**desc;
+							for (LogicalChannelListIterator it = d.getChannelList()->begin(); it != d.getChannelList()->begin(); it++)
 							{
-								if (d.getVisibleServiceFlag())
+								LogicalChannel *ch = *it;
+								if (ch->getVisibleServiceFlag())
 								{
-									addLcnToDB(ns, onid, tsid, eServiceID(d.getServiceId(i)), d.getLogicalChannelNumber(i), signal);
-									SCAN_eDebug("NAMESPACE: %08x TSID: %04x ONID: %04x SID: %04x LCN: %05d SIGNAL: %08d", ns.get(), onid.get(), tsid.get(), d.getServiceId(i), d.getLogicalChannelNumber(i), signal);
+									addLcnToDB(ns, onid, tsid, eServiceID(ch->getServiceId()), ch->getLogicalChannelNumber(), signal);
+									SCAN_eDebug("NAMESPACE: %08x TSID: %04x ONID: %04x SID: %04x LCN: %05d SIGNAL: %08d", ns.get(), onid.get(), tsid.get(), ch->getServiceId(), ch->getLogicalChannelNumber(), signal);
 								}
 							}
 							break;
