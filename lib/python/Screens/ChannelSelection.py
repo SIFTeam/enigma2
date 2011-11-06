@@ -767,6 +767,8 @@ class ChannelSelectionBase(Screen):
 		self["key_yellow"] = Button(_("Provider"))
 		self["key_blue"] = Button(_("Favourites"))
 
+		self["title"] = Label()
+		
 		self["list"] = ServiceList()
 		self.servicelist = self["list"]
 
@@ -809,6 +811,10 @@ class ChannelSelectionBase(Screen):
 			})
 		self.recallBouquetMode()
 
+	def setTitle(self, title):
+		super(ChannelSelectionBase, self).setTitle(title)
+		self["title"].setText(title)
+		
 	def getBouquetNumOffset(self, bouquet):
 		if not config.usage.multibouquet.value:
 			return 0
