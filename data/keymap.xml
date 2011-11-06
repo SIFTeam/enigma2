@@ -207,7 +207,10 @@
 	</map>
 
 	<map context="InfobarSubserviceSelectionActions">
+		<!--
 		<key id="KEY_GREEN" mapto="subserviceSelection" flags="b" />
+		-->
+		<key id="KEY_GREEN" mapto="videoselection" flags="b" />
 		<key id="KEY_BLUE" mapto="sifpanel" flags="b" />
 	</map>
 

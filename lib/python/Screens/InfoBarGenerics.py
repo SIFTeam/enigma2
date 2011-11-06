@@ -45,6 +45,7 @@ from RecordTimer import RecordTimerEntry, RecordTimer
 from Menu import MainMenu, mdom
 
 from SIFTeam.Panel import Panel
+from SIFTeam.VideoSelection import VideoSelectionHelper
 
 def setResumePoint(session):
 	global resumePointCache, resumePointCacheLast
@@ -1838,6 +1839,7 @@ class InfoBarSubserviceSelection:
 			{
 				"subserviceSelection": (self.subserviceSelection, _("Subservice list...")),
 				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
+				"videoselection": (self.videoselection, _("Video selection..."))
 			})
 
 		self["SubserviceQuickzapAction"] = HelpableActionMap(self, "InfobarSubserviceQuickzapActions",
@@ -1857,6 +1859,10 @@ class InfoBarSubserviceSelection:
 
 	def sifpanel(self):
 		self.session.open(Panel, self.servicelist)
+		
+	def videoselection(self):
+		vs = VideoSelectionHelper(self.session)
+		vs.changeMode()
 		
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)
