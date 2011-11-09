@@ -7,7 +7,6 @@ from Components.ActionMap import ActionMap
 from Components.Button import Button
 
 from Extra.Preferences import CallPClockCallback
-from Extra.HWType import hwtype
 
 class Preferences(Screen, ConfigListScreen):
 	def __init__(self, session):
