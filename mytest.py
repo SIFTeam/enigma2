@@ -186,8 +186,8 @@ class Session:
 		emud.connect()
 		emud.startDefaults()
 		
-		from SIFTeam.Addons import startAutomatiUpdates
-		startAutomatiUpdates(self)
+		#from SIFTeam.Addons import startAutomatiUpdates
+		#startAutomatiUpdates(self)
 		
 		from SIFTeam.Crashlogs import startSendCrashlog
 		startSendCrashlog(self)
