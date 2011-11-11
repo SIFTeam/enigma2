@@ -100,23 +100,6 @@ class Emulator(Screen):
 	def quit(self):
 		self.close()
 
-class EmulatorInfo(Screen):
-	def __init__(self, session, args = 0):
-		Screen.__init__(self, session)
-		
-		self["key_green"] = Button("")
-		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button("")
-		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
-		{
-			"blue": self.quit,
-			"cancel": self.quit,
-		}, -2)
-		
-	def quit(self):
-		self.close()
-
 class CardServer(Screen):
 	def __init__(self, session, args = 0):
 		Screen.__init__(self, session)

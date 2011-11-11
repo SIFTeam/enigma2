@@ -12,7 +12,7 @@ from Components.PluginComponent import plugins
 from Components.PluginList import *
 from Plugins.Plugin import PluginDescriptor
 
-from Emulator import Emulator, CardServer, EmulatorInfo
+from Emulator import Emulator, CardServer
 from Scripts import Scripts
 from Preferences import Preferences
 from About import AboutTeam
