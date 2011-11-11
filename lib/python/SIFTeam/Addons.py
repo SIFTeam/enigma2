@@ -17,12 +17,12 @@ from Tools.LoadPixmap import LoadPixmap
 from Extra.ExtraMessageBox import ExtraMessageBox
 from Extra.ExtraActionBox import ExtraActionBox
 
-import libsif
+#import libsif
 import re
 import os
 import urllib
 
-ipkg = libsif.Ipkg()
+ipkg = None #libsif.Ipkg()
 addons_loaded = False
 
 def FormatSize(size):

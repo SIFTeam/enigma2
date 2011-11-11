@@ -4,14 +4,14 @@ from enigma import eTimer
 
 import os
 import time
-import libsif
+import libemu
 
 class Emud():
 	def __init__(self):
-		self.messages = libsif.EmuMessages()
+		self.messages = libemu.EmuMessages()
 		self.messages.setPyErrorCallback(self.error)
-		self.emuclient = libsif.EmuClient(libsif.EmuClient.EMU, self.messages)
-		self.csclient = libsif.EmuClient(libsif.EmuClient.CS, self.messages)
+		self.emuclient = libemu.EmuClient(libemu.EmuClient.EMU, self.messages)
+		self.csclient = libemu.EmuClient(libemu.EmuClient.CS, self.messages)
 		
 	def setSession(self, session):
 		self.session = session

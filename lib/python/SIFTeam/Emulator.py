@@ -12,8 +12,6 @@ from Extra.Emud import emud
 import os
 import sys
 
-import libsif
-
 def EmulatorEntry(name, version, description, started):
 	if started:
 		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
