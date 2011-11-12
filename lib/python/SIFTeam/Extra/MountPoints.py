@@ -4,28 +4,35 @@ import re
 class MountPoints():
 	def __init__(self):
 		self.entries = []
-		self.settingsMounts = "/etc/settings.mounts"
+		self.fstab = "/etc/fstab"
+		self.blkid = "/sbin/blkid"
 		
 	def read(self):
-		self.entries = []
-		conf = open(self.settingsMounts, "r")
-		for line in conf:
-			res = line.strip().split(":")
-			if res and len(res) == 4:
-				self.entries.append(res)
-		conf.close()
+		rows = open(self.fstab, "r").read().strip().split("\n")
+		for row in rows:
+			self.entries.append({
+				"row": row,
+				"data": re.split("\s+", row),
+				"modified": False
+			})
+			
+		for entry in self.entries:
+			print entry
 		
 	def write(self):
-		conf = open(self.settingsMounts, "w")
+		conf = open(self.fstab, "w")
 		for entry in self.entries:
-			conf.write("%s:%s:%s:%s\n" % (entry[0], entry[1], entry[2], entry[3]))
+			if entry["modified"]:
+				if len(entry["data"]) != 6:
+					print "WARNING: fstab entry with not valid data"
+					continue
+				conf.write("\t".join(entry["data"]) + "\n")
+			else:
+				conf.write(entry["row"] + "\n")
 		conf.close()
 		
 	def checkPath(self, path):
-		for entry in self.entries:
-			if entry[0] == path:
-				return True
-		return False
+		return self.exist(path)
 		
 	def isMounted(self, path):
 		mounts = open("/proc/mounts")
@@ -46,14 +53,16 @@ class MountPoints():
 		
 	def exist(self, path):
 		for entry in self.entries:
-			if entry[0] == path:
-				return True
+			if (len(entry["data"]) == 6):
+				if entry["data"][1] == path:
+					return True
 		return False
 		
 	def delete(self, path):
 		for entry in self.entries:
-			if entry[0] == path:
-				self.entries.remove(entry)
+			if (len(entry["data"]) == 6):
+				if entry["data"][1] == path:
+					self.entries.remove(entry)
 				
 	def deleteDisk(self, device):
 		for i in range(1,4):
@@ -62,20 +71,48 @@ class MountPoints():
 				self.delete(res)
 		
 	def add(self, device, partition, path):
-		vendor = open("/sys/block/%s/device/vendor" % device, "r").read().strip()
-		model = open("/sys/block/%s/device/model" % device, "r").read().strip()
+		uuid = self.getUUID(device, partition)
 		for entry in self.entries:
-			if entry[1] == model and entry[2] == vendor and int(entry[3]) == partition:
-				entry[0] = path
-				return
-				
-		self.entries.append([ path, model, vendor, str(partition) ])
+			if (len(entry["data"]) == 6):
+				if entry["data"][0] == "/dev/%s%i" % (device, partition):
+					self.entries.remove(entry)
+				elif entry["data"][0] == "UUID=" + uuid:
+					self.entries.remove(entry)
+				elif entry["data"][1] == path:
+					self.entries.remove(entry)
+		
+		self.entries.append({
+			"row": "",
+			"data": ["UUID=" + uuid, path, "auto", "defaults", "1", "1"],
+			"modified": True
+		})
+		
+	def getUUID(self, device, partition):
+		rows = os.popen(self.blkid).read().strip().split("\n")
+		for row in rows:
+			tmp = row.split(":")
+			if len(tmp) < 2:
+				continue
+			
+			if tmp[0] == "/dev/%s%i" % (device, partition):
+				tmp.reverse()
+				key = tmp.pop()
+				tmp.reverse()
+				value = ":".join(tmp)
+				uuid = ""
+				ret = re.search('UUID=\"([\w\-]+)\"', value)
+				if ret:
+					uuid = ret.group(1)
+				return uuid
+			
+		return ""
 		
 	def get(self, device, partition):
-		vendor = open("/sys/block/%s/device/vendor" % device, "r").read().strip()
-		model = open("/sys/block/%s/device/model" % device, "r").read().strip()
+		uuid = self.getUUID(device, partition)
 		for entry in self.entries:
-			if entry[1] == model and entry[2] == vendor and int(entry[3]) == partition:
-				return entry[0]
-				
+			if (len(entry["data"]) == 6):
+				if entry["data"][0] == "/dev/%s%i" % (device, partition):
+					return entry["data"][1]
+				elif entry["data"][0] == "UUID=" + uuid:
+					return entry["data"][1]
 		return ""
