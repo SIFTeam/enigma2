@@ -235,7 +235,10 @@ class Disks():
 		else:
 			oldmp = ""
 				
-		cmd = "/sbin/mkfs.ext2 "
+		if os.path.exists("/sbin/mkfs.ext4"):
+			cmd = "/sbin/mkfs.ext4 "
+		else:
+			cmd = "/sbin/mkfs.ext3 "
 		if size > 4 * 1024 * 1024 * 1024:
 			cmd += "-T largefile "
 		cmd += "-m0 /dev/" + dev
