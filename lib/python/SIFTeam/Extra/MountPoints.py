@@ -4,6 +4,7 @@ import re
 class MountPoints():
 	def __init__(self):
 		self.entries = []
+		self.uuids = []
 		self.fstab = "/etc/fstab"
 		self.blkid = "/sbin/blkid"
 		
@@ -97,6 +98,10 @@ class MountPoints():
 		})
 		
 	def getUUID(self, device, partition):
+		for uuid in self.uuids:
+			if uuid["device"] == device and uuid["partition"] == partition:
+				return uuid["uuid"]
+				
 		rows = os.popen(self.blkid).read().strip().split("\n")
 		for row in rows:
 			tmp = row.split(":")
@@ -108,10 +113,15 @@ class MountPoints():
 				key = tmp.pop()
 				tmp.reverse()
 				value = ":".join(tmp)
-				uuid = ""
+				uuid = "00000000"
 				ret = re.search('UUID=\"([\w\-]+)\"', value)
 				if ret:
 					uuid = ret.group(1)
+				self.uuids.append({
+					"device": device,
+					"partition": partition,
+					"uuid": uuid
+				})
 				return uuid
 			
 		return "00000000"
