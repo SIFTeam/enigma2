@@ -125,11 +125,11 @@ class HddPartitions(Screen):
 			mp = self.mountpoints.get(self.disk[0], count)
 			rmp = self.mountpoints.getRealMount(self.disk[0], count)
 			if len(mp) > 0:
-				self.partitions.append(PartitionEntry("Partition %d - %s (Fixed: %s)" % (count, part[2], mp), capacity))
+				self.partitions.append(PartitionEntry("P. %d - %s (Fixed: %s)" % (count, part[2], mp), capacity))
 			elif len(rmp) > 0:
-				self.partitions.append(PartitionEntry("Partition %d - %s (Auto: %s)" % (count, part[2], rmp), capacity))
+				self.partitions.append(PartitionEntry("P. %d - %s (Auto: %s)" % (count, part[2], rmp), capacity))
 			else:
-				self.partitions.append(PartitionEntry("Partition %d - %s" % (count, part[2]), capacity))
+				self.partitions.append(PartitionEntry("P. %d - %s" % (count, part[2]), capacity))
 			count += 1
 		
 		if uirefresh:
