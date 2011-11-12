@@ -105,7 +105,7 @@ class MountPoints():
 					uuid = ret.group(1)
 				return uuid
 			
-		return ""
+		return "00000000"
 		
 	def get(self, device, partition):
 		uuid = self.getUUID(device, partition)
