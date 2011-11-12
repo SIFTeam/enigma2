@@ -128,7 +128,7 @@ class HddPartitions(Screen):
 			if len(mp) > 0:
 				self.partitions.append(PartitionEntry("P. %d - %s (Fixed: %s)" % (count, part[2], mp), capacity))
 			elif len(rmp) > 0:
-				self.partitions.append(PartitionEntry("P. %d - %s (Auto: %s)" % (count, part[2], rmp), capacity))
+				self.partitions.append(PartitionEntry("P. %d - %s (Fast: %s)" % (count, part[2], rmp), capacity))
 			else:
 				self.partitions.append(PartitionEntry("P. %d - %s" % (count, part[2]), capacity))
 			count += 1

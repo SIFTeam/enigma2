@@ -27,6 +27,7 @@ class HddMount(Screen):
 		self.partition = partition
 		self.mountpoints = MountPoints()
 		self.mountpoints.read()
+		self.fast = False
 		
 		self.list = []
 		self.list.append("Mount as main hdd")
@@ -40,20 +41,20 @@ class HddMount(Screen):
 		
 		self["menu"] = MenuList(self.list)
 		
-		self["key_green"] = Button("")
-		self["key_red"] = Button(_("Ok"))
+		self["key_red"] = Button(_("Fixed mount"))
+		self["key_green"] = Button("Fast mount")
 		self["key_blue"] = Button(_("Exit"))
 		self["key_yellow"] = Button("")
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
 			"blue": self.quit,
-			#"yellow": self.yellow,
+			"green": self.green,
 			"red": self.ok,
-			"ok": self.ok,
 			"cancel": self.quit,
 		}, -2)
 		
 	def ok(self):
+		self.fast = False
 		selected = self["menu"].getSelectedIndex()
 		if selected == 0:
 			self.setMountPoint("/media/hdd")
@@ -72,6 +73,26 @@ class HddMount(Screen):
 		elif selected == 7:
 			self.session.openWithCallback(self.customPath, VirtualKeyBoard, title = (_("Insert mount point:")), text = "/media/custom")
 			
+	def green(self):
+		self.fast = True
+		selected = self["menu"].getSelectedIndex()
+		if selected == 0:
+			self.setMountPoint("/media/hdd")
+		elif selected == 1:
+			self.setMountPoint("/media/usb")
+		elif selected == 2:
+			self.setMountPoint("/media/usb1")
+		elif selected == 3:
+			self.setMountPoint("/media/usb2")
+		elif selected == 4:
+			self.setMountPoint("/media/usb3")
+		elif selected == 5:
+			self.setMountPoint("/media/cf")
+		elif selected == 6:
+			self.setMountPoint("/media/mmc1")
+		elif selected == 7:
+			self.session.openWithCallback(self.customPath, VirtualKeyBoard, title = (_("Insert mount point:")), text = "/media/custom")
+		
 	def customPath(self, result):
 		if result and len(result) > 0:
 			result = result.rstrip("/")
@@ -96,7 +117,8 @@ class HddMount(Screen):
 					self.close()
 					return
 			self.mountpoints.delete(self.cpath)
-			self.mountpoints.add(self.device, self.partition, self.cpath)
+			if not self.fast:
+				self.mountpoints.add(self.device, self.partition, self.cpath)
 			self.mountpoints.write()
 			if not self.mountpoints.mount(self.device, self.partition, self.cpath):
 				self.session.open(MessageBox, _("Cannot mount new drive.\nPlease check filesystem or format it and try again"), MessageBox.TYPE_ERROR)
