@@ -34,6 +34,7 @@ class HddPartitions(Screen):
 		self["key_green"] = Button("")
 		self["key_yellow"] = Button("")
 		self["key_blue"] = Button(_("Exit"))
+		self["label_disk"] = Label("%s - %s" % (self.disk[0], self.disk[3]))
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
 			"blue": self.quit,
