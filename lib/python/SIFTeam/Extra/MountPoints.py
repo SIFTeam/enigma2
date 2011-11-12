@@ -15,9 +15,6 @@ class MountPoints():
 				"data": re.split("\s+", row),
 				"modified": False
 			})
-			
-		for entry in self.entries:
-			print entry
 		
 	def write(self):
 		conf = open(self.fstab, "w")
