@@ -42,6 +42,18 @@ class MountPoints():
 		mounts.close()
 		return False
 		
+	def getRealMount(self, device, partition):
+		mounts = open("/proc/mounts")
+		for mount in mounts:
+			res = mount.split(" ")
+			if res and len(res) > 1:
+				if res[0] == "/dev/%s%i" % (device, partition):
+					mounts.close()
+					return res[1]
+					
+		mounts.close()
+		return ""
+		
 	def umount(self, path):
 		return os.system("umount %s" % path) == 0
 

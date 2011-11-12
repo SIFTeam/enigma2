@@ -52,7 +52,8 @@ class HddPartitions(Screen):
 			self["key_red"].setText("")
 		else:
 			mp = self.mountpoints.get(self.disk[0], 1)
-			if len(mp) > 0:
+			rmp = self.mountpoints.getRealMount(self.disk[0], 1)
+			if len(mp) > 0 or len(rmp) > 0:
 				self.mounted = True
 				self["key_red"].setText(_("Umount"))
 			else:
@@ -72,7 +73,8 @@ class HddPartitions(Screen):
 				self["key_red"].setText("")
 			else:
 				mp = self.mountpoints.get(self.disk[0], index+1)
-				if len(mp) > 0:
+				rmp = self.mountpoints.getRealMount(self.disk[0], index+1)
+				if len(mp) > 0 or len(rmp) > 0:
 					self.mounted = True
 					self["key_red"].setText(_("Umount"))
 				else:
@@ -121,8 +123,11 @@ class HddPartitions(Screen):
 		for part in self.disk[5]:
 			capacity = "%d MB" % (part[1] / (1024 * 1024))
 			mp = self.mountpoints.get(self.disk[0], count)
+			rmp = self.mountpoints.getRealMount(self.disk[0], count)
 			if len(mp) > 0:
-				self.partitions.append(PartitionEntry("Partition %d - %s (%s)" % (count, part[2], mp), capacity))
+				self.partitions.append(PartitionEntry("Partition %d - %s (Fixed: %s)" % (count, part[2], mp), capacity))
+			elif len(rmp) > 0:
+				self.partitions.append(PartitionEntry("Partition %d - %s (Auto: %s)" % (count, part[2], rmp), capacity))
 			else:
 				self.partitions.append(PartitionEntry("Partition %d - %s" % (count, part[2]), capacity))
 			count += 1
@@ -140,6 +145,7 @@ class HddPartitions(Screen):
 			self.sindex = self['menu'].getIndex()
 			if self.mounted:
 				mp = self.mountpoints.get(self.disk[0], self.sindex+1)
+				rmp = self.mountpoints.getRealMount(self.disk[0], self.sindex+1)
 				if len(mp) > 0:
 					if self.mountpoints.isMounted(mp):
 						if self.mountpoints.umount(mp):
@@ -150,7 +156,8 @@ class HddPartitions(Screen):
 					else:
 						self.mountpoints.delete(mp)
 						self.mountpoints.write()
-						
+				elif len(rmp) > 0:
+					self.mountpoints.umount(rmp)
 				self.refreshMP()
 			else:
 				self.session.openWithCallback(self.refreshMP, HddMount, self.disk[0], self.sindex+1)
