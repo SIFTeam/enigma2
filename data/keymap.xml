@@ -207,6 +207,7 @@
 		-->
 		<key id="KEY_GREEN" mapto="videoselection" flags="b" />
 		<key id="KEY_BLUE" mapto="sifpanel" flags="b" />
+		<key id="KEY_BLUE" mapto="fastusbremove" flags="l" />
 	</map>
 
 	<map context="InfobarPiPActions">

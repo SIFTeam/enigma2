@@ -46,6 +46,7 @@ from Menu import MainMenu, mdom
 
 from SIFTeam.Panel import Panel
 from SIFTeam.VideoSelection import VideoSelectionHelper
+from SIFTeam.HddMount import HddFastRemove
 
 def setResumePoint(session):
 	global resumePointCache, resumePointCacheLast
@@ -1839,6 +1840,7 @@ class InfoBarSubserviceSelection:
 			{
 				"subserviceSelection": (self.subserviceSelection, _("Subservice list...")),
 				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
+				"fastusbremove": (self.fastusbremove, _("Enter fast usb remove menu...")),
 				"videoselection": (self.videoselection, _("Video selection..."))
 			})
 
@@ -1863,6 +1865,9 @@ class InfoBarSubserviceSelection:
 	def videoselection(self):
 		vs = VideoSelectionHelper(self.session)
 		vs.changeMode()
+		
+	def fastusbremove(self):
+		self.session.open(HddFastRemove)
 		
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)
