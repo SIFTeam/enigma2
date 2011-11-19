@@ -19,10 +19,16 @@ class SAPCL(object):
 		return "api.sifteam.eu"
 		
 	def getBranch(self):
-		return "koala"
+		try:
+			return open("/etc/branch").read().strip()
+		except Exception, e:
+			return ""
 		
 	def getMachine(self):
-		return "et9x00"
+		try:
+			return open("/etc/machine").read().strip()
+		except Exception, e:
+			return ""
 		
 	def getVersion(self):
 		return "0.1"
