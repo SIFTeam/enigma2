@@ -1,5 +1,5 @@
 from Components.config import config, ConfigSlider, ConfigSelection, ConfigYesNo, \
-	ConfigEnableDisable, ConfigSubsection, ConfigBoolean, ConfigNumber
+	ConfigEnableDisable, ConfigSubsection, ConfigBoolean, ConfigNumber, ConfigText
 	
 pclockcb = []
 
@@ -41,6 +41,9 @@ def InitPreferences():
 	config.sifteam.switch_16_10_letterbox = ConfigYesNo(False)
 	config.sifteam.switch_16_10_panscan = ConfigYesNo(False)
 	config.sifteam.switch_16_9_letterbox = ConfigYesNo(True)
+	
+	config.sifteam.username = ConfigText(fixed_size = False)
+	config.sifteam.password = ConfigText(fixed_size = False)
 	
 def RegPClockCallback(callback):
 	global pclockcb

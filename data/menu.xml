@@ -23,6 +23,9 @@
 		<item level="0" text="Emulator" entryID="emu"><screen module="SIFTeam.Emulator" screen="Emulator" /></item>
 		<item level="0" text="Card server" entryID="cs"><screen module="SIFTeam.Emulator" screen="CardServer" /></item>
 
+		<item level="0" text="Account Configuration" entryID="accountconfig"><screen module="SIFTeam.AccountStatus" screen="AccountConfiguration" /></item>
+		<item level="0" text="Account Status" entryID="accountstatus"><screen module="SIFTeam.AccountStatus" screen="AccountStatusHelper" /></item>
+
 		<menu level="0" text="Information" entryID="info_screen">
 			<id val="information" />
 			<item level="1" text="Service" entryID="service_info_screen"><screen module="ServiceInfo" screen="ServiceInfo"/></item>
