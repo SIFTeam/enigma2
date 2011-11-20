@@ -210,6 +210,12 @@
 		<key id="KEY_BLUE" mapto="fastusbremove" flags="l" />
 	</map>
 
+	<map context="InfobarRedButtonActions">
+		<device name="dreambox advanced remote control (native)">
+			<key id="KEY_RED" mapto="activateRedButton" flags="b" />
+		</device>
+	</map>
+
 	<map context="InfobarPiPActions">
 		<key id="KEY_SCREEN" mapto="activatePiP" flags="b" />
 	</map>
