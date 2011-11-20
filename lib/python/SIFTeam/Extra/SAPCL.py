@@ -115,11 +115,13 @@ class SAPCL(object):
 				"status": {}
 			}
 		
-	def getCategories(self, parentid):
+	def getCategories(self, parentid, withmeta):
 		args = {
 			"parent_id": parentid
 		}
-		
+		if withmeta:
+			args["withmeta"] = "true"
+			
 		try:
 			buff = self.request("/packages/categories.xml", args)
 			

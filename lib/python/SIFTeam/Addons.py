@@ -16,6 +16,7 @@ from Tools.LoadPixmap import LoadPixmap
 
 from Extra.ExtraMessageBox import ExtraMessageBox
 from Extra.ExtraActionBox import ExtraActionBox
+from Extra.SAPCL import SAPCL
 
 #import libsif
 import re
@@ -37,13 +38,18 @@ def FormatSize(size):
 			break
 	return `int(isize/factor)` + suffix
 
-def CategoryEntry(name, picture):
+def CategoryEntry(name, picture, count):
 	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/" + picture));
 	if not pixmap:
 		pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/folder.png"));
 		
-	return (pixmap, name)
+	return (pixmap, name, count)
 
+def UpgradeEntry(name, oldversion, newversion):
+	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/install_now.png"));
+		
+	return (pixmap, name, oldversion, ">", newversion)
+	
 def PackageEntry(name, version, size, installed):
 	if installed:
 		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
@@ -52,19 +58,178 @@ def PackageEntry(name, version, size, installed):
 		
 	return (name, version, FormatSize(size), picture)
 
-class Addons():
+class AddonsScreenHelper(Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		
+		self.timer = eTimer()
+		self.timer.callback.append(self.readCategories)
+		self.timer.start(200, 1)
+
+	def executeRequest(self):
+		api = SAPCL()
+		self.categories = api.getCategories(0, True)
+		os.system("opkg update")
+		rows = os.popen("opkg list_upgradable").read().strip().split("\n")
+		self.upgrades = []
+		for row in rows:
+			tmp = row.split(" - ")
+			if len(tmp) == 3:
+				self.upgrades.append({
+					"package": tmp[0],
+					"oldversion": tmp[1],
+					"newversion": tmp[2]
+				})
+		return True
+
+	def executeRequestCallback(self, result):
+		if result:
+			self.session.open(Addons, self.categories, self.upgrades)
+		self.close()
+
+	def readCategories(self):
+		self.session.openWithCallback(self.executeRequestCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequest)
+
+class Addons(Screen):
+	def __init__(self, session, categories, upgrades):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.sifapi = SAPCL()
+		self.categories = categories
+		self.upgrades = upgrades
+		self.showall = False
+		self.cachelist = []
+		
+		self['list'] = List([])
+		self["list"].onSelectionChanged.append(self.selectionChanged)
+		self["key_green"] = Button("")
+		self["key_red"] = Button("")
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button(_("All"))
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok,
+			"yellow": self.toggleShowAll
+		}, -2)
+		
+		self.renderList()
+		
+	def toggleShowAll(self):
+		self.showall = not self.showall
+		if self.showall:
+			self["key_yellow"].setText(_("Essentials"))
+		else:
+			self["key_yellow"].setText(_("All"))
+		self.session.openWithCallback(self.executeRequestCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequest)
+			
+	def executeRequest(self):
+		api = SAPCL()
+		return api.getCategories(0, not self.showall)
+
+	def executeRequestCallback(self, result):
+		self.categories = result
+		self.renderList()
+	
+	def renderList(self):
+		self.cachelist = []
+		if len(self.upgrades) > 0:
+			self.cachelist.append(CategoryEntry("%d updates found" % len(self.upgrades), "install_now.png", ""))
+		
+		for category in self.categories["categories"]:
+			if category["packages"] == 1:
+				pkgcount = "1 package"
+			else:
+				pkgcount = "%d packages" % category["packages"]
+			if category["description"]:
+				self.cachelist.append(CategoryEntry(category["description"], category["identifier"] + ".png", pkgcount))
+			else:
+				self.cachelist.append(CategoryEntry(category["name"], category["identifier"] + ".png", pkgcount))
+			
+		self["list"].setList(self.cachelist)
+		self.selectionChanged()
+		
+	def selectionChanged(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		if len(self.upgrades) > 0:
+			if index == 0:
+				self["key_red"].setText(_("Update"))
+				return
+			else:
+				self["key_red"].setText("")
+				
+			index -= 1
+			
+		print self.categories["categories"][index]
+		#	index = self["list"].getIndex()
+	
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		if len(self.upgrades) > 0:
+			if index == 0:
+				self.session.open(AddonsUpgrades, self.upgrades)
+				return
+				
+			index -= 1
+		
+	def quit(self):
+		self.close()
+		
+class AddonsUpgrades(Screen):
+	def __init__(self, session, upgrades):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.upgrades = upgrades
+		self.cachelist = []
+		
+		self['list'] = List([])
+		self["key_green"] = Button("")
+		self["key_red"] = Button("")
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button()
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok
+		}, -2)
+		
+		self.renderList()
+		
+	def renderList(self):
+		self.cachelist = []
+		
+		for upgrade in self.upgrades:
+			self.cachelist.append(UpgradeEntry(upgrade["package"], upgrade["oldversion"], upgrade["newversion"]))
+			
+		self["list"].setList(self.cachelist)
+		
+	def ok(self):
+		print "ok"
+		
+	def quit(self):
+		self.close()
+
+class AddonsOld():
 	def __init__(self, session):
 		self.session = session
 		self.lastresult = 0
-		self.version = "000"
 		self.shortcut = ""
-		try:
-			f = open("/etc/openee-version", "r")
-			self.version = f.read().strip()
-			f.close()
-		except:
-			pass
-
 
 	def showMenu(self, callback):
 		global addons_loaded
@@ -779,14 +944,3 @@ autoupdates = None
 def startAutomatiUpdates(session):
 	global autoupdates
 	autoupdates = AutoUpdates(session)
-
-class AddonsScreenHelper(Screen):
-	def __init__(self, session):
-		Screen.__init__(self, session)
-		self.timer = eTimer()
-		self.timer.callback.append(self.start)
-		self.timer.start(200, 1)
-
-	def start(self):
-		self.addons = Addons(self.session)
-		self.addons.showMenu(self.close)

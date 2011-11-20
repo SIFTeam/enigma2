@@ -19,4 +19,5 @@ dist_install_DATA = \
 	plugins.png \
 	reboot.png \
 	run.png \
-	skin_selector.png
+	skin_selector.png \
+	folder.png
