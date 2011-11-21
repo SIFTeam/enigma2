@@ -50,14 +50,47 @@ def UpgradeEntry(name, oldversion, newversion):
 		
 	return (pixmap, name, oldversion, ">", newversion)
 	
-def PackageEntry(name, version, size, installed):
+def PackageEntry(name, installed, rank):
+	rank = int(round(rank, 0))
+	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"));
+	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"));
+	
 	if installed:
 		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
 	else:
 		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"));
 		
-	return (name, version, FormatSize(size), picture)
+	if rank == 1:
+		return (picture, name, star, star_disabled, star_disabled, star_disabled, star_disabled)
+	elif rank == 2:
+		return (picture, name, star, star, star_disabled, star_disabled, star_disabled)
+	elif rank == 3:
+		return (picture, name, star, star, star, star_disabled, star_disabled)
+	elif rank == 4:
+		return (picture, name, star, star, star, star, star_disabled)
+	elif rank == 5:
+		return (picture, name, star, star, star, star, star)
+		
+	return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled)
 
+def RankEntry(rank, description):
+	rank = int(round(rank, 0))
+	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"));
+	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"));
+	
+	if rank == 1:
+		return (star, star_disabled, star_disabled, star_disabled, star_disabled, description)
+	elif rank == 2:
+		return (star, star, star_disabled, star_disabled, star_disabled, description)
+	elif rank == 3:
+		return (star, star, star, star_disabled, star_disabled, description)
+	elif rank == 4:
+		return (star, star, star, star, star_disabled, description)
+	elif rank == 5:
+		return (star, star, star, star, star, description)
+		
+	return (star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
+	
 class AddonsScreenHelper(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
@@ -102,8 +135,7 @@ class Addons(Screen):
 		self.cachelist = []
 		
 		self['list'] = List([])
-		self["list"].onSelectionChanged.append(self.selectionChanged)
-		self["key_green"] = Button("")
+		self["key_green"] = Button(_("Feeds"))
 		self["key_red"] = Button("")
 		self["key_blue"] = Button(_("Exit"))
 		self["key_yellow"] = Button(_("All"))
@@ -112,7 +144,8 @@ class Addons(Screen):
 			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok,
-			"yellow": self.toggleShowAll
+			"yellow": self.toggleShowAll,
+			"green": self.feeds
 		}, -2)
 		
 		self.renderList()
@@ -137,6 +170,9 @@ class Addons(Screen):
 		self.cachelist = []
 		if len(self.upgrades) > 0:
 			self.cachelist.append(CategoryEntry("%d updates found" % len(self.upgrades), "install_now.png", ""))
+			self["key_red"].setText(_("Update"))
+		else:
+			self["key_red"].setText("")
 		
 		for category in self.categories["categories"]:
 			if category["packages"] == 1:
@@ -149,28 +185,14 @@ class Addons(Screen):
 				self.cachelist.append(CategoryEntry(category["name"], category["identifier"] + ".png", pkgcount))
 			
 		self["list"].setList(self.cachelist)
-		self.selectionChanged()
-		
-	def selectionChanged(self):
-		if len(self.cachelist) == 0:
-			return
-			
-		index = self["list"].getIndex()
-		if index == None:
-			index = 0
-		
-		if len(self.upgrades) > 0:
-			if index == 0:
-				self["key_red"].setText(_("Update"))
-				return
-			else:
-				self["key_red"].setText("")
-				
-			index -= 1
-			
-		print self.categories["categories"][index]
-		#	index = self["list"].getIndex()
 	
+	def executeRequestPackages(self):
+		api = SAPCL()
+		return api.getPackages(self.categories["categories"][self.index]["id"])
+
+	def executeRequestPackagesCallback(self, result):
+		self.session.open(AddonsPackages, result)
+		
 	def ok(self):
 		if len(self.cachelist) == 0:
 			return
@@ -185,6 +207,217 @@ class Addons(Screen):
 				return
 				
 			index -= 1
+		
+		self.index = index
+		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
+		
+	def feeds(self):
+		self.session.open(AddonsFeeds)
+		
+	def quit(self):
+		self.close()
+		
+class AddonsFeeds(Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.cachelist = []
+		self.feeds = sorted(os.listdir("/var/lib/opkg"))
+		
+		self['list'] = List([])
+		self["key_green"] = Button("")
+		self["key_red"] = Button("")
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button("")
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok
+		}, -2)
+		
+		self.renderList()
+		
+	def renderList(self):
+		self.cachelist = []
+		for feed in self.feeds:
+			self.cachelist.append(CategoryEntry(feed, "folder.png", ""))
+			
+		self["list"].setList(self.cachelist)
+	
+	def readFeed(self):
+		self.packages = []
+		
+		feed = open("/var/lib/opkg/" + self.feeds[self.index], "r")
+		pkgstmp = feed.read().split("\n\n")
+		for pkgtmp in pkgstmp:
+			package = {}
+			rowstmp = pkgtmp.strip().split("\n")
+			for rowtmp in rowstmp:
+				if len(rowtmp) == 0:
+					continue
+				tmp = rowtmp.split(":")
+				tmp.reverse()
+				name = tmp.pop().lower()
+				tmp.reverse()
+				value = ":".join(tmp).strip()
+				package[name] = value
+				
+			if len(package) == 0:
+				continue
+				
+			package["name"] = package["package"]
+			if "section" not in package.keys() or len(package["section"]) == 0:
+				package["category"] = "Unknown"
+			else:
+				package["category"] = package["section"]
+				
+			self.packages.append(package)
+				
+		feed.close()
+		return {
+			"result": True,
+			"message": "",
+			"packages": sorted(self.packages, key=lambda k: k['name']) 
+		}
+		
+	def readFeedCallback(self, result):
+		self.session.open(AddonsPackages, result)
+	
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		self.index = index
+		self.session.openWithCallback(self.readFeedCallback, ExtraActionBox, _("Reading local feed..."), "Software Manager", self.readFeed)
+		
+	def quit(self):
+		self.close()
+		
+class AddonsPackages(Screen):
+	def __init__(self, session, packages):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.packages = packages
+		self.cachelist = []
+		
+		self['list'] = List([])
+		self["list"].onSelectionChanged.append(self.selectionChanged)
+		self["key_green"] = Button(_("Rank"))
+		self["key_red"] = Button(_("Install"))
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button(_("Sort"))
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok,
+			"green": self.rank
+		}, -2)
+		
+		self.renderList()
+	
+	def renderList(self):
+		self.cachelist = []
+		
+		for package in self.packages["packages"]:
+			rank = 0.0
+			if "rank" in package.keys():
+				rank = float(package["rank"])
+				
+			self.cachelist.append(PackageEntry(package["name"], True, rank))
+			
+		self["list"].setList(self.cachelist)
+		self.selectionChanged()
+		
+	def selectionChanged(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		#print self.packages["packages"][index]["screenshot"]
+		#	index = self["list"].getIndex()
+	
+	def rank(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		self.session.open(AddonsRank, self.packages["packages"][index])
+		#self.index = index
+		#self.session.openWithCallback(self.doRank, ExtraMessageBox, "Please rank the application " + self.packages["packages"][index]["name"],
+		#							"Rank an application!",
+		#							[ [ "Really bad", "star0.png" ],
+		#							[ "Can do better", "star1.png" ],
+		#							[ "Sufficient", "star2.png" ],
+		#							[ "Good", "star3.png" ],
+		#							[ "Very good", "star4.png" ],
+		#							[ "Excellent", "star5.png" ],
+		#							])
+		
+		
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+	def quit(self):
+		self.close()
+		
+class AddonsRank(Screen):
+	def __init__(self, session, package):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.package = package
+		self.cachelist = []
+		
+		self['list'] = List([])
+		self["key_green"] = Button()
+		self["key_red"] = Button("")
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button()
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok
+		}, -2)
+		
+		self.renderList()
+		
+	def renderList(self):
+		self.cachelist = []
+		self.cachelist.append(RankEntry(0.0, "Really bad"))
+		self.cachelist.append(RankEntry(1.0, "Can do better"))
+		self.cachelist.append(RankEntry(2.0, "Sufficient"))
+		self.cachelist.append(RankEntry(3.0, "Good"))
+		self.cachelist.append(RankEntry(4.0, "Very good"))
+		self.cachelist.append(RankEntry(5.0, "Excellent"))
+		self["list"].setList(self.cachelist)
+	
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
 		
 	def quit(self):
 		self.close()
@@ -222,184 +455,6 @@ class AddonsUpgrades(Screen):
 	def ok(self):
 		print "ok"
 		
-	def quit(self):
-		self.close()
-
-class AddonsOld():
-	def __init__(self, session):
-		self.session = session
-		self.lastresult = 0
-		self.shortcut = ""
-
-	def showMenu(self, callback):
-		global addons_loaded
-		addons_loaded = True
-		self.callback = callback
-		self.session.openWithCallback(self.updateCallback, AddonsAction, AddonsAction.IPKG_UPDATE)
-
-	def goToShortcut(self, shortcut, callback):
-		global addons_loaded
-		addons_loaded = True
-		self.callback = callback
-		self.shortcut = shortcut
-		if self.shortcut.find("_remove") > -1:
-			self.session.openWithCallback(self.showShortcut, ExtraActionBox, _("Loading data..."), "Software Manager", ipkg.categoryInit)
-		else:
-			self.session.openWithCallback(self.updateCallbackForShortcut, AddonsAction, AddonsAction.IPKG_UPDATE)
-
-	def install(self, name, callback):
-		global addons_loaded
-		addons_loaded = True
-		self.name = name
-		self.callback = callback
-		self.session.openWithCallback(self.updateCallbackInstall, AddonsAction, AddonsAction.IPKG_UPDATE)
-
-	def remove(self, name, callback):
-		global addons_loaded
-		addons_loaded = True
-		self.callback = callback
-		self.session.openWithCallback(self.end, AddonsAction, AddonsAction.IPKG_REMOVE, True, name)
-
-	def menuCallback(self, result):
-		self.lastresult = result
-		if result == 999:
-			self.endWithDeinit()
-			return
-
-		if result < ipkg.xmlCategoriesCount():
-			self.session.openWithCallback(self.showNow, AddonsPackages, None, result)
-		else:
-			result -= ipkg.xmlCategoriesCount()
-			if result == 0:
-				self.session.openWithCallback(self.showNow, AddonsCategories)
-			elif result == 1:
-				self.session.openWithCallback(self.showNow, AddonsFileBrowser)
-			elif result == 2:
-				self.session.openWithCallback(self.updateCallback, AddonsAction, AddonsAction.IPKG_UPGRADE, True)
-				
-	def updateCallback(self):
-		self.session.openWithCallback(self.showNow, ExtraActionBox, _("Loading data..."), "Software Manager", ipkg.categoryInit)
-
-	def updateCallbackForShortcut(self):
-		self.session.openWithCallback(self.showShortcut, ExtraActionBox, _("Loading data..."), "Software Manager", ipkg.categoryInit)
-
-	def updateCallbackInstall(self):
-		self.session.openWithCallback(self.end, AddonsAction, AddonsAction.IPKG_INSTALL, True, self.name)
-
-	def end(self):
-		global addons_loaded
-		addons_loaded = False
-		self.callback()
-
-	def endWithDeinit(self):
-		global addons_loaded
-		addons_loaded = False
-		ipkg.categoryDeinit()
-		self.callback()
-
-	def upgradeCallback(self):
-		self.session.openWithCallback(self.showNow, ExtraActionBox, _("Reloading data..."), "Software Manager", ipkg.categoryRefresh)
-
-	def showNow(self, result = None):
-		menu = []
-		for i in range (0, ipkg.xmlCategoriesCount()):
-			cat = ipkg.categoryGetXml(i)
-			text = "%s (%d/%d)" % (cat.getName(), cat.countInstalled(), cat.count())
-			menu.append([text, cat.getIcon()])
-
-		menu.append([_("All packages (%d/%d)") % (ipkg.categoryGetAll().countInstalled(), ipkg.categoryGetAll().count()), "packages.png"])
-		menu.append([_("Install from file (ipk or tar.gz)"), "package.png"])
-
-		totalupdates =  ipkg.categoryGetUpdates().count();
-		if totalupdates == 1:
-			menu.append([_("%d update found. Update now") % totalupdates, "install_now.png"]);
-		elif totalupdates > 1:
-			menu.append([_("%d updates found. Update now") % totalupdates, "install_now.png"]);
-
-		if self.lastresult > 5:
-			self.lastresult = 0
-		self.session.openWithCallback(self.menuCallback, ExtraMessageBox, "", "Software Manager - current svn: %s" % self.version, menu, 1, 999, self.lastresult)
-
-	def showShortcut(self, result = None):
-		menu = []
-		for i in range (0, ipkg.xmlCategoriesCount()):
-			cat = ipkg.categoryGetXml(i)
-			shortcuts = cat.getShortcut().split(",")
-			for shortcut in shortcuts:
-				if shortcut == self.shortcut:
-					if self.shortcut.find("_install") > -1:
-						self.session.openWithCallback(self.endWithDeinit, AddonsPackages, None, i, "install")
-					elif self.shortcut.find("_remove") > -1:
-						self.session.openWithCallback(self.endWithDeinit, AddonsPackages, None, i, "remove")
-					else:
-						self.session.openWithCallback(self.endWithDeinit, AddonsPackages, None, i)
-					return
-				
-		self.session.open(MessageBox, _("Error loading selected shortcut"), MessageBox.TYPE_ERROR)
-		self.endWithDeinit()
-
-class AddonsCategories(Screen):
-	def __init__(self, session, args = 0):
-		Screen.__init__(self, session)
-		
-		self.session = session
-		self.cachelist = []
-		self.uilist = []
-		self.lastindex = 0
-		
-		self['list'] = List([])
-		self["list"].onSelectionChanged.append(self.selectionChanged)
-		self["key_green"] = Button("")
-		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button("")
-		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
-		{
-			"blue": self.quit,
-			"cancel": self.quit,
-			"ok": self.ok,
-		}, -2)
-		
-		self.timer = eTimer()
-		self.timer.callback.append(self.listUpdated)
-		self.timer.start(200, 1)
-		
-	def listUpdated(self):
-		self.uilist = []
-		self.cachelist = []
-		cat = ipkg.categoryGetAll()
-		self.uilist.append(CategoryEntry("%s (%d/%d)" % (cat.getName(), cat.countInstalled(), cat.count()), "%s.png" % cat.getName()))
-		self.cachelist.append(cat)
-		ipkg.categoryFirst()
-		while True:
-			cat = ipkg.categoryGet() #.getName()
-			self.uilist.append(CategoryEntry("%s (%d/%d)" % (cat.getName(), cat.countInstalled(), cat.count()), "%s.png" % cat.getName()))
-			self.cachelist.append(cat)
-			if not ipkg.categoryNext():
-				break
-			
-		self["list"].setList(self.uilist)
-		if self.lastindex < len(self.cachelist):
-			self['list'].setCurrentIndex(self.lastindex)
-		
-	def reinit(self, res = False):
-		if res:
-			self.cachelist = []
-			self['list'].setList([])
-			ipkg.categoryRefresh()
-			self.listUpdated()
-			self.ok()
-	
-	def selectionChanged(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-	
-	def ok(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-			self.lastindex = index
-			self.session.openWithCallback(self.reinit, AddonsPackages, self.cachelist[index])
-	
 	def quit(self):
 		self.close()
 
@@ -490,133 +545,6 @@ class AddonsPreview(Screen):
 			self["key_green"].setText(_("Next"))
 		else:
 			self["key_green"].setText("")
-  
-class AddonsPackages(Screen):
-	def __init__(self, session, category, smartcategory = None, statusfilter = None):
-		Screen.__init__(self, session)
-		
-		self.category = category
-		self.smartcategory = smartcategory
-		self.statusfilter = statusfilter
-
-		if self.smartcategory is not None:
-			self.category = ipkg.categoryGetXml(self.smartcategory)
-
-		self.session = session
-		self.uilist = []
-		
-		self['list'] = List([])
-		self["list"].onSelectionChanged.append(self.selectionChanged)
-		self["text"] = ScrollLabel("")
-		self["key_green"] = Button(_("Download"))
-		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button("")
-		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
-		{
-			"blue": self.quit,
-			"cancel": self.quit,
-			"red": self.install,
-			"green": self.download,
-			"yellow": self.preview
-		}, -2)
-		
-		self.timer = eTimer()
-		self.timer.callback.append(self.drawList)
-		self.timer.start(200, 1)
-
-	def drawList(self):
-		self.uilist = []
-		self.cachelist = []
-		if self.category.count() > 0:
-			self.category.packageFirst()
-			while True:
-				ok = False
-				if self.statusfilter == None:
-					ok = True
-				elif self.statusfilter == "install" and not self.category.packageGet().installed:
-					ok = True
-				elif self.statusfilter == "remove" and self.category.packageGet().installed:
-					ok = True
-				if ok:
-					self.cachelist.append(self.category.packageGet())
-					if len(self.category.packageGet().friendlyname) > 0:
-						name = self.category.packageGet().friendlyname
-					else:
-						name = self.category.packageGet().name
-					self.uilist.append(PackageEntry(name,
-												self.category.packageGet().version,
-												self.category.packageGet().size,
-												self.category.packageGet().installed))
-				if not self.category.packageNext():
-					break
-			
-		self["list"].setList(self.uilist)
-		if self.statusfilter == None:
-			self.setTitle("Software Manager - %s" % self.category.getName())
-		elif self.statusfilter == "install":
-			self.setTitle("Software Manager - %s - Install" % self.category.getName())
-		elif self.statusfilter == "remove":
-			self.setTitle("Software Manager - %s - Remove" % self.category.getName())
-
-	def selectionChanged(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-			newline = re.compile("(\n)")
-			spaces = re.compile("\s+")
-			try:
-				desc = newline.sub(" ", self.cachelist[index].description)
-				desc = spaces.sub(" ", desc)
-			except Exception:
-				desc = ""
-
-			text = ""
-			text += _("Name: %s") % self.cachelist[index].name
-			text += _("    Version: %s\n") % self.cachelist[index].version
-			text += _("Size: %s") % FormatSize(self.cachelist[index].size)
-			text += _("    Architecture: %s\n") % self.cachelist[index].architecture
-			text += _("Description: %s") % desc
-			self["text"].setText(text)
-			
-			if self.cachelist[index].installed:
-				self["key_red"].setText(_("Remove"))
-			else:
-				self["key_red"].setText(_("Install"))
-
-			if len(self.cachelist[index].previewimage1) > 0:
-				self["key_yellow"].setText(_("Preview"))
-			else:
-				self["key_yellow"].setText("")
-
-	def install(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-			if self.cachelist[index].installed:
-				self.session.openWithCallback(self.reinit, AddonsAction, AddonsAction.IPKG_REMOVE, True, self.cachelist[index].name)
-			else:
-				self.session.openWithCallback(self.reinit, AddonsAction, AddonsAction.IPKG_INSTALL, True, self.cachelist[index].name)
-
-	def download(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-			self.session.openWithCallback(self.reinit, AddonsAction, AddonsAction.IPKG_DOWNLOAD, True, self.cachelist[index].name)
-
-	def preview(self):
-		if len(self.cachelist) > 0:
-			index = self["list"].getIndex()
-			if len(self.cachelist[index].previewimage1) > 0:
-				self.session.open(AddonsPreview, self.cachelist[index])
-
-	def reinit(self):
-		if self.smartcategory is None:
-			self.close(True)
-		else:
-			ipkg.categoryRefresh()
-			self.category = ipkg.categoryGetXml(self.smartcategory)
-			self.drawList()
-
-	def quit(self):
-		self.close()
 
 class AddonsAction(Screen):
 	IPKG_UPDATE = 0
