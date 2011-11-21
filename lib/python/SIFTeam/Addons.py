@@ -347,6 +347,10 @@ class AddonsPackages(Screen):
 		#print self.packages["packages"][index]["screenshot"]
 		#	index = self["list"].getIndex()
 	
+	def rankCallback(self):
+		self.renderList()
+		self["list"].setIndex(self.index)
+		
 	def rank(self):
 		if len(self.cachelist) == 0:
 			return
@@ -355,17 +359,8 @@ class AddonsPackages(Screen):
 		if index == None:
 			index = 0
 			
-		self.session.open(AddonsRank, self.packages["packages"][index])
-		#self.index = index
-		#self.session.openWithCallback(self.doRank, ExtraMessageBox, "Please rank the application " + self.packages["packages"][index]["name"],
-		#							"Rank an application!",
-		#							[ [ "Really bad", "star0.png" ],
-		#							[ "Can do better", "star1.png" ],
-		#							[ "Sufficient", "star2.png" ],
-		#							[ "Good", "star3.png" ],
-		#							[ "Very good", "star4.png" ],
-		#							[ "Excellent", "star5.png" ],
-		#							])
+		self.index = index
+		self.session.openWithCallback(self.rankCallback, AddonsRank, self.packages["packages"][index])
 		
 		
 	def ok(self):
@@ -388,6 +383,7 @@ class AddonsRank(Screen):
 		self.cachelist = []
 		
 		self['list'] = List([])
+		self["text"] = Label("Rank the application %s" % package["name"])
 		self["key_green"] = Button()
 		self["key_red"] = Button("")
 		self["key_blue"] = Button(_("Exit"))
@@ -411,6 +407,24 @@ class AddonsRank(Screen):
 		self.cachelist.append(RankEntry(5.0, "Excellent"))
 		self["list"].setList(self.cachelist)
 	
+	def rank(self):
+		id = -1
+		try:
+			id = int(self.package["id"])
+		except Exception, e:
+			pass
+			
+		api = SAPCL()
+		return api.rank(id, self.index)
+		
+	def rankCallback(self, result):
+		if result["result"]:
+			self.package["rank"] = result["status"]["rate"]
+			self.session.open(MessageBox, _("Thanks for your rank!"), MessageBox.TYPE_INFO, 3)
+		else:
+			self.session.open(MessageBox, _(result["message"]), MessageBox.TYPE_ERROR)
+		self.quit()
+		
 	def ok(self):
 		if len(self.cachelist) == 0:
 			return
@@ -418,6 +432,9 @@ class AddonsRank(Screen):
 		index = self["list"].getIndex()
 		if index == None:
 			index = 0
+		
+		self.index = index
+		self.session.openWithCallback(self.rankCallback, ExtraActionBox, _("Ranking %s...") % self.package["name"], "Software Manager", self.rank)
 		
 	def quit(self):
 		self.close()
