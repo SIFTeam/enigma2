@@ -11,7 +11,7 @@ from Components.FileList import FileList
 from Components.config import config
 from Components.PluginComponent import plugins
 from Components.Sources.List import List
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, SCOPE_PLUGINS
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, SCOPE_PLUGINS, fileExists
 from Tools.LoadPixmap import LoadPixmap
 
 from Extra.ExtraMessageBox import ExtraMessageBox
@@ -50,28 +50,40 @@ def UpgradeEntry(name, oldversion, newversion):
 		
 	return (pixmap, name, oldversion, ">", newversion)
 	
-def PackageEntry(name, installed, rank):
+def PackageEntry(name, installed, rank, description, inprogress, ratings):
 	rank = int(round(rank, 0))
 	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"));
 	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"));
 	
-	if installed:
-		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
+	if inprogress:
+		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/empty.png"));
 	else:
-		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"));
+		if installed:
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
+		else:
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"));
+		
+	if len(description) > 40:
+		idx = description.find(" ", 40)
+		if idx != -1:
+			description = description[:idx] + "..."
+			
+	if ratings == 0:
+		# TODO: change stars if package never rated
+		return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
 		
 	if rank == 1:
-		return (picture, name, star, star_disabled, star_disabled, star_disabled, star_disabled)
+		return (picture, name, star, star_disabled, star_disabled, star_disabled, star_disabled, description)
 	elif rank == 2:
-		return (picture, name, star, star, star_disabled, star_disabled, star_disabled)
+		return (picture, name, star, star, star_disabled, star_disabled, star_disabled, description)
 	elif rank == 3:
-		return (picture, name, star, star, star, star_disabled, star_disabled)
+		return (picture, name, star, star, star, star_disabled, star_disabled, description)
 	elif rank == 4:
-		return (picture, name, star, star, star, star, star_disabled)
+		return (picture, name, star, star, star, star, star_disabled, description)
 	elif rank == 5:
-		return (picture, name, star, star, star, star, star)
+		return (picture, name, star, star, star, star, star, description)
 		
-	return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled)
+	return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
 
 def RankEntry(rank, description):
 	rank = int(round(rank, 0))
@@ -91,6 +103,129 @@ def RankEntry(rank, description):
 		
 	return (star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
 	
+class AddonsStack(object):
+	INSTALL = 0
+	REMOVE = 1
+	UPGRADE = 2
+	
+	WAIT = 0
+	PROGRESS = 1
+	DONE = 2
+	ERROR = 3
+	
+	stack = []
+	current = None
+	
+	callbacks = []
+	
+	def __init__(self):
+		pass
+		
+	def add(self, cmd, package):
+		if not self.clearPackage(package):
+			return False
+		
+		self.stack.append({
+			"cmd": cmd,
+			"package": package,
+			"status": self.WAIT,
+			"message": ""
+		})
+		if not self.current:
+			self.processNextCommand()
+		return True
+		
+	def doCallbacks(self):
+		for cb in self.callbacks:
+			cb()
+			
+	def clearPackage(self, package):
+		for item in self.stack:
+			if item["package"] == package:
+				if item["status"] < 2:
+					return False
+				self.stack.remove(item)
+				return True
+		
+		return True
+		
+	def checkIfPending(self, package):
+		for item in self.stack:
+			if item["package"] == package:
+				return item["status"] < 2
+		
+		return False
+		
+	def getMessage(self, package):
+		for item in self.stack:
+			if item["package"] == package:
+				return item["message"]
+				
+		return ""
+		
+	def processNextCommand(self):
+		for item in self.stack:
+			if item["status"] == self.WAIT:
+				self.current = item
+				break
+				
+		if not self.current:
+			return
+			
+		self.app = eConsoleAppContainer()
+		self.app.appClosed.append(self.cmdFinished)
+		self.app.dataAvail.append(self.cmdData)
+		
+		self.current["status"] = self.PROGRESS
+		
+		if self.current["cmd"] == self.INSTALL:
+			cmd = "opkg -V2 install " + self.current["package"]
+			print "Installing package %s (%s)" % (self.current["package"], cmd)
+			self.current["message"] = "Installing " + self.current["package"]
+		elif self.current["cmd"] == self.REMOVE:
+			cmd = "opkg -V2 remove " + self.current["package"]
+			print "Removing package %s (%s)" % (self.current["package"], cmd)
+			self.current["message"] = "Removing " + self.current["package"]
+		elif self.current["cmd"] == self.UPGRADE:
+			cmd = "opkg -V2 upgrade"
+			print "Upgrading (%s)" % cmd
+			self.current["message"] = "Upgrading"
+		else:
+			self.cmdFinished(-1)
+			
+		if self.app.execute(cmd):
+			self.cmdFinished(-1)
+			
+	def cmdData(self, data):
+		rows = data.split("\n")
+		for row in rows:
+			if row[:16] == "opkg_install_pkg":
+				self.current["message"] = row[17:].strip()
+				self.doCallbacks()
+			elif row[:11] == "Installing ":
+				self.current["message"] = row.strip()
+				self.doCallbacks()
+			elif row[:12] == "Downloading ":
+				self.current["message"] = row.strip()
+				self.doCallbacks()
+			elif row[:12] == "Configuring ":
+				self.current["message"] = row.strip()
+				self.doCallbacks()
+				
+	def cmdFinished(self, result):
+		if result == 0:
+			print "Package %s installed" % self.current["package"]
+			self.current["status"] = self.DONE
+		else:
+			print "Error installing package %s (return code %d)" % (self.current["package"], result)
+			self.current["status"] = self.ERROR
+		self.current = None
+		self.doCallbacks()
+		self.processNextCommand()
+		
+		
+addonstack = AddonsStack()
+		
 class AddonsScreenHelper(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
@@ -188,10 +323,10 @@ class Addons(Screen):
 	
 	def executeRequestPackages(self):
 		api = SAPCL()
-		return api.getPackages(self.categories["categories"][self.index]["id"])
+		return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value)
 
 	def executeRequestPackagesCallback(self, result):
-		self.session.open(AddonsPackages, result)
+		self.session.open(AddonsPackages, result, self.categories["categories"][self.index]["id"])
 		
 	def ok(self):
 		if len(self.cachelist) == 0:
@@ -300,12 +435,14 @@ class AddonsFeeds(Screen):
 		self.close()
 		
 class AddonsPackages(Screen):
-	def __init__(self, session, packages):
+	def __init__(self, session, packages, categoryid=-1):
 		Screen.__init__(self, session)
 		
+		self.categoryid = categoryid
 		self.session = session
 		self.packages = packages
 		self.cachelist = []
+		self.index = 0
 		
 		self['list'] = List([])
 		self["list"].onSelectionChanged.append(self.selectionChanged)
@@ -318,10 +455,13 @@ class AddonsPackages(Screen):
 			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok,
-			"green": self.rank
+			"green": self.rank,
+			"yellow": self.sort,
+			"red": self.install
 		}, -2)
 		
 		self.renderList()
+		addonstack.callbacks.append(self.renderList)
 	
 	def renderList(self):
 		self.cachelist = []
@@ -330,12 +470,32 @@ class AddonsPackages(Screen):
 			rank = 0.0
 			if "rank" in package.keys():
 				rank = float(package["rank"])
+			
+			ratings = 0
+			if "ratings" in package.keys():
+				ratings = float(package["ratings"])
 				
-			self.cachelist.append(PackageEntry(package["name"], True, rank))
+			installed = fileExists("/usr/lib/opkg/info/%s.control" % package["package"])
+			inprogress = addonstack.checkIfPending(package["package"])
+			
+			if inprogress:
+				message = addonstack.getMessage(package["package"])
+			else:
+				message = package["description"]
+				
+			self.cachelist.append(PackageEntry(package["name"], installed, rank, message, inprogress, ratings))
 			
 		self["list"].setList(self.cachelist)
+		self["list"].setIndex(self.index)
 		self.selectionChanged()
 		
+	def executeRequestPackages(self):
+		api = SAPCL()
+		self.packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value)
+
+	def executeRequestPackagesCallback(self, result):
+		self.renderList()
+	
 	def selectionChanged(self):
 		if len(self.cachelist) == 0:
 			return
@@ -344,12 +504,17 @@ class AddonsPackages(Screen):
 		if index == None:
 			index = 0
 		
-		#print self.packages["packages"][index]["screenshot"]
-		#	index = self["list"].getIndex()
+		if addonstack.checkIfPending(self.packages["packages"][index]["package"]):
+			self["key_red"].setText("")
+		elif fileExists("/usr/lib/opkg/info/%s.control" % self.packages["packages"][index]["package"]):
+			self["key_red"].setText(_("Remove"))
+		else:
+			self["key_red"].setText(_("Install"))
+			
+		self.index = index
 	
 	def rankCallback(self):
-		self.renderList()
-		self["list"].setIndex(self.index)
+		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 		
 	def rank(self):
 		if len(self.cachelist) == 0:
@@ -362,6 +527,19 @@ class AddonsPackages(Screen):
 		self.index = index
 		self.session.openWithCallback(self.rankCallback, AddonsRank, self.packages["packages"][index])
 		
+	def sortCallback(self):
+		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
+		
+	def sort(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		self.index = index
+		self.session.openWithCallback(self.sortCallback, AddonsSort)
 		
 	def ok(self):
 		if len(self.cachelist) == 0:
@@ -371,7 +549,27 @@ class AddonsPackages(Screen):
 		if index == None:
 			index = 0
 		
+		
+	def install(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		if addonstack.checkIfPending(self.packages["packages"][index]["package"]):
+			return
+			
+		if fileExists("/usr/lib/opkg/info/%s.control" % self.packages["packages"][index]["package"]):
+			addonstack.add(AddonsStack.REMOVE, self.packages["packages"][index]["package"])
+		else:
+			addonstack.add(AddonsStack.INSTALL, self.packages["packages"][index]["package"])
+			
+		self.renderList()
+		
 	def quit(self):
+		addonstack.callbacks.remove(self.renderList)
 		self.close()
 		
 class AddonsRank(Screen):
@@ -419,7 +617,6 @@ class AddonsRank(Screen):
 		
 	def rankCallback(self, result):
 		if result["result"]:
-			self.package["rank"] = result["status"]["rate"]
 			self.session.open(MessageBox, _("Thanks for your rank!"), MessageBox.TYPE_INFO, 3)
 		else:
 			self.session.open(MessageBox, _(result["message"]), MessageBox.TYPE_ERROR)
@@ -435,6 +632,57 @@ class AddonsRank(Screen):
 		
 		self.index = index
 		self.session.openWithCallback(self.rankCallback, ExtraActionBox, _("Ranking %s...") % self.package["name"], "Software Manager", self.rank)
+		
+	def quit(self):
+		self.close()
+		
+class AddonsSort(Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		
+		self.session = session
+		self.cachelist = []
+		
+		self['list'] = List([])
+		self["key_green"] = Button()
+		self["key_red"] = Button("")
+		self["key_blue"] = Button(_("Exit"))
+		self["key_yellow"] = Button()
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"blue": self.quit,
+			"cancel": self.quit,
+			"ok": self.ok
+		}, -2)
+		
+		self.renderList()
+		
+	def renderList(self):
+		self.cachelist = []
+		self.cachelist.append((_("Sort by name"),))
+		self.cachelist.append((_("Sort by rank"),))
+		self.cachelist.append((_("Sort by ratings"),))
+		self.cachelist.append((_("Sort by donwloads"),))
+		self["list"].setList(self.cachelist)
+	
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		if index == 0:
+			config.sifteam.addons_packages_sort.value = "name"
+		elif index == 1:
+			config.sifteam.addons_packages_sort.value = "rank"
+		elif index == 2:
+			config.sifteam.addons_packages_sort.value = "ratings"
+		elif index == 3:
+			config.sifteam.addons_packages_sort.value = "download"
+		config.sifteam.addons_packages_sort.save()
+		self.close()
 		
 	def quit(self):
 		self.close()

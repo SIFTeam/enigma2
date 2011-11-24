@@ -1689,19 +1689,20 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()  + (o
 		<widget name="key_yellow" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" />
 		<widget name="key_blue" position="420,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" />
 
-		<widget source="list" render="Listbox" position="0,45" size="560,245" scrollbarMode="showOnDemand">
+		<widget source="list" render="Listbox" position="0,45" size="560,385" scrollbarMode="showOnDemand">
 			<convert type="TemplatedMultiContent">
 				{"template": [
-					MultiContentEntryPixmapAlphaTest(pos = (5, 6), size = (24, 24), png = 0),
-					MultiContentEntryText(pos = (35, 1), size = (365, 38), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
-					MultiContentEntryPixmapAlphaTest(pos = (400, 6), size = (24, 24), png = 2),
-					MultiContentEntryPixmapAlphaTest(pos = (425, 6), size = (24, 24), png = 3),
-					MultiContentEntryPixmapAlphaTest(pos = (450, 6), size = (24, 24), png = 4),
-					MultiContentEntryPixmapAlphaTest(pos = (475, 6), size = (24, 24), png = 5),
-					MultiContentEntryPixmapAlphaTest(pos = (500, 6), size = (24, 24), png = 6),
+					MultiContentEntryPixmapAlphaTest(pos = (5, 4), size = (24, 24), png = 0),
+					MultiContentEntryText(pos = (35, 0), size = (365, 28), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
+					MultiContentEntryText(pos = (35, 28), size = (490, 20), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 7),
+					MultiContentEntryPixmapAlphaTest(pos = (400, 3), size = (24, 24), png = 2),
+					MultiContentEntryPixmapAlphaTest(pos = (425, 3), size = (24, 24), png = 3),
+					MultiContentEntryPixmapAlphaTest(pos = (450, 3), size = (24, 24), png = 4),
+					MultiContentEntryPixmapAlphaTest(pos = (475, 3), size = (24, 24), png = 5),
+					MultiContentEntryPixmapAlphaTest(pos = (500, 3), size = (24, 24), png = 6),
 					],
-					"fonts": [gFont("Regular", 22)],
-					"itemHeight": 40
+					"fonts": [gFont("Regular", 18), gFont("Regular", 15)],
+					"itemHeight": 55
 				}
 			</convert>
 		</widget>
@@ -1728,6 +1729,28 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()  + (o
 					MultiContentEntryPixmapAlphaTest(pos = (225, 6), size = (24, 24), png = 3),
 					MultiContentEntryPixmapAlphaTest(pos = (250, 6), size = (24, 24), png = 4),
 					MultiContentEntryText(pos = (285, 0), size = (260, 34), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 5),
+					],
+					"fonts": [gFont("Regular", 22)],
+					"itemHeight": 40
+				}
+			</convert>
+		</widget>
+	</screen>
+	
+	<screen name="AddonsSort" position="center,center" size="560,430" title="Software Manager - Sort">
+		<ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/blue.png" position="420,0" size="140,40" alphatest="on" />
+		<widget name="key_red" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<widget name="key_green" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
+		<widget name="key_yellow" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" />
+		<widget name="key_blue" position="420,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" />
+
+		<widget source="list" render="Listbox" position="0,45" size="560,245" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{"template": [
+					MultiContentEntryText(pos = (10, 0), size = (540, 34), font=0, flags = RT_HALIGN_CENTER|RT_VALIGN_CENTER, text = 0),
 					],
 					"fonts": [gFont("Regular", 22)],
 					"itemHeight": 40

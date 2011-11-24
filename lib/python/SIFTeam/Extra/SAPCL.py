@@ -137,18 +137,23 @@ class SAPCL(object):
 				"categories": []
 			}
 		
-	def getPackages(self, parentid):
+	def getPackages(self, parentid, sort="name"):
 		args = {
-			"fulltree": parentid
+			"fulltree": parentid,
+			"order": sort
 		}
-		
+		if sort == "name":
+			args["orientation"] = "asc"
+		else:
+			args["orientation"] = "desc"
+			
 		try:
 			buff = self.request("/packages/items.xml", args)
 			
 			return {
 				"result": True,
 				"message": "",
-				"packages": sorted(self.xmlToGenericList(buff, "package"), key=lambda k: k['name']) 
+				"packages": self.xmlToGenericList(buff, "package")
 			}
 		except Exception, e:
 			return {
