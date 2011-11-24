@@ -129,7 +129,7 @@ class AddonsStack(object):
 			"cmd": cmd,
 			"package": package,
 			"status": self.WAIT,
-			"message": ""
+			"message": "Waiting..."
 		})
 		if not self.current:
 			self.processNextCommand()
@@ -213,6 +213,7 @@ class AddonsStack(object):
 				self.doCallbacks()
 				
 	def cmdFinished(self, result):
+		plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
 		if result == 0:
 			print "Package %s installed" % self.current["package"]
 			self.current["status"] = self.DONE
