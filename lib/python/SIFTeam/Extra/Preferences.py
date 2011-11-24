@@ -42,6 +42,14 @@ def InitPreferences():
 	config.sifteam.switch_16_10_panscan = ConfigYesNo(False)
 	config.sifteam.switch_16_9_letterbox = ConfigYesNo(True)
 	
+	config.sifteam.addons_packages_sort = ConfigSelection(choices={
+			"name": _("Name"),
+			"rank": _("Rank"),
+			"ratings": _("Ratings"),
+			"downloads": _("Downloads")
+			}, 
+			default = 0)
+	
 	config.sifteam.username = ConfigText(fixed_size = False)
 	config.sifteam.password = ConfigText(fixed_size = False)
 	
