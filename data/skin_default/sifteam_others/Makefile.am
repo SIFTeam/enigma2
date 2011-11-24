@@ -20,4 +20,6 @@ dist_install_DATA = \
 	reboot.png \
 	run.png \
 	skin_selector.png \
-	folder.png
+	folder.png \
+	star.png \
+	star_disabled.png
