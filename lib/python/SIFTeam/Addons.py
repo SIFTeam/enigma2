@@ -11,6 +11,7 @@ from Components.FileList import FileList
 from Components.config import config
 from Components.PluginComponent import plugins
 from Components.Sources.List import List
+from Components.AVSwitch import AVSwitch
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, SCOPE_PLUGINS, fileExists
 from Tools.LoadPixmap import LoadPixmap
 
@@ -18,13 +19,9 @@ from Extra.ExtraMessageBox import ExtraMessageBox
 from Extra.ExtraActionBox import ExtraActionBox
 from Extra.SAPCL import SAPCL
 
-#import libsif
 import re
 import os
 import urllib
-
-ipkg = None #libsif.Ipkg()
-addons_loaded = False
 
 def FormatSize(size):
 	try:
@@ -39,29 +36,29 @@ def FormatSize(size):
 	return `int(isize/factor)` + suffix
 
 def CategoryEntry(name, picture, count):
-	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/" + picture));
+	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/" + picture))
 	if not pixmap:
-		pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/folder.png"));
+		pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/folder.png"))
 		
 	return (pixmap, name, count)
 
 def UpgradeEntry(name, oldversion, newversion):
-	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/install_now.png"));
+	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/install_now.png"))
 		
 	return (pixmap, name, oldversion, ">", newversion)
 	
 def PackageEntry(name, installed, rank, description, inprogress, ratings):
 	rank = int(round(rank, 0))
-	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"));
-	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"));
+	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"))
+	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"))
 	
 	if inprogress:
-		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/empty.png"));
+		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/empty.png"))
 	else:
 		if installed:
-			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"));
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"))
 		else:
-			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"));
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"))
 		
 	if len(description) > 40:
 		idx = description.find(" ", 40)
@@ -85,10 +82,26 @@ def PackageEntry(name, installed, rank, description, inprogress, ratings):
 		
 	return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
 
+def StatusEntry(name, description, done, error):
+	if error:
+		picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_error.png"))
+	else:
+		if done:
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_on.png"))
+		else:
+			picture = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/lock_off.png"))
+		
+	if len(description) > 40:
+		idx = description.find(" ", 40)
+		if idx != -1:
+			description = description[:idx] + "..."
+			
+	return (picture, name, description)
+	
 def RankEntry(rank, description):
 	rank = int(round(rank, 0))
-	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"));
-	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"));
+	star = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png"))
+	star_disabled = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png"))
 	
 	if rank == 1:
 		return (star, star_disabled, star_disabled, star_disabled, star_disabled, description)
@@ -107,6 +120,7 @@ class AddonsStack(object):
 	INSTALL = 0
 	REMOVE = 1
 	UPGRADE = 2
+	DOWNLOAD = 3
 	
 	WAIT = 0
 	PROGRESS = 1
@@ -129,11 +143,20 @@ class AddonsStack(object):
 			"cmd": cmd,
 			"package": package,
 			"status": self.WAIT,
-			"message": "Waiting..."
+			"message": "Waiting...",
+			"log": "",
+			"systemcmd": ""
 		})
 		if not self.current:
 			self.processNextCommand()
 		return True
+		
+	def clear(self):
+		newstack = []
+		for item in self.stack:
+			if item["status"] < 2:
+				newstack.append(item)
+		self.stack = newstack
 		
 	def doCallbacks(self):
 		for cb in self.callbacks:
@@ -186,6 +209,10 @@ class AddonsStack(object):
 			cmd = "opkg -V2 remove " + self.current["package"]
 			print "Removing package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Removing " + self.current["package"]
+		elif self.current["cmd"] == self.DOWNLOAD:
+			cmd = "cd /tmp && opkg -V2 download " + self.current["package"]
+			print "Downloading package %s (%s)" % (self.current["package"], cmd)
+			self.current["message"] = "Downloading " + self.current["package"]
 		elif self.current["cmd"] == self.UPGRADE:
 			cmd = "opkg -V2 upgrade"
 			print "Upgrading (%s)" % cmd
@@ -193,10 +220,13 @@ class AddonsStack(object):
 		else:
 			self.cmdFinished(-1)
 			
+		self.current["systemcmd"] = cmd
 		if self.app.execute(cmd):
 			self.cmdFinished(-1)
 			
 	def cmdData(self, data):
+		self.current["log"] += data
+		
 		rows = data.split("\n")
 		for row in rows:
 			if row[:16] == "opkg_install_pkg":
@@ -215,11 +245,13 @@ class AddonsStack(object):
 	def cmdFinished(self, result):
 		plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
 		if result == 0:
-			print "Package %s installed" % self.current["package"]
+			print "Cmd '%s' done" % self.current["systemcmd"]
 			self.current["status"] = self.DONE
+			self.current["message"] = "Done."
 		else:
-			print "Error installing package %s (return code %d)" % (self.current["package"], result)
+			print "Error on cmd '%s' (return code %d)" % (self.current["systemcmd"], result)
 			self.current["status"] = self.ERROR
+			self.current["message"] = "Error!"
 		self.current = None
 		self.doCallbacks()
 		self.processNextCommand()
@@ -273,11 +305,11 @@ class Addons(Screen):
 		self['list'] = List([])
 		self["key_green"] = Button(_("Feeds"))
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button(_("Status"))
 		self["key_yellow"] = Button(_("All"))
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
+			"blue": self.status,
 			"cancel": self.quit,
 			"ok": self.ok,
 			"yellow": self.toggleShowAll,
@@ -310,6 +342,9 @@ class Addons(Screen):
 		else:
 			self["key_red"].setText("")
 		
+		self.cachelist.append(CategoryEntry("Top 10 (highest rank)", "top10.png", ""))
+		self.cachelist.append(CategoryEntry("Top 10 (most downloaded)", "top10.png", ""))
+		
 		for category in self.categories["categories"]:
 			if category["packages"] == 1:
 				pkgcount = "1 package"
@@ -320,6 +355,8 @@ class Addons(Screen):
 			else:
 				self.cachelist.append(CategoryEntry(category["name"], category["identifier"] + ".png", pkgcount))
 			
+		self.cachelist.append(CategoryEntry("Install from file (ipk/tar.gz)", "package.png", ""))
+		
 		self["list"].setList(self.cachelist)
 	
 	def executeRequestPackages(self):
@@ -327,7 +364,7 @@ class Addons(Screen):
 		return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value)
 
 	def executeRequestPackagesCallback(self, result):
-		self.session.open(AddonsPackages, result, self.categories["categories"][self.index]["id"])
+		self.session.open(AddonsPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
 		
 	def ok(self):
 		if len(self.cachelist) == 0:
@@ -336,13 +373,31 @@ class Addons(Screen):
 		index = self["list"].getIndex()
 		if index == None:
 			index = 0
-		
+			
+		if len(self.cachelist) == index + 1:
+			self.session.open(AddonsFileBrowser)
+			return
+				
 		if len(self.upgrades) > 0:
 			if index == 0:
 				self.session.open(AddonsUpgrades, self.upgrades)
 				return
 				
 			index -= 1
+			
+		if index == 0:
+			print "top 10 rate"
+			#self.session.open(AddonsUpgrades, self.upgrades)
+			return
+				
+		index -= 1
+		
+		if index == 0:
+			print "top 10 download"
+			#self.session.open(AddonsUpgrades, self.upgrades)
+			return
+				
+		index -= 1
 		
 		self.index = index
 		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
@@ -350,7 +405,119 @@ class Addons(Screen):
 	def feeds(self):
 		self.session.open(AddonsFeeds)
 		
+	def status(self):
+		self.session.open(AddonsStatus)
+		
 	def quit(self):
+		self.close()
+		
+class AddonsStatus(Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		self.session = session
+		self.cachelist = []
+		self.index = 0
+		
+		self['list'] = List([])
+		self["list"].onSelectionChanged.append(self.selectionChanged)
+		self["key_green"] = Button("")
+		self["key_red"] = Button(_("Clear"))
+		self["key_blue"] = Button("")
+		self["key_yellow"] = Button("")
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"red": self.clear,
+			"cancel": self.quit,
+			"ok": self.ok
+		}, -2)
+		
+		addonstack.callbacks.append(self.renderList)
+		self.renderList()
+		
+	def renderList(self):
+		self.cachelist = []
+		
+		for cmd in addonstack.stack:
+			name = ""
+			if cmd["cmd"] == AddonsStack.INSTALL:
+				name = "Install " + cmd["package"]
+			elif cmd["cmd"] == AddonsStack.REMOVE:
+				name = "Remove " + cmd["package"]
+			elif cmd["cmd"] == AddonsStack.DOWNLOAD:
+				name = "Download " + cmd["package"]
+			elif cmd["cmd"] == AddonsStack.UPGRADE:
+				name = "Upgrading system"
+				
+			
+			self.cachelist.append(StatusEntry(name, cmd["message"], cmd["status"] == AddonsStack.DONE, cmd["status"] == AddonsStack.ERROR))
+			
+		self["list"].setList(self.cachelist)
+		self["list"].setIndex(self.index)
+		
+	def selectionChanged(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+		
+		self.index = index
+		
+	def clear(self):
+		addonstack.clear()
+		self.renderList()
+		
+	def ok(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		self.session.open(AddonsLog, addonstack.stack[index])
+		
+	def quit(self):
+		addonstack.callbacks.remove(self.renderList)
+		self.close()
+		
+class AddonsLog(Screen):
+	def __init__(self, session, item):
+		Screen.__init__(self, session)
+		self.session = session
+		self.item = item
+		
+		self['info'] = Label(item["systemcmd"])
+		self['log'] = ScrollLabel(item["log"])
+		self["key_green"] = Button("")
+		self["key_red"] = Button("")
+		self["key_blue"] = Button("")
+		self["key_yellow"] = Button("")
+		self["actions"] = ActionMap(["OkCancelActions", "DirectionActions"],
+		{
+			"up": self.pageup,
+			"down": self.pagedown,
+			"cancel": self.quit
+		}, -2)
+		
+		addonstack.callbacks.append(self.updatelog)
+		self.onLayoutFinish.append(self.layoutFinished)
+		
+	def layoutFinished(self):
+		self.setTitle("Software Manager - Log - %s" % self.item["package"])
+		
+	def updatelog(self):
+		self["log"].setText(self.item["log"])
+		
+	def pageup(self):
+		self["log"].pageUp()
+		
+	def pagedown(self):
+		self["log"].pageDown()
+		
+	def quit(self):
+		addonstack.callbacks.remove(self.updatelog)
 		self.close()
 		
 class AddonsFeeds(Screen):
@@ -364,11 +531,10 @@ class AddonsFeeds(Screen):
 		self['list'] = List([])
 		self["key_green"] = Button("")
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button("")
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok
 		}, -2)
@@ -419,7 +585,7 @@ class AddonsFeeds(Screen):
 		}
 		
 	def readFeedCallback(self, result):
-		self.session.open(AddonsPackages, result)
+		self.session.open(AddonsPackages, result, self.feeds[self.index])
 	
 	def ok(self):
 		if len(self.cachelist) == 0:
@@ -436,10 +602,11 @@ class AddonsFeeds(Screen):
 		self.close()
 		
 class AddonsPackages(Screen):
-	def __init__(self, session, packages, categoryid=-1):
+	def __init__(self, session, packages, categoryname, categoryid=-1):
 		Screen.__init__(self, session)
 		
 		self.categoryid = categoryid
+		self.categoryname = categoryname
 		self.session = session
 		self.packages = packages
 		self.cachelist = []
@@ -447,22 +614,31 @@ class AddonsPackages(Screen):
 		
 		self['list'] = List([])
 		self["list"].onSelectionChanged.append(self.selectionChanged)
-		self["key_green"] = Button(_("Rank"))
+		if categoryid == -1:
+			self["key_green"] = Button("")
+			self["key_yellow"] = Button("")
+		else:
+			self["key_green"] = Button(_("Rank"))
+			self["key_yellow"] = Button(_("Sort"))
 		self["key_red"] = Button(_("Install"))
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button(_("Sort"))
+		self["key_blue"] = Button("")
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok,
 			"green": self.rank,
 			"yellow": self.sort,
-			"red": self.install
+			"red": self.install,
+			"blue": self.screenshot
 		}, -2)
 		
 		self.renderList()
 		addonstack.callbacks.append(self.renderList)
+		
+		self.onLayoutFinish.append(self.layoutFinished)
+
+	def layoutFinished(self):
+		self.setTitle("Software Manager - Packages - %s" % self.categoryname)
 	
 	def renderList(self):
 		self.cachelist = []
@@ -512,12 +688,24 @@ class AddonsPackages(Screen):
 		else:
 			self["key_red"].setText(_("Install"))
 			
+		screenshot = None
+		if "screenshot" in self.packages["packages"][index].keys():
+			screenshot = self.packages["packages"][index]["screenshot"]
+			
+		if screenshot:
+			self["key_blue"].setText(_("Screenshot"))
+		else:
+			self["key_blue"].setText("")
+		
 		self.index = index
 	
 	def rankCallback(self):
 		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 		
 	def rank(self):
+		if self.categoryid == -1:
+			return
+			
 		if len(self.cachelist) == 0:
 			return
 			
@@ -532,6 +720,9 @@ class AddonsPackages(Screen):
 		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 		
 	def sort(self):
+		if self.categoryid == -1:
+			return
+			
 		if len(self.cachelist) == 0:
 			return
 			
@@ -550,6 +741,8 @@ class AddonsPackages(Screen):
 		if index == None:
 			index = 0
 		
+		self.index = index
+		self.session.open(AddonsPackage, self.packages, index, self.categoryid)
 		
 	def install(self):
 		if len(self.cachelist) == 0:
@@ -569,9 +762,223 @@ class AddonsPackages(Screen):
 			
 		self.renderList()
 		
+	def screenshot(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		screenshot = None
+		if "screenshot" in self.packages["packages"][index].keys():
+			screenshot = self.packages["packages"][index]["screenshot"]
+			
+		if screenshot:
+			self.session.open(AddonsScreenshot, self.packages["packages"][index])
+		
 	def quit(self):
 		addonstack.callbacks.remove(self.renderList)
 		self.close()
+		
+
+class AddonsPackage(Screen):
+	def __init__(self, session, packages, packageindex, categoryid=-1):
+		Screen.__init__(self, session)
+		
+		self.categoryid = categoryid
+		self.session = session
+		self.packages = packages
+		self.packageindex = packageindex
+		self.package = packages["packages"][packageindex]
+		
+		if categoryid == -1:
+			self["key_green"] = Button("")
+		else:
+			self["key_green"] = Button(_("Rank"))
+			
+		if fileExists("/usr/lib/opkg/info/%s.control" % packages["packages"][packageindex]["package"]):
+			self["key_red"] = Button(_("Remove"))
+		else:
+			self["key_red"] = Button(_("Install"))
+			
+		self["key_yellow"] = Button(_("Download"))
+		self["key_blue"] = Button("")
+		self["title"] = Label("")
+		self["rating"] = Label("")
+		self["label"] = Label("")
+		self["description"] = Label("")
+		self["star1"] = Pixmap()
+		self["star2"] = Pixmap()
+		self["star3"] = Pixmap()
+		self["star4"] = Pixmap()
+		self["star5"] = Pixmap()
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"cancel": self.quit,
+			"green": self.rank,
+			"red": self.install,
+			"yellow": self.download,
+			"blue": self.screenshot
+		}, -2)
+		
+		addonstack.callbacks.append(self.renderInfo)
+		self.timer = eTimer()
+		self.timer.callback.append(self.renderInfo)
+		self.timer.start(200, 1)
+		
+		self.onLayoutFinish.append(self.layoutFinished)
+		
+	def layoutFinished(self):
+		self.setTitle("Software Manager - Package - %s" % self.package["name"])
+			
+	def renderInfo(self):
+		frank = 0.0
+		if "rank" in self.package.keys():
+			frank = float(self.package["rank"])
+		
+		rank = int(frank)
+		if rank < 1:
+			self["star1"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png")))
+		else:
+			self["star1"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png")))
+		if rank < 2:
+			self["star2"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png")))
+		else:
+			self["star2"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png")))
+		if rank < 3:
+			self["star3"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png")))
+		else:
+			self["star3"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png")))
+		if rank < 4:
+			self["star4"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png")))
+		else:
+			self["star4"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png")))
+		if rank < 5:
+			self["star5"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star_disabled.png")))
+		else:
+			self["star5"].instance.setPixmap(LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/star.png")))
+		
+		if addonstack.checkIfPending(self.package["package"]):
+			message = addonstack.getMessage(self.package["package"])
+		else:
+			if fileExists("/usr/lib/opkg/info/%s.control" % self.package["package"]):
+				message = "Status: installed"
+			else:
+				message = "Status: not installed"
+			
+		ratings = 0
+		if "ratings" in self.package.keys():
+			ratings = int(self.package["ratings"])
+			
+		self["title"].setText(self.package["name"])
+		self["label"].setText(message)
+		self["rating"].setText("Ranked %d times, score %.1f" % (ratings, frank))
+		self["description"].setText(self.package["description"])
+		
+		screenshot = None
+		if "screenshot" in self.package.keys():
+			screenshot = self.package["screenshot"]
+		
+		if screenshot:
+			self["key_blue"].setText(_("Screenshot"))
+		
+	def executeRequestPackages(self):
+		api = SAPCL()
+		packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value)
+		for package in packages["packages"]:
+			if package["package"] == self.package["package"]:
+				self.package["rank"] = package["rank"]
+
+	def executeRequestPackagesCallback(self, result):
+		self.renderInfo()
+		
+	def rankCallback(self):
+		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
+		
+	def rank(self):
+		if self.categoryid == -1:
+			return
+			
+		self.session.openWithCallback(self.rankCallback, AddonsRank, self.package)
+		
+	def install(self):
+		if addonstack.checkIfPending(self.package["package"]):
+			return
+			
+		if fileExists("/usr/lib/opkg/info/%s.control" % self.package["package"]):
+			addonstack.add(AddonsStack.REMOVE, self.package["package"])
+		else:
+			addonstack.add(AddonsStack.INSTALL, self.package["package"])
+			
+		self.renderInfo()
+		
+	def download(self):
+		addonstack.add(AddonsStack.DOWNLOAD, self.package["package"])
+		self.renderInfo()
+		
+	def screenshot(self):
+		screenshot = None
+		if "screenshot" in self.package.keys():
+			screenshot = self.package["screenshot"]
+		
+		self.session.open(AddonsScreenshot, self.package)
+		
+	def quit(self):
+		addonstack.callbacks.remove(self.renderInfo)
+		self.close()
+		
+class AddonsScreenshot(Screen):
+	def __init__(self, session, package):
+		Screen.__init__(self, session)
+		
+		self.package = package
+		self.session = session
+
+		self["screenshot"] = Pixmap()
+		self["key_green"] = Button("")
+		self["key_red"] = Button("")
+		self["key_blue"] = Button("")
+		self["key_yellow"] = Button("")
+		
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		{
+			"cancel": self.close
+		}, -2)
+		
+		self.picload = ePicLoad()
+		self.picload.PictureData.get().append(self.paintScreenshotPixmapCB)
+		
+		self.timer = eTimer()
+		self.timer.callback.append(self.getPreview)
+		self.timer.start(200, 1)
+		
+		self.onLayoutFinish.append(self.layoutFinished)
+
+	def layoutFinished(self):
+		self.setTitle("Software Manager - Screenshot - %s" % self.package["name"])
+		
+	def getPreview(self):
+		try:
+			f = urllib.urlopen(self.package["screenshot"])
+			data = f.read()
+			f.close()
+			tmp = self.package["screenshot"].split(".")
+			localfile = "/tmp/preview.%s" % tmp[len(tmp)-1]
+			f2 = open(localfile , "w")
+			f2.write(data)
+			f2.close()
+			sc = AVSwitch().getFramebufferScale()
+			self.picload.setPara((self["screenshot"].instance.size().width(), self["screenshot"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+			self.picload.startDecode(localfile)
+		except ex:
+			print ex
+			
+	def paintScreenshotPixmapCB(self, picInfo=None):
+		ptr = self.picload.getData()
+		if ptr != None:
+			self["screenshot"].instance.setPixmap(ptr.__deref__())
+			self["screenshot"].show()
 		
 class AddonsRank(Screen):
 	def __init__(self, session, package):
@@ -585,16 +992,20 @@ class AddonsRank(Screen):
 		self["text"] = Label("Rank the application %s" % package["name"])
 		self["key_green"] = Button()
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button()
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok
 		}, -2)
 		
 		self.renderList()
+		
+		self.onLayoutFinish.append(self.layoutFinished)
+		
+	def layoutFinished(self):
+		self.setTitle("Software Manager - Rank - %s" % self.package["name"])
 		
 	def renderList(self):
 		self.cachelist = []
@@ -647,11 +1058,10 @@ class AddonsSort(Screen):
 		self['list'] = List([])
 		self["key_green"] = Button()
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button()
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok
 		}, -2)
@@ -699,11 +1109,10 @@ class AddonsUpgrades(Screen):
 		self['list'] = List([])
 		self["key_green"] = Button("")
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button()
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 			"ok": self.ok
 		}, -2)
@@ -724,272 +1133,6 @@ class AddonsUpgrades(Screen):
 	def quit(self):
 		self.close()
 
-class AddonsPreview(Screen):
-	def __init__(self, session, package):
-		Screen.__init__(self, session)
-		
-		self.package = package
-		self.session = session
-		self.index = 0
-
-		self["Preview"] = Pixmap()
-		self["key_green"] = Button("")
-		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button("")
-		
-		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
-		{
-			"red": self.previous,
-			"green": self.next,
-			"blue": self.close,
-			"cancel": self.close,
-		}, -2)
-		
-		self.timer = eTimer()
-		self.timer.callback.append(self.getPreview)
-		self.timer.start(200, 1)
-		
-	
-	def getFileNameByIndex(self, index):
-		if index == 0:
-			return self.package.previewimage1
-		elif index == 1:
-			return self.package.previewimage2
-		elif index == 2:
-			return self.package.previewimage3
-		elif index == 3:
-			return self.package.previewimage4
-		elif index == 4:
-			return self.package.previewimage5
-			
-	def checkPreviewExistByIndex(self, index):
-		if len(self.getFileNameByIndex(index)) > 0:
-			return True
-		return False
-		
-	def countPreview(self):
-		count = 0
-		for i in range (0, 5):
-			if not self.checkPreviewExistByIndex(i):
-				return count
-				
-			count += 1
-			
-		return count
-		
-	def previous(self):
-		if self.index > 0:
-			self.index -= 1
-			self.getPreview()
-	
-	def next(self):
-		if self.index < self.countPreview()-1:
-			self.index += 1
-			self.getPreview()
-	
-	def getPreview(self):
-		try:
-			f = urllib.urlopen(self.getFileNameByIndex(self.index))
-			data = f.read()
-			f.close()
-			tmp = self.package.previewimage1.split(".")
-			localfile = "/tmp/preview.%s" % tmp[len(tmp)-1]
-			f2 = open(localfile , "w")
-			f2.write(data)
-			f2.close()
-			self["Preview"].instance.setPixmapFromFile(localfile)
-		except ex:
-			pass
-		
-		if self.index > 0:
-			self["key_red"].setText(_("Previous"))
-		else:
-			self["key_red"].setText("")
-			
-		if self.index < self.countPreview()-1:
-			self["key_green"].setText(_("Next"))
-		else:
-			self["key_green"].setText("")
-
-class AddonsAction(Screen):
-	IPKG_UPDATE = 0
-	IPKG_UPGRADE = 1
-	IPKG_INSTALL = 2
-	IPKG_REMOVE = 3
-	IPKG_DOWNLOAD = 4
-	
-	SMALL_VIEW = 0
-	LARGE_VIEW = 1
-	
-	def __init__(self, session, action, pause = False, arg = None):
-		Screen.__init__(self, session)
-		
-		self.session = session
-		self.canexit = False
-		self.pause = False #pause
-		self.showed = False
-		self.status = self.SMALL_VIEW
-		self.action = action
-		self.arg = arg
-		self.errors = False
-		
-		ipkg.setPyProgressCallback(self.progress)
-		ipkg.setPyNoticeCallback(self.notice)
-		ipkg.setPyErrorCallback(self.error)
-		ipkg.setPyEndCallback(self.end)
-		self["text"] = ScrollLabel("")
-		self["textrow"] = Label("")
-		self["info"] = Label(_("Press OK for extended view"))
-		self["progress"] = ProgressBar()
-		self["progress2"] = ProgressBar()
-		self["actions"] = ActionMap(["OkCancelActions", "DirectionActions"],
-		{
-			"up": self.pageup,
-			"down": self.pagedown,
-			"ok": self.ok,
-		}, -2)
-		
-		self.onShow.append(self.__onShow)
-		
-		self.quittimer = eTimer()
-		self.quittimer.callback.append(self.quit)
-
-		if action == self.IPKG_UPDATE:
-			ipkg.update()
-		elif action == self.IPKG_UPGRADE:
-			ipkg.upgrade()
-		elif action == self.IPKG_INSTALL:
-			ipkg.install(arg)
-		elif action == self.IPKG_REMOVE:
-			ipkg.remove(arg)
-		elif action == self.IPKG_DOWNLOAD:
-			ipkg.download(arg)
-		
-		self.onLayoutFinish.append(self.layoutFinished)
-		
-	def layoutFinished(self):
-		if self.action == self.IPKG_UPDATE:
-			self.setTitle(_("Software Manager - repo update"))
-		elif self.action == self.IPKG_UPGRADE:
-			self.setTitle(_("Software Manager - upgrade"))
-		elif self.action == self.IPKG_INSTALL:
-			self.setTitle(_("Software Manager - install"))
-		elif self.action == self.IPKG_REMOVE:
-			self.setTitle(_("Software Manager - remove"))
-		elif self.action == self.IPKG_DOWNLOAD:
-			self.setTitle(_("Software Manager - download"))
-
-		self["textrow"].setText("Initializing")
-		self["progress"].setValue(0)
-		self["progress2"].setValue(0)
-
-	def __onShow(self):
-		if not self.showed:
-			self.showed = True
-			self.largesize = self.instance.csize()
-			tmp = self.instance.size()
-			tmp2 = self.instance.position()
-			xoffset = tmp2.x() + ((tmp.width() - self.largesize.width()) / 2)
-			yoffset = tmp2.y() + ((tmp.height() - self.largesize.height()) / 2)
-			self.largepos = ePoint(xoffset, yoffset)
-			self.screensize = getDesktop(0).size()
-			self.showSlim()
-	
-	def ok(self):
-		if self.canexit:
-			self.quit()
-			return
-			
-		if self.status == self.SMALL_VIEW:
-			self.showFull()
-			self.pause = True
-			
-	def showSlim(self):
-		self.status = self.SMALL_VIEW
-		self["progress"].hide()
-		self["text"].hide()
-		self["info"].show()
-		self["progress2"].show()
-		self["textrow"].show()
-		wsize = (560, 90)
-		self.instance.resize(eSize(*wsize))
-		self.instance.move(ePoint((self.screensize.width()-wsize[0])/2, (self.screensize.height()-wsize[1])/2))
-		
-	def showFull(self):
-		self.status = self.LARGE_VIEW
-		self["progress"].show()
-		self["text"].show()
-		self["info"].hide()
-		self["progress2"].hide()
-		self["textrow"].hide()
-		self.instance.resize(self.largesize)
-		self.instance.move(self.largepos)
-		
-	def pageup(self):
-		self["text"].pageUp()
-		
-	def pagedown(self):
-		self["text"].pageDown()
-		
-	def appendText(self, text):
-		str = self["text"].getText()
-		str += text;
-		self["text"].setText(str)
-		self["textrow"].setText(text.strip())
-			
-	def progress(self, total, now):
-		if total > 0:
-			self["progress"].setValue(int(now*(100/total)))
-			self["progress2"].setValue(int(now*(100/total)))
-		else:
-			self["progress"].setValue(0)
-			self["progress2"].setValue(0)
-		return 0
-	
-	def notice(self, message):
-		self.appendText(message)
-
-	def error(self, message):
-		self.errors = True
-		self.pause = True
-		self.appendText("ERROR: %s" % message)
-		self.session.open(MessageBox, message, MessageBox.TYPE_ERROR)
-			
-	def end(self, ret):
-		ipkg.clearCallbacks();
-		self.canexit = True
-		if self.pause:
-			self.showFull()
-			self.appendText("Press OK to continue")
-			self["text"].lastPage()
-		else:
-			self["text"].lastPage()
-			if self.action == self.IPKG_UPDATE:
-				self.quittimer.start(100, 1)
-			else:
-				self.quittimer.start(2000, 1)
-			
-	def reboot(self, result):
-		if result == 0:
-			from Screens.Standby import TryQuitMainloop
-			self.session.open(TryQuitMainloop, 2)
-
-		self.close()
-
-	def quit(self):
-		if self.canexit:
-			if self.action == self.IPKG_UPGRADE and self.errors == False:
-				self.session.openWithCallback(self.reboot, ExtraMessageBox, "A reboot is suggested", "Upgrade completed",
-											[ [ "Reboot now", "reboot.png" ],
-											[ "Reboot manually later", "cancel.png" ],
-											], 1, 1, 0, 10)
-			elif self.action == self.IPKG_INSTALL or self.action == self.IPKG_REMOVE:
-				plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
-				self.close()
-			else:
-				self.close()
-		
 class AddonsFileBrowser(Screen):
 
 	def __init__(self, session):
@@ -1000,14 +1143,12 @@ class AddonsFileBrowser(Screen):
 		self["FilelistActions"] = ActionMap(["OkCancelActions", "ColorActions"],
 			{
 				"ok": self.ok,
-				"red": self.ok,
-				"cancel": self.exit,
-				"blue": self.exit
+				"cancel": self.exit
 			})
 			
 		self["key_green"] = Button("")
-		self["key_red"] = Button(_("OK"))
-		self["key_blue"] = Button(_("Exit"))
+		self["key_red"] = Button("")
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button("")
 		
 		self.onLayoutFinish.append(self.layoutFinished)
@@ -1025,8 +1166,9 @@ class AddonsFileBrowser(Screen):
 		else:
 			filename = self["filelist"].getCurrentDirectory() + '/' + self["filelist"].getFilename()
 			if filename[-3:] == "ipk":
-				print filename
-				self.session.openWithCallback(self.exit, AddonsAction, AddonsAction.IPKG_INSTALL, True, filename)
+				addonstack.add(AddonsStack.INSTALL, filename)
+				self.session.open(AddonsStatus)
+				self.close()
 			else:
 				self.filename = filename
 				self.session.openWithCallback(self.tgzexit, ExtraActionBox, "Deflating %s to /" % self["filelist"].getFilename(), "Addons install tgz", self.tgz)
@@ -1040,35 +1182,31 @@ class AddonsFileBrowser(Screen):
 		
 	def exit(self):
 		self.close()
-
+		
 class AutoUpdates():
 	def __init__(self, session):
 		self.session = session
 		
-		self.updatesipkg = libsif.Ipkg() # we get a second instance to prevent problems with simultaneos actions
-		self.updatesipkg.setPyEndCallback(self.end)
-		self.updatesipkg.setPyProgressCallback(self.progress)
-		self.updatesipkg.setPyNoticeCallback(self.notice)
-		self.updatesipkg.setPyErrorCallback(self.error)
-
 		self.updatestimer = eTimer()
 		self.updatestimer.callback.append(self.checkupdates)
 		self.updatestimer.start(60*1000, 1)	# on init 1 minute delay
 		
-	def upgraded(self):
+	def upgrade(self):
 			print "[Automatic Updates] system upgraded"
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
 
 	def messageboxCallback(self, ret):
 		if ret == 0:
-			self.session.openWithCallback(self.upgraded, AddonsAction, AddonsAction.IPKG_UPGRADE, True)
+			self.upgrade()
 		elif ret == 1:
 			config.sifteam.autoupdates.value = "auto"
-			self.session.openWithCallback(self.upgraded, AddonsAction, AddonsAction.IPKG_UPGRADE, True)
+			config.sifteam.autoupdates.save()
+			self.upgrade()
 		elif ret == 2:
 			print "[Automatic Updates] disabled by user"
 			config.sifteam.autoupdates.value = "disabled"
+			config.sifteam.autoupdates.save()
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
 		else:
@@ -1076,36 +1214,14 @@ class AutoUpdates():
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
 
-	def progress(self, total, now):
-		pass
-	
-	def notice(self, message):
-		print "[Automatic Updates] " + message.strip()
-
-	def error(self, message):
-		print "[Automatic Updates] ERROR: " + message.strip()
-
-	def end(self, ret):
-		print "[Automatic Updates] feeds updated"
-		if self.updatesipkg.isUpgradeable() == 1:
-			print "[Automatic Updates] updates found"
-			if config.sifteam.autoupdates.value == "auto":
-				pass
-			else:
-				self.session.openWithCallback(self.messageboxCallback, ExtraMessageBox, "", "New updates found",
-											[ [ "Install updates now", "install_now.png" ],
-											[ "Always install automatically all updates", "install_auto.png" ],
-											[ "Disable automatic updates", "install_disable.png" ],
-											[ "Ask later", "install_later.png" ],
-											], 1, 3)
-		else:
-			print "[Automatic Updates] no updates found"
+	def checkupdates(self):
+		if config.sifteam.autoupdates.value == "disabled":
+			print "[Automatic Updates] disabled by user"
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
-
-	def checkupdates(self):
-		global addons_loaded
-		if addons_loaded or len(self.session.dialog_stack) > 0:
+			return
+			
+		if len(self.session.dialog_stack) > 0:
 			print "[Automatic Updates] osd busy"
 			print "[Automatic Updates] rescheduled in 10 minutes"
 			self.updatestimer.start(10*60*1000, 1)
@@ -1117,22 +1233,39 @@ class AutoUpdates():
 			self.updatestimer.start(1*60*60*1000, 1)
 			return
 
-		from Screens.Standby import inStandby
-		if inStandby != None:
-			print "[Automatic Updates] decoder in standby"
-			print "[Automatic Updates] rescheduled in 1 hour"
-			self.updatestimer.start(1*60*60*1000, 1)
-			return
-
-		if config.sifteam.autoupdates.value == "disabled":
-			print "[Automatic Updates] disabled by user"
+		print "[Automatic Updates] updating feeds..."
+		os.system("opkg update")
+		print "[Automatic Updates] feeds updated"
+		
+		rows = os.popen("opkg list_upgradable").read().strip().split("\n")
+		self.upgrades = []
+		for row in rows:
+			tmp = row.split(" - ")
+			if len(tmp) == 3:
+				self.upgrades.append({
+					"package": tmp[0],
+					"oldversion": tmp[1],
+					"newversion": tmp[2]
+				})
+				
+		if len(self.upgrades) == 0:
+			print "[Automatic Updates] no updates found"
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
 			return
-
-		print "[Automatic Updates] updating feeds..."
-		self.updatesipkg.update()
-
+			
+		print "[Automatic Updates] updates found"
+		if config.sifteam.autoupdates.value == "auto":
+			self.upgrade()
+		else:
+			self.session.openWithCallback(self.messageboxCallback, ExtraMessageBox, "", "New updates found",
+										[ [ "Install updates now", "install_now.png" ],
+										[ "Always install automatically all updates", "install_auto.png" ],
+										[ "Disable automatic updates", "install_disable.png" ],
+										[ "Ask later", "install_later.png" ],
+										], 1, 3)
+		
+			
 # helper for start autoupdates on mytest init
 autoupdates = None
 def startAutomatiUpdates(session):
