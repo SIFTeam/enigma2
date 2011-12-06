@@ -361,10 +361,20 @@ class Addons(Screen):
 	
 	def executeRequestPackages(self):
 		api = SAPCL()
-		return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value)
+		if self.index == -1:
+			return api.getTopTen("rank")
+		elif self.index == -2:
+			return api.getTopTen("downloads")
+		else:
+			return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value)
 
 	def executeRequestPackagesCallback(self, result):
-		self.session.open(AddonsPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
+		if self.index == -1:
+			self.session.open(AddonsPackages, result, "Top 10 (highest rank)", -2)
+		elif self.index == -2:
+			self.session.open(AddonsPackages, result, "Top 10 (highest rank)", -3)
+		else:
+			self.session.open(AddonsPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
 		
 	def ok(self):
 		if len(self.cachelist) == 0:
@@ -387,14 +397,16 @@ class Addons(Screen):
 			
 		if index == 0:
 			print "top 10 rate"
-			#self.session.open(AddonsUpgrades, self.upgrades)
+			self.index = -1
+			self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 			return
 				
 		index -= 1
 		
 		if index == 0:
 			print "top 10 download"
-			#self.session.open(AddonsUpgrades, self.upgrades)
+			self.index = -2
+			self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 			return
 				
 		index -= 1
@@ -617,6 +629,9 @@ class AddonsPackages(Screen):
 		if categoryid == -1:
 			self["key_green"] = Button("")
 			self["key_yellow"] = Button("")
+		elif categoryid < -1:
+			self["key_green"] = Button(_("Rank"))
+			self["key_yellow"] = Button("")
 		else:
 			self["key_green"] = Button(_("Rank"))
 			self["key_yellow"] = Button(_("Sort"))
@@ -668,7 +683,12 @@ class AddonsPackages(Screen):
 		
 	def executeRequestPackages(self):
 		api = SAPCL()
-		self.packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value)
+		if self.categoryid == -2:
+			self.packages = api.getTopTen("rank")
+		elif self.categoryid == -3:
+			self.packages = api.getTopTen("downloads")
+		else:
+			self.packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value)
 
 	def executeRequestPackagesCallback(self, result):
 		self.renderList()
@@ -720,7 +740,7 @@ class AddonsPackages(Screen):
 		self.session.openWithCallback(self.executeRequestPackagesCallback, ExtraActionBox, _("Retrieving data from sifteam server..."), "Software Manager", self.executeRequestPackages)
 		
 	def sort(self):
-		if self.categoryid == -1:
+		if self.categoryid < 0:
 			return
 			
 		if len(self.cachelist) == 0:

@@ -137,6 +137,32 @@ class SAPCL(object):
 				"categories": []
 			}
 		
+	def getTopTen(self, sort="name"):
+		args = {
+			"order": sort,
+			"limit": 10,
+			"withmeta": "true"
+		}
+		if sort == "name":
+			args["orientation"] = "asc"
+		else:
+			args["orientation"] = "desc"
+			
+		try:
+			buff = self.request("/packages/items.xml", args)
+			
+			return {
+				"result": True,
+				"message": "",
+				"packages": self.xmlToGenericList(buff, "package")
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"packages": []
+			}
+		
 	def getPackages(self, parentid, sort="name"):
 		args = {
 			"fulltree": parentid,
@@ -160,7 +186,6 @@ class SAPCL(object):
 				"result": False,
 				"message": str(e),
 				"packages": []
-				
 			}
 			
 	def getUsbDevice(self, vid, pid):
