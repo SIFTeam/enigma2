@@ -15,6 +15,7 @@ from FileBrowser import SMFileBrowser
 from Upgrades import SMUpgrades
 from Feeds import SMFeeds
 from Status import SMStatus
+from Stack import SMStack, smstack
 
 def CategoryEntry(name, picture, count):
 	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/" + picture))
@@ -45,7 +46,8 @@ class SMCategories(Screen):
 			"cancel": self.quit,
 			"ok": self.ok,
 			"yellow": self.toggleShowAll,
-			"green": self.feeds
+			"green": self.feeds,
+			"red": self.upgrade
 		}, -2)
 		
 		self.renderList()
@@ -148,6 +150,10 @@ class SMCategories(Screen):
 		
 	def feeds(self):
 		self.session.open(SMFeeds)
+		
+	def upgrade(self):
+		smstack.add(SMStack.UPGRADE, "")
+		self.session.open(SMStatus)
 		
 	def status(self):
 		self.session.open(SMStatus)

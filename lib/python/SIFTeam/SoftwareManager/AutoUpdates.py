@@ -5,6 +5,8 @@ from Components.config import config
 from SIFTeam.Extra.SAPCL import SAPCL
 from SIFTeam.Extra.ExtraMessageBox import ExtraMessageBox
 
+from Stack import SMStack, smstack
+
 import os
 
 class SMAutoUpdates():
@@ -16,7 +18,8 @@ class SMAutoUpdates():
 		self.updatestimer.start(60*1000, 1)	# on init 1 minute delay
 		
 	def upgrade(self):
-			print "[Automatic Updates] system upgraded"
+			smstack.add(SMStack.UPGRADE, "")
+			print "[Automatic Updates] system upgrading..."
 			print "[Automatic Updates] rescheduled in 24 hours"
 			self.updatestimer.start(24*60*60*1000, 1)
 
@@ -83,10 +86,10 @@ class SMAutoUpdates():
 			self.upgrade()
 		else:
 			self.session.openWithCallback(self.messageboxCallback, ExtraMessageBox, "", "New updates found",
-										[ [ "Install updates now", "install_now.png" ],
-										[ "Always install automatically all updates", "install_auto.png" ],
-										[ "Disable automatic updates", "install_disable.png" ],
-										[ "Ask later", "install_later.png" ],
+										[ [ _("Install updates now (bacground)"), "install_now.png" ],
+										[ _("Always install automatically all updates"), "install_auto.png" ],
+										[ _("Disable automatic updates"), "install_disable.png" ],
+										[ _("Ask later"), "install_later.png" ],
 										], 1, 3)
 		
 			

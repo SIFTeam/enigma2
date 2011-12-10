@@ -187,8 +187,11 @@ class Session:
 		emud.connect()
 		emud.startDefaults()
 		
-		#from SIFTeam.Addons import startAutomatiUpdates
-		#startAutomatiUpdates(self)
+		from SIFTeam.SoftwareManager.Stack import smstack
+		smstack.setSession(self)
+		
+		from SIFTeam.SoftwareManager.AutoUpdates import startAutomatiUpdates
+		startAutomatiUpdates(self)
 		
 		from SIFTeam.Crashlogs import startSendCrashlog
 		startSendCrashlog(self)

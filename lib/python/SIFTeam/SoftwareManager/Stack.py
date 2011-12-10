@@ -1,8 +1,10 @@
 from enigma import *
+from Screens.Standby import TryQuitMainloop
 from Components.PluginComponent import plugins
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 from SIFTeam.Extra.SAPCL import SAPCL
+from SIFTeam.Extra.ExtraMessageBox import ExtraMessageBox
 
 class SMStack(object):
 	INSTALL = 0
@@ -20,8 +22,13 @@ class SMStack(object):
 	
 	callbacks = []
 	
+	session = None
+	
 	def __init__(self):
 		pass
+	
+	def setSession(self, session):
+		self.session = session
 		
 	def add(self, cmd, package):
 		if not self.clearPackage(package):
@@ -81,6 +88,7 @@ class SMStack(object):
 				break
 				
 		if not self.current:
+			self.processComplete()
 			return
 			
 		self.app = eConsoleAppContainer()
@@ -112,6 +120,19 @@ class SMStack(object):
 		if self.app.execute(cmd):
 			self.cmdFinished(-1)
 			
+	def rebootCallback(self, ret):
+		if ret == 0:
+			self.session.open(TryQuitMainloop, 3)
+		
+	def processComplete(self):
+		for item in self.stack:
+			if item["cmd"] == self.UPGRADE:
+				self.session.openWithCallback(self.rebootCallback, ExtraMessageBox, "", _("A reboot is required"),
+											[ [ "Reboot now", "reboot.png" ],
+											[ "Reboot manually later", "cancel.png" ],
+											], 1, 0)
+				return
+		
 	def cmdData(self, data):
 		self.current["log"] += data
 		
