@@ -16,7 +16,6 @@ from Emulator import Emulator, CardServer
 from Scripts import Scripts
 from Preferences import Preferences
 from About import AboutTeam
-from Addons import Addons
 
 from Extra.ExtraMessageBox import ExtraMessageBox
 

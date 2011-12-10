@@ -8,8 +8,6 @@ from Components.Button import Button
 
 from Extra.ExtraActionBox import ExtraActionBox
 
-from Addons import Addons
-
 import os
 import sys
 
@@ -121,11 +119,12 @@ class DaemonsList(Screen):
 				self.session.open(self.daemons[index][6])
 
 	def green(self):
-		addons = Addons(self.session)
-		index = self["menu"].getIndex()
-		if not self.installed[index]:
-			if self.daemons[index][9]:
-				addons.install(self.daemons[index][9], self.drawList)
+		pass
+		#addons = Addons(self.session)
+		#index = self["menu"].getIndex()
+		#if not self.installed[index]:
+		#	if self.daemons[index][9]:
+		#		addons.install(self.daemons[index][9], self.drawList)
 			
 	def red(self):
 		if len(self.daemons) > 0:

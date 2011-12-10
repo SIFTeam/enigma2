@@ -8,8 +8,6 @@ from Components.Button import Button
 
 from Extra.ExtraMessageBox import ExtraMessageBox
 
-from Addons import Addons
-
 import os
 
 import re
