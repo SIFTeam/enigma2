@@ -1,6 +1,7 @@
 from Components.config import config
 
 import os
+import re
 import urllib
 import httplib
 import xml.etree.cElementTree
@@ -52,6 +53,13 @@ class SAPCL(object):
 			print "[SAPCL] HTTP GET Request: %s?%s" % (page, urllib.urlencode(args))
 			conn.request("GET", "%s?%s" % (page, urllib.urlencode(args)), None, headers)
 		httpres = conn.getresponse()
+		
+		self.filename = ""
+		contentdisposition = httpres.getheader("content-disposition")
+		if contentdisposition:
+			res = re.search("filename=\"(.*)\"", contentdisposition)
+			if res:
+				self.filename = res.group(1)
 		
 		if httpres.status == 200:
 			print "[SAPCL] HTTP Ok 200"
@@ -206,6 +214,51 @@ class SAPCL(object):
 				"result": False,
 				"message": str(e),
 				"devices": []
+			}
+			
+	def getChannelsSettings(self):
+		args = {}
+		
+		try:
+			buff = self.request("/channels_settings.xml", args)
+			return {
+				"result": True,
+				"message": "",
+				"settings": self.xmlToGenericList(buff, "channels-setting")
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"settings": []
+			}
+			
+	def getChannelsSetting(self, id):
+		args = {}
+		
+		try:
+			buff = self.request("/channels_settings/" + str(id), args)
+			if self.filename == "" or buff == None:
+				return {
+					"result": False,
+					"message": "Error retrieving file",
+					"filename": ""
+				}
+				
+			filename = "/tmp/" + self.filename
+			
+			open(filename, "w").write(buff)
+				
+			return {
+				"result": True,
+				"message": "",
+				"filename": filename
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"filename": None
 			}
 			
 	def rank(self, packageid, rank):

@@ -23,4 +23,6 @@ dist_install_DATA = \
 	folder.png \
 	star.png \
 	star_disabled.png \
-	top10.png
+	top10.png \
+	bookmark.png
+	config.png

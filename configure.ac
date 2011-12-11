@@ -265,6 +265,7 @@ lib/python/SIFTeam/Makefile
 lib/python/SIFTeam/Daemons/Makefile
 lib/python/SIFTeam/Extra/Makefile
 lib/python/SIFTeam/SoftwareManager/Makefile
+lib/python/SIFTeam/Settings/Makefile
 lib/service/Makefile
 lib/components/Makefile
 po/Makefile

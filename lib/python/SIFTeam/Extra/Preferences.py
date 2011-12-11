@@ -53,6 +53,13 @@ def InitPreferences():
 	config.sifteam.username = ConfigText(fixed_size = False)
 	config.sifteam.password = ConfigText(fixed_size = False)
 	
+	config.sifteam.settings = ConfigSubsection()
+	config.sifteam.settings.keepterrestrial = ConfigYesNo(False)
+	config.sifteam.settings.keepsatellitesxml = ConfigYesNo(False)
+	config.sifteam.settings.keepcablesxml = ConfigYesNo(False)
+	config.sifteam.settings.keepterrestrialxml = ConfigYesNo(False)
+	config.sifteam.settings.keepbouquets = ConfigText("", False)
+	
 def RegPClockCallback(callback):
 	global pclockcb
 	pclockcb.append(callback)
