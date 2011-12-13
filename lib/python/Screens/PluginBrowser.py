@@ -16,7 +16,7 @@ from Plugins.Plugin import PluginDescriptor
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_SKIN_IMAGE
 from Tools.LoadPixmap import LoadPixmap
 
-from SIFTeam.Addons import Addons
+#from SIFTeam.Addons import Addons
 
 from time import time
 import os
@@ -115,13 +115,15 @@ class PluginBrowser(Screen):
 		self["list"].l.setList(self.list)
 
 	def delete(self):
-		addons = Addons(self.session)
-		addons.goToShortcut("plugins_remove", self.PluginDownloadBrowserClosed)
+		pass
+		#addons = Addons(self.session)
+		#addons.goToShortcut("plugins_remove", self.PluginDownloadBrowserClosed)
 		#self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.REMOVE)
 	
 	def download(self):
-		addons = Addons(self.session)
-		addons.goToShortcut("plugins_install", self.PluginDownloadBrowserClosed)
+		pass
+		#addons = Addons(self.session)
+		#addons.goToShortcut("plugins_install", self.PluginDownloadBrowserClosed)
 		#self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.DOWNLOAD, self.firsttime)
 		#self.firsttime = False
 
