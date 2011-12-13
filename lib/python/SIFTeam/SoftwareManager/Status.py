@@ -62,9 +62,10 @@ class SMStatus(Screen):
 			elif cmd["cmd"] == SMStack.DOWNLOAD:
 				name = "Download " + cmd["package"]
 			elif cmd["cmd"] == SMStack.UPGRADE:
-				name = "Upgrading system"
+				name = "Updating system"
+			elif cmd["cmd"] == SMStack.UPDATE:
+				name = "Updating feeds"
 				
-			
 			self.cachelist.append(StatusEntry(name, cmd["message"], cmd["status"] == SMStack.DONE, cmd["status"] == SMStack.ERROR))
 			
 		self["list"].setList(self.cachelist)

@@ -480,6 +480,31 @@ class ConfigDateTime(ConfigElement):
 	def fromstring(self, val):
 		return int(val)
 
+class ConfigTime(ConfigElement):
+	def __init__(self, default, increment = 600):
+		ConfigElement.__init__(self)
+		self.increment = increment
+		self.value = self.last_value = self.default = int(default)
+
+	def handleKey(self, key):
+		if key == KEY_LEFT:
+			if self.value > 0:
+				self.value = self.value - self.increment
+		elif key == KEY_RIGHT:
+			if self.value < 86400 - self.increment:
+				self.value = self.value + self.increment
+		elif key == KEY_HOME or key == KEY_END:
+			self.value = self.default
+
+	def getText(self):
+		return "%02d:%02d" % (int(self.value/3600), int(self.value%3600/60))
+
+	def getMulti(self, selected):
+		return ("text", "%02d:%02d" % (int(self.value/3600), int(self.value%3600/60)))
+
+	def fromstring(self, val):
+		return int(val)
+
 # *THE* mighty config element class
 #
 # allows you to store/edit a sequence of values.

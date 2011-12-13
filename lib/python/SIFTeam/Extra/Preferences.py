@@ -1,5 +1,6 @@
 from Components.config import config, ConfigSlider, ConfigSelection, ConfigYesNo, \
-	ConfigEnableDisable, ConfigSubsection, ConfigBoolean, ConfigNumber, ConfigText
+	ConfigEnableDisable, ConfigSubsection, ConfigBoolean, ConfigNumber, ConfigText, \
+	ConfigTime
 	
 pclockcb = []
 
@@ -50,8 +51,13 @@ def InitPreferences():
 			}, 
 			default = 0)
 	
-	config.sifteam.username = ConfigText(fixed_size = False)
-	config.sifteam.password = ConfigText(fixed_size = False)
+	config.sifteam.cloud = ConfigSubsection()
+	config.sifteam.cloud.username = ConfigText(fixed_size = False)
+	config.sifteam.cloud.password = ConfigText(fixed_size = False)
+	config.sifteam.cloud.softwareupdates = ConfigYesNo(False)
+	config.sifteam.cloud.settingsupdates = ConfigYesNo(False)
+	config.sifteam.cloud.crashlogs = ConfigYesNo(False)
+	config.sifteam.cloud.timeautoupdates = ConfigTime(default = 18000)
 	
 	config.sifteam.settings = ConfigSubsection()
 	config.sifteam.settings.keepterrestrial = ConfigYesNo(False)

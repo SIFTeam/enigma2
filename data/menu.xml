@@ -23,8 +23,12 @@
 		<item level="0" text="Emulator" entryID="emu"><screen module="SIFTeam.Emulator" screen="Emulator" /></item>
 		<item level="0" text="Card server" entryID="cs"><screen module="SIFTeam.Emulator" screen="CardServer" /></item>
 
-		<item level="0" text="Account Configuration" entryID="accountconfig"><screen module="SIFTeam.AccountStatus" screen="AccountConfiguration" /></item>
-		<item level="0" text="Account Status" entryID="accountstatus"><screen module="SIFTeam.AccountStatus" screen="AccountStatusHelper" /></item>
+		<menu level="0" text="Cloud" entryID="cloud">
+			<id val="cloud" />
+			<item level="0" text="Account Configuration" entryID="accountconfig"><screen module="SIFTeam.Cloud.AccountConfiguration" screen="AccountConfiguration" /></item>
+			<item level="0" text="Account Status" entryID="accountstatus"><screen module="SIFTeam.Cloud.AccountStatus" screen="AccountStatusHelper" /></item>
+			<item level="0" text="Configuration" entryID="cloudconfig"><screen module="SIFTeam.Cloud.Configuration" screen="CloudConfiguration" /></item>
+		</menu>
 
 		<menu level="0" text="Information" entryID="info_screen">
 			<id val="information" />

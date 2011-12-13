@@ -35,10 +35,10 @@ class SAPCL(object):
 		return "0.1"
 		
 	def getUsername(self):
-		return config.sifteam.username.value
+		return config.sifteam.cloud.username.value
 	
 	def getPassword(self):
-		return config.sifteam.password.value
+		return config.sifteam.cloud.password.value
 		
 	def request(self, page, args, post_args=None):
 		useragent = "SIFTeam API Python Client Library %s (%s/%s)" % (self.getVersion(), self.getBranch(), self.getMachine())

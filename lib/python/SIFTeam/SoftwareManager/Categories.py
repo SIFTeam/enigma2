@@ -25,13 +25,13 @@ def CategoryEntry(name, picture, count):
 	return (pixmap, name, count)
 
 class SMCategories(Screen):
-	def __init__(self, session, categories, upgrades):
+	def __init__(self, session, categories):
 		Screen.__init__(self, session)
 		
 		self.session = session
 		self.sifapi = SAPCL()
 		self.categories = categories
-		self.upgrades = upgrades
+		self.upgrades = []
 		self.showall = False
 		self.cachelist = []
 		
@@ -50,6 +50,11 @@ class SMCategories(Screen):
 			"red": self.upgrade
 		}, -2)
 		
+		self.renderList()
+		smstack.add(SMStack.UPDATE, "", self.updateCallback)
+		
+	def updateCallback(self):
+		self.upgrades = smstack.upgradables
 		self.renderList()
 		
 	def toggleShowAll(self):

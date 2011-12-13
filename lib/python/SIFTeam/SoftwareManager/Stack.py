@@ -6,11 +6,14 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from SIFTeam.Extra.SAPCL import SAPCL
 from SIFTeam.Extra.ExtraMessageBox import ExtraMessageBox
 
+import time
+
 class SMStack(object):
 	INSTALL = 0
 	REMOVE = 1
 	UPGRADE = 2
 	DOWNLOAD = 3
+	UPDATE = 4
 	
 	WAIT = 0
 	PROGRESS = 1
@@ -20,6 +23,7 @@ class SMStack(object):
 	stack = []
 	current = None
 	
+	upgradables = []
 	callbacks = []
 	
 	session = None
@@ -30,9 +34,10 @@ class SMStack(object):
 	def setSession(self, session):
 		self.session = session
 		
-	def add(self, cmd, package):
-		if not self.clearPackage(package):
-			return False
+	def add(self, cmd, package, callback=None):
+		if cmd == self.INSTALL or cmd == self.REMOVE or cmd == self.DOWNLOAD:
+			if not self.clearPackage(package):
+				return False
 		
 		self.stack.append({
 			"cmd": cmd,
@@ -40,7 +45,8 @@ class SMStack(object):
 			"status": self.WAIT,
 			"message": "Waiting...",
 			"log": "",
-			"systemcmd": ""
+			"systemcmd": "",
+			"callback": callback
 		})
 		if not self.current:
 			self.processNextCommand()
@@ -113,6 +119,10 @@ class SMStack(object):
 			cmd = "opkg -V2 upgrade"
 			print "Upgrading (%s)" % cmd
 			self.current["message"] = "Upgrading"
+		elif self.current["cmd"] == self.UPDATE:
+			cmd = "opkg -V2 update"
+			print "Updating (%s)" % cmd
+			self.current["message"] = "Updating"
 		else:
 			self.cmdFinished(-1)
 			
@@ -127,6 +137,10 @@ class SMStack(object):
 	def processComplete(self):
 		for item in self.stack:
 			if item["cmd"] == self.UPGRADE:
+				if self.current["package"] == "auto":
+					self.session.open(TryQuitMainloop, 3)
+					return
+					
 				self.session.openWithCallback(self.rebootCallback, ExtraMessageBox, "", _("A reboot is required"),
 											[ [ "Reboot now", "reboot.png" ],
 											[ "Reboot manually later", "cancel.png" ],
@@ -152,18 +166,52 @@ class SMStack(object):
 				self.doCallbacks()
 				
 	def cmdFinished(self, result):
-		plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
+		if self.current["cmd"] == self.UPDATE:
+			self.upgradable_buff = ""
+			self.app = eConsoleAppContainer()
+			self.app.appClosed.append(self.cmdUpgradableFinished)
+			self.app.dataAvail.append(self.cmdUpgrabableData)
+			if self.app.execute("opkg list-upgradable"):
+				self.cmdDone(-1)
+			return
+			
+		self.cmdDone(result)
+		
+	def cmdDone(self, result):
+		if self.current["cmd"] == self.INSTALL or self.current["cmd"] == self.REMOVE:
+			plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
+			
 		if result == 0:
 			print "Cmd '%s' done" % self.current["systemcmd"]
 			self.current["status"] = self.DONE
-			self.current["message"] = "Done."
+			self.current["message"] = "Done (%s)" % time.strftime("%d/%m/%Y at %H:%M")
 		else:
 			print "Error on cmd '%s' (return code %d)" % (self.current["systemcmd"], result)
 			self.current["status"] = self.ERROR
 			self.current["message"] = "Error!"
-		self.current = None
+		
 		self.doCallbacks()
+		if self.current["callback"]:
+			self.current["callback"]()
+			
+		self.current = None
 		self.processNextCommand()
 		
+	def cmdUpgrabableData(self, data):
+		self.upgradable_buff += data
 		
+	def cmdUpgradableFinished(self, result):
+		rows = self.upgradable_buff.strip().split("\n")
+		self.upgradables = []
+		for row in rows:
+			tmp = row.split(" - ")
+			if len(tmp) == 3:
+				self.upgradables.append({
+					"package": tmp[0],
+					"oldversion": tmp[1],
+					"newversion": tmp[2]
+				})
+				
+		self.cmdDone(0)
+	
 smstack = SMStack()

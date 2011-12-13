@@ -7,8 +7,8 @@ from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.config import getConfigListEntry, config
 
-from Extra.SAPCL import SAPCL
-from Extra.ExtraActionBox import ExtraActionBox
+from SIFTeam.Extra.SAPCL import SAPCL
+from SIFTeam.Extra.ExtraActionBox import ExtraActionBox
 
 import time
 
@@ -65,53 +65,13 @@ class AccountStatus(Screen):
 		self["status"] = Label(msg)
 		self["key_green"] = Button("")
 		self["key_red"] = Button("")
-		self["key_blue"] = Button(_("Exit"))
+		self["key_blue"] = Button("")
 		self["key_yellow"] = Button("")
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"blue": self.quit,
 			"cancel": self.quit,
 		}, -2)
 		
 	def quit(self):
 		self.close()
 		
-class AccountConfiguration(Screen, ConfigListScreen):
-	def __init__(self, session):
-		Screen.__init__(self, session)
-		self.list = [
-			getConfigListEntry(_("Username:"), config.sifteam.username),
-			getConfigListEntry(_("Password:"), config.sifteam.password)
-		]
-		
-		ConfigListScreen.__init__(self, self.list, session = session)
-		
-		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
-				{
-					"red": self.ok,
-					"blue": self.keyCancel,
-					"cancel": self.keyCancel,
-				}, -2)
-				
-		self["status"] = Label("")
-		self["info"] = Label("Register a new account: http://forum.sifteam.eu/register.php\nLost password: http://forum.sifteam.eu/login.php?do=lostpw")
-		self["key_green"] = Button("")
-		self["key_red"] = Button(_("Ok"))
-		self["key_blue"] = Button(_("Exit"))
-		self["key_yellow"] = Button("")
-		
-	def executeRequest(self):
-		api = SAPCL()
-		return api.getAccount()
-
-	def executeRequestCallback(self, result):
-		if result["result"]:
-			self.keySave()
-			self.close()
-		else:
-			self["status"].setText(result["message"])
-	
-	def ok(self):
-		self.session.openWithCallback(self.executeRequestCallback, ExtraActionBox, _("Validating on sifteam server..."), "Account Configuration", self.executeRequest)
-		
-

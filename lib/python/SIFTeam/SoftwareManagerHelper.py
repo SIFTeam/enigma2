@@ -18,23 +18,11 @@ class SMScreenHelper(Screen):
 
 	def executeRequest(self):
 		api = SAPCL()
-		self.categories = api.getCategories(0, True)
-		os.system("opkg update")
-		rows = os.popen("opkg list_upgradable").read().strip().split("\n")
-		self.upgrades = []
-		for row in rows:
-			tmp = row.split(" - ")
-			if len(tmp) == 3:
-				self.upgrades.append({
-					"package": tmp[0],
-					"oldversion": tmp[1],
-					"newversion": tmp[2]
-				})
-		return True
+		return api.getCategories(0, True)
 
 	def executeRequestCallback(self, result):
 		if result:
-			self.session.open(SMCategories, self.categories, self.upgrades)
+			self.session.open(SMCategories, result)
 		self.close()
 
 	def readCategories(self):
