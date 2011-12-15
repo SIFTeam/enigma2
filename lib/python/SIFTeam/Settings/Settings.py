@@ -21,6 +21,39 @@ import shutil
 def SettingEntry(name, published):
 	pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/install_now.png"))
 	return (pixmap, name, published)
+	
+def installSettings(id):
+	try:
+		shutil.rmtree(TMP_IMPORT_PWD)
+	except:
+		pass
+	
+	api = SAPCL()
+	result = api.getChannelsSetting(id)
+	if not result["result"]:
+		return False
+		
+	STDeflate().deflate(result["filename"])
+	
+	settings = SettingsLoader()
+	settings.apply()
+	
+	try:
+		shutil.rmtree(TMP_SETTINGS_PWD)
+	except Exception, e:
+		pass
+		
+	try:
+		shutil.rmtree(TMP_IMPORT_PWD)
+	except Exception, e:
+		pass
+
+	try:
+		os.unlink(result["filename"])
+	except Exception, e:
+		pass
+		
+	return True
 
 class STSettings(Screen):
 	def __init__(self, session, settings):
@@ -28,7 +61,6 @@ class STSettings(Screen):
 		
 		self.session = session
 		self.settings = settings
-		self.api = SAPCL()
 
 		self['list'] = List([])
 		self["key_green"] = Button("")
@@ -51,37 +83,13 @@ class STSettings(Screen):
 		self["list"].setList(self.cachelist)
 		
 	def downloadBackground(self):
-		try:
-			shutil.rmtree(TMP_IMPORT_PWD)
-		except:
-			pass
-			
-		result = self.api.getChannelsSetting(self.settings[self.index]["id"])
-		if not result["result"]:
-			self.session.open(MessageBox, _("Cannot download settings (%s)") % self.url, MessageBox.TYPE_ERROR)
+		if not installSettings(self.settings[self.index]["id"]):
+			self.session.open(MessageBox, _("Cannot download settings"), MessageBox.TYPE_ERROR)
 			return
 			
-		STDeflate().deflate(result["filename"])
-		
-		settings = SettingsLoader()
-		settings.apply()
-		
-		try:
-			shutil.rmtree(TMP_SETTINGS_PWD)
-		except Exception, e:
-			pass
-			
-		try:
-			shutil.rmtree(TMP_IMPORT_PWD)
-		except Exception, e:
-			pass
-
-		try:
-			os.unlink(result["filename"])
-		except Exception, e:
-			pass
-			
 		self.session.open(MessageBox, _("Settings installed"), type = MessageBox.TYPE_INFO, timeout = 5)
+		config.sifteam.settings.currentsettings.value = self.settings[self.index]["id"]
+		config.sifteam.settings.currentsettingsdate.value = self.settings[self.index]["published"]
 			
 	def download(self):
 		if len(self.cachelist) == 0:

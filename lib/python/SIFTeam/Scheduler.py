@@ -47,8 +47,11 @@ def loadDefaultScheduler():
 	hour = int(config.sifteam.cloud.timeautoupdates.value/3600)
 	minute = int(config.sifteam.cloud.timeautoupdates.value%3600/60)
 	
-	from SIFTeam.SoftwareManager.AutoUpdates import startAutomatiUpdates
-	scheduler.add("autoupdates", hour, minute, startAutomatiUpdates, None)
+	from SIFTeam.SoftwareManager.AutoUpdates import startAutomaticSoftwareUpdates
+	scheduler.add("autoupdates_software", hour, minute, startAutomaticSoftwareUpdates, None)
+
+	from SIFTeam.Settings.AutoUpdates import startAutomaticSettingsUpdates
+	scheduler.add("autoupdates_settings", hour, minute, startAutomaticSettingsUpdates, None)
 	
 def initScheduler(session):
 	global scheduler

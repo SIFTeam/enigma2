@@ -65,6 +65,8 @@ def InitPreferences():
 	config.sifteam.settings.keepcablesxml = ConfigYesNo(False)
 	config.sifteam.settings.keepterrestrialxml = ConfigYesNo(False)
 	config.sifteam.settings.keepbouquets = ConfigText("", False)
+	config.sifteam.settings.currentsettings = ConfigNumber(default = -1)
+	config.sifteam.settings.currentsettingsdate = ConfigText(fixed_size = False)
 	
 def RegPClockCallback(callback):
 	global pclockcb
