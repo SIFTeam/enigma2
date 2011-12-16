@@ -17,9 +17,9 @@ Morpheus883(Settings Master Chief)
 Cus2k (betatester)
 Raskino (betatester)
 Theseven (betatester)
-Biondo79 (betatester)"""
+Biondo79 (betatester)
 Katapip (katatester)
-Barrett (stuntman)
+Barrett (stuntman)"""
 		
 		self["about"] = Label(abouttxt)
 		self["key_green"] = Button("")
