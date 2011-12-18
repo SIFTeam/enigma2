@@ -118,7 +118,7 @@ void bsodFatal(const char *component)
 	bsodhandled = true;
 
 	std::ostringstream os;
-	os << "/media/hdd/enigma2_crash_";
+	os << "/media/hdd/sifteam_crash_";
 	os << time(0);
 	os << ".log";
 

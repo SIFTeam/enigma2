@@ -365,3 +365,25 @@ class SAPCL(object):
 				"status": {}
 			}
 			
+	def sendCrashLog(self, data):
+		args = {}
+		
+		post_args = {
+			"username": self.getUsername(),
+			"password": self.getPassword(),
+			"crashlog[machine]": self.getMachine(),
+			"crashlog[branch]": self.getBranch(),
+			"crashlog[datalog]": data
+		}
+
+		try:
+			self.request("/crashlogs.xml", args, post_args)
+			return {
+				"result": True,
+				"message": "",
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+			}
