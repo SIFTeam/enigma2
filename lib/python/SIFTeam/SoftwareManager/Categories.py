@@ -34,6 +34,7 @@ class SMCategories(Screen):
 		self.upgrades = []
 		self.showall = False
 		self.cachelist = []
+		self.closed = False
 		
 		self['list'] = List([])
 		self["key_green"] = Button(_("Feeds"))
@@ -54,6 +55,8 @@ class SMCategories(Screen):
 		smstack.add(SMStack.UPDATE, "", self.updateCallback)
 		
 	def updateCallback(self):
+		if self.closed:
+			return
 		self.upgrades = smstack.upgradables
 		self.renderList()
 		
@@ -164,4 +167,5 @@ class SMCategories(Screen):
 		self.session.open(SMStatus)
 		
 	def quit(self):
+		self.closed = True
 		self.close()

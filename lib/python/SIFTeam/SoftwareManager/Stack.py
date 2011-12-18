@@ -137,7 +137,7 @@ class SMStack(object):
 	def processComplete(self):
 		for item in self.stack:
 			if item["cmd"] == self.UPGRADE:
-				if self.current["package"] == "auto":
+				if self.current and self.current["package"] == "auto":
 					self.session.open(TryQuitMainloop, 3)
 					return
 					
