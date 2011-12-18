@@ -1,9 +1,4 @@
 <setupxml>
-		<setup key="rc" title="RC Menu">
-			<item level="0" text="Repeat">config.inputDevices.repeat</item>
-			<item level="0" text="Delay">config.inputDevices.delay</item>
-			<item level="0" text="Keymap">config.rc.map</item>
-		</setup>
 		<setup key="timezone" title="Timezone">
 			<item level="0" text="Timezone">config.timezone.val</item>
 		</setup>
@@ -21,7 +16,6 @@
 		<setup key="usage" title="Customize">
 			<item level="0" text="Setup Mode">config.usage.setup_level</item>
 			<item level="1" text="Zap mode" requires="ZapMode">config.misc.zapmode</item>
-			<item level="0" text="Show blinking clock in display during recording">config.usage.blinking_display_clock_during_recording</item>
 			<item level="0" text="Show animation while busy">config.usage.show_spinner</item>
 			<item level="1" text="Enable teletext caching">config.usage.enable_tt_caching</item>
 			<item level="1" text="Show positioner movement">config.usage.showdish</item>
@@ -111,9 +105,6 @@
      It was previously called "enter fast forward at speed" which was easily misunderstood. -->  
 			<item level="2" text="Initial Fast Forward speed">config.seek.enter_forward</item>
 			<item level="2" text="Initial Rewind speed">config.seek.enter_backward</item>
-			<item level="2" text="Behavior of 'pause' when paused">config.seek.on_pause</item>
-			<item level="2" text="Behavior of 0 key in PiP-mode">config.usage.pip_zero_button</item>
-			<item level="2" text="Alternative services tuner priority">config.usage.alternatives_priority</item>
 			<item level="2" text="Limited character set for recording filenames">config.recording.ascii_filenames</item>
 			<item level="2" text="Composition of the recording filenames">config.recording.filename_composition</item>
 			<item level="2" text="Keep old timers for how many days">config.recording.keep_timers</item>
