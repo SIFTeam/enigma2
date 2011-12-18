@@ -11,16 +11,15 @@ class AboutTeam(Screen):
 		abouttxt = """Skaman (developer & coder)
 Ukiller_Bestia (web master and server maintainer)
 Genge (manager)
-Bobsilvio (coder)
 Ipbox2008 (coder)
+Dr_Gogeta86(fuzzy coder)
 Morpheus883(Settings Master Chief)
-Margy82 (skinner)
 Cus2k (betatester)
-Barrett (betaster)
-Katapip (betaster)
 Raskino (betatester)
 Theseven (betatester)
-Biondo79 (betatester)"""
+Biondo79 (betatester)
+Katapip (katatester)
+Barrett (stuntman)"""
 		
 		self["about"] = Label(abouttxt)
 		self["key_green"] = Button("")
