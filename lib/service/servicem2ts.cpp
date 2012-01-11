@@ -39,7 +39,7 @@ public:
 	RESULT getName(const eServiceReference &ref, std::string &name);
 	int getLength(const eServiceReference &ref);
 	RESULT getEvent(const eServiceReference &ref, ePtr<eServiceEvent> &SWIG_OUTPUT, time_t start_time);
-	int isPlayable(const eServiceReference &ref, const eServiceReference &ignore) { return 1; }
+	int isPlayable(const eServiceReference &ref, const eServiceReference &ignore, bool simulate) { return 1; }
 	int getInfo(const eServiceReference &ref, int w);
 	std::string getInfoString(const eServiceReference &ref,int w);
 	PyObject *getInfoObject(const eServiceReference &r, int what);
@@ -313,12 +313,6 @@ off_t eM2TSFile::length()
 
 eServiceFactoryM2TS::eServiceFactoryM2TS()
 {
-	struct stat dummy;
-	if (stat("/usr/lib/libpassthrough.so", &dummy) != 0)
-	{
-		eDebug("eServiceFactoryM2TS aborted, no /usr/lib/libpassthrough.so");
-		return;
-	}
 	ePtr<eServiceCenter> sc;
 	eServiceCenter::getPrivInstance(sc);
 	if (sc)
