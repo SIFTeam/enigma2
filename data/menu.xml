@@ -25,9 +25,9 @@
 
 		<menu level="0" text="Cloud" entryID="cloud">
 			<id val="cloud" />
-			<item level="0" text="Account Configuration" entryID="accountconfig"><screen module="SIFTeam.Cloud.AccountConfiguration" screen="AccountConfiguration" /></item>
-			<item level="0" text="Account Status" entryID="accountstatus"><screen module="SIFTeam.Cloud.AccountStatus" screen="AccountStatusHelper" /></item>
-			<item level="0" text="Configuration" entryID="cloudconfig"><screen module="SIFTeam.Cloud.Configuration" screen="CloudConfiguration" /></item>
+			<item level="0" text="SIFTeam Account Configuration" entryID="accountconfig"><screen module="SIFTeam.Cloud.AccountConfiguration" screen="AccountConfiguration" /></item>
+			<item level="0" text="SIFTeam Account Status" entryID="accountstatus"><screen module="SIFTeam.Cloud.AccountStatus" screen="AccountStatusHelper" /></item>
+			<item level="0" text="Cloud Configuration" entryID="cloudconfig"><screen module="SIFTeam.Cloud.Configuration" screen="CloudConfiguration" /></item>
 		</menu>
 
 		<menu level="0" text="Information" entryID="info_screen">
@@ -94,7 +94,7 @@
 				<item level="0" entryID="timezone_setup"><setup id="timezone"/></item>
 			</menu>
 			<item weight="6" level="0" text="Software Manager" entryID="softwaremanager"><screen module="SIFTeam.SoftwareManagerHelper" screen="SMScreenHelper" /></item>
-			<item weight="6" level="0" text="Settings" entryID="settings"><screen module="SIFTeam.SettingsHelper" screen="STScreenHelper" /></item>
+			<item weight="6" level="0" text="Bouquets and channels" entryID="bouquets"><screen module="SIFTeam.SettingsHelper" screen="STScreenHelper" /></item>
 			<item weight="7" level="0" text="Panel setup" entryID="panel_setup"><screen module="SIFTeam.PanelConfig" screen="PanelConfig" /></item>
 			<item weight="8" level="0" text="Preferences" entryID="preferences"><screen module="SIFTeam.Preferences" screen="Preferences" /></item>
 			<item weight="9" level="0" text="Daemons" entryID="daemons"><screen module="SIFTeam.DaemonsList" screen="DaemonsList" /></item>
