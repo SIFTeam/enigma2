@@ -224,7 +224,10 @@ class Session:
 		# popSummary already did the right thing.
 		if first:
 			self.pushSummary()
-			summary = c.createSummary() or SimpleSummary
+			if config.sifteam.skindevelopermode.value:
+				summary = SimpleSummary
+			else:
+				summary = c.createSummary() or SimpleSummary
 			self.summary = self.instantiateSummaryDialog(summary, c)
 			self.summary.show()
 			c.addSummary(self.summary)

@@ -26,7 +26,8 @@ class Preferences(Screen, ConfigListScreen):
 			getConfigListEntry(_("Video green switch enable 16:9 always:"), config.sifteam.switch_16_9_always),
 			getConfigListEntry(_("Video green switch enable 16:9 letterbox:"), config.sifteam.switch_16_9_letterbox),
 			getConfigListEntry(_("Video green switch enable 16:10 letterbox:"), config.sifteam.switch_16_10_letterbox),
-			getConfigListEntry(_("Video green switch enable 16:10 panscan:"), config.sifteam.switch_16_10_panscan)
+			getConfigListEntry(_("Video green switch enable 16:10 panscan:"), config.sifteam.switch_16_10_panscan),
+			getConfigListEntry(_("Skin developer mode:"), config.sifteam.skindevelopermode)
 		]
 
 		

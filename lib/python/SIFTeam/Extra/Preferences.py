@@ -34,7 +34,6 @@ def InitPreferences():
 			"auto": _("Automatically send all")}, 
 			default = "ask")
 	
-	
 	config.sifteam.switch_4_3_letterbox = ConfigYesNo(True)
 	config.sifteam.switch_4_3_panscan = ConfigYesNo(True)
 	config.sifteam.switch_16_9 = ConfigYesNo(False)
@@ -50,6 +49,8 @@ def InitPreferences():
 			"downloads": _("Downloads")
 			}, 
 			default = 0)
+
+	config.sifteam.skindevelopermode = ConfigYesNo(False)
 	
 	config.sifteam.cloud = ConfigSubsection()
 	config.sifteam.cloud.username = ConfigText(fixed_size = False)
