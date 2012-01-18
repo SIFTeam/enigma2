@@ -55,7 +55,7 @@ class SMStatus(Screen):
 		
 		for cmd in smstack.stack:
 			name = ""
-			if cmd["cmd"] == SMStack.INSTALL:
+			if cmd["cmd"] == SMStack.INSTALL or cmd["cmd"] == SMStack.INSTALL_WITH_REBOOT:
 				name = "Install " + cmd["package"]
 			elif cmd["cmd"] == SMStack.REMOVE:
 				name = "Remove " + cmd["package"]

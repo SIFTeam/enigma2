@@ -178,10 +178,6 @@ class Session:
 				traceback.print_exc()
 				
 		# sifteam init
-		from SIFTeam.Extra.FifoListener import fifolistener
-		fifolistener.setSession(self)
-		fifolistener.start()
-		
 		from SIFTeam.Extra.Emud import emud
 		emud.setSession(self)
 		emud.connect()
@@ -192,6 +188,9 @@ class Session:
 		
 		from SIFTeam.Scheduler import initScheduler
 		initScheduler(self)
+		
+		from SIFTeam.UsbDevices import initUsbNotifier
+		initUsbNotifier(self)
 		
 		#from SIFTeam.SoftwareManager.AutoUpdates import startAutomatiUpdates
 		#startAutomatiUpdates(self)
@@ -621,9 +620,6 @@ try:
 	plugins.shutdown()
 
 	# sifteam
-	from SIFTeam.Extra.FifoListener import fifolistener
-	fifolistener.stop()
-	
 	from SIFTeam.Extra.Emud import emud
 	emud.disconnect()
 	

@@ -10,10 +10,11 @@ import time
 
 class SMStack(object):
 	INSTALL = 0
-	REMOVE = 1
-	UPGRADE = 2
-	DOWNLOAD = 3
-	UPDATE = 4
+	INSTALL_WITH_REBOOT = 1
+	REMOVE = 2
+	UPGRADE = 3
+	DOWNLOAD = 4
+	UPDATE = 5
 	
 	WAIT = 0
 	PROGRESS = 1
@@ -35,7 +36,7 @@ class SMStack(object):
 		self.session = session
 		
 	def add(self, cmd, package, callback=None):
-		if cmd == self.INSTALL or cmd == self.REMOVE or cmd == self.DOWNLOAD:
+		if cmd == self.INSTALL or cmd == self.INSTALL_WITH_REBOOT or cmd == self.REMOVE or cmd == self.DOWNLOAD:
 			if not self.clearPackage(package):
 				return False
 		
@@ -103,7 +104,7 @@ class SMStack(object):
 		
 		self.current["status"] = self.PROGRESS
 		
-		if self.current["cmd"] == self.INSTALL:
+		if self.current["cmd"] == self.INSTALL or self.current["cmd"] == self.INSTALL_WITH_REBOOT:
 			cmd = "opkg -V2 install " + self.current["package"]
 			print "Installing package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Installing " + self.current["package"]
@@ -136,7 +137,7 @@ class SMStack(object):
 		
 	def processComplete(self):
 		for item in self.stack:
-			if item["cmd"] == self.UPGRADE:
+			if item["cmd"] == self.UPGRADE or item["cmd"] == self.INSTALL_WITH_REBOOT:
 				if item["package"] == "auto":
 					self.session.open(TryQuitMainloop, 3)
 					return
