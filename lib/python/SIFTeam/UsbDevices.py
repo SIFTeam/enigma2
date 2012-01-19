@@ -195,11 +195,67 @@ class UsbDevicesNotifier:
 				devinst.install()
 			except Exception, e:
 				print e
-
+				
+class UsbDevicesProbe:
+	blacklist = [
+		[7531, 1], # Broadcom STB EHCI
+		[7531, 2], # Broadcom STB OHCI
+		[6720, 257], # USB 2.0 Hub
+		[57005, 48879], # BRCM OHCI USB2.0
+	]
+	
+	def __init__(self, session):
+		self.session = session
+		self.installstack = []
+		self.timer = eTimer()
+		self.timer.callback.append(self.probe)
+		print "START TIMER!!!"
+		self.timer.start(10000, 1) # delay of 10 seconds
+		
+	def installComplete(self, devinst):
+		self.installstack.remove(devinst)
+	
+	def isBlacklisted(self, idVendor, idProduct):
+		for entry in self.blacklist:
+			if entry[0] == idVendor and entry[1] == idProduct:
+				return True
+				
+	def probe(self):
+		if len(self.session.dialog_stack) > 0:
+			# osd busy.. delay of 10 seconds
+			self.timer.start(10000, 1) # delay of 20 seconds
+			print "delay"
+			return
+			
+		devdirs = os.listdir("/sys/bus/usb/devices/")
+		for devdir in devdirs:
+			try:
+				idVendor = int(open("/sys/bus/usb/devices/" + devdir + "/idVendor").read().strip(), 16)
+				idProduct = int(open("/sys/bus/usb/devices/" + devdir + "/idProduct").read().strip(), 16)
+				product = ""
+				if fileExists("/sys/bus/usb/devices/" + devdir + "/product"):
+					product = open("/sys/bus/usb/devices/" + devdir + "/product").read().strip()
+					
+				if self.isBlacklisted(idVendor, idProduct):
+					continue
+					
+				device = UsbDevice(idVendor, idProduct, product)
+				devinst = UsbDeviceAutoInstall(self.session, device)
+				self.installstack.append(devinst)
+				devinst.installCb(self.installComplete)
+				devinst.install()
+			except Exception, e:
+				pass
+				
+		global deviceprobe
+		deviceprobe = None
+				
 devicenotifier = None
+deviceprobe = None
 def initUsbNotifier(session):
-	global devicenotifier
+	global devicenotifier, deviceprobe
 	devicenotifier = UsbDevicesNotifier(session)
+	deviceprobe = UsbDevicesProbe(session)
 	
 def TunerEntry(name, module, started):
 	if started:
