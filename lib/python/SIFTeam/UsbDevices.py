@@ -130,6 +130,8 @@ class UsbDeviceAutoInstall:
 	def msgboxCb(self, result):
 		if result == 0:
 			self.device.setStatus(3)	# mark as installed
+			if not fileExists("/usr/lib/opkg/info/v4l-dvb-firmware.control"):
+				smstack.add(SMStack.INSTALL, "v4l-dvb-firmware")
 			smstack.add(SMStack.INSTALL_WITH_REBOOT, self.device.getPackage())
 			
 			# if necessary open usbdevices view
@@ -323,6 +325,8 @@ class UsbDevices(Screen):
 			smstack.add(SMStack.REMOVE, self.devices[index].getPackage())
 			self.devices[index].setStatus(2)
 		else:
+			if not fileExists("/usr/lib/opkg/info/v4l-dvb-firmware.control"):
+				smstack.add(SMStack.INSTALL, "v4l-dvb-firmware")
 			smstack.add(SMStack.INSTALL_WITH_REBOOT, self.devices[index].getPackage())
 			self.devices[index].setStatus(3)
 			
