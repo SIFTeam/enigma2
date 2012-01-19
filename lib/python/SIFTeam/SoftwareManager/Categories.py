@@ -124,7 +124,7 @@ class SMCategories(Screen):
 		if self.index == -1:
 			self.session.open(SMPackages, result, "Top 10 (highest rank)", -2)
 		elif self.index == -2:
-			self.session.open(SMPackages, result, "Top 10 (highest rank)", -3)
+			self.session.open(SMPackages, result, "Top 10 (most downloaded)", -3)
 		else:
 			self.session.open(SMPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
 		
