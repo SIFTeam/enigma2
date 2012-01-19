@@ -32,11 +32,13 @@ class SMCategories(Screen):
 		self.sifapi = SAPCL()
 		self.categories = categories
 		self.upgrades = []
+		self.updating = True
 		self.showall = False
 		self.cachelist = []
-		self.closed = False
+		self.listindex = 0
 		
 		self['list'] = List([])
+		self["list"].onSelectionChanged.append(self.selectionChanged)
 		self["key_green"] = Button(_("Feeds"))
 		self["key_red"] = Button("")
 		self["key_blue"] = Button(_("Status"))
@@ -55,10 +57,13 @@ class SMCategories(Screen):
 		smstack.add(SMStack.UPDATE, "", self.updateCallback)
 		
 	def updateCallback(self):
-		if self.closed:
-			return
-		self.upgrades = smstack.upgradables
-		self.renderList()
+		try:
+			self.updating = False
+			self.upgrades = smstack.upgradables
+			self.renderList()
+		except Exception, e:
+			# window destroyed?
+			pass
 		
 	def toggleShowAll(self):
 		self.showall = not self.showall
@@ -83,6 +88,10 @@ class SMCategories(Screen):
 			self["key_red"].setText(_("Update"))
 		else:
 			self["key_red"].setText("")
+			if self.updating:
+				self.cachelist.append(CategoryEntry("Checking for updates...", "install_now.png", ""))
+			else:
+				self.cachelist.append(CategoryEntry("No updates found", "install_now.png", ""))
 		
 		self.cachelist.append(CategoryEntry("Top 10 (highest rank)", "top10.png", ""))
 		self.cachelist.append(CategoryEntry("Top 10 (most downloaded)", "top10.png", ""))
@@ -100,6 +109,7 @@ class SMCategories(Screen):
 		self.cachelist.append(CategoryEntry("Install from file (ipk/tar.gz)", "package.png", ""))
 		
 		self["list"].setList(self.cachelist)
+		self["list"].setIndex(self.listindex)
 	
 	def executeRequestPackages(self):
 		api = SAPCL()
@@ -118,6 +128,16 @@ class SMCategories(Screen):
 		else:
 			self.session.open(SMPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
 		
+	def selectionChanged(self):
+		if len(self.cachelist) == 0:
+			return
+			
+		index = self["list"].getIndex()
+		if index == None:
+			index = 0
+			
+		self.listindex = index
+		
 	def ok(self):
 		if len(self.cachelist) == 0:
 			return
@@ -130,12 +150,12 @@ class SMCategories(Screen):
 			self.session.open(SMFileBrowser)
 			return
 				
-		if len(self.upgrades) > 0:
-			if index == 0:
+		if index == 0:
+			if len(self.upgrades) > 0:
 				self.session.open(SMUpgrades, self.upgrades)
-				return
+			return
 				
-			index -= 1
+		index -= 1
 			
 		if index == 0:
 			print "top 10 rate"
@@ -167,5 +187,4 @@ class SMCategories(Screen):
 		self.session.open(SMStatus)
 		
 	def quit(self):
-		self.closed = True
 		self.close()
