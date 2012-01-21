@@ -587,7 +587,7 @@ def loadSkinData(desktop):
 				# non-screen element, no need for it any longer
 				elem.clear()
 	# no longer needed, we know where the screens are now.
-	del dom_skins
+	dom_skins = []
 
 class additionalWidget:
 	pass
@@ -679,6 +679,11 @@ class SkinContextStack(SkinContext):
 		return (SizeTuple(pos), SizeTuple(size))
 
 def readSkin(screen, skin, names, desktop):
+	if config.sifteam.skindevelopermode.value:
+		# it's not elegant and low performace... but for skin developing is great!
+		addSkin(config.skin.primary_skin.value)
+		loadSkinData(desktop)
+	
 	if not isinstance(names, list):
 		names = [names]
 
