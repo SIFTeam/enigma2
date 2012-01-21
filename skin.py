@@ -533,6 +533,9 @@ def loadSingleSkinData(desktop, skin, path_prefix):
 		x = eWindowStyleManager.getInstance()
 		x.setStyle(id, style)
 
+	for skininclude in skin.findall("include"):
+		loadSkin(skininclude.attrib.get("filename"))
+
 dom_screens = {}
 
 def loadSkin(name, scope = SCOPE_SKIN):
