@@ -8,6 +8,7 @@ class GUISkin:
 
 	def __init__(self):
 		self["Title"] = StaticText()
+		self["DeveloperTag"] = StaticText()
 		self.onLayoutFinish = [ ]
 		self.summaries = CList()
 		self.instance = None
@@ -95,8 +96,12 @@ class GUISkin:
 					self.summaries.setTitle(value)
 			elif key == "baseResolution":
 				baseres = tuple([int(x) for x in value.split(',')])
+			elif key == "devtag":
+				self["DeveloperTag"].text = value
 			idx += 1
 		self.scale = ((baseres[0], baseres[0]), (baseres[1], baseres[1]))
+		if self["DeveloperTag"].text == "":
+			self["DeveloperTag"].text = self.__class__.__name__
 
 		if not self.instance:
 			from enigma import eWindow

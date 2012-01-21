@@ -17,6 +17,7 @@ from traceback import print_exc
 profile("SimpleSummary")
 from Screens import InfoBar
 from Screens.SimpleSummary import SimpleSummary
+from Screens.SkinDeveloperSummary import SkinDeveloperSummary
 
 from sys import stdout, exc_info
 
@@ -224,7 +225,7 @@ class Session:
 		if first:
 			self.pushSummary()
 			if config.sifteam.skindevelopermode.value:
-				summary = SimpleSummary
+				summary = SkinDeveloperSummary
 			else:
 				summary = c.createSummary() or SimpleSummary
 			self.summary = self.instantiateSummaryDialog(summary, c)
