@@ -108,14 +108,20 @@ class SMStack(object):
 			cmd = "opkg -V2 install " + self.current["package"]
 			print "Installing package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Installing " + self.current["package"]
+			api = SAPCL()
+			api.installByPackageName(self.current["package"])
 		elif self.current["cmd"] == self.REMOVE:
 			cmd = "opkg -V2 remove " + self.current["package"]
 			print "Removing package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Removing " + self.current["package"]
+			api = SAPCL()
+			api.uninstallByPackageName(self.current["package"])
 		elif self.current["cmd"] == self.DOWNLOAD:
 			cmd = "cd /tmp && opkg -V2 download " + self.current["package"]
 			print "Downloading package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Downloading " + self.current["package"]
+			api = SAPCL()
+			api.downloadByPackageName(self.current["package"])
 		elif self.current["cmd"] == self.UPGRADE:
 			cmd = "opkg -V2 upgrade"
 			print "Upgrading (%s)" % cmd

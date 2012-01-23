@@ -316,6 +316,29 @@ class SAPCL(object):
 				"message": str(e),
 				"status": {}
 			}
+			
+	def downloadByPackageName(self, packagename):
+		args = {}
+		
+		post_args = {
+			"username": self.getUsername(),
+			"password": self.getPassword()
+		}
+		
+		try:
+			buff = self.request("/packages/items/download/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
+			mdom = xml.etree.cElementTree.fromstring(buff)
+			return {
+				"result": True,
+				"message": "",
+				"status": self.nodeToDictionary(mdom)
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"status": {}
+			}
 	
 	def install(self, packageid):
 		args = {}
@@ -341,6 +364,30 @@ class SAPCL(object):
 				"status": {}
 			}
 	
+	def installByPackageName(self, packagename):
+		args = {}
+		
+		post_args = {
+			"username": self.getUsername(),
+			"password": self.getPassword()
+		}
+		
+		try:
+			buff = self.request("/packages/items/install/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
+			mdom = xml.etree.cElementTree.fromstring(buff)
+			return {
+				"result": True,
+				"message": "",
+				"status": self.nodeToDictionary(mdom)
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"status": {}
+			}
+		
+	
 	def uninstall(self, packageid):
 		args = {}
 		
@@ -352,6 +399,29 @@ class SAPCL(object):
 
 		try:
 			buff = self.request("/packages/uninstalls.xml", args, post_args)
+			mdom = xml.etree.cElementTree.fromstring(buff)
+			return {
+				"result": True,
+				"message": "",
+				"status": self.nodeToDictionary(mdom)
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"status": {}
+			}
+			
+	def uninstallByPackageName(self, packagename):
+		args = {}
+		
+		post_args = {
+			"username": self.getUsername(),
+			"password": self.getPassword()
+		}
+		
+		try:
+			buff = self.request("/packages/items/uninstall/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
 			mdom = xml.etree.cElementTree.fromstring(buff)
 			return {
 				"result": True,
