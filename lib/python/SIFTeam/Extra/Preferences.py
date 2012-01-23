@@ -6,15 +6,6 @@ pclockcb = []
 
 def InitPreferences():
 	config.sifteam = ConfigSubsection()
-	config.sifteam.infobar = ConfigSelection(choices={
-			"light": _("Light"),
-			"full": _("Full"), 
-			"light_and_full": _("Light and Full")}, 
-			default = "light")
-	config.sifteam.permanentclock = ConfigYesNo(False)
-	config.sifteam.animatedpicon = ConfigYesNo(True)
-	config.sifteam.animatedprovicon = ConfigYesNo(True)
-	config.sifteam.animatedsaticon = ConfigYesNo(True)
 	config.sifteam.emudelay = ConfigSelection(choices={
 			"0": _("Enigma2 boot"),
 			"015": _("After 15 seconds"), 
@@ -23,16 +14,6 @@ def InitPreferences():
 			"060": _("After 1 minute"), 
 			"120": _("After 2 minutes")}, 
 			default = "0")
-	config.sifteam.autoupdates = ConfigSelection(choices={
-			"disabled": _("Disabled"),
-			"ask": _("Ask before install"), 
-			"auto": _("Automatically install all updates")}, 
-			default = "ask")
-	config.sifteam.crashlogs = ConfigSelection(choices={
-			"disabled": _("Disabled"),
-			"ask": _("Ask before send"), 
-			"auto": _("Automatically send all")}, 
-			default = "ask")
 	
 	config.sifteam.switch_4_3_letterbox = ConfigYesNo(True)
 	config.sifteam.switch_4_3_panscan = ConfigYesNo(True)
@@ -68,12 +49,4 @@ def InitPreferences():
 	config.sifteam.settings.keepbouquets = ConfigText("", False)
 	config.sifteam.settings.currentsettings = ConfigNumber(default = -1)
 	config.sifteam.settings.currentsettingsdate = ConfigText(fixed_size = False)
-	
-def RegPClockCallback(callback):
-	global pclockcb
-	pclockcb.append(callback)
-	
-def CallPClockCallback():
-	global pclockcb
-	for x in pclockcb:
-		x()
+

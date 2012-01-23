@@ -6,28 +6,19 @@ from Components.config import getConfigListEntry, config, ConfigBoolean
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 
-from Extra.Preferences import CallPClockCallback
-
 class Preferences(Screen, ConfigListScreen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		self.list = [
-			getConfigListEntry(_("Infobar type:"), config.sifteam.infobar),
-			getConfigListEntry(_("Show permanent clock:"), config.sifteam.permanentclock),
-			getConfigListEntry(_("Animated picon:"), config.sifteam.animatedpicon),
-			getConfigListEntry(_("Animated provider icon:"), config.sifteam.animatedprovicon),
-			getConfigListEntry(_("Animated sat icon:"), config.sifteam.animatedsaticon),
 			getConfigListEntry(_("Start emulator at:"), config.sifteam.emudelay),
-			getConfigListEntry(_("Automatic updates:"), config.sifteam.autoupdates),
-			getConfigListEntry(_("Automatic crashlog submit:"), config.sifteam.crashlogs),
+			getConfigListEntry(_("Skin developer mode:"), config.sifteam.skindevelopermode),
 			getConfigListEntry(_("Video green switch enable 4:3 letterbox:"), config.sifteam.switch_4_3_letterbox),
 			getConfigListEntry(_("Video green switch enable 4:3 panscan:"), config.sifteam.switch_4_3_panscan),
 			getConfigListEntry(_("Video green switch enable 16:9:"), config.sifteam.switch_16_9),
 			getConfigListEntry(_("Video green switch enable 16:9 always:"), config.sifteam.switch_16_9_always),
 			getConfigListEntry(_("Video green switch enable 16:9 letterbox:"), config.sifteam.switch_16_9_letterbox),
 			getConfigListEntry(_("Video green switch enable 16:10 letterbox:"), config.sifteam.switch_16_10_letterbox),
-			getConfigListEntry(_("Video green switch enable 16:10 panscan:"), config.sifteam.switch_16_10_panscan),
-			getConfigListEntry(_("Skin developer mode:"), config.sifteam.skindevelopermode)
+			getConfigListEntry(_("Video green switch enable 16:10 panscan:"), config.sifteam.switch_16_10_panscan)
 		]
 
 		
@@ -48,6 +39,4 @@ class Preferences(Screen, ConfigListScreen):
 		
 	def ok(self):
 		self.keySave()
-		CallPClockCallback()
-		
 
