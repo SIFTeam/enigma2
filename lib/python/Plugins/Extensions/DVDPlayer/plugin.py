@@ -1,11 +1,20 @@
 from Components.config import config
 from Tools.Directories import pathExists, fileExists
+from Plugins.Plugin import PluginDescriptor
 
 def main(session, **kwargs):
 	from Screens import DVD
 	session.open(DVD.DVDPlayer)
 
-from Plugins.Plugin import PluginDescriptor
+def DVDPlayer(*args, **kwargs):
+	# for backward compatibility with plugins that do "from DVDPlayer.plugin import DVDPlayer"
+	from Screens import DVD
+	return DVD.DVDPlayer(*args, **kwargs)
+
+def DVDOverlay(*args, **kwargs):
+	# for backward compatibility with plugins that do "from DVDPlayer.plugin import DVDOverlay"
+	from Screens import DVD
+	return DVD.DVDOverlay(*args, **kwargs)
 
 def filescan_open(list, session, **kwargs):
 	from Screens import DVD

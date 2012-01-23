@@ -13,3 +13,5 @@ def InitRecordingConfig():
 		("standard", _("standard")),
 		("short", _("Short filenames")),
 		("long", _("Long filenames")) ] )
+	config.recording.record_ecm = ConfigYesNo(default = False)
+	config.recording.descramble = ConfigYesNo(default = True)

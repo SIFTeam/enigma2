@@ -519,13 +519,8 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 				else
 				{
 					/* demux is in use, see if we can share it */
-					if (i->m_demux->getSource() == source)
+					if (source >= 0 && i->m_demux->getSource() == source)
 					{
-						/*
-						 * TODO: when allocating a dvr demux, we cannot share a used demux.
-						 * We should probably always pick a free demux, to start a new pvr playback.
-						 * Each demux is fed by its own dvr device, so each has a different memory source
-						 */
 						demux = new eDVBAllocatedDemux(i);
 						return 0;
 					}
@@ -932,12 +927,13 @@ bool eDVBResourceManager::canMeasureFrontendInputPower()
 class eDVBChannelFilePush: public eFilePushThread
 {
 public:
-	eDVBChannelFilePush():
-		eFilePushThread(IOPRIO_CLASS_BE, 0, 188, 65536), // 64k buffer for playback
+	eDVBChannelFilePush(int packetsize = 188):
+		eFilePushThread(IOPRIO_CLASS_BE, 0, packetsize, 65536), // 64k buffer for playback
 		m_iframe_search(0),
 		m_iframe_state(0),
 		m_pid(0),
-		m_timebase_change(0)
+		m_timebase_change(0),
+		m_packet_size(packetsize)
 	{}
 	void setIFrameSearch(int enabled) { m_iframe_search = enabled; m_iframe_state = 0; }
 
@@ -947,6 +943,7 @@ public:
 protected:
 	int m_iframe_search, m_iframe_state, m_pid;
 	int m_timebase_change;
+	int m_packet_size;
 	int filterRecordData(const unsigned char *data, int len, size_t &current_span_remaining);
 };
 
@@ -1685,6 +1682,12 @@ RESULT eDVBChannel::getDemux(ePtr<iDVBDemux> &demux, int cap)
 {
 	ePtr<eDVBAllocatedDemux> &our_demux = (cap & capDecode) ? m_decoder_demux : m_demux;
 
+	if (m_frontend == NULL)
+	{
+		/* in dvr mode, we have to stick to a single demux (the one connected to our dvr device) */
+		our_demux = m_decoder_demux ? m_decoder_demux : m_demux;
+	}
+
 	if (!our_demux)
 	{
 		demux = 0;
@@ -1802,7 +1805,7 @@ RESULT eDVBChannel::playSource(ePtr<iTsSource> &source, const char *streaminfo_f
 #endif
 	}
 
-	m_pvr_thread = new eDVBChannelFilePush();
+	m_pvr_thread = new eDVBChannelFilePush(source->getPacketSize());
 	m_pvr_thread->enablePVRCommit(1);
 	m_pvr_thread->setStreamMode(1);
 	m_pvr_thread->setScatterGather(this);
@@ -1874,7 +1877,6 @@ RESULT eDVBChannel::getCurrentPosition(iDVBDemux *decoding_demux, pts_t &pos, in
 	r = m_tstools.fixupPTS(off, now);
 	if (r)
 	{
-		eDebug("fixup PTS failed");
 		return -1;
 	}
 

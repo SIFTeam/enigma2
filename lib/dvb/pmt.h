@@ -52,6 +52,7 @@ class eDVBServicePMTHandler: public Object
 
 	int m_last_channel_state;
 	eDVBCAService *m_ca_servicePtr;
+	bool doDescramble;
 	ePtr<eDVBScan> m_dvb_scan; // for sdt scan
 
 	eAUTable<eTable<ProgramMapSection> > m_PMT;
@@ -179,6 +180,7 @@ public:
 		int pcrPid;
 		int pmtPid;
 		int textPid;
+		int aitPid;
 		bool isCrypted() { return !caids.empty(); }
 		PyObject *createPythonObject();
 	};
@@ -197,16 +199,32 @@ public:
 	void sendEventNoPatEntry();
 	void getHBBTVUrl(std::string &ret) { ret = m_HBBTVUrl; }
 
+	enum serviceType
+	{
+		livetv = 0,
+		recording = 1,
+		scrambled_recording = 2,
+		playback = 3,
+		timeshift_recording = 4,
+		scrambled_timeshift_recording = 5,
+		timeshift_playback = 6,
+		streamserver = 7,
+		scrambled_streamserver = 8,
+		streamclient = 9,
+		offline = 10
+	};
+
 	/* deprecated interface */
-	int tune(eServiceReferenceDVB &ref, int use_decode_demux, eCueSheet *sg=0, bool simulate=false, eDVBService *service = 0);
+	int tune(eServiceReferenceDVB &ref, int use_decode_demux, eCueSheet *sg=0, bool simulate=false, eDVBService *service = 0, serviceType type = livetv, bool descramble = true);
 
 	/* new interface */
-	int tuneExt(eServiceReferenceDVB &ref, int use_decode_demux, ePtr<iTsSource> &, const char *streaminfo_file, eCueSheet *sg=0, bool simulate=false, eDVBService *service = 0);
+	int tuneExt(eServiceReferenceDVB &ref, int use_decode_demux, ePtr<iTsSource> &, const char *streaminfo_file, eCueSheet *sg=0, bool simulate=false, eDVBService *service = 0, serviceType type = livetv, bool descramble = true);
 
 	void free();
 private:
 	bool m_have_cached_program;
 	program m_cached_program;
+	serviceType m_service_type;
 #endif
 };
 

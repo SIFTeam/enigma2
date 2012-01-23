@@ -12,6 +12,7 @@
 #include <sys/vfs.h> // for statfs
 // #include <libmd5sum.h>
 #include <lib/base/eerror.h>
+#include <lib/base/encoding.h>
 #include <lib/base/estring.h>
 #include <lib/dvb/pmt.h>
 #include <lib/dvb/db.h>
@@ -92,6 +93,120 @@ eventData::eventData(const eit_event_struct* e, int size, int type)
 					else
 						++it->second.first;
 					*pdescr++=crc;
+					break;
+				}
+				default: // do not cache all other descriptors
+					ptr += descr_len;
+					break;
+			}
+			size -= descr_len;
+		}
+		else
+			break;
+	}
+	ASSERT(pdescr <= &descr[65]);
+	ByteSize = 10+((pdescr-descr)*4);
+	EITdata = new __u8[ByteSize];
+	CacheSize+=ByteSize;
+	memcpy(EITdata, (__u8*) e, 10);
+	memcpy(EITdata+10, descr, ByteSize-10);
+}
+
+eventData::eventData(const eit_event_struct* e, int size, int type, int tsidonid)
+	:ByteSize(size&0xFF), type(type&0xFF)
+{
+	if (!e)
+		return;
+
+	__u32 descr[65];
+	__u32 *pdescr=descr;
+
+	__u8 *data = (__u8*)e;
+	int ptr=12;
+	size -= 12;
+
+	while(size > 1)
+	{
+		__u8 *descr = data+ptr;
+		int descr_len = descr[1];
+		descr_len += 2;
+		if (size >= descr_len)
+		{
+			switch (descr[0])
+			{
+				case EXTENDED_EVENT_DESCRIPTOR:
+				case LINKAGE_DESCRIPTOR:
+				case COMPONENT_DESCRIPTOR:
+				{
+					__u32 crc = 0;
+					int cnt=0;
+					while(cnt++ < descr_len)
+						crc = (crc << 8) ^ crc32_table[((crc >> 24) ^ data[ptr++]) & 0xFF];
+
+					descriptorMap::iterator it = descriptors.find(crc);
+					if ( it == descriptors.end() )
+					{
+						CacheSize+=descr_len;
+						__u8 *d = new __u8[descr_len];
+						memcpy(d, descr, descr_len);
+						descriptors[crc] = descriptorPair(1, d);
+					}
+					else
+						++it->second.first;
+					*pdescr++=crc;
+					break;
+				}
+				case SHORT_EVENT_DESCRIPTOR:
+				{
+					//parse the data out from the short event descriptor
+					//get the country code, which will be used for converting to UTF8
+					std::string cc( (const char*)&descr[2], 3);
+					std::transform(cc.begin(), cc.end(), cc.begin(), tolower);
+					int table = encodingHandler.getCountryCodeDefaultMapping(cc);
+
+					int eventNameLen = descr[5];
+					int eventTextLen = descr[6 + eventNameLen];
+
+					//convert our strings to UTF8
+					std::string eventNameUTF8 = replace_all(replace_all(convertDVBUTF8((const char*)&descr[6], eventNameLen, table, tsidonid), "\n", " "), "\t", " ");
+					std::string textUTF8 = convertDVBUTF8((const char*)&descr[7 + eventNameLen], eventTextLen, table, tsidonid);
+
+					//Rebuild the short event descriptor with UTF-8 strings
+					int eventNameUTF8len = eventNameUTF8.length();
+					int textUTF8len = textUTF8.length();
+					int len = 7 + eventNameUTF8len + textUTF8len; //header, 3 byte cc, 1 byte event name len, 1 byte text len, 1 byte UTF-8 ident for event name, 1 byte UTF-8 ident for text, UTF-8 string lens
+
+					__u8 *d = new __u8[len + 2];
+					d[0] = SHORT_EVENT_DESCRIPTOR;
+					d[1] = len;
+					d[2] = descr[2];
+					d[3] = descr[3];
+					d[4] = descr[4];
+					d[5] = eventNameUTF8len + 1;
+					d[6] = 0x15; //identify event name as UTF-8
+					memcpy(&d[7], eventNameUTF8.c_str(), eventNameUTF8len);
+					d[7 + eventNameUTF8len] = textUTF8len + 1;
+					d[8 + eventNameUTF8len] = 0x15; //identify text as UTF-8
+					memcpy(&d[9 + eventNameUTF8len], textUTF8.c_str(), textUTF8len);
+
+					//Calculate the CRC, based on our new data
+					__u32 crc = 0;
+					int cnt=0;
+					int tmpPtr = 0;
+					len += 2; //add 2 the lenght to include the 2 bytes in the header
+					while(cnt++ < len)
+						crc = (crc << 8) ^ crc32_table[((crc >> 24) ^ d[tmpPtr++]) & 0xFF];
+
+					descriptorMap::iterator it = descriptors.find(crc);
+					if ( it == descriptors.end() )
+					{
+						CacheSize+=len;
+						descriptors[crc] = descriptorPair(1, d);
+					}
+					else
+						++it->second.first;
+					*pdescr++=crc;
+					ptr += descr_len;
 					break;
 				}
 				default: // do not cache all other descriptors
@@ -651,7 +766,7 @@ void eEPGCache::sectionRead(const __u8 *data, int source, channel_data *channel)
 						// exempt memory
 						eventData *tmp = ev_it->second;
 						ev_it->second = tm_it_tmp->second =
-							new eventData(eit_event, eit_event_size, source);
+							new eventData(eit_event, eit_event_size, source, (tsid<<16)|onid);
 						if (FixOverlapping(servicemap, TM, duration, tm_it_tmp, service))
 						{
 							prevEventIt = servicemap.first.end();
@@ -694,7 +809,7 @@ void eEPGCache::sectionRead(const __u8 *data, int source, channel_data *channel)
 					prevEventIt=servicemap.first.end();
 				}
 			}
-			evt = new eventData(eit_event, eit_event_size, source);
+			evt = new eventData(eit_event, eit_event_size, source, (tsid<<16)|onid);
 #ifdef EPG_DEBUG
 			bool consistencyCheck=true;
 #endif
@@ -2080,8 +2195,9 @@ RESULT eEPGCache::getNextTimeEntry(ePtr<eServiceEvent> &result)
 	return -1;
 }
 
-void fillTuple(ePyObject tuple, const char *argstring, int argcount, ePyObject service, eServiceEvent *ptr, ePyObject nowTime, ePyObject service_name )
+void fillTuple(ePyObject tuple, const char *argstring, int argcount, ePyObject service_reference, eServiceEvent *ptr, ePyObject service_name, ePyObject nowTime, eventData *evData )
 {
+	// eDebug("[EPGC] fillTuple arg=%s argcnt=%d, ptr=%d evData=%d", argstring, argcount, ptr ? 1 : 0, evData ? 1 : 0);
 	ePyObject tmp;
 	int spos=0, tpos=0;
 	char c;
@@ -2094,13 +2210,13 @@ void fillTuple(ePyObject tuple, const char *argstring, int argcount, ePyObject s
 				tmp = PyLong_FromLong(0);
 				break;
 			case 'I': // Event Id
-				tmp = ptr ? PyLong_FromLong(ptr->getEventId()) : ePyObject();
+				tmp = evData ? PyLong_FromLong(evData->getEventID()) : (ptr ? PyLong_FromLong(ptr->getEventId()) : ePyObject());
 				break;
 			case 'B': // Event Begin Time
-				tmp = ptr ? PyLong_FromLong(ptr->getBeginTime()) : ePyObject();
+				tmp = ptr ? PyLong_FromLong(ptr->getBeginTime()) : (evData ? PyLong_FromLong(evData->getStartTime()) : ePyObject());
 				break;
 			case 'D': // Event Duration
-				tmp = ptr ? PyLong_FromLong(ptr->getDuration()) : ePyObject();
+				tmp = ptr ? PyLong_FromLong(ptr->getDuration()) : (evData ? PyLong_FromLong(evData->getDuration()) : ePyObject());
 				break;
 			case 'T': // Event Title
 				tmp = ptr ? PyString_FromString(ptr->getEventName().c_str()) : ePyObject();
@@ -2116,7 +2232,7 @@ void fillTuple(ePyObject tuple, const char *argstring, int argcount, ePyObject s
 				inc_refcount = true;
 				break;
 			case 'R': // service reference string
-				tmp = service;
+				tmp = service_reference;
 				inc_refcount = true;
 				break;
 			case 'n': // short service name
@@ -2146,7 +2262,7 @@ int handleEvent(eServiceEvent *ptr, ePyObject dest_list, const char* argstring, 
 {
 	if (convertFunc)
 	{
-		fillTuple(convertFuncArgs, argstring, argcount, service, ptr, nowTime, service_name);
+		fillTuple(convertFuncArgs, argstring, argcount, service, ptr, service_name, nowTime, 0);
 		ePyObject result = PyObject_CallObject(convertFunc, convertFuncArgs);
 		if (!result)
 		{
@@ -2167,7 +2283,7 @@ int handleEvent(eServiceEvent *ptr, ePyObject dest_list, const char* argstring, 
 	else
 	{
 		ePyObject tuple = PyTuple_New(argcount);
-		fillTuple(tuple, argstring, argcount, service, ptr, nowTime, service_name);
+		fillTuple(tuple, argstring, argcount, service, ptr, service_name, nowTime, 0);
 		PyList_Append(dest_list, tuple);
 		Py_DECREF(tuple);
 	}
@@ -2425,66 +2541,6 @@ skip_entry:
 	if (nowTime)
 		Py_DECREF(nowTime);
 	return dest_list;
-}
-
-void fillTuple2(ePyObject tuple, const char *argstring, int argcount, eventData *evData, eServiceEvent *ptr, ePyObject service_name, ePyObject service_reference)
-{
-	ePyObject tmp;
-	int pos=0;
-	while(pos < argcount)
-	{
-		bool inc_refcount=false;
-		switch(argstring[pos])
-		{
-			case '0': // PyLong 0
-				tmp = PyLong_FromLong(0);
-				break;
-			case 'I': // Event Id
-				tmp = PyLong_FromLong(evData->getEventID());
-				break;
-			case 'B': // Event Begin Time
-				if (ptr)
-					tmp = ptr ? PyLong_FromLong(ptr->getBeginTime()) : ePyObject();
-				else
-					tmp = PyLong_FromLong(evData->getStartTime());
-				break;
-			case 'D': // Event Duration
-				if (ptr)
-					tmp = ptr ? PyLong_FromLong(ptr->getDuration()) : ePyObject();
-				else
-					tmp = PyLong_FromLong(evData->getDuration());
-				break;
-			case 'T': // Event Title
-				tmp = ptr ? PyString_FromString(ptr->getEventName().c_str()) : ePyObject();
-				break;
-			case 'S': // Event Short Description
-				tmp = ptr ? PyString_FromString(ptr->getShortDescription().c_str()) : ePyObject();
-				break;
-			case 'E': // Event Extended Description
-				tmp = ptr ? PyString_FromString(ptr->getExtendedDescription().c_str()) : ePyObject();
-				break;
-			case 'R': // service reference string
-				tmp = service_reference;
-				inc_refcount = true;
-				break;
-			case 'n': // short service name
-			case 'N': // service name
-				tmp = service_name;
-				inc_refcount = true;
-				break;
-			default:  // ignore unknown
-				tmp = ePyObject();
-				eDebug("fillTuple2 unknown '%c'... insert None in Result", argstring[pos]);
-		}
-		if (!tmp)
-		{
-			tmp = Py_None;
-			inc_refcount = true;
-		}
-		if (inc_refcount)
-			Py_INCREF(tmp);
-		PyTuple_SET_ITEM(tuple, pos++, tmp);
-	}
 }
 
 static void fill_eit_start(eit_event_struct *evt, time_t t)
@@ -3123,7 +3179,8 @@ PyObject *eEPGCache::search(ePyObject arg)
 						// create tuple
 							ePyObject tuple = PyTuple_New(argcount);
 						// fill tuple
-							fillTuple2(tuple, argstring, argcount, evit->second, ev_data ? &ptr : 0, service_name, service_reference);
+							ePyObject tmp = ePyObject();
+							fillTuple(tuple, argstring, argcount, service_reference, ev_data ? &ptr : 0, service_name, tmp, evit->second);
 							PyList_Append(ret, tuple);
 							Py_DECREF(tuple);
 							if (service_name)
