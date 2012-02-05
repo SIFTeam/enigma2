@@ -48,6 +48,7 @@
 			<item level="2" text="Enable freesat EPG">config.epg.freesat</item>
 			<item level="2" text="Enable ViaSat EPG">config.epg.viasat</item>
 			<item level="2" text="Enable Netmed EPG">config.epg.netmed</item>
+			<item level="2" text="Maintain old EPG data for">config.epg.histminutes</item>
 			<item level="2" text="Show background in Radio Mode">config.misc.showradiopic</item>
 			<item level="2" text="Create more detailed crash log">config.crash.details</item>
 			<item level="2" text="Include EIT in http streams">config.streaming.stream_eit</item>
@@ -117,7 +118,6 @@
 			<item level="1" text="Remove items from trash after (days)">config.usage.movielist_trashcan_days</item>
 			<item level="1" text="Disk space to reserve for recordings (in GB)">config.usage.movielist_trashcan_reserve</item>
 			<item level="2" text="Recording data sync size">config.misc.flush_size</item>
-			<item level="2" text="Recording demux buffer size">config.misc.demux_size</item>
 			<item level="2" text="Background delete option">config.misc.erase_flags</item>
 			<item level="2" text="Background delete speed">config.misc.erase_speed</item>
 			<item level="2" text="Record ECM">config.recording.record_ecm</item>

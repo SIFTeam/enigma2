@@ -1,5 +1,5 @@
 from Components.Harddisk import harddiskmanager
-from config import ConfigSubsection, ConfigYesNo, config, ConfigSelection, ConfigText, ConfigNumber, ConfigSet, ConfigLocations
+from config import ConfigSubsection, ConfigYesNo, config, ConfigSelection, ConfigText, ConfigNumber, ConfigSet, ConfigLocations, ConfigSelectionNumber
 from Tools.Directories import resolveFilename, SCOPE_HDD
 from enigma import setTunerTypePriorityOrder, setPreferredTuner, setSpinnerOnOff, setEnableTtCachingOnOff;
 from enigma import Misc_Options, eEnv;
@@ -155,6 +155,12 @@ def InitUsageConfig():
 	config.epg.viasat.addNotifier(EpgSettingsChanged)
 	config.epg.netmed.addNotifier(EpgSettingsChanged)
 
+	config.epg.histminutes = ConfigSelectionNumber(min = 0, max = 120, stepwidth = 15, default = 0, wraparound = True)
+	def EpgHistorySecondsChanged(configElement):
+		from enigma import eEPGCache
+		eEPGCache.getInstance().setEpgHistorySeconds(config.epg.histminutes.getValue()*60)
+	config.epg.histminutes.addNotifier(EpgHistorySecondsChanged)
+
 	def setHDDStandby(configElement):
 		for hdd in harddiskmanager.HDDList():
 			hdd[1].setIdleTime(int(configElement.value))
@@ -210,9 +216,6 @@ def InitUsageConfig():
 	def updateFlushSize(el):
 		enigma.setFlushSize(int(el.value))
 		print "[SETTING] getFlushSize=", enigma.getFlushSize()
-	def updateDemuxSize(el):
-		enigma.setDemuxSize(int(el.value))
-		print "[SETTING] getDemuxSize=", enigma.getDemuxSize()
 	config.misc.flush_size = ConfigSelection(default = "0", choices = [
 		("0", "Off"),
 		("524288", "512kB"),
@@ -220,12 +223,6 @@ def InitUsageConfig():
 		("2097152", "2 MB"),
 		("4194304", "4 MB")])
 	config.misc.flush_size.addNotifier(updateFlushSize, immediate_feedback = False)
-	config.misc.demux_size = ConfigSelection(default = "1540096", choices = [
-		("770048", "Small 0.7 MB"),
-		("962560", "Normal 1 MB"),
-		("1540096", "Large 1.5MB"),
-		("1925120", "Huge 2 MB")])
-	config.misc.demux_size.addNotifier(updateDemuxSize, immediate_feedback = False)
 	
 	def updateEraseSpeed(el):
 		enigma.eBackgroundFileEraser.getInstance().setEraseSpeed(int(el.value))
@@ -310,7 +307,7 @@ def InitUsageConfig():
 	config.autolanguage = ConfigSubsection()
 	audio_language_choices=[	
 		("---", "None"),
-		("orj dos ory org esl qaa und mis mul ORY", "Original"),
+		("orj dos ory org esl qaa und mis mul ORY ORJ", "Original"),
 		("ara", "Arabic"),
 		("eus baq", "Basque"),
 		("bul", "Bulgarian"), 
