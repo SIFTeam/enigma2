@@ -52,7 +52,7 @@ class SMScreenshot(Screen):
 			sc = AVSwitch().getFramebufferScale()
 			self.picload.setPara((self["screenshot"].instance.size().width(), self["screenshot"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 			self.picload.startDecode(localfile)
-		except ex:
+		except Exception, ex:
 			print ex
 			
 	def paintScreenshotPixmapCB(self, picInfo=None):
