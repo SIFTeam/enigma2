@@ -298,7 +298,7 @@ class UsbDevices(Screen):
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 				{
 					"red": self.install,
-					"cancel": self.close
+					"cancel": self.quit
 				}, -2)
 	
 		devprobe = UsbDevicesProbe(session)
