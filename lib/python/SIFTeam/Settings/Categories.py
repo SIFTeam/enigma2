@@ -48,7 +48,7 @@ class STCategories(Screen):
 		
 		self.renderList()
 		
-	def renderList(self):
+	def renderList(self, trash=None):
 		self.cachelist = []
 		self.cachelist.append(CategoryEntry(_("Options"), "", "config.png"))
 		if config.sifteam.settings.keepterrestrial.value:
