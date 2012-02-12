@@ -16,7 +16,7 @@ from Plugins.Plugin import PluginDescriptor
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_SKIN_IMAGE
 from Tools.LoadPixmap import LoadPixmap
 
-#from SIFTeam.Addons import Addons
+from SIFTeam.SoftwareManagerHelper import SMScreenHelper
 
 from time import time
 import os
@@ -51,8 +51,8 @@ class PluginBrowser(Screen):
 
 		#self.firsttime = True
 
-		self["red"] = Label(_("Remove Plugins"))
-		self["green"] = Label(_("Download Plugins"))
+		self["red"] = Label("")
+		self["green"] = Label(_("Software Manager"))
 		
 		self.list = []
 		self["list"] = PluginList(self.list)
@@ -64,8 +64,7 @@ class PluginBrowser(Screen):
 		})
 		self["PluginDownloadActions"] = ActionMap(["ColorActions"],
 		{
-			"red": self.delete,
-			"green": self.download
+			"green": self.softwaremanager
 		})
 
 		self.onFirstExecBegin.append(self.checkWarnings)
@@ -114,18 +113,8 @@ class PluginBrowser(Screen):
 		self.list = [PluginEntryComponent(plugin) for plugin in self.pluginlist]
 		self["list"].l.setList(self.list)
 
-	def delete(self):
-		pass
-		#addons = Addons(self.session)
-		#addons.goToShortcut("plugins_remove", self.PluginDownloadBrowserClosed)
-		#self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.REMOVE)
-	
-	def download(self):
-		pass
-		#addons = Addons(self.session)
-		#addons.goToShortcut("plugins_install", self.PluginDownloadBrowserClosed)
-		#self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.DOWNLOAD, self.firsttime)
-		#self.firsttime = False
+	def softwaremanager(self):
+		self.session.open(SMScreenHelper)
 
 	def PluginDownloadBrowserClosed(self):
 		self.updateList()
