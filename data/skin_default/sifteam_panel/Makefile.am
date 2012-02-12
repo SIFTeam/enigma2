@@ -70,5 +70,8 @@ dist_install_DATA = \
 	lcnscanner.png \
 	reboot.png \
 	software_manager.png \
-	hardisk_selection.png
+	hardisk_selection.png \
+	bouquets.png \
+	softwaremanager.png \
+	video_enhancement_settings.png
 
