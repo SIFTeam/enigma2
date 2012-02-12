@@ -139,13 +139,13 @@ class SMStack(object):
 			
 	def rebootCallback(self, ret):
 		if ret == 0:
-			self.session.open(TryQuitMainloop, 3)
+			self.session.open(TryQuitMainloop, 2)
 		
 	def processComplete(self):
 		for item in self.stack:
 			if item["cmd"] == self.UPGRADE or item["cmd"] == self.INSTALL_WITH_REBOOT:
 				if item["package"] == "auto":
-					self.session.open(TryQuitMainloop, 3)
+					self.session.open(TryQuitMainloop, 2)
 					return
 					
 				self.session.openWithCallback(self.rebootCallback, ExtraMessageBox, "", _("A reboot is required"),
