@@ -216,6 +216,25 @@ class SAPCL(object):
 				"devices": []
 			}
 			
+	def getUsbFirmwares(self, drivername):
+		args = {
+			"driver_name": drivername
+		}
+		
+		try:
+			buff = self.request("/usb_firmwares.xml", args)
+			return {
+				"result": True,
+				"message": "",
+				"firmwares": self.xmlToGenericList(buff, "usb-firmware")
+			}
+		except Exception, e:
+			return {
+				"result": False,
+				"message": str(e),
+				"firmwares": []
+			}
+			
 	def getChannelsSettings(self):
 		args = {}
 		

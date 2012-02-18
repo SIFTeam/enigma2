@@ -129,10 +129,13 @@ class UsbDeviceAutoInstall:
 		
 	def msgboxCb(self, result):
 		if result == 0:
-			self.device.setStatus(3)	# mark as installed
-			if not fileExists("/usr/lib/opkg/info/v4l-dvb-firmware.control"):
-				smstack.add(SMStack.INSTALL, "v4l-dvb-firmware")
+			api = SAPCL()
+			firmwares = api.getUsbFirmwares(self.device.getPackage())
+			for firmware in firmwares["firmwares"]:
+				if not fileExists("/usr/lib/opkg/info/%s.control" % firmware["firmware-name"]):
+					smstack.add(SMStack.INSTALL, firmware["firmware-name"])
 			smstack.add(SMStack.INSTALL_WITH_REBOOT, self.device.getPackage())
+			self.device.setStatus(3)	# mark as installed
 			
 			# if necessary open usbdevices view
 			found = False
@@ -325,8 +328,11 @@ class UsbDevices(Screen):
 			smstack.add(SMStack.REMOVE, self.devices[index].getPackage())
 			self.devices[index].setStatus(2)
 		else:
-			if not fileExists("/usr/lib/opkg/info/v4l-dvb-firmware.control"):
-				smstack.add(SMStack.INSTALL, "v4l-dvb-firmware")
+			api = SAPCL()
+			firmwares = api.getUsbFirmwares(self.devices[index].getPackage())
+			for firmware in firmwares["firmwares"]:
+				if not fileExists("/usr/lib/opkg/info/%s.control" % firmware["firmware-name"]):
+					smstack.add(SMStack.INSTALL, firmware["firmware-name"])
 			smstack.add(SMStack.INSTALL_WITH_REBOOT, self.devices[index].getPackage())
 			self.devices[index].setStatus(3)
 			
