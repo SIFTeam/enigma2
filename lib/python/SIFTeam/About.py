@@ -11,6 +11,7 @@ class AboutTeam(Screen):
 		abouttxt = """Skaman (developer & coder)
 Ukiller_Bestia (web master and server maintainer)
 Genge (manager)
+Daconi (skinner)
 Ipbox2008 (coder)
 Dr_Gogeta86(fuzzy coder)
 Morpheus883(Settings Master Chief)
