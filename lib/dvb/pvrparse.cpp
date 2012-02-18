@@ -14,7 +14,8 @@ eMPEGStreamInformation::eMPEGStreamInformation():
 	m_cache_index(-1),
 	m_current_entry(-1),
 	m_structure_cache_entries(0),
-	m_structure_file_entries(0)
+	m_structure_file_entries(0),
+	m_streamtime_accesspoints(false)
 {
 }
 
@@ -51,15 +52,14 @@ int eMPEGStreamInformation::load(const char *filename)
 		unsigned long long d[2];
 		if (fread(d, sizeof(d), 1, f) < 1)
 			break;
-		
-#if BYTE_ORDER == LITTLE_ENDIAN
-		d[0] = bswap_64(d[0]);
-		d[1] = bswap_64(d[1]);
-#endif
+		d[0] = be64toh(d[0]);
+		d[1] = be64toh(d[1]);
 		m_access_points[d[0]] = d[1];
 		m_pts_to_offset.insert(std::pair<pts_t,off_t>(d[1], d[0]));
 	}
 	fclose(f);
+	/* assume the accesspoints are in streamtime, if they start with a 0 timestamp */
+	m_streamtime_accesspoints = (!m_access_points.empty() && m_access_points.begin()->second == 0);
 	fixupDiscontinuties();
 	return 0;
 }
@@ -119,6 +119,16 @@ pts_t eMPEGStreamInformation::getDelta(off_t offset)
 int eMPEGStreamInformation::fixupPTS(const off_t &offset, pts_t &ts)
 {
 	//eDebug("eMPEGStreamInformation::fixupPTS(offset=%llu pts=%llu)", offset, ts);
+	if (m_streamtime_accesspoints)
+	{
+		/*
+		 * The access points are measured in stream time, rather than actual mpeg pts.
+		 * Overrule the timestamp with the nearest access point pts. 
+		 */
+		off_t nearestoffset = offset;
+		getPTS(nearestoffset, ts);
+		return 0;
+	}
 	if (m_timestamp_deltas.empty())
 		return -1;
 
@@ -277,13 +287,9 @@ int eMPEGStreamInformation::getNextAccessPoint(pts_t &ts, const pts_t &start, in
 	return 0;
 }
 
-#if BYTE_ORDER != BIG_ENDIAN
-#	define structureCacheOffset(i) ((off_t)bswap_64(m_structure_cache[(i)*2]))
-#	define structureCacheData(i) ((off_t)bswap_64(m_structure_cache[(i)*2+1]))
-#else
-#	define structureCacheOffset(i) ((off_t)m_structure_cache[(i)*2])
-#	define structureCacheData(i) ((off_t)m_structure_cache[(i)*2+1])
-#endif
+#define structureCacheOffset(i) ((off_t)be64toh(m_structure_cache[(i)*2]))
+#define structureCacheData(i) ((off_t)be64toh(m_structure_cache[(i)*2+1]))
+
 static const int entry_size = 16;
 
 int eMPEGStreamInformation::moveCache(int index)
@@ -365,9 +371,7 @@ int eMPEGStreamInformation::getStructureEntryFirst(off_t &offset, unsigned long 
 				eDebug("read error at entry %d", i+step);
 				return -1;
 			}
-#if BYTE_ORDER != BIG_ENDIAN
-			d = bswap_64(d);
-#endif
+			d = be64toh(d);
 			if (d < (unsigned long long)offset)
 			{
 				i += step + 1;
@@ -559,16 +563,18 @@ int eMPEGStreamInformationWriter::stopSave(void)
 	if (!f)
 		return -1;
 
+	for (std::deque<AccessPoint>::const_iterator i(m_streamtime_access_points.begin()); i != m_streamtime_access_points.end(); ++i)
+	{
+		unsigned long long d[2];
+		d[0] = htobe64(i->off);
+		d[1] = htobe64(i->pts);
+		fwrite(d, sizeof(d), 1, f);
+	}
 	for (std::deque<AccessPoint>::const_iterator i(m_access_points.begin()); i != m_access_points.end(); ++i)
 	{
 		unsigned long long d[2];
-#if BYTE_ORDER == BIG_ENDIAN
-		d[0] = i->off;
-		d[1] = i->pts;
-#else
-		d[0] = bswap_64(i->off);
-		d[1] = bswap_64(i->pts);
-#endif
+		d[0] = htobe64(i->off);
+		d[1] = htobe64(i->pts);
 		fwrite(d, sizeof(d), 1, f);
 	}
 	fclose(f);
@@ -576,19 +582,30 @@ int eMPEGStreamInformationWriter::stopSave(void)
 	return 0;
 }
 
+void eMPEGStreamInformationWriter::addAccessPoint(off_t offset, pts_t pts, bool streamtime)
+{
+	if (streamtime)
+	{
+		m_streamtime_access_points.push_back(AccessPoint(offset, pts));
+	}
+	else
+	{
+		/* 
+		 * We've got real pts now, drop the leading 'extrapolated' accesspoints,
+		 * avoid unnecessary pts discontinuity 
+		 */
+		m_streamtime_access_points.clear();
+		m_access_points.push_back(AccessPoint(offset, pts));
+	}
+}
 
 void eMPEGStreamInformationWriter::writeStructureEntry(off_t offset, unsigned long long data)
 {
 	if (m_structure_write_fd >= 0)
 	{
 		unsigned long long *d = (unsigned long long*)((char*)m_write_buffer + m_buffer_filled);
-#if BYTE_ORDER == BIG_ENDIAN
-		d[0] = offset;
-		d[1] = data;
-#else
-		d[0] = bswap_64(offset);
-		d[1] = bswap_64(data);
-#endif
+		d[0] = htobe64(offset);
+		d[1] = htobe64(data);
 		m_buffer_filled += 16;
 		if (m_buffer_filled == PAGESIZE)
 			flush();
@@ -629,6 +646,8 @@ eMPEGStreamParserTS::eMPEGStreamParserTS(int packetsize):
 	m_need_next_packet(0),
 	m_skip(0),
 	m_last_pts_valid(0),
+	m_last_pts(0),
+	m_pts_found(false),
 	m_packetsize(packetsize),
 	m_header_offset(packetsize - 188)
 {
@@ -636,15 +655,42 @@ eMPEGStreamParserTS::eMPEGStreamParserTS(int packetsize):
 
 int eMPEGStreamParserTS::processPacket(const unsigned char *pkt, off_t offset)
 {
+	if (!m_last_pts_valid)
+	{
+		/* initial stream time access point: 0,0 */
+		m_last_pts = 0;
+		m_last_pts_valid = 1;
+		addAccessPoint(offset, m_last_pts, !m_pts_found);
+	}
 	if (!wantPacket(pkt))
 		eWarning("something's wrong.");
 
 	pkt += m_header_offset;
 
 	if (!(pkt[3] & 0x10)) return 0; /* do not process packets without payload */
-	if (pkt[3] & 0xc0) return 0; /* do not process scrambled packets */
 
 	bool pusi = (pkt[1] & 0x40) != 0;
+
+	if (pkt[3] & 0xc0) 
+	{
+		/* scrambled stream, we cannot parse pts, extrapolate with measured stream time instead */
+		if (pusi)
+		{
+			timespec now, diff;
+			clock_gettime(CLOCK_MONOTONIC, &now);
+			diff = now - m_last_access_point;
+			/* limit the number of extrapolated access points to one per second */
+			if (diff.tv_sec)
+			{
+				m_last_pts += diff.tv_sec * 90000L;
+				m_last_pts += diff.tv_nsec / 11111L;
+				m_last_pts_valid = 1;
+				addAccessPoint(offset, m_last_pts, now, !m_pts_found);
+			}
+		}
+		return 0;
+	}
+
 	const unsigned char *end = pkt + 188;
 	const unsigned char *begin = pkt;
 
@@ -682,6 +728,7 @@ int eMPEGStreamParserTS::processPacket(const unsigned char *pkt, off_t offset)
 			
 			m_last_pts = pts;
 			m_last_pts_valid = 1;
+			m_pts_found = true;
 		}
 		
 			/* advance to payload */
@@ -882,6 +929,19 @@ void eMPEGStreamParserTS::parseData(off_t offset, const void *data, unsigned int
 			len = 0;
 		}
 	}
+}
+
+void eMPEGStreamParserTS::addAccessPoint(off_t offset, pts_t pts, bool streamtime)
+{
+	timespec now;
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	addAccessPoint(offset, pts, now, streamtime);
+}
+
+void eMPEGStreamParserTS::addAccessPoint(off_t offset, pts_t pts, timespec &now, bool streamtime)
+{
+	eMPEGStreamInformationWriter::addAccessPoint(offset, pts, streamtime);
+	m_last_access_point = now;
 }
 
 void eMPEGStreamParserTS::setPid(int _pid, int type)

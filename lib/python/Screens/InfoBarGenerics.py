@@ -190,10 +190,20 @@ class InfoBarShowHide:
 		self.onShow.append(self.__onShow)
 		self.onHide.append(self.__onHide)
 
+		self.onShowHideNotifiers = []
+
 		self.secondInfoBarScreen = "" 
 		if ".InfoBar'>" in str(self):
 			self.secondInfoBarScreen = self.session.instantiateDialog(SecondInfoBar)
 			self.secondInfoBarScreen.hide()
+
+	def connectShowHideNotifier(self, fnc):
+		if not fnc in self.onShowHideNotifiers:
+			self.onShowHideNotifiers.append(fnc)
+
+	def disconnectShowHideNotifier(self, fnc):
+		if fnc in self.onShowHideNotifiers:
+				self.onShowHideNotifiers.remove(fnc)
 
 	def serviceStarted(self):
 		if self.execing:
@@ -202,6 +212,8 @@ class InfoBarShowHide:
 
 	def __onShow(self):
 		self.__state = self.STATE_SHOWN
+		for x in self.onShowHideNotifiers:
+			x(True)
 		self.startHideTimer()
 
 	def startHideTimer(self):
@@ -218,6 +230,8 @@ class InfoBarShowHide:
 		self.__state = self.STATE_HIDDEN
 		if self.secondInfoBarScreen:
 			self.secondInfoBarScreen.hide()
+		for x in self.onShowHideNotifiers:
+			x(False)
 
 	def doShow(self):
 		self.show()

@@ -41,6 +41,7 @@ static void signal_handler(int x)
 
 void eFilePushThread::thread()
 {
+	int eofcount = 0;
 	setIoPrio(prio_class, prio);
 
 	size_t bytes_read = 0;
@@ -205,9 +206,16 @@ void eFilePushThread::thread()
 				sleep(1);
 				continue;
 			}
+			else if (++eofcount < 10)
+			{
+				eDebug("reached EOF, but the file may grow. delaying 1 second.");
+				sleep(1);
+				continue;
+			}
 			break;
 		} else
 		{
+			eofcount = 0;
 			m_current_position += m_buf_end;
 			bytes_read += m_buf_end;
 			if (m_sg)
@@ -215,6 +223,7 @@ void eFilePushThread::thread()
 		}
 //		printf("FILEPUSH: read %d bytes\n", m_buf_end);
 	}
+	sendEvent(evtStopped);
 	eDebug("FILEPUSH THREAD STOP");
 }
 
@@ -368,8 +377,7 @@ void eFilePushThreadRecorder::thread()
 #ifdef SHOW_WRITE_TIME
 		gettimeofday(&now, NULL);
 		suseconds_t diff = (1000000 * (now.tv_sec - starttime.tv_sec)) + now.tv_usec - starttime.tv_usec;
-		if (diff > 10000)
-			eDebug("[eFilePushThreadRecorder] write %d bytes time: %9u us", bytes, (unsigned int)diff);
+		eDebug("[eFilePushThreadRecorder] write %d bytes time: %9u us", bytes, (unsigned int)diff);
 #endif
 		if (w < 0)
 		{
@@ -378,6 +386,7 @@ void eFilePushThreadRecorder::thread()
 			break;
 		}
 	}
+	sendEvent(evtStopped);
 	eDebug("[eFilePushThreadRecorder] THREAD STOP");
 }
 
