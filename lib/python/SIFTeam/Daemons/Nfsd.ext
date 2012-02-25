@@ -1,7 +1,7 @@
 def NFSDStatus():
 	import os
 	ret = False
-	pids = os.popen("ps aux | grep nfsd | grep -v grep | wc -l")
+	pids = os.popen("ps w | grep nfsd | grep -v grep | wc -l")
 	try:
 		count = int(pids.read())
 		if count > 0:

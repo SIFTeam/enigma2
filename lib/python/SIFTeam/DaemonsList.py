@@ -7,6 +7,8 @@ from Tools.LoadPixmap import LoadPixmap
 from Components.Button import Button
 
 from Extra.ExtraActionBox import ExtraActionBox
+from SoftwareManager.Status import SMStatus
+from SoftwareManager.Stack import SMStack, smstack
 
 import os
 import sys
@@ -119,12 +121,11 @@ class DaemonsList(Screen):
 				self.session.open(self.daemons[index][6])
 
 	def green(self):
-		pass
-		#addons = Addons(self.session)
-		#index = self["menu"].getIndex()
-		#if not self.installed[index]:
-		#	if self.daemons[index][9]:
-		#		addons.install(self.daemons[index][9], self.drawList)
+		index = self["menu"].getIndex()
+		if not self.installed[index]:
+			if self.daemons[index][9]:
+				smstack.add(SMStack.INSTALL, self.daemons[index][9])
+				self.session.openWithCallback(self.drawList, SMStatus)
 			
 	def red(self):
 		if len(self.daemons) > 0:

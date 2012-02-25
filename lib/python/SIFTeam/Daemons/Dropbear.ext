@@ -1,7 +1,7 @@
 def DropbearStatus():
 	import os
 	ret = False
-	pids = os.popen("ps aux | grep dropbear | grep -v grep | wc -l")
+	pids = os.popen("ps w | grep dropbear | grep -v grep | wc -l")
 	try:
 		count = int(pids.read())
 		if count > 0:
@@ -46,7 +46,7 @@ def DropBearBoot(enabled):
 daemon_name = "DropBear"
 daemon_description = "SSH server"
 daemon_icon = "dropbear.png"
-daemon_package = None
+daemon_package = "dropbear"
 daemon_fnc_status = DropbearStatus
 daemon_fnc_installed = DropBearInstalled
 daemon_fnc_stop = DropbearStop

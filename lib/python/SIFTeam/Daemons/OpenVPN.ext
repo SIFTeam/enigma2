@@ -1,7 +1,7 @@
 def OpenVPNStatus():
 	import os
 	ret = False
-	pids = os.popen("ps aux | grep openvpn | grep -v grep | wc -l")
+	pids = os.popen("ps w | grep openvpn | grep -v grep | wc -l")
 	try:
 		count = int(pids.read())
 		if count > 0:
