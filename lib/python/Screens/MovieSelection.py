@@ -1,4 +1,4 @@
-﻿from Screen import Screen
+from Screen import Screen
 from Components.Button import Button
 from Components.ActionMap import HelpableActionMap, ActionMap
 from Components.MenuList import MenuList
@@ -56,11 +56,11 @@ preferredTagEditor = None
 
 # this kludge is needed because ConfigSelection only takes numbers
 # and someone appears to be fascinated by 'enums'.
-l_moviesort = [(str(MovieList.SORT_RECORDED), _("sort by date"), '01/02/03'),
-	(str(MovieList.SORT_ALPHANUMERIC), _("alphabetic sort"), 'AA-ZZ'),
+l_moviesort = [(str(MovieList.SORT_RECORDED), _("sort by date"), '03/02/01'),
+	(str(MovieList.SORT_ALPHANUMERIC), _("alphabetic sort"), 'A-Z'),
 	(str(MovieList.SHUFFLE), _("shuffle"), '?'),
-	(str(MovieList.SORT_RECORDED_REVERSE), _("reverse by date"), '03/02/01'),
-	(str(MovieList.SORT_ALPHANUMERIC_REVERSE), _("alphabetic reverse"), 'ZZ-AA')]
+	(str(MovieList.SORT_RECORDED_REVERSE), _("reverse by date"), '01/02/03'),
+	(str(MovieList.SORT_ALPHANUMERIC_REVERSE), _("alphabetic reverse"), 'Z-A')]
 l_listtype = [(str(MovieList.LISTTYPE_ORIGINAL), _("list style default")),
 	(str(MovieList.LISTTYPE_COMPACT_DESCRIPTION), _("list style compact with description")),
 	(str(MovieList.LISTTYPE_COMPACT), _("list style compact")),
@@ -640,7 +640,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
 
 	def can_delete(self, item):
-		return canDelete(item)
+		return canDelete(item) or isTrashFolder(item[0])
 	def can_move(self, item):
 		return canMove(item)
 	def can_default(self, item):
@@ -685,7 +685,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 		# ouch. this should redraw our "Please wait..."-text.
 		# this is of course not the right way to do this.
 			self.delayTimer.start(10, 1)
-			self.inited=True
+			self.inited = True
 
 	def saveListsize(self):
 			listsize = self["list"].instance.size()
@@ -696,7 +696,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 	def updateHDDData(self):
 		self.delayTimer = None
  		self.reloadList(self.selectedmovie, home=True)
-		self["waitingtext"].visible = False
 
 	def moveTo(self):
 		self["list"].moveTo(self.selectedmovie)
@@ -982,6 +981,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 		self.current_ref.setName('8192:jpg 8192:png 8192:gif 8192:bmp')
 
 	def reloadList(self, sel = None, home = False):
+		self["waitingtext"].visible = True
 		if not os.path.isdir(config.movielist.last_videodir.value):
 			path = defaultMoviePath()
 			config.movielist.last_videodir.value = path
@@ -1004,6 +1004,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			if home:
 				self["list"].moveToFirstMovie()
 		self["freeDiskSpace"].update()
+		self["waitingtext"].visible = False
 
 	def doPathSelect(self):
 		self.session.openWithCallback(

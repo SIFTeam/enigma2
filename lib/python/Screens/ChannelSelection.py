@@ -810,6 +810,7 @@ class ChannelSelectionBase(Screen):
 				"9": self.keyNumberGlobal,
 				"0": self.keyNumber0
 			})
+		self.setTitle(_("Channel Selection"))
 		self.recallBouquetMode()
 
 	def setTitle(self, title):
@@ -905,6 +906,8 @@ class ChannelSelectionBase(Screen):
 
 	def getServiceName(self, ref):
 		str = self.removeModeStr(ServiceReference(ref).getServiceName())
+		if 'User - bouquets' in str:
+			return _("User - bouquets")
 		if not str:
 			pathstr = ref.getPath()
 			if 'FROM PROVIDERS' in pathstr:
@@ -930,7 +933,7 @@ class ChannelSelectionBase(Screen):
 				else:
 					end_ref = None
 				nameStr = self.getServiceName(base_ref)
-				titleStr += ' ' + nameStr
+				titleStr += ' - ' + nameStr
 				if end_ref is not None:
 					if Len > 2:
 						titleStr += '/../'
@@ -985,6 +988,7 @@ class ChannelSelectionBase(Screen):
 				if currentRoot is None or currentRoot != ref:
 					self.clearPath()
 					self.enterPath(ref)
+					self.setCurrentSelection(self.session.nav.getCurrentlyPlayingServiceReference())
 
 	def showSatellites(self):
 		if not self.pathChangeDisabled:
@@ -1053,6 +1057,12 @@ class ChannelSelectionBase(Screen):
 						self.servicelist.finishFill()
 						if prev is not None:
 							self.setCurrentSelection(prev)
+						elif cur_ref:
+							refstr = cur_ref.toString()
+							op = "".join(refstr.split(':', 10)[6:7])
+							hop = int(op[:-4],16)
+							refstr = '1:7:0:0:0:0:%s:0:0:0:(satellitePosition == %s) && %s ORDER BY name'%(op,hop,self.service_types[self.service_types.rfind(':')+1:])
+							self.setCurrentSelection(eServiceReference(refstr))
 
 	def showProviders(self):
 		if not self.pathChangeDisabled:
@@ -1066,6 +1076,13 @@ class ChannelSelectionBase(Screen):
 					if currentRoot is None or currentRoot != ref:
 						self.clearPath()
 						self.enterPath(ref)
+						service = self.session.nav.getCurrentService()
+						if service:
+							info = service.info()
+							if info:
+								provider = info.getInfoString(iServiceInformation.sProvider)
+								refstr = '1:7:0:0:0:0:0:0:0:0:(provider == \"%s\") && %s ORDER BY name:%s'%(provider,self.service_types[self.service_types.rfind(':')+1:],provider)
+								self.setCurrentSelection(eServiceReference(refstr))
 
 	def changeBouquet(self, direction):
 		if not self.pathChangeDisabled:
@@ -1181,6 +1198,19 @@ class ChannelSelectionBase(Screen):
 
 	def prevMarker(self):
 		self.servicelist.moveToPrevMarker()
+
+	def gotoCurrentServiceOrProvider(self, ref):
+		if ref.toString().find(_("Providers")) != -1:
+			service = self.session.nav.getCurrentService()
+			if service:
+				info = service.info()
+				if info:
+					provider = info.getInfoString(iServiceInformation.sProvider)
+					op = int("".join(self.session.nav.getCurrentlyPlayingServiceReference().toString().split(':', 10)[6:7])[:-4],16)
+					refstr = '1:7:0:0:0:0:0:0:0:0:(provider == \"%s\") && (satellitePosition == %s) && %s ORDER BY name:%s'%(provider,op,self.service_types[self.service_types.rfind(':')+1:],provider)
+					self.servicelist.setCurrent(eServiceReference(refstr))
+		else:
+			self.setCurrentSelection(self.session.nav.getCurrentlyPlayingServiceReference())
 
 HISTORYSIZE = 20
 
@@ -1310,8 +1340,10 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 		ref = self.getCurrentSelection()
 		if self.movemode:
 			self.toggleMoveMarked()
-		elif (ref.flags & 7) == 7:
+		elif (ref.flags & eServiceReference.flagDirectory) == eServiceReference.flagDirectory:
+			self.clearPath()
 			self.enterPath(ref)
+			self.gotoCurrentServiceOrProvider(ref)
 		elif self.bouquet_mark_edit != OFF:
 			if not (self.bouquet_mark_edit == EDIT_ALTERNATIVES and ref.flags & eServiceReference.isGroup):
 				self.doMark()
@@ -1343,7 +1375,7 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 			if lastservice.valid() and self.getCurrentSelection() != lastservice:                        
 				self.setCurrentSelection(lastservice)
 
-			title += " (TV)"
+			title += _(" (TV)")
 		else:
 			# Mark PiP as active and effectively active pipzap
 			self.session.pip.active()
@@ -1352,7 +1384,7 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 			# Move to service playing in pip (will not work with subservices)
 			self.setCurrentSelection(self.session.pip.getCurrentService())
 
-			title += " (PiP)"
+			title += _(" (PiP)")
 		self.setTitle(title)
 		self.buildTitleString()
 
@@ -1650,8 +1682,10 @@ class ChannelSelectionRadio(ChannelSelectionBase, ChannelSelectionEdit, ChannelS
 		ref = self.getCurrentSelection()
 		if self.movemode:
 			self.toggleMoveMarked()
-		elif (ref.flags & 7) == 7:
+		elif (ref.flags & eServiceReference.flagDirectory) == eServiceReference.flagDirectory:
+			self.clearPath()
 			self.enterPath(ref)
+			self.gotoCurrentServiceOrProvider(ref)
 		elif self.bouquet_mark_edit != OFF:
 			if not (self.bouquet_mark_edit == EDIT_ALTERNATIVES and ref.flags & eServiceReference.isGroup):
 				self.doMark()
@@ -1683,8 +1717,10 @@ class SimpleChannelSelection(ChannelSelectionBase):
 
 	def channelSelected(self): # just return selected service
 		ref = self.getCurrentSelection()
-		if (ref.flags & 7) == 7:
+		if (ref.flags & eServiceReference.flagDirectory) == eServiceReference.flagDirectory:
+			self.clearPath()
 			self.enterPath(ref)
+			self.gotoCurrentServiceOrProvider(ref)
 		elif not (ref.flags & eServiceReference.isMarker):
 			ref = self.getCurrentSelection()
 			self.close(ref)
