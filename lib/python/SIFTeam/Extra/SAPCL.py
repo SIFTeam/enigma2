@@ -284,8 +284,6 @@ class SAPCL(object):
 		args = {}
 		
 		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword(),
 			"packages_rating[package_id]": packageid,
 			"packages_rating[rate]": rank
 		}
@@ -316,8 +314,6 @@ class SAPCL(object):
 		args = {}
 		
 		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword(),
 			"packages_download[package_id]": packageid
 		}
 
@@ -339,13 +335,8 @@ class SAPCL(object):
 	def downloadByPackageName(self, packagename):
 		args = {}
 		
-		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword()
-		}
-		
 		try:
-			buff = self.request("/packages/items/download/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
+			buff = self.request("/packages/items/download/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args)
 			mdom = xml.etree.cElementTree.fromstring(buff)
 			return {
 				"result": True,
@@ -363,8 +354,6 @@ class SAPCL(object):
 		args = {}
 		
 		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword(),
 			"packages_install[package_id]": packageid
 		}
 
@@ -386,13 +375,8 @@ class SAPCL(object):
 	def installByPackageName(self, packagename):
 		args = {}
 		
-		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword()
-		}
-		
 		try:
-			buff = self.request("/packages/items/install/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
+			buff = self.request("/packages/items/install/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args)
 			mdom = xml.etree.cElementTree.fromstring(buff)
 			return {
 				"result": True,
@@ -411,8 +395,6 @@ class SAPCL(object):
 		args = {}
 		
 		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword(),
 			"packages_uninstall[package_id]": packageid
 		}
 
@@ -434,13 +416,8 @@ class SAPCL(object):
 	def uninstallByPackageName(self, packagename):
 		args = {}
 		
-		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword()
-		}
-		
 		try:
-			buff = self.request("/packages/items/uninstall/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args, post_args)
+			buff = self.request("/packages/items/uninstall/%s/%s/%s.xml" % (self.getBranch(), self.getMachine(), packagename), args)
 			mdom = xml.etree.cElementTree.fromstring(buff)
 			return {
 				"result": True,
@@ -458,8 +435,6 @@ class SAPCL(object):
 		args = {}
 		
 		post_args = {
-			"username": self.getUsername(),
-			"password": self.getPassword(),
 			"crashlog[machine]": self.getMachine(),
 			"crashlog[branch]": self.getBranch(),
 			"crashlog[datalog]": data
