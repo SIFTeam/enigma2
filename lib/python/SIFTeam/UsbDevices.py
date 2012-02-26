@@ -212,6 +212,7 @@ class UsbDevicesNotifier:
 				
 class UsbDevicesProbe:
 	blacklist = [
+		[0, 0],	# not a valid device
 		[7531, 1], # Broadcom STB EHCI
 		[7531, 2], # Broadcom STB OHCI
 		[6720, 257], # USB 2.0 Hub
