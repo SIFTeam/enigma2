@@ -38,7 +38,7 @@ class ServiceNumber(Renderer, VariableText):
 		if name in servicelist:
 			for idx in range(1, len(servicelist)):
 				if name == servicelist[idx-1]:
-					self.text = str(idx)+". "
+					self.text = str(idx)
 					break
 		else:
 			self.text = ""
