@@ -129,6 +129,7 @@ class UsbDeviceAutoInstall:
 		
 	def msgboxCb(self, result):
 		if result == 0:
+			smstack.add(SMStack.UPDATE, "")
 			api = SAPCL()
 			firmwares = api.getUsbFirmwares(self.device.getPackage())
 			for firmware in firmwares["firmwares"]:
@@ -329,6 +330,7 @@ class UsbDevices(Screen):
 			smstack.add(SMStack.REMOVE, self.devices[index].getPackage())
 			self.devices[index].setStatus(2)
 		else:
+			smstack.add(SMStack.UPDATE, "")
 			api = SAPCL()
 			firmwares = api.getUsbFirmwares(self.devices[index].getPackage())
 			for firmware in firmwares["firmwares"]:
