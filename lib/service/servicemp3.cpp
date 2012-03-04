@@ -245,9 +245,12 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 	m_stream_tags = 0;
 	m_currentAudioStream = -1;
 	m_currentSubtitleStream = -1;
+	m_cachedSubtitleStream = 0; /* report the first subtitle stream to be 'cached'. TODO: use an actual cache. */
 	m_subtitle_widget = 0;
 	m_currentTrickRatio = 1.0;
-	m_buffer_size = 1*1024*1024;
+	m_buffer_size = 5*1024*1024;
+	m_buffer_duration = 5 * GST_SECOND;
+	m_use_prefillbuffer = FALSE;
 	m_prev_decoder_time = -1;
 	m_decoder_time_valid_state = 0;
 	m_errorInfo.missing_codec = "";
@@ -307,6 +310,8 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 	}
 	if ( strstr(filename, "://") )
 		m_sourceinfo.is_streaming = TRUE;
+	if ( strstr(filename, " buffer=1") )
+		m_use_prefillbuffer = TRUE;
 
 	gchar *uri;
 
@@ -346,35 +351,35 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 			uri = g_filename_to_uri(filename, NULL, NULL);
 	}
 	else
-
 		uri = g_filename_to_uri(filename, NULL, NULL);
 
 	eDebug("eServiceMP3::playbin2 uri=%s", uri);
 
 	m_gst_playbin = gst_element_factory_make("playbin2", "playbin");
-	if (!m_gst_playbin)
-		m_errorInfo.error_message = "failed to create GStreamer pipeline!\n";
-
-	g_object_set (G_OBJECT (m_gst_playbin), "uri", uri, NULL);
-
-	int flags = 0x47; // ( GST_PLAY_FLAG_VIDEO | GST_PLAY_FLAG_AUDIO | GST_PLAY_FLAG_NATIVE_VIDEO | GST_PLAY_FLAG_TEXT );
-	g_object_set (G_OBJECT (m_gst_playbin), "flags", flags, NULL);
-
-	g_free(uri);
-
-	GstElement *subsink = gst_element_factory_make("subsink", "subtitle_sink");
-	if (!subsink)
-		eDebug("eServiceMP3::sorry, can't play: missing gst-plugin-subsink");
-	else
-	{
-		m_subs_to_pull_handler_id = g_signal_connect (subsink, "new-buffer", G_CALLBACK (gstCBsubtitleAvail), this);
-		g_object_set (G_OBJECT (subsink), "caps", gst_caps_from_string("text/plain; text/x-plain; text/x-pango-markup; video/x-dvd-subpicture; subpicture/x-pgs"), NULL);
-		g_object_set (G_OBJECT (m_gst_playbin), "text-sink", subsink, NULL);
-		g_object_set (G_OBJECT (m_gst_playbin), "current-text", m_currentSubtitleStream, NULL);
-	}
-
 	if ( m_gst_playbin )
 	{
+		g_object_set (G_OBJECT (m_gst_playbin), "uri", uri, NULL);
+		int flags = 0x47; // ( GST_PLAY_FLAG_VIDEO | GST_PLAY_FLAG_AUDIO | GST_PLAY_FLAG_NATIVE_VIDEO | GST_PLAY_FLAG_TEXT );
+		if ( m_sourceinfo.is_streaming )
+		{
+			g_signal_connect (G_OBJECT (m_gst_playbin), "notify::source", G_CALLBACK (gstHTTPSourceSetAgent), this);
+			if (m_use_prefillbuffer)
+			{
+				g_object_set (G_OBJECT (m_gst_playbin), "buffer_duration", m_buffer_duration, NULL);
+				flags |= 0x100; // USE_BUFFERING
+			}
+		}
+		g_object_set (G_OBJECT (m_gst_playbin), "flags", flags, NULL);
+		GstElement *subsink = gst_element_factory_make("subsink", "subtitle_sink");
+		if (!subsink)
+			eDebug("eServiceMP3::sorry, can't play: missing gst-plugin-subsink");
+		else
+		{
+			m_subs_to_pull_handler_id = g_signal_connect (subsink, "new-buffer", G_CALLBACK (gstCBsubtitleAvail), this);
+			g_object_set (G_OBJECT (subsink), "caps", gst_caps_from_string("text/plain; text/x-plain; text/x-pango-markup; video/x-dvd-subpicture; subpicture/x-pgs"), NULL);
+			g_object_set (G_OBJECT (m_gst_playbin), "text-sink", subsink, NULL);
+			g_object_set (G_OBJECT (m_gst_playbin), "current-text", m_currentSubtitleStream, NULL);
+		}
 		gst_bus_set_sync_handler(gst_pipeline_get_bus (GST_PIPELINE (m_gst_playbin)), gstBusSyncHandler, this);
 		char srt_filename[strlen(filename)+1];
 		strncpy(srt_filename,filename,strlen(filename)-3);
@@ -386,20 +391,15 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 			eDebug("eServiceMP3::subtitle uri: %s", g_filename_to_uri(srt_filename, NULL, NULL));
 			g_object_set (G_OBJECT (m_gst_playbin), "suburi", g_filename_to_uri(srt_filename, NULL, NULL), NULL);
 		}
-		if ( m_sourceinfo.is_streaming )
-		{
-			g_signal_connect (G_OBJECT (m_gst_playbin), "notify::source", G_CALLBACK (gstHTTPSourceSetAgent), this);
-		}
 	} else
 	{
 		m_event((iPlayableService*)this, evUser+12);
-
-		if (m_gst_playbin)
-			gst_object_unref(GST_OBJECT(m_gst_playbin));
+		m_gst_playbin = 0;
+		m_errorInfo.error_message = "failed to create GStreamer pipeline!\n";
 
 		eDebug("eServiceMP3::sorry, can't play: %s",m_errorInfo.error_message.c_str());
-		m_gst_playbin = 0;
 	}
+	g_free(uri);
 
 	setBufferSize(m_buffer_size);
 }
@@ -685,8 +685,6 @@ RESULT eServiceMP3::isCurrentlySeekable()
 	if (!m_gst_playbin)
 		return 0;
 	if (m_state != stRunning)
-		return 0;
-	if (m_sourceinfo.is_streaming)
 		return 0;
 
 	return ret;
@@ -1451,8 +1449,22 @@ void eServiceMP3::gstBusCall(GstMessage *msg)
 		{
 			GstBufferingMode mode;
 			gst_message_parse_buffering(msg, &(m_bufferInfo.bufferPercent));
+			eDebug("Buffering %u percent done", m_bufferInfo.bufferPercent);
 			gst_message_parse_buffering_stats(msg, &mode, &(m_bufferInfo.avgInRate), &(m_bufferInfo.avgOutRate), &(m_bufferInfo.bufferingLeft));
 			m_event((iPlayableService*)this, evBuffering);
+			if (m_state == stRunning && m_use_prefillbuffer)
+			{
+				if (m_bufferInfo.bufferPercent == 100)
+				{
+					eDebug("start playing");
+					gst_element_set_state (m_gst_playbin, GST_STATE_PLAYING);
+				}
+				if (m_bufferInfo.bufferPercent == 0)
+				{
+					eDebug("start pause");
+					gst_element_set_state (m_gst_playbin, GST_STATE_PAUSED);
+				}
+			}
 			break;
 		}
 		case GST_MESSAGE_STREAM_STATUS:
@@ -1630,7 +1642,7 @@ void eServiceMP3::gstTextpadHasCAPS_synced(GstPad *pad)
 		eDebug("gstTextpadHasCAPS:: signal::caps = %s", gst_caps_to_string(caps));
 //		eDebug("gstGhostpadHasCAPS_synced %p %d", pad, m_subtitleStreams.size());
 
-		if (m_currentSubtitleStream >= 0 && m_currentSubtitleStream < m_subtitleStreams.size())
+		if (m_currentSubtitleStream >= 0 && m_currentSubtitleStream < (int)m_subtitleStreams.size())
 			subs = m_subtitleStreams[m_currentSubtitleStream];
 		else {
 			subs.type = stUnknown;
@@ -1652,7 +1664,7 @@ void eServiceMP3::gstTextpadHasCAPS_synced(GstPad *pad)
 			subs.language_code = std::string(g_lang);
 			subs.type = getSubtitleType(pad);
 
-			if (m_currentSubtitleStream >= 0 && m_currentSubtitleStream < m_subtitleStreams.size())
+			if (m_currentSubtitleStream >= 0 && m_currentSubtitleStream < (int)m_subtitleStreams.size())
 				m_subtitleStreams[m_currentSubtitleStream] = subs;
 			else
 				m_subtitleStreams.push_back(subs);
@@ -1668,7 +1680,7 @@ void eServiceMP3::gstTextpadHasCAPS_synced(GstPad *pad)
 
 void eServiceMP3::pullSubtitle(GstBuffer *buffer)
 {
-	if (buffer && m_currentSubtitleStream >= 0 && m_currentSubtitleStream < m_subtitleStreams.size())
+	if (buffer && m_currentSubtitleStream >= 0 && m_currentSubtitleStream < (int)m_subtitleStreams.size())
 	{
 		gint64 buf_pos = GST_BUFFER_TIMESTAMP(buffer);
 		gint64 duration_ns = GST_BUFFER_DURATION(buffer);
@@ -1775,6 +1787,7 @@ RESULT eServiceMP3::enableSubtitles(eWidget *parent, ePyObject tuple)
 		m_prev_decoder_time = -1;
 		m_decoder_time_valid_state = 0;
 		m_currentSubtitleStream = pid;
+		m_cachedSubtitleStream = m_currentSubtitleStream;
 		g_object_set (G_OBJECT (m_gst_playbin), "current-text", m_currentSubtitleStream, NULL);
 
 		m_subtitle_widget = 0;
@@ -1782,8 +1795,6 @@ RESULT eServiceMP3::enableSubtitles(eWidget *parent, ePyObject tuple)
 		m_subtitle_widget->resize(parent->size()); /* full size */
 
 		eDebug ("eServiceMP3::switched to subtitle stream %i", m_currentSubtitleStream);
-
-		m_event((iPlayableService*)this, evUpdatedInfo);
 
 #ifdef GSTREAMER_SUBTITLE_SYNC_MODE_BUG
 		/* 
@@ -1806,6 +1817,7 @@ RESULT eServiceMP3::disableSubtitles(eWidget *parent)
 {
 	eDebug("eServiceMP3::disableSubtitles");
 	m_currentSubtitleStream = -1;
+	m_cachedSubtitleStream = m_currentSubtitleStream;
 	g_object_set (G_OBJECT (m_gst_playbin), "current-text", m_currentSubtitleStream, NULL);
 	m_subtitle_pages.clear();
 	m_prev_decoder_time = -1;
@@ -1817,7 +1829,15 @@ RESULT eServiceMP3::disableSubtitles(eWidget *parent)
 
 PyObject *eServiceMP3::getCachedSubtitle()
 {
-// 	eDebug("eServiceMP3::getCachedSubtitle");
+	if (m_cachedSubtitleStream >= 0 && m_cachedSubtitleStream < (int)m_subtitleStreams.size())
+	{
+		ePyObject tuple = PyTuple_New(4);
+		PyTuple_SET_ITEM(tuple, 0, PyInt_FromLong(2));
+		PyTuple_SET_ITEM(tuple, 1, PyInt_FromLong(m_cachedSubtitleStream));
+		PyTuple_SET_ITEM(tuple, 2, PyInt_FromLong(int(m_subtitleStreams[m_cachedSubtitleStream].type)));
+		PyTuple_SET_ITEM(tuple, 3, PyInt_FromLong(0));
+		return tuple;
+	}
 	Py_RETURN_NONE;
 }
 

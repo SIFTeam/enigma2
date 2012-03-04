@@ -192,10 +192,12 @@ class InfoBarShowHide:
 
 		self.onShowHideNotifiers = []
 
+		self.standardInfoBar = False
 		self.secondInfoBarScreen = "" 
 		if ".InfoBar'>" in str(self):
 			self.secondInfoBarScreen = self.session.instantiateDialog(SecondInfoBar)
 			self.secondInfoBarScreen.hide()
+			self.standardInfoBar = True
 
 	def connectShowHideNotifier(self, fnc):
 		if not fnc in self.onShowHideNotifiers:
@@ -481,8 +483,10 @@ class InfoBarChannelSelection:
 	def isPlayable(self, ref):
 		if not (ref.flags & eServiceReference.isMarker):
 			cur_running = self.session.nav.getCurrentlyPlayingServiceReference()
+			if not cur_running:
+				cur_running = eServiceReference()
 			info = eServiceCenter.getInstance().info(ref)
-			if info and cur_running and info.isPlayable(ref, cur_running):
+			if info and info.isPlayable(ref, cur_running):
 				return True
 		return False
 
@@ -984,7 +988,7 @@ class InfoBarSeek:
 		return seek
 
 	def isSeekable(self):
-		if self.getSeek() is None:
+		if self.getSeek() is None or (self.standardInfoBar and not self.timeshift_enabled):
 			return False
 		return True
 
