@@ -48,6 +48,9 @@ from SIFTeam.Panel import Panel
 from SIFTeam.VideoSelection import VideoSelectionHelper
 from SIFTeam.HddMount import HddFastRemove
 
+def isStandardInfoBar(self):
+	return ".InfoBar'>" in `self`
+
 def setResumePoint(session):
 	global resumePointCache, resumePointCacheLast
 	service = session.nav.getCurrentService()
@@ -192,12 +195,10 @@ class InfoBarShowHide:
 
 		self.onShowHideNotifiers = []
 
-		self.standardInfoBar = False
 		self.secondInfoBarScreen = "" 
-		if ".InfoBar'>" in str(self):
+		if isStandardInfoBar(self):
 			self.secondInfoBarScreen = self.session.instantiateDialog(SecondInfoBar)
 			self.secondInfoBarScreen.hide()
-			self.standardInfoBar = True
 
 	def connectShowHideNotifier(self, fnc):
 		if not fnc in self.onShowHideNotifiers:
@@ -988,7 +989,7 @@ class InfoBarSeek:
 		return seek
 
 	def isSeekable(self):
-		if self.getSeek() is None or (self.standardInfoBar and not self.timeshift_enabled):
+		if self.getSeek() is None or (isStandardInfoBar(self) and not self.timeshift_enabled):
 			return False
 		return True
 
