@@ -97,10 +97,13 @@ class SMCategories(Screen):
 		self.cachelist.append(CategoryEntry("Top 10 (most downloaded)", "top10.png", ""))
 		
 		for category in self.categories["categories"]:
-			if category["packages"] == 1:
+			tmp = category["packages"]
+			if "packages-withmeta" in category.keys() and not self.showall:
+				tmp = category["packages-withmeta"]
+			if tmp == 1:
 				pkgcount = "1 package"
 			else:
-				pkgcount = "%d packages" % category["packages"]
+				pkgcount = "%d packages" % tmp
 			if category["description"]:
 				self.cachelist.append(CategoryEntry(category["description"], category["identifier"] + ".png", pkgcount))
 			else:
