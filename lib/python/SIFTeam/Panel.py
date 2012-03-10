@@ -16,6 +16,7 @@ class Panel(Screen):
 		self.servicelist = servicelist
 		self.session = session
 		self.drawList = []
+		self.listindex = 0
 		
 		self['menu'] = List(self.drawList)
 		self["actions"] = ActionMap(["SetupActions"],
@@ -40,12 +41,15 @@ class Panel(Screen):
 				pixmap = LoadPixmap(cached = True, path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/sifteam_others/empty.png"));
 			self.drawList.append((pixmap, _(item[2])))
 		self['menu'].setList(self.drawList)
+		if self.listindex < len(self.drawList):
+			self["menu"].setIndex(self.listindex)
 			
 	def ok(self):
 		if len(self.cacheList) == 0:
 			return
 			
 		index = self['menu'].getIndex()
+		self.listindex = index
 		panelexec = PanelExec(self.session)
 		if self.cacheList[index][0] == "menu":
 			panelexec.runMenu(self.cacheList[index][1], self.load)
