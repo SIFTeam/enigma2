@@ -121,15 +121,15 @@ class SMCategories(Screen):
 		elif self.index == -2:
 			return api.getTopTen("downloads")
 		else:
-			return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value)
+			return api.getPackages(self.categories["categories"][self.index]["id"], config.sifteam.addons_packages_sort.value, self.showall == False)
 
 	def executeRequestPackagesCallback(self, result):
 		if self.index == -1:
-			self.session.open(SMPackages, result, "Top 10 (highest rank)", -2)
+			self.session.open(SMPackages, result, "Top 10 (highest rank)", -2, self.showall)
 		elif self.index == -2:
-			self.session.open(SMPackages, result, "Top 10 (most downloaded)", -3)
+			self.session.open(SMPackages, result, "Top 10 (most downloaded)", -3, self.showall)
 		else:
-			self.session.open(SMPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"])
+			self.session.open(SMPackages, result, self.categories["categories"][self.index]["name"], self.categories["categories"][self.index]["id"], self.showall)
 		
 	def selectionChanged(self):
 		if len(self.cachelist) == 0:

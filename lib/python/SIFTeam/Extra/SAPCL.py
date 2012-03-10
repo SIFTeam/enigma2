@@ -171,11 +171,14 @@ class SAPCL(object):
 				"packages": []
 			}
 		
-	def getPackages(self, parentid, sort="name"):
+	def getPackages(self, parentid, sort="name", withmeta=False):
 		args = {
 			"fulltree": parentid,
 			"order": sort
 		}
+		if withmeta:
+			args["withmeta"] = "true"
+			
 		if sort == "name":
 			args["orientation"] = "asc"
 		else:

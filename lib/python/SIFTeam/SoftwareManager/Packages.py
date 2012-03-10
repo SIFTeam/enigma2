@@ -52,7 +52,7 @@ def PackageEntry(name, installed, rank, description, inprogress, ratings):
 	return (picture, name, star_disabled, star_disabled, star_disabled, star_disabled, star_disabled, description)
 	
 class SMPackages(Screen):
-	def __init__(self, session, packages, categoryname, categoryid=-1):
+	def __init__(self, session, packages, categoryname, categoryid=-1, showall=False):
 		Screen.__init__(self, session)
 		
 		self.categoryid = categoryid
@@ -60,6 +60,7 @@ class SMPackages(Screen):
 		self.session = session
 		self.packages = packages
 		self.cachelist = []
+		self.showall = showall
 		self.index = 0
 		
 		self['list'] = List([])
@@ -126,7 +127,7 @@ class SMPackages(Screen):
 		elif self.categoryid == -3:
 			self.packages = api.getTopTen("downloads")
 		else:
-			self.packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value)
+			self.packages = api.getPackages(self.categoryid, config.sifteam.addons_packages_sort.value, self.showall == False)
 
 	def executeRequestPackagesCallback(self, result):
 		self.renderList()
