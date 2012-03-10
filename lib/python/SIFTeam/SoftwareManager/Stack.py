@@ -108,8 +108,10 @@ class SMStack(object):
 			cmd = "opkg -V2 install " + self.current["package"]
 			print "Installing package %s (%s)" % (self.current["package"], cmd)
 			self.current["message"] = "Installing " + self.current["package"]
-			api = SAPCL()
-			api.installByPackageName(self.current["package"])
+			# it's useless notify custom packages
+			if self.current["package"][-4:] != ".ipk":
+				api = SAPCL()
+				api.installByPackageName(self.current["package"])
 		elif self.current["cmd"] == self.REMOVE:
 			cmd = "opkg -V2 remove " + self.current["package"]
 			print "Removing package %s (%s)" % (self.current["package"], cmd)
