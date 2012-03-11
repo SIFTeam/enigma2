@@ -19,6 +19,9 @@ class SAPCL(object):
 	def getHost(self):
 		return "api.sifteam.eu"
 		
+	def getIP(self):
+		return "85.17.231.249"
+		
 	def getBranch(self):
 		try:
 			return open("/etc/branch").read().strip()
@@ -42,10 +45,10 @@ class SAPCL(object):
 		
 	def request(self, page, args, post_args=None):
 		useragent = "SIFTeam API Python Client Library %s (%s/%s)" % (self.getVersion(), self.getBranch(), self.getMachine())
-		headers = { "User-Agent": useragent }
+		headers = { "Host": self.getHost(), "User-Agent": useragent }
 		args["branch"] = self.getBranch()
 		args["machine"] = self.getMachine()
-		conn = httplib.HTTPSConnection(self.getHost())
+		conn = httplib.HTTPSConnection(self.getIP())
 		if post_args:
 			print "[SAPCL] HTTP POST Request: %s?%s" % (page, urllib.urlencode(args))
 			conn.request("POST", "%s?%s" % (page, urllib.urlencode(args)), urllib.urlencode(post_args), headers)
