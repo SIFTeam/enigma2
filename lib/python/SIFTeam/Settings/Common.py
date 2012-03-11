@@ -213,7 +213,10 @@ class SettingsLoader():
 				if not found:
 					srclist.insert(count, item)
 			else:
-				os.remove(dstpwd + "/" + item[0])
+				try:
+					os.remove(dstpwd + "/" + item[0])
+				except Exception, e:
+					pass
 				
 			count += 1
 			
@@ -287,4 +290,3 @@ class SettingsLoader():
 
 		eDVBDB.getInstance().reloadServicelist()
 		eDVBDB.getInstance().reloadBouquets()
-		
