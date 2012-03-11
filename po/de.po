@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-27 20:27+0100\n"
-"PO-Revision-Date: 2012-02-28 09:23+0100\n"
+"POT-Creation-Date: 2012-03-08 20:34+0100\n"
+"PO-Revision-Date: 2012-03-09 07:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: daddelfalk\n"
 "Language: de\n"
@@ -858,6 +858,9 @@ msgstr "Automatische Sprachauswahl"
 msgid "Auto scart switching"
 msgstr "Automatische Scart-Umschaltung"
 
+msgid "Auto-focus"
+msgstr "Auto-Fokus"
+
 #
 msgid "Automatic"
 msgstr "Automatisch"
@@ -1046,6 +1049,12 @@ msgstr "Kabel Suche"
 msgid "Cache Thumbnails"
 msgstr "Vorschaubilder zwischenspeichern"
 
+msgid "Calculate all positions"
+msgstr "Berechne alle Positionen"
+
+msgid "Calculation complete"
+msgstr "Berechnung abgeschlossen"
+
 msgid "Calibrate"
 msgstr "Kalibrieren"
 
@@ -1084,6 +1093,9 @@ msgstr "Bouquet wechseln beim Quickzap"
 #
 msgid "Change pin code"
 msgstr "Pincode ändern"
+
+msgid "Change repeat and delay settings?"
+msgstr "Einstellung für Wiederholung und Verzögerung anpassen?"
 
 msgid "Change service PIN"
 msgstr "Service PIN ändern"
@@ -1585,6 +1597,9 @@ msgstr "Voreinstellungen"
 msgid "Default movie location"
 msgstr "Standard Filmlisten Ort"
 
+msgid "Delay before key repeat starts:"
+msgstr "Eingabewiederholungserkennung auf:"
+
 #
 msgid "Delete"
 msgstr "Löschen"
@@ -1640,6 +1655,9 @@ msgstr "Erkannte Festplatte:"
 #
 msgid "Detected NIMs:"
 msgstr "Erkannte Tuner:"
+
+msgid "Devicename:"
+msgstr "Gerätename:"
 
 #
 msgid "DiSEqC"
@@ -2404,7 +2422,7 @@ msgstr "Fr"
 msgid "Friday"
 msgstr "Freitag"
 
-msgid "From:"
+msgid "From :"
 msgstr "Von:"
 
 #
@@ -2477,6 +2495,9 @@ msgstr "Gehe zu"
 msgid "Goto 0"
 msgstr "Gehe zu 0"
 
+msgid "Goto :"
+msgstr "Gehe zu:"
+
 msgid "Goto X"
 msgstr "Gehe zu X"
 
@@ -2513,9 +2534,6 @@ msgstr "Gehe zur vorherigen Seite der Kanäle"
 
 msgid "Goto specific data/time"
 msgstr "Gehe zum angegebenen Datum/Uhrzeit"
-
-msgid "Goto:"
-msgstr "Gehe zu:"
 
 msgid "GotoX calibration"
 msgstr "Gehe zur X Kalibrierung"
@@ -2823,6 +2841,9 @@ msgstr "Interner Flash"
 
 msgid "Internal hdd only"
 msgstr "Nur interne Festplatte"
+
+msgid "Interval between keys when repeating:"
+msgstr "Intervall bei der Wiederholungseingabe:"
 
 #
 msgid "Invalid Location"
@@ -3229,6 +3250,9 @@ msgstr "Steuerung"
 
 msgid "Movie List Configuration"
 msgstr "Filmlisten Einstellungen"
+
+msgid "Movie Selection"
+msgstr "Filmauswahl"
 
 #
 msgid "Movie location"
@@ -5998,6 +6022,13 @@ msgstr ""
 msgid "This test detects your configured LAN-Adapter."
 msgstr "Dieser Test stellt Ihren konfigurierten Netzwerkadapter fest."
 
+msgid ""
+"This will (re-)calculate all positions of your rotor and may remove previously memorised positions and fine-tuning!\n"
+"Are you sure?"
+msgstr ""
+"Alle Positionen des Rotors werden (neu)berechnet und alle zuvor gespeicherten Positionen und Feineinstellungen werden verworfen!\n"
+"Sind Sie sicher, dass Sie den Vorgang durchführen wollen?"
+
 #
 msgid "Three"
 msgstr "Drei"
@@ -6257,6 +6288,9 @@ msgstr "Art der Suche"
 #
 msgid "USALS"
 msgstr "USALS"
+
+msgid "USALS Calibration"
+msgstr "USALS Kalibrierung"
 
 #
 msgid "USB Stick"
@@ -7457,6 +7491,21 @@ msgstr "Nicht aufnehmen"
 #
 msgid "done!"
 msgstr "erledigt!"
+
+msgid "dreambox advanced remote control (native)"
+msgstr "stb advanced remote control (native)"
+
+msgid "dreambox front panel"
+msgstr "stb front panel"
+
+msgid "dreambox ir keyboard"
+msgstr "stb ir keyboard"
+
+msgid "dreambox ir mouse"
+msgstr "stb ir mouse"
+
+msgid "dreambox remote control (native)"
+msgstr "stb remote control (native)"
 
 msgid "east"
 msgstr "Osten"
