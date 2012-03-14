@@ -496,6 +496,17 @@ protected:
 	/* override */ int writeData(int len);
 	/* override */ void flush();
 private:
+	struct AsyncIO
+	{
+		struct aiocb aio;
+		AsyncIO()
+		{
+			memset(&aio, 0, sizeof(struct aiocb));
+		}
+		int wait();
+		int start(int fd, off_t offset, size_t nbytes, void* buffer);
+		int poll(); // returns 1 if busy, 0 if ready, <0 on error return
+	};
 	eMPEGStreamParserTS m_ts_parser;
 	off_t m_current_offset;
 	int m_fd_dest;
@@ -503,7 +514,8 @@ private:
 	size_t written_since_last_sync;
 	int m_current_buffer;
 	unsigned char* m_allocated_buffer;
-	std::vector<struct aiocb> m_aio;
+	std::vector<AsyncIO> m_aio;
+	std::vector<int> m_buffer_use_histogram;
 };
 
 
@@ -517,7 +529,8 @@ eDVBRecordFileThread::eDVBRecordFileThread(int packetsize):
 	 offset_last_sync(0),
 	 written_since_last_sync(0),
 	 m_current_buffer(0),
-	 m_aio(recordingBufferCount)
+	 m_aio(recordingBufferCount),
+	 m_buffer_use_histogram(recordingBufferCount+1, 0)
 {
 	if (m_buffer == MAP_FAILED)
 		eFatal("Failed to allocate filepush buffer, contact MiLo\n");
@@ -525,7 +538,6 @@ eDVBRecordFileThread::eDVBRecordFileThread(int packetsize):
 	// move around during writes, so we must remember where the "head" is.
 	m_allocated_buffer = m_buffer;
 	// m_buffersize is thus the size of a single buffer in the queue
-	::memset(&m_aio[0], 0, sizeof(m_aio)); // initialize to zero
 }
 
 eDVBRecordFileThread::~eDVBRecordFileThread()
@@ -553,22 +565,23 @@ int eDVBRecordFileThread::getLastPTS(pts_t &pts)
 	return m_ts_parser.getLastPTS(pts);
 }
 
-static int wait_for_aio(struct aiocb* aio)
+int eDVBRecordFileThread::AsyncIO::wait()
 {
-	if (aio->aio_buf != NULL) // Only if we had a request outstanding
+	if (aio.aio_buf != NULL) // Only if we had a request outstanding
 	{
-		while (aio_error(aio) == EINPROGRESS)
+		while (aio_error(&aio) == EINPROGRESS)
 		{
 			eDebug("[eDVBRecordFileThread] Waiting for I/O to complete");
-			int r = aio_suspend(&aio, 1, NULL);
+			struct aiocb* paio = &aio;
+			int r = aio_suspend(&paio, 1, NULL);
 			if (r < 0)
 			{
 				eDebug("[eDVBRecordFileThread] aio_suspend failed: %m");
 				return -1;
 			}
 		}
-		int r = aio_return(aio);
-		aio->aio_buf = NULL;
+		int r = aio_return(&aio);
+		aio.aio_buf = NULL;
 		if (r < 0)
 		{
 			eDebug("[eDVBRecordFileThread] aio_return returned failure: %m");
@@ -576,6 +589,34 @@ static int wait_for_aio(struct aiocb* aio)
 		}
 	}
 	return 0;
+}
+
+int eDVBRecordFileThread::AsyncIO::poll()
+{
+	if (aio.aio_buf == NULL)
+		return 0;
+	if (aio_error(&aio) == EINPROGRESS)
+	{
+		return 1;
+	}
+	int r = aio_return(&aio);
+	if (r < 0)
+	{
+		eDebug("[eDVBRecordFileThread] aio_return returned failure: %m");
+		return -1;
+	}
+	aio.aio_buf = NULL;
+	return 0;
+}
+
+int eDVBRecordFileThread::AsyncIO::start(int fd, off_t offset, size_t nbytes, void* buffer)
+{
+	memset(&aio, 0, sizeof(struct aiocb)); // Documentation says "zero it before call".
+	aio.aio_fildes = fd;
+	aio.aio_nbytes = nbytes;
+	aio.aio_offset = offset;   // Offset can be omitted with O_APPEND
+	aio.aio_buf = buffer;
+	return aio_write(&aio);
 }
 
 int eDVBRecordFileThread::writeData(int len)
@@ -597,13 +638,7 @@ int eDVBRecordFileThread::writeData(int len)
 	gettimeofday(&starttime, NULL);
 #endif
 	
-	struct aiocb* aio = &m_aio[m_current_buffer];
-	memset(aio, 0, sizeof(struct aiocb)); // Documentation says "zero it before call".
-	aio->aio_fildes = m_fd_dest;
-	aio->aio_nbytes = len;
-	aio->aio_offset = m_current_offset;   // Offset can be omitted with O_APPEND
-	aio->aio_buf = m_buffer;
-	int r = aio_write(aio);
+	int r = m_aio[m_current_buffer].start(m_fd_dest, m_current_offset, len, m_buffer);
 	if (r < 0)
 	{
 		eDebug("[eDVBRecordFileThread] aio_write failed: %m");
@@ -634,6 +669,30 @@ int eDVBRecordFileThread::writeData(int len)
 		}
 	}
 
+
+	// Count how many buffers are still "busy". Move backwards from current,
+	// because they can reasonably be expected to finish in that order.
+	int i = m_current_buffer;
+	r = m_aio[i].poll();
+	int busy_count = 0;
+	while (r > 0)
+	{
+		++busy_count;
+		if (i == 0)
+			i = recordingBufferCount - 1;
+		else
+			--i;
+		if (i == m_current_buffer)
+		{
+			eDebug("[eFilePushThreadRecorder] Warning: All write buffers busy");
+			break;
+		}
+		r = m_aio[i].poll();
+		if (r < 0)
+			return r;
+	}
+	++m_buffer_use_histogram[busy_count];
+
 #ifdef SHOW_WRITE_TIME
 	gettimeofday(&starttime, NULL);
 #endif
@@ -641,7 +700,7 @@ int eDVBRecordFileThread::writeData(int len)
 	m_current_buffer = (m_current_buffer + 1) % recordingBufferCount;
 	m_buffer = m_allocated_buffer + (m_current_buffer * m_buffersize);
 	// Wait for previous aio to complete on this buffer before returning
-	r = wait_for_aio(&m_aio[m_current_buffer]);
+	r = m_aio[m_current_buffer].wait();
 	if (r < 0)
 		return -1;
 
@@ -659,7 +718,12 @@ void eDVBRecordFileThread::flush()
 	eDebug("[eDVBRecordFileThread] waiting for aio to complete");
 	for (int i = 0; i < recordingBufferCount; ++i)
 	{
-		wait_for_aio(&m_aio[i]);
+		m_aio[i].wait();
+	}
+	eDebug("[eDVBRecordFileThread] buffer usage histogram (%d buffers of %d kB)", recordingBufferCount, m_buffersize>>10);
+	for (int i=0; i <= recordingBufferCount; ++i)
+	{
+		if (m_buffer_use_histogram[i] != 0) eDebug("     %2d: %6d", i, m_buffer_use_histogram[i]);
 	}
 }
 

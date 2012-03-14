@@ -2145,7 +2145,7 @@ class InfoBarCueSheetSupport:
 # TRANSLATORS: in the middle somewhere and not from the beginning.
 # TRANSLATORS: (Some translators seem to have interpreted it as a
 # TRANSLATORS: question or a choice, but it is a statement.)
-					Notifications.AddNotificationWithCallback(self.playLastCB, MessageBox, _("Resuming playback"), timeout=2, type=MessageBox.TYPE_INFO,simple=True)
+					Notifications.AddNotificationWithCallback(self.playLastCB, MessageBox, _("Resuming playback"), timeout=2, type=MessageBox.TYPE_INFO)
 
 	def playLastCB(self, answer):
 		if answer == True:
@@ -2385,8 +2385,12 @@ class InfoBarSubtitleSupport(object):
 		self.__selected_subtitle = None
 
 	def subtitleSelection(self):
-		from Screens.AudioSelection import SubtitleSelection
-		self.session.open(SubtitleSelection, self)
+		try:
+			if self.__subtitles_enabled or self.infobar and self.infobar.getCurrentServiceSubtitle():
+				from Screens.AudioSelection import SubtitleSelection
+				self.session.open(SubtitleSelection, self)
+		except AttributeError:
+			pass
 
 	def __serviceStopped(self):
 		if self.__subtitles_enabled:
