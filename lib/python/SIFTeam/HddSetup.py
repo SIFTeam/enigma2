@@ -143,7 +143,10 @@ class HddSetup(Screen):
 	def red(self):
 		if len(self.mdisks.disks) > 0:
 			self.sindex = self['menu'].getIndex()
-			self.session.open(HddPartitions, self.mdisks.disks[self.sindex])
+			if len(self.mdisks.disks[self.sindex][5]) == 0:
+				self.session.open(MessageBox, _("You need to initialize your usb storage device first"), MessageBox.TYPE_ERROR)
+			else:
+				self.session.open(HddPartitions, self.mdisks.disks[self.sindex])
 		
 	def quit(self):
 		self.close()
