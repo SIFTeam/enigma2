@@ -126,7 +126,7 @@ class HddSetup(Screen):
 	def chooseFSType(self, result):
 		if result != 5:
 			self.result = result
-			self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select your preferred configuration.", "HDD Partitioner",
+			self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select the filesystem type.", "HDD Partitioner",
 										[ [ "Ext4", "partitionmanager.png" ],
 										[ "Ext3", "partitionmanager.png" ],
 										[ "NTFS", "partitionmanager.png" ],
