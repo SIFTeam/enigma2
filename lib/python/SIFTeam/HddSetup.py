@@ -51,6 +51,9 @@ class HddSetup(Screen):
 			"cancel": self.quit,
 		}, -2)
 	
+	def isExt4Supported(self):
+		return "ext4" in open("/proc/filesystems").read()
+		
 	def mkfs(self):
 		self.formatted += 1
 		return self.mdisks.mkfs(self.mdisks.disks[self.sindex][0], self.formatted, self.fsresult)
@@ -114,6 +117,9 @@ class HddSetup(Screen):
 		return self.mdisks.fdisk(self.mdisks.disks[self.sindex][0], self.mdisks.disks[self.sindex][1], self.result, self.fsresult)
 
 	def initialaze(self, result):
+		if not self.isExt4Supported():
+			result += 1
+			
 		if result != 4:
 			self.fsresult = result
 			self.formatted = 0
@@ -126,13 +132,22 @@ class HddSetup(Screen):
 	def chooseFSType(self, result):
 		if result != 5:
 			self.result = result
-			self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select the filesystem type.", "HDD Partitioner",
-										[ [ "Ext4", "partitionmanager.png" ],
-										[ "Ext3", "partitionmanager.png" ],
-										[ "NTFS", "partitionmanager.png" ],
-										[ "Fat32", "partitionmanager.png" ],
-										[ "Cancel", "cancel.png" ],
-										], 1, 4)
+			if self.isExt4Supported():
+				self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select the filesystem type.", "HDD Partitioner",
+											[ [ "Ext4", "partitionmanager.png" ],
+											[ "Ext3", "partitionmanager.png" ],
+											[ "NTFS", "partitionmanager.png" ],
+											[ "Fat32", "partitionmanager.png" ],
+											[ "Cancel", "cancel.png" ],
+											], 1, 4)
+			else:
+				self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select the filesystem type.", "HDD Partitioner",
+											[ [ "Ext3", "partitionmanager.png" ],
+											[ "NTFS", "partitionmanager.png" ],
+											[ "Fat32", "partitionmanager.png" ],
+											[ "Cancel", "cancel.png" ],
+											], 1, 4)
+				
 		
 	def yellow(self):
 		if len(self.mdisks.disks) > 0:
