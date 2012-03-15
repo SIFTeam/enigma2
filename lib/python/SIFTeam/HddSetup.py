@@ -53,7 +53,7 @@ class HddSetup(Screen):
 	
 	def mkfs(self):
 		self.formatted += 1
-		return self.mdisks.mkfs(self.mdisks.disks[self.sindex][0], self.formatted)
+		return self.mdisks.mkfs(self.mdisks.disks[self.sindex][0], self.formatted, self.fsresult)
 		
 	def refresh(self):
 		self.disks = list ()
@@ -111,11 +111,11 @@ class HddSetup(Screen):
 			self.session.open(MessageBox, _("Partitioning failed!"), MessageBox.TYPE_ERROR)
 
 	def fdisk(self):
-		return self.mdisks.fdisk(self.mdisks.disks[self.sindex][0], self.mdisks.disks[self.sindex][1], self.result)
+		return self.mdisks.fdisk(self.mdisks.disks[self.sindex][0], self.mdisks.disks[self.sindex][1], self.result, self.fsresult)
 
 	def initialaze(self, result):
-		if result != 5:
-			self.result = result
+		if result != 4:
+			self.fsresult = result
 			self.formatted = 0
 			mp = MountPoints()
 			mp.read()
@@ -123,10 +123,21 @@ class HddSetup(Screen):
 			mp.write()
 			self.session.openWithCallback(self.fdiskEnded, ExtraActionBox, "Partitioning...", "Initialize disk", self.fdisk)
 		
+	def chooseFSType(self, result):
+		if result != 5:
+			self.result = result
+			self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select your preferred configuration.", "HDD Partitioner",
+										[ [ "Ext4", "partitionmanager.png" ],
+										[ "Ext3", "partitionmanager.png" ],
+										[ "NTFS", "partitionmanager.png" ],
+										[ "Fat32", "partitionmanager.png" ],
+										[ "Cancel", "cancel.png" ],
+										], 1, 4)
+		
 	def yellow(self):
 		if len(self.mdisks.disks) > 0:
 			self.sindex = self['menu'].getIndex()
-			self.session.openWithCallback(self.initialaze, ExtraMessageBox, "Please select your preferred configuration.", "HDD Partitioner",
+			self.session.openWithCallback(self.chooseFSType, ExtraMessageBox, "Please select your preferred configuration.", "HDD Partitioner",
 										[ [ "One partition", "partitionmanager.png" ],
 										[ "Two partitions (50% - 50%)", "partitionmanager.png" ],
 										[ "Two partitions (75% - 25%)", "partitionmanager.png" ],
