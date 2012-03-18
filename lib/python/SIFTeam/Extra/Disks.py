@@ -55,7 +55,7 @@ class Disks():
 				if len(res[3]) > 3 and res[3][:2] == "sd":
 					for i in self.disks:
 						if i[0] == res[3][:3]:
-							i[5].append([ res[3], int(res[2]) * 1024, self.isLinux(res[3]) ])
+							i[5].append([ res[3], int(res[2]) * 1024, self.getTypeName(res[3]), self.getType(res[3]) ])
 							break
 							
 	def isRemovable(self, device):
@@ -65,7 +65,7 @@ class Disks():
 		return False
 		
 	# in this case device is full device with slice number... for example sda1
-	def isLinux(self, device):
+	def getTypeName(self, device):
 		cmd = "/usr/sbin/sfdisk -c /dev/%s %s" % (device[:3], device[3:])
 		fdisk = os.popen(cmd, "r")
 		res = fdisk.read().strip()
@@ -74,6 +74,13 @@ class Disks():
 			return self.ptypes[res]
 		return res
 		
+	def getType(self, device):
+		cmd = "/usr/sbin/sfdisk -c /dev/%s %s" % (device[:3], device[3:])
+		fdisk = os.popen(cmd, "r")
+		res = fdisk.read().strip()
+		fdisk.close()
+		return res
+	
 	def getModel(self, device):
 		return open("/sys/block/%s/device/model" % device, "r").read().strip()
 		
@@ -197,7 +204,7 @@ class Disks():
 	# 0 -> ok
 	# -1 -> umount failed
 	# -2 -> sfdisk failed
-	def chkfs(self, device, partition):
+	def chkfs(self, device, partition, fstype=0):
 		fdevice = "%s%d" % (device, partition)
 		print "checking device %s" % fdevice
 		if self.isMountedP(device, partition):
@@ -212,7 +219,12 @@ class Disks():
 		if self.isMountedP(device, partition):
 				return -1
 			
-		ret = os.system("/sbin/fsck /dev/%s" % fdevice)
+		if fstype == 0 or fstype == 1:
+			ret = os.system("/sbin/fsck /dev/%s" % fdevice)
+		elif fstype == 2:
+			ret = os.system("/usr/bin/ntfsfix /dev/%s" % fdevice)
+		elif fstype == 3:
+			ret = os.system("/usr/sbin/dosfsck -a /dev/%s" % fdevice)
 		
 		if len(oldmp) > 0:
 			self.mount(fdevice, oldmp)
