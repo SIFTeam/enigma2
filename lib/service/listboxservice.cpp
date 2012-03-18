@@ -758,13 +758,13 @@ void eListboxServiceContent::paint(gPainter &painter, eWindowStyle &style, const
 				{
 					// we schedule it to paint it as last element.. so we dont need to reset fore/background color
 					paintProgress = area.width();
-					// nopli xoffset = area.width() + 10;
+					xoffset = area.width() + 10;
 				}
 			}
 		}
 		if (selected && (!local_style || !local_style->m_selection))
 			style.drawFrame(painter, eRect(offset, m_itemsize), eWindowStyle::frameListboxEntry);
-		if (paintProgress && evt)
+		if (false && paintProgress && evt)  // we prefer use original dmm layout with progress on the left
 		{
 			// show a event progressbar for this service at the right end the screen
 			gRGB ProgressbarBorderColor = 0xdfdfdf;
@@ -809,7 +809,7 @@ void eListboxServiceContent::paint(gPainter &painter, eWindowStyle &style, const
 			painter.fill(eRect(pb_xpos, pb_ypos + PB_BorderWidth,             PB_BorderWidth,                      PB_Height));
 			painter.fill(eRect(pb_xpos + PB_BorderWidth + paintProgress, pb_ypos + PB_BorderWidth, PB_BorderWidth, PB_Height));
 		}
-		if (false && paintProgress && evt)  // not in pli
+		if (paintProgress && evt)
 		{
 			eRect area = m_element_position[celServiceEventProgressbar];
 			if (!selected && m_color_set[serviceEventProgressbarBorderColor])
