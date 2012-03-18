@@ -183,7 +183,7 @@ class HddPartitions(Screen):
 	def red(self):
 		if len(self.disk[5]) > 0:
 			index = self["menu"].getIndex()
-			if self.disk[5][index][2] == "Linux swap":
+			if self.disk[5][index][3] != "83" and self.disk[5][index][3] != "7" and self.disk[5][index][3] != "b":
 				return
 				
 		if len(self.partitions) > 0:
