@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ims\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-08 20:34+0100\n"
+"POT-Creation-Date: 2012-03-24 23:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi <ims21@users.sourceforge.net>\n"
@@ -53,7 +53,7 @@ msgid ""
 "Manage extensions or plugins for your Dreambox"
 msgstr ""
 "\n"
-"Spravovat rozšíření nebo pluginy Vašeho přijímače"
+"Správa rozšíření nebo pluginů Vašeho přijímače"
 
 #
 msgid ""
@@ -133,7 +133,7 @@ msgid " (PiP)"
 msgstr ""
 
 msgid " (Radio)"
-msgstr ""
+msgstr " (Rádio)"
 
 msgid " (TV)"
 msgstr ""
@@ -193,9 +193,35 @@ msgstr ""
 msgid "#ffffffff"
 msgstr ""
 
+#. TRANSLATORS: short time representation hour:minute
+#, python-format
+msgid "%2d:%02d"
+msgstr ""
+
+#. TRANSLATORS: full time representation hour:minute:seconds
+#, python-format
+msgid "%2d:%02d:%02d"
+msgstr ""
+
+#. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
+msgid "%A %e %B"
+msgstr "%A %e. %B"
+
+#. TRANSLATORS: full date representation dayname daynum monthname year in strftime() format! See 'man strftime'
+msgid "%A %e %B %Y"
+msgstr "%A %e. %B %Y"
+
 #
 msgid "%H:%M"
 msgstr "%H:%M"
+
+#. TRANSLATORS: short date representation short dayname daynum short monthname in strftime() format! See 'man strftime'
+msgid "%a %e/%m"
+msgstr "%a %e/%m"
+
+#. TRANSLATORS: long date representation short dayname daynum short monthname hour:minute in strftime() format! See 'man strftime'
+msgid "%a %e/%m  %-H:%M"
+msgstr ""
 
 #, python-format
 msgid "%d hour"
@@ -240,6 +266,10 @@ msgstr "%d programů nalezeno!"
 #
 msgid "%d.%B %Y"
 msgstr "%d. %B %Y"
+
+#. TRANSLATORS: VFD hour:minute daynum short monthname in strftime() format! See 'man strftime'
+msgid "%k:%M %e/%m"
+msgstr ""
 
 #
 #, python-format
@@ -724,10 +754,6 @@ msgid "Any activity"
 msgstr ""
 
 #
-msgid "April"
-msgstr "duben"
-
-#
 msgid "Arabic"
 msgstr "Arabsky"
 
@@ -817,10 +843,6 @@ msgstr "Volba jazyka zvuku 3"
 #
 msgid "Audio language selection 4"
 msgstr "Volba jazyka zvuku 4"
-
-#
-msgid "August"
-msgstr "srpen"
 
 #
 msgid "Author: "
@@ -930,7 +952,7 @@ msgstr "Záloha selhala."
 
 #
 msgid "Backup is running..."
-msgstr "Zálohování probíhá..."
+msgstr "Probíhá zálohování..."
 
 #
 msgid "Backup system settings"
@@ -1052,6 +1074,9 @@ msgstr "Prohledání kabelovky"
 msgid "Cache Thumbnails"
 msgstr "Uchovat náhledy"
 
+msgid "Calculate"
+msgstr ""
+
 msgid "Calculate all positions"
 msgstr "Přepočítat všechny pozice"
 
@@ -1066,10 +1091,10 @@ msgid "Cancel"
 msgstr "Zavřít"
 
 msgid "Cannot determine"
-msgstr "Nemohu určit"
+msgstr "Nelze určit"
 
 msgid "Cannot find any signal ..., aborting !"
-msgstr "Nemohu najít žádný signál..., ukončuji!"
+msgstr "Nelze najít žádný signál..., ukončuje se!"
 
 msgid "Cannot move files on a different disk or system to the trash can"
 msgstr "Nelze přesunout do koše soubory z jiného disku nebo systému"
@@ -1155,7 +1180,7 @@ msgstr "Ověřit"
 
 #
 msgid "Checking Filesystem..."
-msgstr "Ověřuji souborový systém..."
+msgstr "Ověřuje se souborový systém..."
 
 #
 msgid "Choose Tuner"
@@ -1344,7 +1369,7 @@ msgstr "Konfliktní časovač"
 
 #
 msgid "Connect"
-msgstr "Připojit"
+msgstr "Připojuje se"
 
 #
 msgid "Connect to a Wireless Network"
@@ -1442,7 +1467,7 @@ msgstr "vytvořit DVD-ISO"
 
 #
 msgid "Create Filesystem"
-msgstr "Založit souborový systém"
+msgstr "Zakládá se souborový systém"
 
 #
 msgid "Create Partition"
@@ -1581,10 +1606,6 @@ msgid "Date"
 msgstr "Datum"
 
 #
-msgid "December"
-msgstr "prosinec"
-
-#
 msgid "Decide if you want to enable or disable the Cleanup Wizard."
 msgstr ""
 
@@ -1642,7 +1663,7 @@ msgstr ""
 "%s?"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Mazáno"
 
 #
 msgid "Deleted items"
@@ -1730,7 +1751,7 @@ msgstr "Prohlížeč adresářů"
 
 #, python-format
 msgid "Directory contains %d file(s) and %d sub-directories.\n"
-msgstr ""
+msgstr "Adresář obsahuje %d soubor(ů) a %d podadresář(ů).\n"
 
 #
 msgid "Disable"
@@ -1912,6 +1933,8 @@ msgid ""
 "Do you want to update your Dreambox?\n"
 "After pressing OK, please wait!"
 msgstr ""
+"Chcete aktualizovat Váš přijímač?\n"
+"Po stisknutí OK čekejte, prosím!"
 
 #
 msgid "Do you want to upgrade the package:\n"
@@ -2244,7 +2267,7 @@ msgid "Exit"
 msgstr "Ukončit"
 
 msgid "Exit EPG"
-msgstr ""
+msgstr "Zavřít EPG"
 
 #
 msgid "Exit editor"
@@ -2353,10 +2376,6 @@ msgstr "Rychlé období"
 msgid "Favourites"
 msgstr "Oblíbené"
 
-#
-msgid "February"
-msgstr "únor"
-
 msgid "File appears to be busy.\n"
 msgstr ""
 
@@ -2405,7 +2424,7 @@ msgid "Following tasks will be done after you press OK!"
 msgstr "Následující úlohy budou provedeny po stisknutí OK!"
 
 msgid "For more information see www.openpli.org"
-msgstr ""
+msgstr "Pro více informací se podívejte na www.openpli.org"
 
 #
 msgid "Format"
@@ -2791,7 +2810,7 @@ msgstr "Inicializovat"
 
 #
 msgid "Initializing storage device..."
-msgstr "Inicializovat zařízení pro ukládání..."
+msgstr "Inicializace zařízení pro ukládání..."
 
 #
 msgid "Input"
@@ -2920,21 +2939,8 @@ msgid "Items per Page "
 msgstr "Položek na stránku"
 
 #
-#
-msgid "January"
-msgstr "leden"
-
-#
 msgid "Job View"
 msgstr "Přehled práce"
-
-#
-msgid "July"
-msgstr "červenec"
-
-#
-msgid "June"
-msgstr "červen"
 
 #
 #. TRANSLATORS: (aspect ratio policy: display as fullscreen, even if this breaks the aspect)
@@ -2945,7 +2951,7 @@ msgid "Keep old timers for how many days"
 msgstr "Kolik dnů uchovávat staré časové události"
 
 msgid "Kernel Version: "
-msgstr ""
+msgstr "Verze kernelu:"
 
 #
 msgid "Keyboard"
@@ -2994,7 +3000,7 @@ msgid "Language selection"
 msgstr "Výběr jazyka"
 
 msgid "Last Upgrade: "
-msgstr ""
+msgstr "Poslední aktualizace:"
 
 #
 msgid "Last config"
@@ -3182,10 +3188,6 @@ msgid "Manufacturer"
 msgstr "Výrobce"
 
 #
-msgid "March"
-msgstr "březen"
-
-#
 msgid "Margin after record"
 msgstr "Rezerva po skončení pořadu (minuty)"
 
@@ -3196,10 +3198,6 @@ msgstr "Rezerva před nahráváním (minuty)"
 #
 msgid "Max. Bitrate: "
 msgstr ""
-
-#
-msgid "May"
-msgstr "květen"
 
 #
 msgid "Media player"
@@ -3703,10 +3701,6 @@ msgid "Nothing to upgrade"
 msgstr ""
 
 #
-msgid "November"
-msgstr "listopad"
-
-#
 msgid "Now Playing"
 msgstr "Přehrává"
 
@@ -3743,9 +3737,6 @@ msgstr ""
 #
 msgid "OSD visibility"
 msgstr "Viditelnost OSD"
-
-msgid "October"
-msgstr "Říjen"
 
 #
 msgid "Off"
@@ -4029,7 +4020,7 @@ msgstr "Následujte instrukce na TV"
 
 #
 msgid "Please note that the previously selected media could not be accessed and therefore the default directory is being used instead."
-msgstr "Všimněte si prosím, že dříve vybrané médium nemohlo být zpřístupněno a proto se místo něj používán standardní adresář."
+msgstr "Vezměte na vědomí, že dříve vybrané médium nemohlo být zpřístupněno a proto byl použit místo něj standardní adresář."
 
 #
 msgid "Please press OK to continue."
@@ -4049,7 +4040,7 @@ msgstr "Prosím, vyberte playlist"
 
 #
 msgid "Please select a subservice to record..."
-msgstr "Prosím vyberte podprogram pro nahrávání..."
+msgstr "Prosím, vyberte podprogram pro nahrávání..."
 
 #
 msgid "Please select a subservice..."
@@ -4153,7 +4144,7 @@ msgid "Please wait while we test your network..."
 msgstr "Čekejte prosím, zatímco my testujeme Vaši síť..."
 
 msgid "Please wait while your network is restarting..."
-msgstr ""
+msgstr "Čekejte, dokud není síť restartována..."
 
 #
 msgid "Please wait..."
@@ -4342,7 +4333,7 @@ msgid "Progress"
 msgstr "Průběh"
 
 msgid "Progress Small"
-msgstr ""
+msgstr "malý pásek"
 
 #
 msgid "Properties of current title"
@@ -4430,6 +4421,12 @@ msgstr "Opravdu nyní restartovat? "
 msgid "Really shutdown now?"
 msgstr "Opravdu nyní vypnout? "
 
+msgid "Really upgrade the frontprocessor and reboot now?"
+msgstr "Skutečně aktualizovat frontprocesor a restartovat?"
+
+msgid "Really upgrade your settop box and reboot now?"
+msgstr "Skutečně aktualizovat přijímač a restartovat"
+
 #
 msgid "Reboot"
 msgstr "Restartovat"
@@ -4516,9 +4513,6 @@ msgstr "Obnovuji přehledy a programy..."
 
 msgid "Remember service PIN"
 msgstr "Zapamatovat programový PIN"
-
-msgid "Remember service PIN cancel"
-msgstr "Zapamatovat programový PIN zrušit"
 
 #
 msgid "Remember these settings for each folder"
@@ -4665,7 +4659,7 @@ msgstr "Obnovit zálohu"
 
 #
 msgid "Restore is running..."
-msgstr "Obnova probíhá..."
+msgstr "Probíhá obnova..."
 
 #
 msgid "Restore running"
@@ -5079,10 +5073,6 @@ msgid "Seperate titles with a main menu"
 msgstr "Samostatné tituly s hlavní nabídkou"
 
 #
-msgid "September"
-msgstr "září"
-
-#
 msgid "Sequence repeat"
 msgstr "Opakovat sekvenci"
 
@@ -5289,7 +5279,7 @@ msgid "Show services beginning with"
 msgstr "Zobrazit programy začínající na"
 
 msgid "Show status icons in Movielist"
-msgstr "Zobrazovat ikonu stavu v seznamu filmů"
+msgstr "Zobrazovat ikony stavu v seznamu filmů"
 
 #
 msgid "Show the radio player..."
@@ -5305,7 +5295,7 @@ msgstr "Zobrazit stav vaší bezdrátové sítě.\n"
 
 #
 msgid "Shutdown"
-msgstr ""
+msgstr "Vypnout"
 
 #
 msgid "Shutdown Dreambox after"
@@ -5735,8 +5725,8 @@ msgstr "Systém"
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 msgid "TRANSLATOR_INFO"
 msgstr ""
-"(# FIRST AUTHOR : ws79 <ws79@centrum.cz> 2006) \n"
-"(# SECOND AUTOR: ims <martin@volyne.cz> 2011)"
+"(# Autor: ws79 <ws79@centrum.cz> 2006) \n"
+"(# Autor: ims <martin@volyne.cz> 2011)"
 
 #
 msgid "TS file is too large for ISO9660 level 1!"
@@ -5757,7 +5747,7 @@ msgid "Table of content for collection"
 msgstr "Obsah kompilace"
 
 msgid "Tags"
-msgstr ""
+msgstr "Tagy"
 
 msgid "Teletext subtitle color"
 msgstr "Barva teletextových titulků"
@@ -5799,6 +5789,9 @@ msgstr "Šířka okraje"
 
 msgid "Text font size"
 msgstr "Velikost textu"
+
+msgid "Thai"
+msgstr "Thajsky"
 
 #
 msgid ""
@@ -5846,6 +5839,16 @@ msgid ""
 msgstr ""
 "USB zařízení bylo připraveno jako bootovací.\n"
 "Nyní můžete nahrát soubor NFI s image! "
+
+msgid "The User Interface of your receiver is restarting"
+msgstr "Enigma se restartuje"
+
+msgid ""
+"The User Interface of your receiver is restarting\n"
+"due to an error in mytest.py"
+msgstr ""
+"Enigma byla restartována\n"
+"kvůli chybě v mytest.py"
 
 #
 msgid "The backup failed. Please choose a different backup location."
@@ -6035,7 +6038,7 @@ msgstr "Plugin není nainstalován."
 
 #
 msgid "This plugin will be installed."
-msgstr "Plugin bude instalován."
+msgstr "Plugin bude nainstalován."
 
 #
 msgid "This plugin will be removed."
@@ -6150,14 +6153,14 @@ msgstr "Úprava časovače"
 
 #
 msgid "Timer Overview"
-msgstr "Přehled časovače"
+msgstr "Přehled časovačů"
 
 msgid "Timer Type"
 msgstr ""
 
 #
 msgid "Timer entry"
-msgstr "Záznam časovače"
+msgstr "Zadání časovače"
 
 #
 msgid "Timer log"
@@ -6799,10 +6802,10 @@ msgid "WSS on 4:3"
 msgstr "WSS na 4:3"
 
 msgid "Wait for mount"
-msgstr ""
+msgstr "Čeká se na připojení"
 
 msgid "Wait for partition"
-msgstr ""
+msgstr "Čeká se na oddíl"
 
 #
 msgid "Waiting"
@@ -7186,6 +7189,15 @@ msgstr ""
 "Firmware Vašeho frontprocesoru musí být aktualizován.\n"
 "Stiskněte OK pro aktualizaci."
 
+msgid ""
+"Your frontprocessor will be upgraded\n"
+"Please wait until your receiver reboots\n"
+"This may take a few minutes"
+msgstr ""
+"Frontprocesor bude aktualizován\n"
+"Čekejte, dokud se přijímač nerestartuje\n"
+"To může trvat několik minut"
+
 #
 msgid ""
 "Your internet connection is not working!\n"
@@ -7201,6 +7213,12 @@ msgstr "Vaše jméno (volitelné):"
 #
 msgid "Your network configuration has been activated."
 msgstr "Konfigurace sítě byla aktivována."
+
+msgid "Your receiver is rebooting"
+msgstr "Přijímač se restartuje"
+
+msgid "Your receiver is shutting down"
+msgstr "Přijímač se vypíná"
 
 #
 msgid ""
@@ -8514,9 +8532,3 @@ msgstr "přepnout"
 msgid "zapped"
 msgstr "přepnutý"
 
-#~ msgid ""
-#~ "\n"
-#~ "Shut down upgrade and reboot"
-#~ msgstr ""
-#~ "\n"
-#~ "Shutdown, aktualizace a restart"

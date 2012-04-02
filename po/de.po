@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-17 09:37+0100\n"
-"PO-Revision-Date: 2012-03-17 10:39+0100\n"
+"POT-Creation-Date: 2012-03-25 20:27+0200\n"
+"PO-Revision-Date: 2012-03-26 10:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: daddelfalk\n"
 "Language: de\n"
@@ -206,9 +206,35 @@ msgstr "#ffffff"
 msgid "#ffffffff"
 msgstr "#ffffffff"
 
+#. TRANSLATORS: short time representation hour:minute
+#, python-format
+msgid "%2d:%02d"
+msgstr "%2d:%02d"
+
+#. TRANSLATORS: full time representation hour:minute:seconds
+#, python-format
+msgid "%2d:%02d:%02d"
+msgstr "%2d:%02d:%02d"
+
+#. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
+msgid "%A %e %B"
+msgstr "%A %e %B"
+
+#. TRANSLATORS: full date representation dayname daynum monthname year in strftime() format! See 'man strftime'
+msgid "%A %e %B %Y"
+msgstr "%A %e %B %Y"
+
 #
 msgid "%H:%M"
 msgstr "%H:%M"
+
+#. TRANSLATORS: short date representation short dayname daynum short monthname in strftime() format! See 'man strftime'
+msgid "%a %e/%m"
+msgstr "%a %e/%m"
+
+#. TRANSLATORS: long date representation short dayname daynum short monthname hour:minute in strftime() format! See 'man strftime'
+msgid "%a %e/%m  %-H:%M"
+msgstr "%a %e/%m  %-H:%M"
 
 #, python-format
 msgid "%d hour"
@@ -250,6 +276,10 @@ msgstr "%d Kanäle gefunden!"
 #
 msgid "%d.%B %Y"
 msgstr "%d.%B %Y"
+
+#. TRANSLATORS: VFD hour:minute daynum short monthname in strftime() format! See 'man strftime'
+msgid "%k:%M %e/%m"
+msgstr "%k:%M %e/%m"
 
 #
 #, python-format
@@ -685,6 +715,12 @@ msgstr "Alle"
 msgid "All Satellites"
 msgstr "Alle Satelliten"
 
+msgid "Allocate"
+msgstr "Zuweisen"
+
+msgid "Allocate unused memory index"
+msgstr "Zuordnen ungenutzer Rotor Index-Positionen"
+
 #
 msgid "Allow Subtitle equals Audio mask"
 msgstr "Erlaube Untertitel der Toneinstellung entsprechend"
@@ -726,9 +762,6 @@ msgstr "Crashlogs anonymisieren?"
 
 msgid "Any activity"
 msgstr "Irgendeine Aktivität"
-
-msgid "April"
-msgstr "April"
 
 msgid "Arabic"
 msgstr "Arabisch"
@@ -819,9 +852,6 @@ msgstr "Ton Sprachwahl 3"
 #
 msgid "Audio language selection 4"
 msgstr "Ton Sprachwahl 4"
-
-msgid "August"
-msgstr "August"
 
 #
 msgid "Author: "
@@ -1048,6 +1078,9 @@ msgstr "Kabel Suche"
 #
 msgid "Cache Thumbnails"
 msgstr "Vorschaubilder zwischenspeichern"
+
+msgid "Calculate"
+msgstr "Berechnen"
 
 msgid "Calculate all positions"
 msgstr "Berechne alle Positionen"
@@ -1567,9 +1600,6 @@ msgstr "Dänisch"
 msgid "Date"
 msgstr "Datum"
 
-msgid "December"
-msgstr "Dezember"
-
 #
 msgid "Decide if you want to enable or disable the Cleanup Wizard."
 msgstr "Entscheiden Sie, ob Sie den Aufräumassistenten aktivieren oder deaktivieren möchten."
@@ -1757,7 +1787,7 @@ msgstr "4:3-Inhalt anzeigen als"
 
 #
 msgid "Display >16:9 content as"
-msgstr ">16:9-Inhalt anzeigen als"
+msgstr "16:9-Inhalt anzeigen als"
 
 #
 msgid "Display Setup"
@@ -2331,9 +2361,6 @@ msgstr "Schnell Zeitraum"
 msgid "Favourites"
 msgstr "Favoriten"
 
-msgid "February"
-msgstr "Februar"
-
 msgid "File appears to be busy.\n"
 msgstr "Die Datei ist gerade in Verwendung.\n"
 
@@ -2705,6 +2732,9 @@ msgstr "Erhöhte Spannung"
 msgid "Index"
 msgstr "Index"
 
+msgid "Index allocated:"
+msgstr "Index zugeordnet:"
+
 #
 msgid "Info"
 msgstr "Info"
@@ -2875,18 +2905,9 @@ msgstr "Italienisch"
 msgid "Items per Page "
 msgstr "Objekte per Seite"
 
-msgid "January"
-msgstr "Januar"
-
 #
 msgid "Job View"
 msgstr "Jobansicht"
-
-msgid "July"
-msgstr "July"
-
-msgid "June"
-msgstr "Juni"
 
 #. TRANSLATORS: (aspect ratio policy: display as fullscreen, even if this breaks the aspect)
 msgid "Just Scale"
@@ -3129,9 +3150,6 @@ msgstr "Manueller Transponder"
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-msgid "March"
-msgstr "März"
-
 #
 msgid "Margin after record"
 msgstr "Nachlauf hinter Aufnahme"
@@ -3142,9 +3160,6 @@ msgstr "Vorlauf bei Aufnahme (in Minuten)"
 
 msgid "Max. Bitrate: "
 msgstr "Max. Bitrate: "
-
-msgid "May"
-msgstr "Mai"
 
 #
 msgid "Media player"
@@ -3480,6 +3495,9 @@ msgstr "Keine EPG-Daten gefunden. Starte unbegrenzte Aufnahme."
 msgid "No fast winding possible yet.. but you can use the number buttons to skip forward/backward!"
 msgstr "Spulen nicht möglich, aber Sie können mit Hilfe der Zahlen-Tasten springen!"
 
+msgid "No free index available"
+msgstr "Kein freier Index verfügbar"
+
 #
 msgid "No free tuner!"
 msgstr "Kein freier Tuner"
@@ -3642,9 +3660,6 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr "Keine Aktualisierungen"
 
-msgid "November"
-msgstr "November"
-
 #
 msgid "Now Playing"
 msgstr "Wiedergabe läuft"
@@ -3682,9 +3697,6 @@ msgstr "Benutzeroberflächen Anfrage"
 #
 msgid "OSD visibility"
 msgstr "Menü-Deckkraft"
-
-msgid "October"
-msgstr "Oktober"
 
 #
 msgid "Off"
@@ -5006,9 +5018,6 @@ msgstr "DiSEqC nur bei Sat-Wechsel senden"
 msgid "Seperate titles with a main menu"
 msgstr "Separate Titel mit Hauptmenü"
 
-msgid "September"
-msgstr "September"
-
 #
 msgid "Sequence repeat"
 msgstr "Sequenz-Wiederholung"
@@ -5720,6 +5729,9 @@ msgstr "Text Randbreite"
 #
 msgid "Text font size"
 msgstr "Text Schriftgröße"
+
+msgid "Thai"
+msgstr "Thai"
 
 #
 msgid ""

@@ -175,7 +175,7 @@ class InfoBarShowHide:
 		self["ShowHideActions"] = ActionMap( ["InfobarShowHideActions"] ,
 			{
 				"toggleShow": self.toggleShow,
-				"hide": self.hide,
+				"hide": self.keyHide,
 			}, 1) # lower prio to make it possible to override ok and cancel..
 
 		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
@@ -199,6 +199,18 @@ class InfoBarShowHide:
 		if isStandardInfoBar(self):
 			self.secondInfoBarScreen = self.session.instantiateDialog(SecondInfoBar)
 			self.secondInfoBarScreen.hide()
+
+	def keyHide(self):
+		if self.__state == self.STATE_SHOWN:
+			self.hide()
+		else:
+			if self.session.pipshown:
+				self.session.openWithCallback(self.hidePipConfirmed, MessageBox, _("Disable Picture in Picture"), MessageBox.TYPE_YESNO, -1, False, True, True, None, None, True)
+
+	def hidePipConfirmed(self, confirmed):
+		if not confirmed:
+			return
+		self.showPiP()
 
 	def connectShowHideNotifier(self, fnc):
 		if not fnc in self.onShowHideNotifiers:
@@ -1730,7 +1742,7 @@ class InfoBarInstantRecord:
 		else:
 			if len(simulTimerList) > 1: # with other recording
 				name = simulTimerList[1].name
-				name_date = ' '.join((name, strftime('%c', localtime(simulTimerList[1].begin))))
+				name_date = ' '.join((name, strftime('%F %T', localtime(simulTimerList[1].begin))))
 				print "[TIMER] conflicts with", name_date
 				recording.autoincrease = True	# start with max available length, then increment
 				if recording.setAutoincreaseEnd():
@@ -1794,8 +1806,7 @@ class InfoBarInstantRecord:
 	def TimeDateInputClosed(self, ret):
 		if len(ret) > 1:
 			if ret[0]:
-				localendtime = localtime(ret[1])
-				print "stopping recording at", strftime("%c", localendtime)
+				print "stopping recording at", strftime("%F %T", localtime(ret[1]))
 				if self.recording[self.selectedEntry].end != ret[1]:
 					self.recording[self.selectedEntry].autoincrease = False
 				self.recording[self.selectedEntry].end = ret[1]

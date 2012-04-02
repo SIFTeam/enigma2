@@ -47,7 +47,7 @@ DEVTYPE_UDEV = 0
 DEVTYPE_DEVFS = 1
 
 class Harddisk:
-	def __init__(self, device):
+	def __init__(self, device, removable):
 		self.device = device
 
 		if access("/dev/.udev", 0):
@@ -59,7 +59,10 @@ class Harddisk:
 
 		self.max_idle_time = 0
 		self.idle_running = False
+		self.last_access = time.time()
+		self.last_stat = 0
 		self.timer = None
+		self.is_sleeping = False
 
 		self.dev_path = ''
 		self.disk_path = ''
@@ -88,7 +91,8 @@ class Harddisk:
 					break
 
 		print "new Harddisk", self.device, '->', self.dev_path, '->', self.disk_path
-		self.startIdle()
+		if not removable:
+			self.startIdle()
 
 	def __lt__(self, ob):
 		return self.device < ob.device
@@ -436,9 +440,6 @@ class Harddisk:
 		return (int(data[0]), int(data[4]))
 
 	def startIdle(self):
-		self.last_access = time.time()
-		self.last_stat = 0
-		self.is_sleeping = False
 		from enigma import eTimer
 
 		# disable HDD standby timer
@@ -677,7 +678,7 @@ class HarddiskManager:
 			# see if this is a harddrive
 			l = len(device)
 			if l and not device[l-1].isdigit():
-				self.hdd.append(Harddisk(device))
+				self.hdd.append(Harddisk(device, removable))
 				self.hdd.sort()
 				SystemInfo["Harddisk"] = True
 		return error, blacklisted, removable, is_cdrom, partitions, medium_found
