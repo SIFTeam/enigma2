@@ -7,6 +7,6 @@ install_PYTHON = \
 	StaticMultiList.py ServiceTime.py MovieInfo.py MenuEntryCompare.py StringListSelection.py \
 	ServiceOrbitalPosition.py CryptoInfo.py TextCase.py \
 	ValueBitTest.py TunerInfo.py ConfigEntryTest.py TemplatedMultiContent.py ProgressToText.py \
-	Combine.py SensorToText.py ValueToPixmap.py pliExpertInfo.py \
+	Combine.py SensorToText.py ValueToPixmap.py PliExtraInfo.py \
 	EmuCamInfo.py ExtendedServiceInfo.py ExtraNumText.py ExtremeInfo.py \
-	MenuList.py HWName.py PliExtraInfo.py
+	MenuList.py HWName.py

@@ -1,6 +1,6 @@
 # shamelessly copied from pliExpertInfo (Vali, Mirakels, Littlesat)
 
-from enigma import iServiceInformation
+from enigma import iServiceInformation, iPlayableService
 from Components.Converter.Converter import Converter
 from Components.Element import cached
 from Components.config import config
@@ -33,7 +33,8 @@ class PliExtraInfo(Poll, Converter, object):
 			("0x4ae0", "0x4ae1", "Dre",     "D" )
 		)
 		self.ecmdata = GetEcmInfo()
-	
+		self.feraw = self.fedata = self.updateFEdata = None
+
 	def getCryptoInfo(self,info):
 		if (info.getInfo(iServiceInformation.sIsCrypted) == 1):
 			data = self.ecmdata.getEcmData()
@@ -46,11 +47,11 @@ class PliExtraInfo(Poll, Converter, object):
 			self.current_caid = "0"
 			self.current_provid = "0"
 			self.current_ecmpid = "0"
-	
+
 	def createCryptoBar(self,info):
 		res = ""
 		available_caids = info.getInfoObject(iServiceInformation.sCAIDs)
-			
+
 		for caid_entry in self.caid_data:
 			if int(self.current_caid, 16) >= int(caid_entry[0], 16) and int(self.current_caid, 16) <= int(caid_entry[1], 16):
 				color="\c0000??00"
@@ -65,10 +66,10 @@ class PliExtraInfo(Poll, Converter, object):
 
 			if res: res += " "
 			res += color + caid_entry[3]
-		
+
 		res += "\c00??????"
 		return res
-	
+
 	def createCryptoSpecial(self,info):
 		caid_name = "FTA"
 		try:
@@ -80,7 +81,7 @@ class PliExtraInfo(Poll, Converter, object):
 		except:
 			pass
 		return ""
-	
+
 	def createResolution(self,info):
 		xres = info.getInfo(iServiceInformation.sVideoWidth)
 		if xres == -1:
@@ -92,19 +93,19 @@ class PliExtraInfo(Poll, Converter, object):
 
 	def createVideoCodec(self,info):
 		return ("MPEG2", "MPEG4", "MPEG1", "MPEG4-II", "VC1", "VC1-SM", "")[info.getInfo(iServiceInformation.sVideoType)]
-		
+
 	def createFrequency(self,fedata):
 		frequency = fedata.get("frequency")
-		if frequency: 
+		if frequency:
 			return str(frequency / 1000)
-		return ""		
-	
+		return ""
+
 	def createSymbolRate(self,fedata):
 		symbolrate = fedata.get("symbol_rate")
 		if symbolrate:
 			return str(symbolrate / 1000)
 		return ""
-			
+
 	def createPolarization(self,fedata):
 		polarization = fedata.get("polarization_abbreviation")
 		if polarization:
@@ -122,7 +123,7 @@ class PliExtraInfo(Poll, Converter, object):
 		if modulation:
 			return modulation
 		return ""
-	
+
 	def createTunerType(self,feraw):
 		tunertype = feraw.get("tuner_type")
 		if tunertype:
@@ -171,16 +172,17 @@ class PliExtraInfo(Poll, Converter, object):
 		if self.type == "VideoCodec":
 			return self.createVideoCodec(info)
 
-		feinfo = service.frontendInfo()
-		if feinfo is None:
-			return ""
+		if self.updateFEdata:
+			feinfo = service.frontendInfo()
+			if feinfo:
+				self.feraw = feinfo.getAll(False)
+				if self.feraw:
+					self.fedata = ConvertToHumanReadable(self.feraw)
 
-		feraw = feinfo.getAll(False)
-		if feraw is None:
-			return ""
+		feraw=self.feraw
+		fedata=self.fedata
 
-		fedata = ConvertToHumanReadable(feraw)
-		if fedata is None:
+		if not feraw or not fedata:
 			return ""
 
 		if self.type == "TransponderFrequency":
@@ -202,7 +204,7 @@ class PliExtraInfo(Poll, Converter, object):
 			return self.createOrbPos(feraw)
 
 		if self.type == "TunerType":
-			return self.createTunerType(feraw)	
+			return self.createTunerType(feraw)
 
 		if self.type == "TunerSystem":
 			return self.createTunerSystem(fedata)
@@ -327,5 +329,11 @@ class PliExtraInfo(Poll, Converter, object):
 	boolean = property(getBool)
 
 	def changed(self, what):
-		Converter.changed(self, what)
+		if what[0] == self.CHANGED_SPECIFIC:
+			if what[1] in (iPlayableService.evEnd, iPlayableService.evStart, iPlayableService.evUpdatedInfo):
+				self.updateFEdata = True
+			Converter.changed(self, what)
+		elif what[0] == self.CHANGED_POLL and self.updateFEdata is not None:
+			self.updateFEdata = False
+			Converter.changed(self, what)
 
