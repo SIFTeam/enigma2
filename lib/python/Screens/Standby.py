@@ -6,6 +6,21 @@ from Components.SystemInfo import SystemInfo
 from GlobalActions import globalActionMap
 from enigma import eDVBVolumecontrol
 
+try:
+	file = open('/etc/image-version', 'r')
+	lines = file.readlines()
+	file.close()
+	for x in lines:
+		splitted = x.split('=')
+		if splitted[0] == "box_type":
+			boxtype = splitted[1].replace('\n','') # 0 = release, 1 = experimental
+except:
+	boxtype="not detected"
+if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
+	from enigma import eTimer, evfd
+	from time import localtime, time
+	from os import system 	
+
 inStandby = None
 
 class Standby(Screen):
@@ -35,6 +50,13 @@ class Standby(Screen):
 		Screen.__init__(self, session)
 		self.avswitch = AVSwitch()
 
+		if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':	
+			self.forled = readled() 
+			if self.forled[0] == 'True':
+				self.ledenable = 1
+			else:
+				self.ledenable = 0					 
+		
 		print "enter standby"
 
 		self["actions"] = ActionMap( [ "StandbyActions" ],
@@ -67,7 +89,13 @@ class Standby(Screen):
 			self.avswitch.setInput("AUX")
 		self.onFirstExecBegin.append(self.__onFirstExecBegin)
 		self.onClose.append(self.__onClose)
-
+		
+		if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
+			self.sign = 0
+			self.zaPrik = eTimer()
+			self.zaPrik.timeout.get().append(self.vrime)
+			self.zaPrik.start(1, 1)	
+			
 	def __onClose(self):
 		global inStandby
 		inStandby = None
@@ -77,6 +105,18 @@ class Standby(Screen):
 			self.paused_service.unPauseService()
 		self.session.screen["Standby"].boolean = False
 		globalActionMap.setEnabled(True)
+		if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
+			try:
+				open("/proc/stb/fp/rtc", "w").write(str(0))
+			except IOError:
+				print "setRTCtime failed!"		
+			self.zaPrik.stop()
+			if self.forled[0] == 'True':
+				self.ledenable = 1
+			else:
+				self.ledenable = 0				
+			if self.ledenable == 1:
+				evfd.getInstance().vfd_led(str(self.forled[1]))
 
 	def __onFirstExecBegin(self):
 		global inStandby
@@ -131,10 +171,25 @@ class TryQuitMainloop(MessageBox):
 		self.connected = False
 		reason = ""
 		next_rec_time = -1
+		
+		if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
+			self.forled = readled()
+			if self.forled[0] == 'True':
+				self.ledenable = 1
+				evfd.getInstance().vfd_led(str(self.forled[2]))
+			else:
+				self.ledenable = 0
+				evfd.getInstance().vfd_led(str(0))
+				
 		if not recordings:
 			next_rec_time = session.nav.RecordTimer.getNextRecordingTime()	
 		if recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
 			reason = _("Recording(s) are in progress or coming up in few seconds!") + '\n'
+			
+			if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
+				if self.ledenable == 1:
+					evfd.getInstance().vfd_led(str(self.forled[3])) 
+			
 		if jobs:
 			if jobs == 1:
 				job = job_manager.getPendingJobs()[0]
