@@ -15,6 +15,8 @@ def getHWClass():
 		return "vuplus"
 	elif hwtype == "et9x00" or hwtype == "et6x00" or hwtype == "et5x00":
 		return "xtrend-ctech"
+	elif hwtype == "gb800solo" or hwtype == "gb800ue" or hwtype == "gb800solo" or hwtype == "quattro":
+		return "gigablue"
 	return "unknown"
 		
 def getHWTypeText():
@@ -41,4 +43,12 @@ def getHWTypeText():
 		return "Clark/Xtrend et6x00"
 	elif hwtype == "et5x00":
 		return "Clark/XTrend et5x00"
+	elif hwtype == "gb800se":
+		return "GigaBlue HD 800se"
+	elif hwtype == "gb800ue":
+		return "GigaBlue HD 800ue"
+	elif hwtype == "gb800solo":
+		return "GigaBlue HD 800solo"
+	elif hwtype == "quattro":
+		return "GigaBlue HD Quattro"
 	return hwtype
