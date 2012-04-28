@@ -21,7 +21,11 @@ void setRTC(time_t time)
 	if (f)
 	{
 		if (fprintf(f, "%u", (unsigned int)time))
+#ifdef HAVE_NORTC
+			prev_time = 0;
+#else
 			prev_time = time;
+#endif
 		else
 			eDebug("write /proc/stb/fp/rtc failed (%m)");
 		fclose(f);
@@ -51,7 +55,11 @@ time_t getRTC()
 		if (fscanf(f, "%u", &tmp) != 1)
 			eDebug("read /proc/stb/fp/rtc failed (%m)");
 		else
+#ifdef HAVE_NORTC
+			rtc_time=0
+#else
 			rtc_time=tmp;
+#endif
 		fclose(f);
 	}
 	else
@@ -170,7 +178,11 @@ eDVBLocalTimeHandler::eDVBLocalTimeHandler()
 		else // inform all who's waiting for valid system time..
 		{
 			eDebug("Use valid Linux Time :) (RTC?)");
+#ifdef HAVE_NORTC
+			m_time_ready = false;
+#else
 			m_time_ready = true;
+#endif
 			/*emit*/ m_timeUpdated();
 		}
 	}
