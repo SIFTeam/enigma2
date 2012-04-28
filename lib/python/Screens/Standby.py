@@ -13,6 +13,18 @@ if config.misc.boxtype.value == 'gb800se' or config.misc.boxtype.value == 'gb800
 
 inStandby = None
 
+def readled():
+	try:
+		fp = open('/etc/vfdled','r')
+		forled = fp.read()
+		fp.close()
+	except:
+		fp = open('/etc/vfdled','w')
+		forled = str(['True', '1', '2', '3', 'True', '24h'])
+		fp.write(forled)
+		fp.close()
+	return eval(forled)
+
 class Standby(Screen):
 	def Power(self):
 		print "leave standby"
@@ -107,6 +119,37 @@ class Standby(Screen):
 				self.ledenable = 0				
 			if self.ledenable == 1:
 				evfd.getInstance().vfd_led(str(self.forled[1]))
+
+	def prikaz(self):               
+		if self.forled[4] == 'True':
+			clock = str(localtime()[3])
+			clock1 = str(localtime()[4])
+			if self.forled[5] != '24h':
+				if clock > 12:
+					clock = str(int(clock) - 12)
+			if len(clock) != 2:
+				clock = " "+clock
+			if len(clock1) != 2:
+				clock1 = "0"+clock1                     
+			if self.sign == 0:
+				clock = clock+":"
+				self.sign = 1
+			else:
+				self.sign = 0
+			clock = clock+clock1
+			evfd.getInstance().vfd_write_string(str(clock)) 
+		else:
+			evfd.getInstance().vfd_write_string("    ") 
+		if self.forled[0] == 'True':
+			self.ledenable = 1
+			evfd.getInstance().vfd_led(str(self.forled[2]))
+		else:
+			self.ledenable = 0
+			evfd.getInstance().vfd_led(str(0))
+
+	def vrime(self):
+		self.zaPrik.start(1000, 1)
+		self.prikaz()
 
 	def __onFirstExecBegin(self):
 		global inStandby
