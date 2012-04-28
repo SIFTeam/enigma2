@@ -1,9 +1,7 @@
 from Components.VariableText import VariableText
-from config import config
 from enigma import eLabel, iServiceInformation, eServiceReference, eServiceCenter
 from Renderer import Renderer
-if config.misc.boxtype.value == 'gb800se' or config.misc.boxtype.value == 'gb800solo':
-	from enigma import evfd 
+
 #
 # borrowed from vali, adapted for openpli
 #
@@ -27,16 +25,8 @@ class ChannelNumber(Renderer, VariableText):
 			for idx in range(1, len(self.list)):
 				if name == self.list[idx-1]:
 					self.text = str(idx)
-					if config.misc.boxtype.value == 'gb800se' or config.misc.boxtype.value == 'gb800solo':
-						number = self.text[0:4]
-						while len(number) < 4:
-							number = ' '+number
-						evfd.getInstance().vfd_write_string(number) 					
-
 					break
 		else:
-			if config.misc.boxtype.value == 'gb800se' or config.misc.boxtype.value == 'gb800solo':
-				evfd.getInstance().vfd_write_string('----') 	
 			self.text = '---'
 
 	def getList(self):
