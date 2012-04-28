@@ -5,17 +5,9 @@ from Components.AVSwitch import AVSwitch
 from Components.SystemInfo import SystemInfo
 from GlobalActions import globalActionMap
 from enigma import eDVBVolumecontrol
+from SIFTeam.Extra.HWType import getHWType
 
-try:
-	file = open('/etc/image-version', 'r')
-	lines = file.readlines()
-	file.close()
-	for x in lines:
-		splitted = x.split('=')
-		if splitted[0] == "box_type":
-			boxtype = splitted[1].replace('\n','') # 0 = release, 1 = experimental
-except:
-	boxtype="not detected"
+boxtype = getHWType()
 if boxtype == 'gb800se' or boxtype == 'gb800solo' or boxtype == 'gb800ue':
 	from enigma import eTimer, evfd
 	from time import localtime, time
