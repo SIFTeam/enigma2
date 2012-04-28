@@ -6,23 +6,12 @@ from enigma import Misc_Options, eEnv;
 from Components.NimManager import nimmanager
 from Components.Harddisk import harddiskmanager
 from SystemInfo import SystemInfo
+from SIFTeam.Extra.HWType import getHWType
 import os
 import enigma
 
 def InitUsageConfig():
-	try:
-		file = open('/etc/image-version', 'r')
-		lines = file.readlines()
-		file.close()
-		for x in lines:
-			splitted = x.split('=')
-			if splitted[0] == "box_type":
-				folderprefix = splitted[1].replace('\n','') # 0 = release, 1 = experimental
-				boxtype = splitted[1].replace('\n','') # 0 = release, 1 = experimental
-	except:
-		folderprefix=""
-		boxtype="not detected"
-	config.misc.boxtype = ConfigText(default = boxtype)
+	config.misc.boxtype = ConfigText(default = getHWType())
 
 	config.usage = ConfigSubsection();
 	config.usage.showdish = ConfigYesNo(default = True)
