@@ -1,6 +1,3 @@
-hwtype = 'et9x00'
-hwclass = 'xtrend-ctech'
-
 def getHWType():
 	try:
 		return open("/etc/machine").read().strip()
