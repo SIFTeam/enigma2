@@ -56,7 +56,7 @@ time_t getRTC()
 			eDebug("read /proc/stb/fp/rtc failed (%m)");
 		else
 #ifdef HAVE_NORTC
-			rtc_time=0
+			rtc_time=0;
 #else
 			rtc_time=tmp;
 #endif
