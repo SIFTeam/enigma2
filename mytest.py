@@ -616,6 +616,9 @@ Screens.Ci.InitCiConfig()
 import SIFTeam.Extra.Preferences
 SIFTeam.Extra.Preferences.InitPreferences()
 
+profile("RcModel")
+import Components.RcModel
+
 #from enigma import dump_malloc_stats
 #t = eTimer()
 #t.callback.append(dump_malloc_stats)
