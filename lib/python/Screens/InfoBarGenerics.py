@@ -1364,7 +1364,7 @@ class InfoBarTimeshift:
 		print "enable timeshift"
 		ts = self.getTimeshift()
 		if ts is None:
-			self.session.open(MessageBox, _("Timeshift not possible!"), MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, _("Timeshift not possible!"), MessageBox.TYPE_ERROR, simple = True)
 			print "no ts interface"
 			return 0
 
@@ -1394,7 +1394,7 @@ class InfoBarTimeshift:
 		ts = self.getTimeshift()
 		if ts is None:
 			return 0
-		self.session.openWithCallback(self.stopTimeshiftConfirmed, MessageBox, _("Stop Timeshift?"), MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.stopTimeshiftConfirmed, MessageBox, _("Stop Timeshift?"), MessageBox.TYPE_YESNO, simple = True)
 
 	def stopTimeshiftConfirmed(self, confirmed):
 		if not confirmed:
@@ -1406,6 +1406,7 @@ class InfoBarTimeshift:
 
 		ts.stopTimeshift()
 		self.timeshift_enabled = 0
+		self.pvrStateDialog.hide()
 
 		# disable actions
 		self.__seekableStatusChanged()
@@ -1425,7 +1426,9 @@ class InfoBarTimeshift:
 			print "play, ..."
 			ts.activateTimeshift() # activate timeshift will automatically pause
 			self.setSeekState(self.SEEK_STATE_PAUSE)
-
+			seekable = self.getSeek()
+			if seekable is not None:
+				seekable.seekTo(-90000) # seek approx. 1 sec before end
 		if back:
 			self.ts_rewind_timer.start(200, 1)
 

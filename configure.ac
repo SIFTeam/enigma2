@@ -14,8 +14,6 @@ AC_PROG_CXX
 m4_ifdef([LT_INIT], [LT_INIT], [AC_PROG_LIBTOOL])
 AC_CONFIG_MACRO_DIR([m4])
 
-AC_CHECK_HEADERS([dbox/fp.h dbox/lcd-ks0713.h])
-
 AC_PATH_PROG(MSGFMT, msgfmt, AC_MSG_ERROR(Could not find msgfmt))
 
 AM_PATH_PYTHON
@@ -160,6 +158,11 @@ data/defaults/Dream/hdbouquets/Makefile
 data/defaults/Dream/sdbouquets/Makefile
 data/extensions/Makefile
 data/keymaps/Makefile
+data/rc_models/Makefile
+data/rc_models/et6x00/Makefile
+data/rc_models/et9500/Makefile
+data/rc_models/et9x00/Makefile
+data/rc_models/vu/Makefile
 data/skin_default/Makefile
 data/skin_default/menu/Makefile
 data/skin_default/icons/Makefile

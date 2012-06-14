@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-11 16:07+0200\n"
+"POT-Creation-Date: 2012-06-05 23:41+0200\n"
 "PO-Revision-Date: 2012-03-17 09:46+0100\n"
 "Last-Translator: blzr <blzr@o2.pl>\n"
 "Language-Team: \n"
@@ -1330,6 +1330,9 @@ msgstr "Składnia nazw nagrań"
 #
 msgid "Configuration Mode"
 msgstr "Tryb konfiguracji"
+
+msgid "Configuration mode: "
+msgstr ""
 
 #
 msgid "Configure interface"
@@ -6740,6 +6743,12 @@ msgstr "Zdefiniowany przez użytkownika"
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
+msgid "Using LNB"
+msgstr ""
+
+msgid "Using Tuner "
+msgstr ""
+
 #
 msgid "Using fixed address"
 msgstr "Użyty stały adres"
@@ -6970,6 +6979,9 @@ msgstr "Sygnał wybudzenia z TV"
 #
 msgid "Warn if free space drops below (kB):"
 msgstr "Ostrzegaj jeśli ilość wolnego miejsca spadnie poniżej (kB):"
+
+msgid "Warning: no LNB; using factory defaults."
+msgstr ""
 
 #
 msgid "Wed"
@@ -8736,98 +8748,3 @@ msgstr "Przełącz"
 #
 msgid "zapped"
 msgstr "Przełączony"
-
-#
-#~ msgid "#000000"
-#~ msgstr "#000000"
-
-#
-#~ msgid "#0064c7"
-#~ msgstr "#0064c7"
-
-#
-#~ msgid "#25062748"
-#~ msgstr "#25062748"
-
-#
-#~ msgid "#389416"
-#~ msgstr "#389416"
-
-#
-#~ msgid "#80000000"
-#~ msgstr "#80000000"
-
-#
-#~ msgid "#80ffffff"
-#~ msgstr "#80ffffff"
-
-#
-#~ msgid "#bab329"
-#~ msgstr "#bab329"
-
-#
-#~ msgid "#f23d21"
-#~ msgstr "#f23d21"
-
-#
-#~ msgid "#ffffff"
-#~ msgstr "#ffffff"
-
-#
-#~ msgid "#ffffffff"
-#~ msgstr "#ffffffff"
-
-#
-#~ msgid "April"
-#~ msgstr "Kwiecień"
-
-#
-#~ msgid "August"
-#~ msgstr "Sierpień"
-
-#
-#~ msgid "December"
-#~ msgstr "Grudzień"
-
-#~ msgid "Failed to write /tmp/positionersetup.log:str"
-#~ msgstr "Zapis do /tmp/positionersetup.log:str nie powiódł się"
-
-#
-#~ msgid "February"
-#~ msgstr "Luty"
-
-#
-#~ msgid "January"
-#~ msgstr "Styczeń"
-
-#
-#~ msgid "July"
-#~ msgstr "Lipiec"
-
-#
-#~ msgid "June"
-#~ msgstr "Czerwiec"
-
-#
-#~ msgid "March"
-#~ msgstr "Marzec"
-
-#
-#~ msgid "May"
-#~ msgstr "Maj"
-
-#
-#~ msgid "November"
-#~ msgstr "Listopad"
-
-#
-#~ msgid "October"
-#~ msgstr "Październik"
-
-#
-#~ msgid "Remember service PIN cancel"
-#~ msgstr "Anuluj 'pamiętanie' PINu kanału"
-
-#
-#~ msgid "September"
-#~ msgstr "Wrzesień"
