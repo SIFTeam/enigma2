@@ -268,7 +268,7 @@ eDVBUsbAdapter::eDVBUsbAdapter(int nr)
 	struct dvb_frontend_info fe_info;
 	int frontend = -1;
 	char filename[256];
-	eDebug("linking adapter%d/frontend0 to vtuner%d", nr, nr - 1);
+	int vtunerid = nr - 1;
 
 	pumpThread = NULL;
 
@@ -331,12 +331,23 @@ eDVBUsbAdapter::eDVBUsbAdapter(int nr)
 		goto error;
 	}
 
-	snprintf(filename, sizeof(filename), "/dev/misc/vtuner%d", nr - 1);
-	vtunerFd = open(filename, O_RDWR);
+	while (vtunerFd < 0)
+	{
+		snprintf(filename, sizeof(filename), "/dev/misc/vtuner%d", vtunerid);
+		if (::access(filename, F_OK) < 0) break;
+		vtunerFd = open(filename, O_RDWR);
+		if (vtunerFd < 0)
+		{
+			vtunerid++;
+		}
+	}
+
 	if (vtunerFd < 0)
 	{
 		goto error;
 	}
+
+	eDebug("linking adapter%d/frontend0 to vtuner%d", nr, vtunerid);
 
 	filter.input = DMX_IN_FRONTEND;
 	filter.flags = 0;
@@ -374,10 +385,14 @@ eDVBUsbAdapter::eDVBUsbAdapter(int nr)
 #define VTUNER_SET_TYPE     4
 #define VTUNER_SET_HAS_OUTPUTS 5
 #define VTUNER_SET_FE_INFO  6
-#define VTUNER_SET_DELSYS   7
+#define VTUNER_SET_NUM_MODES 7
+#define VTUNER_SET_MODES 8
+#define VTUNER_SET_DELSYS 32
+#define VTUNER_SET_ADAPTER 33
 	ioctl(vtunerFd, VTUNER_SET_NAME, name);
 	ioctl(vtunerFd, VTUNER_SET_TYPE, type);
 	ioctl(vtunerFd, VTUNER_SET_HAS_OUTPUTS, "no");
+	ioctl(vtunerFd, VTUNER_SET_ADAPTER, nr);
 
 	memset(pidList, 0xff, sizeof(pidList));
 
