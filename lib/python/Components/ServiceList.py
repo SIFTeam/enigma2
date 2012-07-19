@@ -244,10 +244,12 @@ class ServiceList(HTMLComponent, GUIComponent):
 			channelNumberWidth = 50
 			channelNumberSpace = 10
 
-		if config.usage.show_event_progress_in_servicelist.value:
-			self.l.setElementPosition(self.l.celServiceEventProgressbar, eRect(channelNumberWidth+channelNumberSpace, 0, 52, self.ItemHeight))
+		if config.usage.show_event_progress_in_servicelist.value == "left":
+			self.l.setElementPosition(self.l.celServiceEventProgressbar, eRect(0, 0, 52, self.ItemHeight))
+		elif config.usage.show_event_progress_in_servicelist.value == "right":
+			self.l.setElementPosition(self.l.celServiceEventProgressbar, eRect(1, 0, 52, self.ItemHeight))
 		else:
-			self.l.setElementPosition(self.l.celServiceEventProgressbar, eRect(channelNumberWidth+channelNumberSpace, 0, 0, 0))
+			self.l.setElementPosition(self.l.celServiceEventProgressbar, eRect(1, 0, 0, 0))
 		self.l.setElementFont(self.l.celServiceName, self.ServiceNameFont)
 		self.l.setElementFont(self.l.celServiceNumber, self.ServiceNumberFont)
 		self.l.setElementPosition(self.l.celServiceNumber, eRect(0, 0, channelNumberWidth, self.ItemHeight))

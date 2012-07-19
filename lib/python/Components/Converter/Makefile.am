@@ -9,4 +9,4 @@ install_PYTHON = \
 	ValueBitTest.py TunerInfo.py ConfigEntryTest.py TemplatedMultiContent.py ProgressToText.py \
 	Combine.py SensorToText.py ValueToPixmap.py PliExtraInfo.py \
 	EmuCamInfo.py ExtendedServiceInfo.py ExtraNumText.py ExtremeInfo.py \
-	MenuList.py HWName.py
+	MenuList.py HWName.py genre.py
