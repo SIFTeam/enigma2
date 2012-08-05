@@ -9,7 +9,7 @@ self.clearSelectedKeys()
 self.selectKey("OK")
 		</code>
 	</step>
-	<step id="modeselection" nextstep="rateselection" timeout="20" timeoutaction="selectnext">
+	<step id="modeselection" nextstep="rateselection" timeout="30" timeoutaction="selectnext">
 		<text value="Video mode selection." />
 		<displaytext value="Select video mode" />
 		<list type="dynamic" source="listModes" evaluation="modeSelectionMade" onselect="modeSelectionMoved" />
@@ -20,7 +20,7 @@ self.selectKey("DOWN")
 self["portpic"].hide()
 		</code>
 	</step>
-	<step id="rateselection" nextstep="end" timeout="20" timeoutaction="selectnext">
+	<step id="rateselection" nextstep="end" timeout="30" timeoutaction="selectnext">
 		<condition>
 self.condition = (self.port != "DVI" or self.mode == "PC")
 		</condition>		

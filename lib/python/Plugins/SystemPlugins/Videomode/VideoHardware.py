@@ -11,7 +11,7 @@ from os import path
 # selected mode. No other strict checking is done.
 class VideoHardware:
 	rates = { } # high-level, use selectable modes.
-
+	hw_type = HardwareInfo().get_device_name()
 	modes = { }  # a list of (high-level) modes for a certain port.
 
 	rates["PAL"] =			{ "50Hz":		{ 50: "pal" },
@@ -38,6 +38,12 @@ class VideoHardware:
 								"60Hz":		{ 60: "1080i" },
 								"multi":	{ 50: "1080i50", 60: "1080i" } }
 
+        if hw_type == 'elite' or hw_type == 'premium' or hw_type == 'premium+' or hw_type == 'ultra' or hw_type == "me" or hw_type == "minime" :
+                rates["1080p"] =                { "50Hz":               { 50: "1080p50" },
+                                                                "60Hz":         { 60: "1080p" },
+                                                                "multi":        { 50: "1080p50", 60: "1080p" } }
+
+
 	rates["PC"] = { 
 		"1024x768": { 60: "1024x768" }, # not possible on DM7025
 		"800x600" : { 60: "800x600" },  # also not possible
@@ -57,6 +63,11 @@ class VideoHardware:
 	modes["Scart"] = ["PAL", "NTSC", "Multi"]
 	modes["YPbPr"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
 	modes["DVI"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+        if hw_type == "me" or hw_type == "minime" :
+		modes["DVI"] = ["720p", "1080p", "1080i", "576p", "480p", "576i", "480i"]
+		config.av.edid_override = True
+        else:
+		modes["DVI"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
 	modes["DVI-PC"] = ["PC"]
 
 	widescreen_modes = set(["720p", "1080i"])
@@ -97,10 +108,13 @@ class VideoHardware:
 
 		self.readAvailableModes()
 
+		if self.hw_type == "me" or self.hw_type == "minime" : del self.modes["Scart"]
+
 		if self.modes.has_key("DVI-PC") and not self.getModeList("DVI-PC"):
 			print "remove DVI-PC because of not existing modes"
 			del self.modes["DVI-PC"]
 
+		if self.hw_type == "me" or self.hw_type == "minime" : self.readPreferredModes()
 		self.createConfig()
 #		self.on_hotplug.append(self.createConfig)
 
@@ -155,6 +169,14 @@ class VideoHardware:
 #				if mode not in self.modes_preferred and not config.av.edid_override.value:
 #					print "no, not preferred"
 #					return False
+                      	if port == "DVI":
+##### Only for test #####
+                              if self.hw_type == "me" or self.hw_type == "minime" :
+                                      if mode not in self.modes_preferred and not config.av.edid_override.value:
+                                              print "no, not preferred"
+                                              return False
+##### Only for test #####
+
 			if mode not in self.modes_available:
 				return False
 		return True
