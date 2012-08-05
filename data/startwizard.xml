@@ -125,7 +125,7 @@ self.condition = config.misc.startwizard.doservicescan.value and nimmanager.some
 			</list>
 		</step>
 		<step id="finisheddefaultsatlists">
-			<text value="Do you want to enable the parental control feature on your dreambox?" />
+			<text value="Do you want to enable the parental control feature on your receiver?" />
 			<list>
 				<listentry caption="No" step="end" />
 				<listentry caption="Yes" step="parentalsetup" />
@@ -166,12 +166,12 @@ config.ParentalControl.setuppin.value = config.ParentalControl.servicepin[0].val
 config.ParentalControl.setuppin.save()
 			</code>
 
-			<text value="After the start wizard is completed, you need to protect single services. Refer to your dreambox's manual on how to do that." />
+			<text value="After the start wizard is completed, you need to protect single services. Refer to your receiver's manual on how to do that." />
 		</step>
 		<step id="end" laststep="true">
 			<condition>
 self.condition = self.isLastWizard
 			</condition>
-			<text value="Thank you for using the wizard. Your box is now ready to use.\nPlease press OK to start using your Dreambox." />
+			<text value="Thank you for using the wizard. Your box is now ready to use.\nPlease press OK to start using your receiver." />
 		</step>
 </wizard>

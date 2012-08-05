@@ -339,7 +339,7 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 				ePythonConfigQuery::getConfigValue("config.mediaplayer.alternateUserAgent", m_useragent);
 		}
 		if ( m_useragent.length() == 0 )
-			m_useragent = "Dream Multimedia Dreambox Enigma2 Mediaplayer";
+			m_useragent = "Enigma2 Mediaplayer";
 	}
 	else if ( m_sourceinfo.containertype == ctCDA )
 	{
@@ -1267,6 +1267,8 @@ void eServiceMP3::gstBusCall(GstMessage *msg)
 					}
 					children = gst_bin_iterate_recurse(GST_BIN(m_gst_playbin));
 					audioSink = GST_ELEMENT_CAST(gst_iterator_find_custom(children, (GCompareFunc)match_sinktype, (gpointer)"GstDVBAudioSink"));
+					gst_iterator_free(children);
+					children = gst_bin_iterate_recurse(GST_BIN(m_gst_playbin));
 					videoSink = GST_ELEMENT_CAST(gst_iterator_find_custom(children, (GCompareFunc)match_sinktype, (gpointer)"GstDVBVideoSink"));
 					gst_iterator_free(children);
 
