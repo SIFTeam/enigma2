@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-05 23:41+0200\n"
+"POT-Creation-Date: 2012-08-05 10:00+0200\n"
 "PO-Revision-Date: 2011-12-06 12:09+0300\n"
 "Last-Translator: Raivo, Henkka, eesatfan, rimas\n"
 "Language-Team: Raivo, Henkka, eesatfan, rimas\n"
@@ -30,10 +30,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your receiver settings."
 msgstr ""
-"\n"
-"Tee sätetest varukoopia."
 
 msgid ""
 "\n"
@@ -44,17 +42,13 @@ msgstr ""
 
 msgid ""
 "\n"
-"Manage extensions or plugins for your Dreambox"
+"Manage extensions or plugins for your receiver"
 msgstr ""
-"\n"
-"Halda oma vastuvõtja laiendusi"
 
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your receiver software."
 msgstr ""
-"\n"
-"Uuenda vastuvõtja tarkvara."
 
 msgid ""
 "\n"
@@ -65,24 +59,20 @@ msgstr ""
 
 msgid ""
 "\n"
-"Restore your Dreambox settings."
-msgstr ""
-"\n"
-"Vastuvõtja sätete taastamine."
-
-msgid ""
-"\n"
-"Restore your Dreambox with a new firmware."
-msgstr ""
-"\n"
-"Taasta vastuvõtja uue tarkvaraga."
-
-msgid ""
-"\n"
 "Restore your backups by date."
 msgstr ""
 "\n"
 "Taasta oma varukoopiad kuupäeva alusel."
+
+msgid ""
+"\n"
+"Restore your receiver settings."
+msgstr ""
+
+msgid ""
+"\n"
+"Restore your receiver with a new firmware."
+msgstr ""
 
 msgid ""
 "\n"
@@ -148,6 +138,9 @@ msgstr ""
 msgid "%2d:%02d:%02d"
 msgstr ""
 
+msgid "%A %d %B"
+msgstr ""
+
 #. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
 msgid "%A %e %B"
 msgstr ""
@@ -201,6 +194,9 @@ msgstr[1] ""
 msgid "%d services found!"
 msgstr "%d kanalit leitud!"
 
+msgid "%d-%m"
+msgstr ""
+
 msgid "%d.%B %Y"
 msgstr "%d.%B %Y"
 
@@ -211,6 +207,10 @@ msgstr ""
 #, python-format
 msgid "%s (%s)\n"
 msgstr "%s (%s)\n"
+
+#, python-format
+msgid "%s/%s: %s"
+msgstr ""
 
 msgid "(ZAP)"
 msgstr "(Ainult kanalivahetus)"
@@ -342,17 +342,13 @@ msgstr "Demo laiendus TPM kasutamiseks."
 
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"receiver to standby. Do that now?"
 msgstr ""
-"Lõpetanud salvestuse timer soovib panna\n"
-"vastuvõtja standby-sse. Kas paneb?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your receiver. Shutdown now?"
 msgstr ""
-"Salvestuse lõpetanud timer soovib vastuvõtja\n"
-"välja lülitada. Kas lülitab?"
 
 msgid "A graphical EPG for all services of an specific bouquet"
 msgstr "Graafiline EPG kõigile kanalitele selles valikus"
@@ -408,17 +404,13 @@ msgstr ""
 
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"receiver to standby. Do that now?"
 msgstr ""
-"Unetimer soovib vastuvõtja panna\n"
-"standby-sse. Kas panna?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your receiver. Shutdown now?"
 msgstr ""
-"Unetimer soovib vastuvõtja välja\n"
-"lülitada. Kas lülitab?"
 
 msgid "A small overview of the available icon states and actions."
 msgstr "Kasutatavate ikoonide seisundite ja tegevuste lühiülevaade."
@@ -509,11 +501,9 @@ msgid "Add/Remove timer for current event"
 msgstr ""
 
 msgid ""
-"Adds enigma2 settings and dreambox model informations like SN, rev... if "
+"Adds enigma2 settings and receiver model informations like SN, rev... if "
 "enabled."
 msgstr ""
-"Lisab enigma2 seaded ja vastuvõtja mudeli info, nagu SN ... jne. kui on "
-"lubatud."
 
 msgid "Adds network configuration if enabled."
 msgstr "Lisab võrgu seadistuse, kui on lubatud."
@@ -564,10 +554,8 @@ msgstr ""
 
 msgid ""
 "After the start wizard is completed, you need to protect single services. "
-"Refer to your dreambox's manual on how to do that."
+"Refer to your receiver's manual on how to do that."
 msgstr ""
-"Kui alghäälestus on lõppenud, pead valima lapselukuga kanalid. Vaata "
-"juhendist, kuidas seda teha."
 
 msgid "Album"
 msgstr "Album"
@@ -577,6 +565,9 @@ msgstr "Kõik"
 
 msgid "All Satellites"
 msgstr "Kõik satelliidid"
+
+msgid "All ages"
+msgstr ""
 
 msgid "Allocate"
 msgstr ""
@@ -660,6 +651,9 @@ msgstr ""
 
 msgid "Artist"
 msgstr "Esitaja"
+
+msgid "Arts/Culture"
+msgstr ""
 
 msgid "Ask before shutdown:"
 msgstr "Küsi kinnitust enne väljalülitamist:"
@@ -961,6 +955,9 @@ msgstr "Kontrolli"
 msgid "Checking Filesystem..."
 msgstr "Kontrollin failisüsteemi..."
 
+msgid "Children/Youth"
+msgstr ""
+
 msgid "Choose Tuner"
 msgstr "Vali tuuner"
 
@@ -1135,6 +1132,9 @@ msgstr "Jätka taustal"
 msgid "Continue playing"
 msgstr "Jätka taasesitust"
 
+msgid "Continues play (loop)"
+msgstr ""
+
 msgid "Contrast"
 msgstr "Kontrast"
 
@@ -1150,8 +1150,8 @@ msgstr "Teisenda ext3 > ext4"
 msgid "Copy"
 msgstr "Kopeeri"
 
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
-msgstr "Ei saa vastuvõtjaga ühendust .NFI tarkvara Server:"
+msgid "Could not connect to receiver .NFI Image Feed Server:"
+msgstr ""
 
 msgid "Could not load Medium! No disc inserted?"
 msgstr "Ei saa plaati avada! Pole plaati sisestatud?"
@@ -1181,10 +1181,8 @@ msgstr "Vealogi iselähetuse seaded"
 
 msgid ""
 "Crashlogs found!\n"
-"Send them to Dream Multimedia?"
+"Send them to the Image Developper?"
 msgstr ""
-"Leitud vealogi!\n"
-"Saadame Dream Multimeediasse?"
 
 msgid "Create DVD-ISO"
 msgstr "Loo DVD-ISO"
@@ -1216,6 +1214,9 @@ msgstr "Hetke transponder"
 
 msgid "Current device: "
 msgstr "Praegune seade: "
+
+msgid "Current event EPG"
+msgstr ""
 
 msgid "Current settings:"
 msgstr "Hetke sätted:"
@@ -1467,6 +1468,9 @@ msgstr "Esipaneeli sätted"
 msgid "Display and Userinterface"
 msgstr "Esipaneel ja kasutajaliides"
 
+msgid "Display message before next played movie"
+msgstr ""
+
 #, python-format
 msgid ""
 "Do you really want to REMOVE\n"
@@ -1533,8 +1537,8 @@ msgstr "Kas soovid uut käsiotsingut teha?"
 msgid "Do you want to download the image to %s ?"
 msgstr "Kas soovid image alla laadida %s ?"
 
-msgid "Do you want to enable the parental control feature on your dreambox?"
-msgstr "Kas soovid oma vastuvõtjal lastelukku aktiveerida?"
+msgid "Do you want to enable the parental control feature on your receiver?"
+msgstr ""
 
 msgid "Do you want to install the package:\n"
 msgstr "Kas soovid paigaldada paketti:\n"
@@ -1545,8 +1549,8 @@ msgstr "Soovid panna DVD mängima?"
 msgid "Do you want to preview this DVD before burning?"
 msgstr "Soovid plaadi eelvaadet ka, enne kirjutamise alustamist?"
 
-msgid "Do you want to reboot your Dreambox?"
-msgstr "Soovid vastuvõtja uuesti käivitada?"
+msgid "Do you want to reboot your receiver?"
+msgstr ""
 
 msgid "Do you want to remove the package:\n"
 msgstr "Kas tahad kustutada paketti:\n"
@@ -1563,15 +1567,13 @@ msgid ""
 msgstr ""
 "Kas soovid saata ka oma emaili ja nime, et saaksime vajadusel ühendust võtta?"
 
-msgid "Do you want to update your Dreambox?"
-msgstr "Kas soovid vastuvõtja tarkvara uuendada?"
+msgid "Do you want to update your receiver?"
+msgstr ""
 
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your receiver?\n"
 "After pressing OK, please wait!"
 msgstr ""
-"Kas soovid vastuvõtja tarkvara uuendada?\n"
-"Vajuta OK ja oota!"
 
 msgid "Do you want to upgrade the package:\n"
 msgstr "Kas soovid uuendada paketti:\n"
@@ -1621,12 +1623,6 @@ msgstr "Laetakse alla"
 msgid "Downloading plugin information. Please wait..."
 msgstr "Laeme alla laienduse infot. Palun oota."
 
-msgid "Dreambox format data DVD (HDTV compatible)"
-msgstr "Vastuvõtja vormingus data DVD-d"
-
-msgid "Dreambox software because updates are available."
-msgstr "vastuvõtja tarkvara, sest uuendused on saadaval."
-
 msgid "Dutch"
 msgstr "Hollandi"
 
@@ -1644,6 +1640,9 @@ msgstr "EPG keele valik 1"
 
 msgid "EPG language selection 2"
 msgstr "EPG keele valik 2"
+
+msgid "EPG settings"
+msgstr ""
 
 #, python-format
 msgid "ERROR - failed to scan (%s)!"
@@ -1676,17 +1675,20 @@ msgstr "Muuda kanalite listi"
 msgid "Edit settings"
 msgstr "Muuda seadeid"
 
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
-msgstr "Muuda nimeserveri seadeid.\n"
+msgid "Edit the Nameserver configuration of your receiver.\n"
+msgstr ""
 
-msgid "Edit the network configuration of your Dreambox.\n"
-msgstr "Muuda võrgu seadeid.\n"
+msgid "Edit the network configuration of your receiver.\n"
+msgstr ""
 
 msgid "Edit title"
 msgstr "Muuda pealkirja"
 
 msgid "Edit upgrade source url."
 msgstr "Muuda uuenduste allika url."
+
+msgid "Education/Science/..."
+msgstr ""
 
 msgid "Electronic Program Guide"
 msgstr "EPG"
@@ -2094,7 +2096,7 @@ msgstr ""
 msgid "GotoX calibration"
 msgstr ""
 
-msgid "Graph MEpg Settings"
+msgid "GraphMultiEpg Settings"
 msgstr ""
 
 msgid "Graphical Multi EPG"
@@ -2391,6 +2393,9 @@ msgstr "Itaalia"
 msgid "Items per Page "
 msgstr ""
 
+msgid "Items per Page for Listscreen"
+msgstr ""
+
 msgid "Job View"
 msgstr "Töövaade"
 
@@ -2461,6 +2466,9 @@ msgstr "Väljun DVD-mängijast?"
 msgid "Left"
 msgstr "Vasak"
 
+msgid "Leisure hobies"
+msgstr ""
+
 #. TRANSLATORS: (aspect ratio policy: black bars on top/bottom) in doubt, keep english term.
 msgid "Letterbox"
 msgstr "Letterbox"
@@ -2501,6 +2509,9 @@ msgstr "DVD menüüga seotud pealkirjad"
 msgid "List available networks"
 msgstr ""
 
+msgid "List mode"
+msgstr ""
+
 msgid "List of Storage Devices"
 msgstr "Salvestusseadmete loetelu"
 
@@ -2509,6 +2520,9 @@ msgstr ""
 
 #, python-format
 msgid "List version %d, found %d channels"
+msgstr ""
+
+msgid "Listscreen default at start user interface"
 msgstr ""
 
 msgid "Lithuanian"
@@ -2625,6 +2639,10 @@ msgstr "Teade"
 msgid "Message..."
 msgstr "Teade"
 
+#, python-format
+msgid "Minimum age %d years"
+msgstr ""
+
 msgid "Missing "
 msgstr ""
 
@@ -2691,6 +2709,9 @@ msgstr ""
 msgid "Movie location"
 msgstr "Salvestiste asukoht"
 
+msgid "Movie/Drama"
+msgstr ""
+
 msgid "Movielist menu"
 msgstr "Salvestiste menüü"
 
@@ -2723,6 +2744,9 @@ msgstr ""
 
 msgid "Multisat"
 msgstr "Mitu satelliiti"
+
+msgid "Music/Ballet/Dance"
+msgstr ""
 
 msgid "Mute"
 msgstr "Vaikus"
@@ -2820,6 +2844,9 @@ msgstr "Uus PIN"
 
 msgid "New version:"
 msgstr "Uus versioon:"
+
+msgid "News Current Affairs"
+msgstr ""
 
 msgid "Next"
 msgstr "Järgmine"
@@ -2969,8 +2996,8 @@ msgstr "Ei, alusta uuesti algusest"
 msgid "No, do nothing."
 msgstr "Ei, ära tee midagi."
 
-msgid "No, just start my dreambox"
-msgstr "Ei, käivita minu vastuvõtja"
+msgid "No, just start my receiver"
+msgstr ""
 
 msgid "No, never"
 msgstr "Ei, mitte kunagi"
@@ -2990,6 +3017,9 @@ msgstr "Pole"
 #. TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
 msgid "Nonlinear"
 msgstr "Ebalineaarne"
+
+msgid "Normal mode"
+msgstr ""
 
 msgid "North"
 msgstr "Põhi"
@@ -3017,6 +3047,9 @@ msgstr ""
 
 msgid "Nothing to upgrade"
 msgstr "Uuendusi ei ole"
+
+msgid "Now"
+msgstr ""
 
 msgid "Now Playing"
 msgstr "Taasesitus käib"
@@ -3065,6 +3098,9 @@ msgstr ""
 
 msgid "On"
 msgstr "Sees"
+
+msgid "On end of movie"
+msgstr ""
 
 msgid "One"
 msgstr "Üks"
@@ -3169,6 +3205,12 @@ msgstr "Telefoni number"
 msgid "PiPSetup"
 msgstr "PiP-pildi seaded"
 
+msgid "Picon"
+msgstr ""
+
+msgid "Picon and Service Name"
+msgstr ""
+
 msgid "PicturePlayer"
 msgstr "PildiMängija"
 
@@ -3198,6 +3240,12 @@ msgid "Play audio in background"
 msgstr "Mängi taustal heli"
 
 msgid "Play next"
+msgstr ""
+
+msgid "Play next (return to movie list)"
+msgstr ""
+
+msgid "Play next (return to previous service)"
 msgstr ""
 
 msgid "Play previous"
@@ -3293,6 +3341,9 @@ msgstr "Jätkamiseks vajuta OK ."
 
 msgid "Please press OK!"
 msgstr "Vajuta OK!"
+
+msgid "Please select a default EPG type..."
+msgstr ""
 
 msgid "Please select a playlist to delete..."
 msgstr "Vali kustutatav esitusloend"
@@ -3589,6 +3640,13 @@ msgstr "RAM-ketas"
 msgid "Random"
 msgstr "Juhuslik"
 
+#, python-format
+msgid "Rating defined by broadcaster - %d"
+msgstr ""
+
+msgid "Rating undefined"
+msgstr ""
+
 msgid "Really close without saving settings?"
 msgstr "Kas soovid seadeid salvestamata väljuda?"
 
@@ -3748,6 +3806,9 @@ msgid "Required medium type:"
 msgstr "Nõutav meedia tüüp:"
 
 msgid "Reread partition table"
+msgstr ""
+
+msgid "Reserved"
 msgstr ""
 
 msgid "Reset"
@@ -4067,6 +4128,9 @@ msgstr "Vali salvestatav kanal"
 msgid "Select copy destination for:"
 msgstr ""
 
+msgid "Select default EPG type..."
+msgstr ""
+
 msgid "Select desired image from feed list"
 msgstr "Vali soovitud tarkvara feedide nimekirjast"
 
@@ -4133,11 +4197,17 @@ msgstr "Serbia"
 msgid "Service"
 msgstr "Kanaliinfo"
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Service Scan"
 msgstr "Kanaliotsing"
 
 msgid "Service Searching"
 msgstr "Kanaliotsing"
+
+msgid "Service Title mode"
+msgstr ""
 
 msgid "Service has been added to the favourites."
 msgstr "Kanal on lisatud lemmiknimekirja."
@@ -4243,17 +4313,14 @@ msgstr "Lühikesed failinimed"
 msgid "Show EIT now/next in infobar"
 msgstr "Näita nüüd/järgmine inforibal"
 
+msgid "Show Games show"
+msgstr ""
+
 msgid "Show Info"
 msgstr "Näita infot"
 
 msgid "Show Message when Recording starts"
 msgstr "Teavita salvestuse algamisest"
-
-msgid "Show Picons"
-msgstr ""
-
-msgid "Show Service Names "
-msgstr ""
 
 msgid "Show WLAN Status"
 msgstr "Näita WiFi Olekut"
@@ -4315,8 +4382,8 @@ msgstr "Näitab WiFi olekut.\n"
 msgid "Shutdown"
 msgstr "Lülita välja"
 
-msgid "Shutdown Dreambox after"
-msgstr "Lülita välja peale"
+msgid "Shutdown receiver after"
+msgstr ""
 
 msgid "Side by Side"
 msgstr ""
@@ -4400,6 +4467,9 @@ msgstr "Aeglane"
 msgid "Slow Motion speeds"
 msgstr "Aeglustuskiirused"
 
+msgid "Social/Political/Economics"
+msgstr ""
+
 msgid "SoftCam / CI"
 msgstr "EMU / CI"
 
@@ -4443,6 +4513,10 @@ msgstr ""
 "Varukoopia asukohta ei saa salvestada.\n"
 "Vali uus asukoht."
 
+msgid ""
+"Sorry, deleting directories can (for now) only be done through the trash can."
+msgstr ""
+
 msgid "Sorry, no Details available!"
 msgstr "Kahjuks pole üksikasju saadaval!"
 
@@ -4483,6 +4557,9 @@ msgstr "Hispaania"
 
 msgid "Split preview mode"
 msgstr "Poolitatud eelvaate režiim"
+
+msgid "Sports"
+msgstr ""
 
 msgid "Standby"
 msgstr "Ootele"
@@ -4621,6 +4698,9 @@ msgstr "Vaheta SNR db > SNR % inforibal"
 msgid "Swap Services"
 msgstr "Vaheta PiP- ja peapilt omavahel"
 
+msgid "Swap from normal to list mode"
+msgstr ""
+
 msgid "Swedish"
 msgstr "Rootsi"
 
@@ -4694,8 +4774,8 @@ msgstr "Testi tüüp"
 msgid "Test mode"
 msgstr "Testpilt"
 
-msgid "Test the network configuration of your Dreambox.\n"
-msgstr "Testi vastuvõtja kohtvõrgu seadeid.\n"
+msgid "Test the network configuration of your receiver.\n"
+msgstr ""
 
 msgid "Test-Messagebox?"
 msgstr "Testsõnum?"
@@ -4718,18 +4798,14 @@ msgstr ""
 
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your receiver."
 msgstr ""
-"Tänan, vastuvõtja on nüüd valmis kasutuseks.\n"
-" Vastuvõtja kasutuse alustamiseks vajuta OK."
 
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
-"create a Dreambox format data DVD (which will not play in stand-alone DVD "
+"create a special format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
-"DVD standard ei toeta H.264 (HDTV) video voogesitust.Kas soovite luua "
-"Dreambox formaadis andmete (data) DVD, mida teised DVD mängijad ei mängi?"
 
 msgid ""
 "The NetworkWizard extension is not installed!\n"
@@ -4810,10 +4886,8 @@ msgstr "Vaikimisi saatjate nimekirja install lõpetatud."
 
 msgid ""
 "The installation of the default settings is finished. You can now continue "
-"configuring your Dreambox by pressing the OK button on the remote control."
+"configuring your receiver by pressing the OK button on the remote control."
 msgstr ""
-"Vaikimisi seadete paigaldamine on valmis. Saad jätkata seadete sisestamist "
-"oma vastuvõtjasse vajutades OK."
 
 msgid "The md5sum validation failed, the file may be corrupted!"
 msgstr "md5sum kontroll ebaõnnestus, fail võib olla rikutud!"
@@ -4921,29 +4995,18 @@ msgstr ""
 "DVD RW ketas on formaaditud.Uuesti formaatimisel kustutatakse kõik, mis "
 "plaadile kirjutatud."
 
-#, python-format
-msgid "This Dreambox can't decode %s streams!"
-msgstr "Vastuvõtja ei suuda dekodeerida %s video voogesitust!"
-
 msgid "This is step number 2."
 msgstr "See on 2. samm."
 
 msgid ""
 "This plugin creates a USB stick which can be used to update the firmware of "
-"your Dreambox without the need for a network or WLAN connection.\n"
+"your receiver without the need for a network or WLAN connection.\n"
 "First, a USB stick needs to be prepared so that it becomes bootable.\n"
 "In the next step, an NFI image file can be downloaded from the update server "
 "and saved on the USB stick.\n"
 "If you already have a prepared bootable USB stick, please insert it now. "
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
-"See laiendus valmistab ette USB pulga, mida saab kasutada vastuvõtja "
-"tarkvara uuendamiseks ilma võrgu- või WLAN ühenduseta. \n"
-"Algul tuleb USB pulk teha alglaetavaks. \n"
-"Siis saab uuenduste serverist alla laadida NFI tarkvara faili ja salvestada "
-"selle USB pulgale. \n"
-"Kui oled juba ette valmistanud alglaetava USB pulga, siis ühenda see nüüd. "
-"Vastasel korral ühenda min. 64 MB USB pulk!"
 
 msgid "This plugin is installed."
 msgstr "Laiendus on paigaldatud."
@@ -4956,6 +5019,10 @@ msgstr "See laiendus paigaldatakse."
 
 msgid "This plugin will be removed."
 msgstr "See laiendus eemaldatakse."
+
+#, python-format
+msgid "This receiver can't decode %s streams!"
+msgstr ""
 
 msgid ""
 "This test checks for configured Nameservers.\n"
@@ -5111,19 +5178,13 @@ msgid "To subtitle selection"
 msgstr "Subtiitrite valik"
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your receiver firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and make sure the bootable "
 "USB stick is plugged in.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
-"Oma vastuvõtja tarkvara uuendamiseks toimi järgnevalt: \n"
-"1) Lülita vastuvõtja tagumisest lülitist välja ja veendu, et alglaaditav USB "
-"pulk on ühendatud. \n"
-"2) Lülita vastuvõtja sisse, hoides DOWN nuppu esipaneelil vajutatuna 10 "
-"sekundi jooksul. \n"
-"3) Oota alglaadimiseni ja jälgi abilise juhendeid ekraanil."
 
 msgid "Today"
 msgstr "Täna"
@@ -5314,14 +5375,14 @@ msgstr "Uuenda ja küsi luba taaskäivitamiseks"
 msgid "Upgrade finished."
 msgstr "Uuendus valmis."
 
-msgid "Upgrade finished. Do you want to reboot your Dreambox?"
+msgid "Upgrade finished. Do you want to reboot your receiver?"
 msgstr ""
 
 msgid "Upgrading"
 msgstr "Uuendan"
 
-msgid "Upgrading Dreambox... Please wait"
-msgstr "Uuendan vastuvõtja tarkvara... Oota"
+msgid "Upgrading receiver... Please wait"
+msgstr ""
 
 msgid "Use"
 msgstr "Kasuta"
@@ -5404,6 +5465,9 @@ msgid "Used service scan type"
 msgstr "Kasutatud otsingu tüüp"
 
 msgid "User - bouquets"
+msgstr ""
+
+msgid "User Interface"
 msgstr ""
 
 msgid "User defined"
@@ -5631,51 +5695,34 @@ msgstr ""
 
 msgid ""
 "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading "
-"the firmware of your Dreambox by providing a backup facility for your "
+"the firmware of your receiver by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
-"Tere tulemast tarkvara uuendamise seadistusabilisse. Seadistusabiline aitab "
-"sind seadete varundamisel ja tarkvara uuendamisel."
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be "
+"To ensure stable operation of your receiver, the internal memory should be "
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
-"Tere tulemast mälupuhastaja abilisse.\n"
-"\n"
-"Vastuvõtjas kasutatav vaba sisemälu maht on langenud alla 2 MB.\n"
-"Oma vastuvõtja stabiilse töö kindlustamiseks oleks vaja sisemälupuhastada.\n"
-"Saad kasutada seda puhastusabilist mõnede laienduste eemaldamiseks.\n"
 
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide "
-"you through the basic network setup of your Dreambox.\n"
+"If you want to connect your receiver to the Internet, this wizard will guide "
+"you through the basic network setup of your receiver.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
-"Tere.\n"
-"\n"
-"Kui soovid ühendada oma vastuvõtja internetti, siis see abiline juhendab "
-"vastuvõtja võrgu seadistamisel.\n"
-"\n"
-"Võrgu seadistamise alustamiseks vajuta OK"
 
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your receiver.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
-"Tere.\n"
-"\n"
-"See stardiabiline juhendab vastuvõtja põhiseadete tegemisel.\n"
-"Vajuta puldil OK nuppu järgmise sammu juurde minekuks."
 
 msgid "Welcome..."
 msgstr "Tere tulemast"
@@ -5816,8 +5863,8 @@ msgstr "Samal ajal võib vaatata TV-d jne."
 msgid "You can install this plugin."
 msgstr "Selle laienduse saab paigaldada."
 
-msgid "You can only burn Dreambox recordings!"
-msgstr "Plaadile saab kirjutada ainult vastuvõtja salvestusi!"
+msgid "You can only burn receiver recordings!"
+msgstr ""
 
 msgid "You can remove this plugin."
 msgstr "Selle laienduse saab eemaldada."
@@ -5867,16 +5914,12 @@ msgid "You have to wait %s!"
 msgstr "Tuleb oodata %s!"
 
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, "
+"You need a PC connected to your receiver. If you need further instructions, "
 "please visit the website http://www.dm7025.de.\n"
-"Your dreambox will now be halted. After you have performed the update "
+"Your receiver will now be halted. After you have performed the update "
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
-"Vastuvõtja tuleb ühendada arvutiga. Kui on vaja abi, siis palun vaata : "
-"http://www.dm7025.de.\n"
-"Vastuvõtja peatatakse. Kui on täidetud uuendamise juhised veebilehelt, siis "
-"uus tarkvara palub taastada seadeid."
 
 msgid ""
 "You need to set a PIN code and hide it from your children.\n"
@@ -5902,22 +5945,6 @@ msgstr ""
 "\n"
 
 msgid ""
-"Your Dreambox is now ready to use.\n"
-"\n"
-"Your internet connection is working now.\n"
-"\n"
-"Please press OK to continue."
-msgstr ""
-"Vastuvõtja on kasutamiseks valmis.\n"
-"\n"
-"Interneti ühendus töötab.\n"
-"\n"
-" Jätkamiseks vajuta OK."
-
-msgid "Your Dreambox will restart after pressing OK on your remote control."
-msgstr "Vastuvõtja taaskäivitub pärast puldilt OK vajutamist."
-
-msgid ""
 "Your backup succeeded. We will now continue to explain the further upgrade "
 "process."
 msgstr "Varukoopia valmis. Me informeerime edasistest uuenduste käigust."
@@ -5931,14 +5958,6 @@ msgstr ""
 
 msgid "Your current collection will get lost!"
 msgstr "Praegune valik kustutatakse!"
-
-msgid "Your dreambox is shutting down. Please stand by..."
-msgstr "Lülitan välja. Palun oota."
-
-msgid ""
-"Your dreambox isn't connected to the internet properly. Please check it and "
-"try again."
-msgstr "Internetiühendust pole. Kontrolli võrgu seadeid ja ürita uuesti."
 
 msgid "Your email address:"
 msgstr "Emaili aadress:"
@@ -5969,10 +5988,29 @@ msgstr "Nimi (soovi korral):"
 msgid "Your network configuration has been activated."
 msgstr "Võrguseadistus on aktiveeritud."
 
+msgid ""
+"Your receiver is now ready to use.\n"
+"\n"
+"Your internet connection is working now.\n"
+"\n"
+"Please press OK to continue."
+msgstr ""
+
 msgid "Your receiver is rebooting"
 msgstr ""
 
 msgid "Your receiver is shutting down"
+msgstr ""
+
+msgid "Your receiver is shutting down. Please stand by..."
+msgstr ""
+
+msgid ""
+"Your receiver isn't connected to the internet properly. Please check it and "
+"try again."
+msgstr ""
+
+msgid "Your receiver will restart after pressing OK on your remote control."
 msgstr ""
 
 msgid ""
@@ -5985,6 +6023,9 @@ msgstr ""
 "Kas WLAN USB pulk on ühendatud?\n"
 "\n"
 "Vali, mida soovid teha edasi."
+
+msgid "Zap"
+msgstr ""
 
 msgid "Zap back to previously tuned service?"
 msgstr "Tagasi vaadatud kanalile?"
@@ -6100,8 +6141,17 @@ msgstr "lisa kanal lemmikutesse"
 msgid "add to parental protection"
 msgstr "lisa lapselukk"
 
+msgid "adult movie/drama"
+msgstr ""
+
 msgid "advanced"
 msgstr "lisavalikud"
+
+msgid "adventure/western/war"
+msgstr ""
+
+msgid "advertisement/shopping"
+msgstr ""
 
 msgid "alphabetic reverse"
 msgstr ""
@@ -6112,6 +6162,12 @@ msgstr "tähestikujärjekord"
 msgid ""
 "are you sure you want to restore\n"
 "following backup:\n"
+msgstr ""
+
+msgid "arts/culture (without music, general)"
+msgstr ""
+
+msgid "arts/culture magazine"
 msgstr ""
 
 msgid "assigned CAIds:"
@@ -6125,6 +6181,9 @@ msgstr "alguses"
 
 msgid "at end"
 msgstr "lõpus"
+
+msgid "athletics"
+msgstr ""
 
 #, python-format
 msgid "audio track (%s) format"
@@ -6152,11 +6211,21 @@ msgstr "taustapilt"
 msgid "backgroundcolor"
 msgstr "taust"
 
+msgid "ballet"
+msgstr ""
+
+#, python-format
+msgid "bc%s"
+msgstr ""
+
 msgid "better"
 msgstr "parem"
 
 msgid "black"
 msgstr "must"
+
+msgid "black & white"
+msgstr ""
 
 msgid "blacklist"
 msgstr "keelatud"
@@ -6164,9 +6233,15 @@ msgstr "keelatud"
 msgid "blue"
 msgstr "sinine"
 
+msgid "broadcasting/press"
+msgstr ""
+
 #, python-format
 msgid "burn audio track (%s)"
 msgstr "kirjuta audio rada/rajad (%s)"
+
+msgid "cartoon/puppets"
+msgstr ""
 
 msgid "center"
 msgstr "keskel"
@@ -6180,6 +6255,9 @@ msgstr "muuda salvestuse lõpuaega"
 msgid "chapters"
 msgstr "peatükid"
 
+msgid "childrens's/youth program (general)"
+msgstr ""
+
 msgid "circular left"
 msgstr "ringpolarisatsioon vasak"
 
@@ -6188,6 +6266,9 @@ msgstr "ringpolarisatsioon parem"
 
 msgid "clear playlist"
 msgstr "tühjenda esitusloend"
+
+msgid "comedy"
+msgstr ""
 
 msgid "complex"
 msgstr "keeruline"
@@ -6203,6 +6284,9 @@ msgstr "ühendatud"
 
 msgid "continue"
 msgstr "jätka"
+
+msgid "cooking"
+msgstr ""
 
 msgid "copy to bouquets"
 msgstr "kopeeri nimekirjadesse"
@@ -6241,6 +6325,9 @@ msgstr "kustuta"
 msgid "descramble and record ecm"
 msgstr ""
 
+msgid "detective/thriller"
+msgstr ""
+
 msgid "disable"
 msgstr "keela"
 
@@ -6253,11 +6340,17 @@ msgstr "keelatud"
 msgid "disconnected"
 msgstr "ühendamata"
 
+msgid "discussion/interview/debate"
+msgstr ""
+
 msgid "do not change"
 msgstr "ära muuda"
 
 msgid "do nothing"
 msgstr "ära tee midagi"
+
+msgid "documentary"
+msgstr ""
 
 msgid "don't descramble, record ecm"
 msgstr ""
@@ -6286,8 +6379,14 @@ msgstr ""
 msgid "east"
 msgstr ""
 
+msgid "economics/social advisory"
+msgstr ""
+
 msgid "edit alternatives"
 msgstr "lisavõimaluste lisamine ja kustutamine"
+
+msgid "education/science/factual topics (general)"
+msgstr ""
 
 msgid "empty"
 msgstr "tühi"
@@ -6322,8 +6421,17 @@ msgstr "salvesta muudatused ja välju"
 msgid "enigma2 and network"
 msgstr ""
 
+msgid "entertainment (10-16 year old)"
+msgstr ""
+
+msgid "entertainment (6-14 year old)"
+msgstr ""
+
 msgid "equal to"
 msgstr "on võrdne"
+
+msgid "equestrian"
+msgstr ""
 
 msgid "exit DVD player or return to file browser"
 msgstr "välju DVD-mängijast või mine tagasi failisirvijasse"
@@ -6346,7 +6454,13 @@ msgstr "välju võrguliideste nimekirjast"
 msgid "exit networkadapter setup menu"
 msgstr "välju võrgukaardi seadistusmenüüst"
 
+msgid "experimental film/video"
+msgstr ""
+
 msgid "false"
+msgstr ""
+
+msgid "fashion"
 msgstr ""
 
 msgid "fileformats (BMP, PNG, JPG, GIF)"
@@ -6355,10 +6469,28 @@ msgstr "failiformaadid (BMP, PNG, JPG, GIF)"
 msgid "filename"
 msgstr "faili nimi"
 
+msgid "film/cinema"
+msgstr ""
+
+msgid "fine arts"
+msgstr ""
+
 msgid "fine-tune your display"
 msgstr "peenhäälesta ekraani"
 
+msgid "fitness & health"
+msgstr ""
+
 msgid "fixed"
+msgstr ""
+
+msgid "folk/traditional music"
+msgstr ""
+
+msgid "football/soccer"
+msgstr ""
+
+msgid "foreign countries/expeditions"
 msgstr ""
 
 msgid "forward to the next chapter"
@@ -6373,6 +6505,15 @@ msgstr "vaba kettaruumi"
 msgid "full transparency"
 msgstr ""
 
+msgid "further education"
+msgstr ""
+
+msgid "game show/quiz/contest"
+msgstr ""
+
+msgid "gardening"
+msgstr ""
+
 msgid "go to deep standby"
 msgstr "mine sügavootele"
 
@@ -6384,6 +6525,9 @@ msgstr "salvesta see kaader bitmapina"
 
 msgid "green"
 msgstr "roheline"
+
+msgid "handicraft"
+msgstr ""
 
 msgid "hear radio..."
 msgstr "kuula raadiot"
@@ -6403,6 +6547,9 @@ msgstr "horisontaal"
 msgid "immediate shutdown"
 msgstr "kohene väljalülitus"
 
+msgid "information/education/school program"
+msgstr ""
+
 msgid "init module"
 msgstr "käivita moodul"
 
@@ -6413,6 +6560,9 @@ msgid "insert mark here"
 msgstr "pane märk siia"
 
 msgid "invalid type"
+msgstr ""
+
+msgid "jazz"
 msgstr ""
 
 msgid "jump back to the previous title"
@@ -6433,11 +6583,17 @@ msgstr "mine järgmise lõikemärgini"
 msgid "jump to previous marked position"
 msgstr "mine eelmise lõikemärgini"
 
+msgid "languages"
+msgstr ""
+
 msgid "leave movie player..."
 msgstr "lõpeta salvestise taasesitus"
 
 msgid "left"
 msgstr "vasak"
+
+msgid "leisure hobbies (general)"
+msgstr ""
 
 msgid "length"
 msgstr "pikkus"
@@ -6460,6 +6616,12 @@ msgstr "nimekirja stiil: vaikeseaded"
 msgid "list style single line"
 msgstr "nimekirja stiil: üks rida"
 
+msgid "literature"
+msgstr ""
+
+msgid "live broadcast"
+msgstr ""
+
 msgid "load playlist"
 msgstr "lae esitusloend"
 
@@ -6469,8 +6631,17 @@ msgstr "lukustatud"
 msgid "loopthrough to"
 msgstr "läbiviik kuni"
 
+msgid "magazines/reports/documentary"
+msgstr ""
+
 msgid "manual"
 msgstr "juhend"
+
+msgid "martial sports"
+msgstr ""
+
+msgid "medicine/physiology/psychology"
+msgstr ""
 
 msgid "menu"
 msgstr "menüü"
@@ -6483,6 +6654,12 @@ msgstr "minutid"
 
 msgid "month"
 msgstr "kuu"
+
+msgid "motor sport"
+msgstr ""
+
+msgid "motoring"
+msgstr ""
 
 msgid "move PiP to main picture"
 msgstr "Muuda PiP peapildiks"
@@ -6502,11 +6679,35 @@ msgstr "liigu eelmisele reale"
 msgid "movie list"
 msgstr "salvestiste loend"
 
+msgid "movie/drama (general)"
+msgstr ""
+
 msgid "multinorm"
 msgstr "multinorm"
 
+msgid "music/ballet/dance (general)"
+msgstr ""
+
+msgid "musical/opera"
+msgstr ""
+
+msgid "nature/animals/environment"
+msgstr ""
+
 msgid "never"
 msgstr "mitte kunagi"
+
+msgid "new media"
+msgstr ""
+
+msgid "news magazine"
+msgstr ""
+
+msgid "news/current affairs (general)"
+msgstr ""
+
+msgid "news/weather report"
+msgstr ""
 
 msgid "next channel"
 msgstr "järgmine kanal"
@@ -6580,6 +6781,9 @@ msgstr "sees"
 msgid "on READ ONLY medium."
 msgstr "ainult LOETAV meedial."
 
+msgid "on end of movie"
+msgstr ""
+
 msgid "once"
 msgstr "üks kord"
 
@@ -6598,11 +6802,17 @@ msgstr "ava kanalite nimekiri (üles)"
 msgid "original"
 msgstr "algne"
 
+msgid "original language"
+msgstr ""
+
 msgid "pass"
 msgstr "lubatud"
 
 msgid "pause"
 msgstr "paus"
+
+msgid "performing arts"
+msgstr ""
 
 msgid "play as picture in picture"
 msgstr "näita kanal pilt-pildis"
@@ -6625,11 +6835,20 @@ msgstr "vajuta OK kui valmis"
 msgid "please wait, loading picture..."
 msgstr "pilti laetakse. oota"
 
+msgid "popular culture/traditional arts"
+msgstr ""
+
+msgid "pre-school children's program"
+msgstr ""
+
 msgid "previous channel"
 msgstr "eelmine kanal"
 
 msgid "previous channel in history"
 msgstr "eelmine kanal ajaloos"
+
+msgid "receiver software because updates are available."
+msgstr ""
 
 msgid "record"
 msgstr "salvestus"
@@ -6641,6 +6860,12 @@ msgid "red"
 msgstr "punane"
 
 msgid "relative"
+msgstr ""
+
+msgid "religion"
+msgstr ""
+
+msgid "remarkable people"
 msgstr ""
 
 msgid "remove a nameserver entry"
@@ -6694,6 +6919,12 @@ msgstr "tagasi eelmisele peatükile"
 msgid "right"
 msgstr "parem"
 
+msgid "rock/pop"
+msgstr ""
+
+msgid "romance"
+msgstr ""
+
 msgid "save last directory on exit"
 msgstr "pea väljumisel asukoht meeles"
 
@@ -6712,6 +6943,9 @@ msgstr "otsing käib - %d%% valmis!"
 
 msgid "scan state"
 msgstr "otsingu seis"
+
+msgid "science fiction/fantasy/horror"
+msgstr ""
 
 msgid "second cable of motorized LNB"
 msgstr ""
@@ -6739,6 +6973,12 @@ msgstr "vali salvestis"
 
 msgid "select the movie path"
 msgstr "vali salvestiste kataloog"
+
+msgid "serious music/classic music"
+msgstr ""
+
+msgid "serious/classical/religious/historical movie/drama"
+msgstr ""
 
 msgid "service PIN"
 msgstr "kanali PIN"
@@ -6779,11 +7019,20 @@ msgstr "kuva seiskamismenüü"
 msgid "show single service EPG..."
 msgstr "näita ühe kanali saatekava"
 
+msgid "show softwaremanager in setup menu"
+msgstr ""
+
+msgid "show softwaremanager on blue button"
+msgstr ""
+
 msgid "show tag menu"
 msgstr "näita märksõnade loend"
 
 msgid "show transponder info"
 msgstr "näita transponderi infot"
+
+msgid "show/game show (general)"
+msgstr ""
 
 msgid "shuffle"
 msgstr "segatud"
@@ -6815,6 +7064,15 @@ msgstr "mine edasi (sisesta aeg)"
 msgid "slide picture in loop"
 msgstr "vaata pilte tsüklis"
 
+msgid "soap/melodram/folkloric"
+msgstr ""
+
+msgid "social/political issues/economics (general)"
+msgstr ""
+
+msgid "social/spiritual science"
+msgstr ""
+
 msgid "sort by date"
 msgstr "ajaline järjestus"
 
@@ -6823,6 +7081,18 @@ msgstr ""
 
 msgid "special characters"
 msgstr "erimärgid"
+
+msgid "special events"
+msgstr ""
+
+msgid "special format data DVD (HDTV compatible)"
+msgstr ""
+
+msgid "sports (general)"
+msgstr ""
+
+msgid "sports magazine"
+msgstr ""
 
 msgid "standard"
 msgstr "tavaline"
@@ -6881,7 +7151,19 @@ msgstr "vali järgmine helikanal"
 msgid "switch to the next subtitle language"
 msgstr "vali järgmine subtiiter"
 
+msgid "talk show"
+msgstr ""
+
+msgid "team sports"
+msgstr ""
+
+msgid "technology/natural science"
+msgstr ""
+
 msgid "template file"
+msgstr ""
+
+msgid "tennis/squash"
 msgstr ""
 
 msgid "textcolor"
@@ -6901,6 +7183,9 @@ msgstr "vaheta aja, salvestuse, heli, subtiitri info"
 
 msgid "top"
 msgstr "ülal"
+
+msgid "tourism/travel"
+msgstr ""
 
 msgid "true"
 msgstr ""
@@ -6923,11 +7208,17 @@ msgstr "tundmatu"
 msgid "unknown service"
 msgstr "tundmatu kanal"
 
+msgid "unpublished"
+msgstr ""
+
 msgid "until standby/restart"
 msgstr "kuni ooterežiimini/taaskäivitamiseni"
 
 msgid "user defined"
 msgstr "kasutaja määratud"
+
+msgid "variety show"
+msgstr ""
 
 msgid "vertical"
 msgstr "vertikaal"
@@ -6950,6 +7241,9 @@ msgstr "ootan"
 msgid "was removed successfully"
 msgstr "edukalt eemaldatud"
 
+msgid "water sport"
+msgstr ""
+
 msgid "weekly"
 msgstr "iga nädal"
 
@@ -6964,6 +7258,9 @@ msgstr ""
 
 msgid "width"
 msgstr "laius"
+
+msgid "winter sport"
+msgstr ""
 
 msgid "wireless network interface"
 msgstr ""
@@ -6981,11 +7278,9 @@ msgid "yes (keep feeds)"
 msgstr "jah (hoia feedid)"
 
 msgid ""
-"your dreambox might be unusable now. Please consult the manual for further "
-"assistance before rebooting your dreambox."
+"your receiver might be unusable now. Please consult the manual for further "
+"assistance before rebooting your receiver."
 msgstr ""
-"teie vastuvõtja võib olla nüüd kasutuskõlbmatu. Uuri juhendit täiendava abi "
-"leidmiseks enne vastuvõtja taaskäivitaimist."
 
 msgid "zap"
 msgstr "kanalivahetus"

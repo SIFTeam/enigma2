@@ -10,7 +10,7 @@ from Components.ServiceEventTracker import ServiceEventTracker
 from Components.Sources.Boolean import Boolean
 from Components.config import config, ConfigBoolean, ConfigClock
 from Components.SystemInfo import SystemInfo
-from Components.UsageConfig import preferredInstantRecordPath, defaultMoviePath
+from Components.UsageConfig import preferredInstantRecordPath, defaultMoviePath, ConfigSelection
 from EpgSelection import EPGSelection
 from Plugins.Plugin import PluginDescriptor
 
@@ -133,12 +133,12 @@ class InfoBarUnhandledKey:
 		self.onLayoutFinish.append(self.unhandledKeyDialog.hide)
 		eActionMap.getInstance().bindAction('', -0x7FFFFFFF, self.actionA) #highest prio
 		eActionMap.getInstance().bindAction('', 0x7FFFFFFF, self.actionB) #lowest prio
-		self.flags = (1<<1);
-		self.uflags = 0;
+		self.flags = (1<<1)
+		self.uflags = 0
 
 	#this function is called on every keypress!
 	def actionA(self, key, flag):
-		self.unhandledKeyDialog.hide();
+		self.unhandledKeyDialog.hide()
 		if flag != 4:
 			if self.flags & (1<<1):
 				self.flags = self.uflags = 0
@@ -374,7 +374,7 @@ class InfoBarNumberZap:
 					break
 				playable = not (serviceIterator.flags & (eServiceReference.isMarker|eServiceReference.isDirectory)) or (serviceIterator.flags & eServiceReference.isNumberedMarker)
 				if playable:
-					num -= 1;
+					num -= 1
 			if not num: #found service with searched number ?
 				return serviceIterator, 0
 		return None, num
@@ -611,17 +611,34 @@ class InfoBarEPG:
 			{
 				iPlayableService.evUpdatedEventInfo: self.__evEventInfoChanged,
 			})
-
 		self.is_now_next = False
 		self.dlg_stack = [ ]
 		self.bouquetSel = None
 		self.eventView = None
+		self.defaultEPGType = self.getDefaultEPGtype()
+
 		self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
 			{
-				"showEventInfo": (self.openEventView, _("show EPG...")),
+				"showEventInfo": (self.showDefaultEPG, _("show EPG...")),
 				"showEventInfoPlugin": (self.showEventInfoPlugins, _("list of EPG views...")),
 				"showInfobarOrEpgWhenInfobarAlreadyVisible": self.showEventInfoWhenNotVisible,
 			})
+
+	def getEPGPluginList(self):
+		pluginlist = [(p.name, boundFunction(self.runPlugin, p)) for p in plugins.getPlugins(where = PluginDescriptor.WHERE_EVENTINFO)]
+		if pluginlist:
+			pluginlist.append((_("show single service EPG..."), self.openSingleServiceEPG))
+			pluginlist.append((_("Multi EPG"), self.openMultiServiceEPG))
+			pluginlist.append((_("Current event EPG"), self.openEventView))
+		return pluginlist
+
+	def getDefaultEPGtype(self):
+		pluginlist = self.getEPGPluginList()
+		config.usage.defaultEPGType=ConfigSelection(default = "None", choices = pluginlist)
+		for plugin in pluginlist:
+			if plugin[0] == config.usage.defaultEPGType.value:
+				return plugin[1]
+		return None
 
 	def showEventInfoWhenNotVisible(self):
 		if self.shown:
@@ -747,12 +764,10 @@ class InfoBarEPG:
 				self.session.open(EPGSelection, ref)
 
 	def showEventInfoPlugins(self):
-		list = [(p.name, boundFunction(self.runPlugin, p)) for p in plugins.getPlugins(where = PluginDescriptor.WHERE_EVENTINFO)]
-
-		if list:
-			list.append((_("show single service EPG..."), self.openSingleServiceEPG))
-			list.append((_("Multi EPG"), self.openMultiServiceEPG))
-			self.session.openWithCallback(self.EventInfoPluginChosen, ChoiceBox, title=_("Please choose an extension..."), list = list, skin_name = "EPGExtensionsList")
+		pluginlist = self.getEPGPluginList()
+		if pluginlist:
+			pluginlist.append((_("Select default EPG type..."), self.SelectDefaultInfoPlugin))
+			self.session.openWithCallback(self.EventInfoPluginChosen, ChoiceBox, title=_("Please choose an extension..."), list = pluginlist, skin_name = "EPGExtensionsList")
 		else:
 			self.openSingleServiceEPG()
 
@@ -762,6 +777,15 @@ class InfoBarEPG:
 	def EventInfoPluginChosen(self, answer):
 		if answer is not None:
 			answer[1]()
+
+	def SelectDefaultInfoPlugin(self):
+		self.session.openWithCallback(self.DefaultInfoPluginChosen, ChoiceBox, title=_("Please select a default EPG type..."), list = self.getEPGPluginList(), skin_name = "EPGExtensionsList")
+		
+	def DefaultInfoPluginChosen(self, answer):
+		if answer is not None:
+			self.defaultEPGType = answer[1]
+			config.usage.defaultEPGType.value = answer[0]
+			config.usage.defaultEPGType.save()
 
 	def openSimilarList(self, eventid, refstr):
 		self.session.open(EPGSelection, refstr, None, eventid)
@@ -784,7 +808,7 @@ class InfoBarEPG:
 			assert self.eventView
 			if self.epglist:
 				self.eventView.setEvent(self.epglist[0])
-				
+
 	def getFullEPG(self):
 		epgcache = eEPGCache.getInstance()
 		service = self.session.nav.getCurrentlyPlayingServiceReference()
@@ -793,6 +817,12 @@ class InfoBarEPG:
 		else:
 			self.fullepglist = [ ]
 			
+	def showDefaultEPG(self):
+		if self.defaultEPGType is not None:
+			self.defaultEPGType()
+			return
+		self.openEventView()
+
 	def openEventView(self):
 		ref = self.session.nav.getCurrentlyPlayingServiceReference()
 		self.getNowNext()
@@ -1078,7 +1108,7 @@ class InfoBarSeek:
 		else:
 			if self.seekstate != self.SEEK_STATE_EOF:
 				self.lastseekstate = self.seekstate
-			self.setSeekState(self.SEEK_STATE_PAUSE);
+			self.setSeekState(self.SEEK_STATE_PAUSE)
 
 	def unPauseService(self):
 		print "unpause"
@@ -1544,9 +1574,9 @@ class InfoBarPlugins:
 	def getPluginList(self):
 		l = []
 		for p in plugins.getPlugins(where = PluginDescriptor.WHERE_EXTENSIONSMENU):
-		  args = inspect.getargspec(p.__call__)[0]
-		  if len(args) == 1 or len(args) == 2 and isinstance(self, InfoBarChannelSelection):
-			  l.append(((boundFunction(self.getPluginName, p.name), boundFunction(self.runPlugin, p), lambda: True), None, p.name))
+			args = inspect.getargspec(p.__call__)[0]
+			if len(args) == 1 or len(args) == 2 and isinstance(self, InfoBarChannelSelection):
+				l.append(((boundFunction(self.getPluginName, p.name), boundFunction(self.runPlugin, p), lambda: True), None, p.name))
 		l.sort(key = lambda e: e[2]) # sort by name
 		return l
 
@@ -1638,7 +1668,7 @@ class InfoBarPiP:
 		else:
 			self.session.pip = self.session.instantiateDialog(PictureInPicture)
 			self.session.pip.show()
-			newservice = self.session.nav.getCurrentlyPlayingServiceReference()
+			newservice = self.servicelist.servicelist.getCurrent()
 			if self.session.pip.playService(newservice):
 				self.session.pipshown = True
 				self.session.pip.servicePath = self.servicelist.getCurrentServicePath()
@@ -1647,23 +1677,15 @@ class InfoBarPiP:
 				del self.session.pip
 
 	def swapPiP(self):
-		swapservice = self.session.nav.getCurrentlyPlayingServiceReference()
+		swapservice = self.servicelist.servicelist.getCurrent()
 		pipref = self.session.pip.getCurrentService()
 		if swapservice and pipref and pipref.toString() != swapservice.toString():
+				currentServicePath = self.servicelist.getCurrentServicePath()
+				self.servicelist.setCurrentServicePath(self.session.pip.servicePath)	
 				self.session.pip.playService(swapservice)
-
-				slist = self.servicelist
-				if slist:
-					# TODO: this behaves real bad on subservices
-					if slist.dopipzap:
-						slist.servicelist.setCurrent(swapservice)
-					else:
-						slist.servicelist.setCurrent(pipref)
-
-					slist.addToHistory(pipref) # add service to history
-					slist.lastservice.value = pipref.toString() # save service as last playing one
 				self.session.nav.stopService() # stop portal
 				self.session.nav.playService(pipref) # start subservice
+				self.session.pip.servicePath = currentServicePath
 
 	def movePiP(self):
 		self.session.open(PiPSetup, pip = self.session.pip)
@@ -2196,7 +2218,7 @@ class InfoBarCueSheetSupport:
 	def jumpPreviousNextMark(self, cmp, start=False):
 		current_pos = self.cueGetCurrentPosition()
 		if current_pos is None:
- 			return False
+			return False
 		mark = self.getNearestCutPoint(current_pos, cmp=cmp, start=start)
 		if mark is not None:
 			pts = mark[0]

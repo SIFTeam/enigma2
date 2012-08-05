@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-05 23:41+0200\n"
+"POT-Creation-Date: 2012-08-05 10:00+0200\n"
 "PO-Revision-Date: 2011-10-14 19:15+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <Benny.DeTandt@gmail.com>\n"
@@ -35,10 +35,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your receiver settings."
 msgstr ""
-"\n"
-"Maak een back-up van uw instellingen."
 
 msgid ""
 "\n"
@@ -49,17 +47,13 @@ msgstr ""
 
 msgid ""
 "\n"
-"Manage extensions or plugins for your Dreambox"
+"Manage extensions or plugins for your receiver"
 msgstr ""
-"\n"
-"Beheer extensions en plugins voor uw ontvanger."
 
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your receiver software."
 msgstr ""
-"\n"
-"Online bijwerken van uw ontvanger software."
 
 msgid ""
 "\n"
@@ -70,24 +64,20 @@ msgstr ""
 
 msgid ""
 "\n"
-"Restore your Dreambox settings."
-msgstr ""
-"\n"
-"Herstel uw ontvanger instellingen."
-
-msgid ""
-"\n"
-"Restore your Dreambox with a new firmware."
-msgstr ""
-"\n"
-"Herstel uw ontvanger met een nieuwe firmware."
-
-msgid ""
-"\n"
 "Restore your backups by date."
 msgstr ""
 "\n"
 "Zet een back-up van een bepaalde datum terug."
+
+msgid ""
+"\n"
+"Restore your receiver settings."
+msgstr ""
+
+msgid ""
+"\n"
+"Restore your receiver with a new firmware."
+msgstr ""
 
 msgid ""
 "\n"
@@ -153,6 +143,9 @@ msgstr ""
 msgid "%2d:%02d:%02d"
 msgstr ""
 
+msgid "%A %d %B"
+msgstr ""
+
 #. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
 msgid "%A %e %B"
 msgstr ""
@@ -206,6 +199,9 @@ msgstr[1] "%d seconden"
 msgid "%d services found!"
 msgstr "%d kanalen gevonden."
 
+msgid "%d-%m"
+msgstr ""
+
 msgid "%d.%B %Y"
 msgstr "%d-%m-%Y"
 
@@ -216,6 +212,10 @@ msgstr ""
 #, python-format
 msgid "%s (%s)\n"
 msgstr "%s (%s)\n"
+
+#, python-format
+msgid "%s/%s: %s"
+msgstr ""
 
 msgid "(ZAP)"
 msgstr "(ZAP)"
@@ -347,17 +347,13 @@ msgstr "Een demo plugin voor TPM gebruik."
 
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"receiver to standby. Do that now?"
 msgstr ""
-"Een afgelopen timer opname wil uw ontvanger\n"
-"in standby-stand schakelen. Wilt u dit toestaan?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your receiver. Shutdown now?"
 msgstr ""
-"Een afgelopen timer wil uw ontvanger uit schakelen\n"
-"Wilt u dit toestaan?"
 
 msgid "A graphical EPG for all services of an specific bouquet"
 msgstr "Grafische EPG voor alle zenders uit een specifiek boeket"
@@ -413,17 +409,13 @@ msgstr ""
 
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"receiver to standby. Do that now?"
 msgstr ""
-"De slaaptimer wil uw ontvanger in standby\n"
-"schakelen. Wilt u dit toestaan?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your receiver. Shutdown now?"
 msgstr ""
-"De slaaptimer wil uw ontvanger uit-\n"
-"schakelen. Wilt u dit toestaan?"
 
 msgid "A small overview of the available icon states and actions."
 msgstr "Een klein overzicht van gebruikte icon-statussen en acties."
@@ -514,11 +506,9 @@ msgid "Add/Remove timer for current event"
 msgstr "Verwijderen/Toevoegen timer voor huidig programma"
 
 msgid ""
-"Adds enigma2 settings and dreambox model informations like SN, rev... if "
+"Adds enigma2 settings and receiver model informations like SN, rev... if "
 "enabled."
 msgstr ""
-"Enigma2 instellingen en ontvanger model informatie toevoegen zoals SN, "
-"rev... indien ingeschakeld."
 
 msgid "Adds network configuration if enabled."
 msgstr "Netwerkconfiguratie toevoegen indien ingeschakeld."
@@ -568,10 +558,8 @@ msgstr "Druk op OK en een ogenblik geduld aub!"
 
 msgid ""
 "After the start wizard is completed, you need to protect single services. "
-"Refer to your dreambox's manual on how to do that."
+"Refer to your receiver's manual on how to do that."
 msgstr ""
-"Zodra de installatiewizard gereed is, kunt u een zender beveiligen. "
-"Raadpleeg de handleiding voor aanwijzigingen."
 
 msgid "Album"
 msgstr "Album"
@@ -581,6 +569,9 @@ msgstr "Alles"
 
 msgid "All Satellites"
 msgstr "Alle Satellieten"
+
+msgid "All ages"
+msgstr ""
 
 msgid "Allocate"
 msgstr ""
@@ -664,6 +655,9 @@ msgstr ""
 
 msgid "Artist"
 msgstr "Artiest"
+
+msgid "Arts/Culture"
+msgstr ""
 
 msgid "Ask before shutdown:"
 msgstr "Slaaptimer aktie bevestigen:"
@@ -968,6 +962,9 @@ msgstr "Controleer"
 msgid "Checking Filesystem..."
 msgstr "Controleert bestandssysteem..."
 
+msgid "Children/Youth"
+msgstr ""
+
 msgid "Choose Tuner"
 msgstr "Kies een tuner"
 
@@ -1142,6 +1139,9 @@ msgstr "Verder op de achtergrond"
 msgid "Continue playing"
 msgstr "Afspelen voortzetten"
 
+msgid "Continues play (loop)"
+msgstr ""
+
 msgid "Contrast"
 msgstr "Contrast"
 
@@ -1157,8 +1157,8 @@ msgstr "Conterteer ext3 bestandssysteem naar ext 4"
 msgid "Copy"
 msgstr "Kopieer"
 
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
-msgstr "Kan geen verbinding maken naar de .NFI Feed Server:"
+msgid "Could not connect to receiver .NFI Image Feed Server:"
+msgstr ""
 
 msgid "Could not load Medium! No disc inserted?"
 msgstr "Kan medium niet laden! Geen disk in speler?"
@@ -1188,10 +1188,8 @@ msgstr "Crashlog mailer instellingen..."
 
 msgid ""
 "Crashlogs found!\n"
-"Send them to Dream Multimedia?"
+"Send them to the Image Developper?"
 msgstr ""
-"Crashlogs gevonden!\n"
-"Verstuur ze naar Dream Multimedia?"
 
 msgid "Create DVD-ISO"
 msgstr "DVD-ISO maken"
@@ -1223,6 +1221,9 @@ msgstr "Huidige transponder"
 
 msgid "Current device: "
 msgstr "Huidig apparaat:"
+
+msgid "Current event EPG"
+msgstr ""
 
 msgid "Current settings:"
 msgstr "Huidige instellingen:"
@@ -1474,6 +1475,9 @@ msgstr "Display instellingen"
 msgid "Display and Userinterface"
 msgstr "Display en gebruikersinterface"
 
+msgid "Display message before next played movie"
+msgstr ""
+
 #, python-format
 msgid ""
 "Do you really want to REMOVE\n"
@@ -1546,8 +1550,8 @@ msgstr "Wilt u opnieuw handmatig zoeken?"
 msgid "Do you want to download the image to %s ?"
 msgstr "Wil je de image naar %s downloaden?"
 
-msgid "Do you want to enable the parental control feature on your dreambox?"
-msgstr "Wilt u het kinderslot van uw ontvanger activeren?"
+msgid "Do you want to enable the parental control feature on your receiver?"
+msgstr ""
 
 msgid "Do you want to install the package:\n"
 msgstr "Wilt u het volgende pakket installeren:\n"
@@ -1558,8 +1562,8 @@ msgstr "Wilt u de DVD in de speler afspelen?"
 msgid "Do you want to preview this DVD before burning?"
 msgstr "Wilt u de DVD bekijken alvorens te schrijven?"
 
-msgid "Do you want to reboot your Dreambox?"
-msgstr "Wilt u uw ontvanger opnieuw opstarten?"
+msgid "Do you want to reboot your receiver?"
+msgstr ""
 
 msgid "Do you want to remove the package:\n"
 msgstr "Wilt u het volgende pakket verwijderen:\n"
@@ -1577,15 +1581,13 @@ msgstr ""
 "Wilt u uw e-mailadres en naam opgeven zodat wij contact met u kunnen opnemen "
 "indien nodig?"
 
-msgid "Do you want to update your Dreambox?"
-msgstr "Wilt u uw ontvanger updaten?"
+msgid "Do you want to update your receiver?"
+msgstr ""
 
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your receiver?\n"
 "After pressing OK, please wait!"
 msgstr ""
-"Wilt u de ontvanger software vernieuwen?\n"
-"Druk op OK en een ogenblik geduld!"
 
 msgid "Do you want to upgrade the package:\n"
 msgstr "Wilt u een upgrade van het volgende pakket:\n"
@@ -1636,12 +1638,6 @@ msgstr "Bezig met downloaden"
 msgid "Downloading plugin information. Please wait..."
 msgstr "Ophalen informatie. Een ogenblik a.u.b..."
 
-msgid "Dreambox format data DVD (HDTV compatible)"
-msgstr "Ontvanger formaat data DVD (HDTV compatibel)"
-
-msgid "Dreambox software because updates are available."
-msgstr "Ontvanger software want er zijn updates beschikbaar."
-
 msgid "Dutch"
 msgstr "Nederlands"
 
@@ -1659,6 +1655,9 @@ msgstr "EPG taal selectie 1"
 
 msgid "EPG language selection 2"
 msgstr "EPG taal selectie 2"
+
+msgid "EPG settings"
+msgstr ""
 
 #, python-format
 msgid "ERROR - failed to scan (%s)!"
@@ -1691,17 +1690,20 @@ msgstr "Wijzig zenderlijst"
 msgid "Edit settings"
 msgstr "Instellingen wijzigen"
 
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
-msgstr "De nameserver configuaratie van uw ontvanger wijzigen.\n"
+msgid "Edit the Nameserver configuration of your receiver.\n"
+msgstr ""
 
-msgid "Edit the network configuration of your Dreambox.\n"
-msgstr "De netwerk configuratie van uw ontvanger aanpassen.\n"
+msgid "Edit the network configuration of your receiver.\n"
+msgstr ""
 
 msgid "Edit title"
 msgstr "Wijzig titel"
 
 msgid "Edit upgrade source url."
 msgstr "Upgrade url bewerken."
+
+msgid "Education/Science/..."
+msgstr ""
 
 msgid "Electronic Program Guide"
 msgstr "Electronische Programma Gids"
@@ -2110,8 +2112,8 @@ msgstr "Naar een specifieke datum/tijd"
 msgid "GotoX calibration"
 msgstr "GotoX calibratie"
 
-msgid "Graph MEpg Settings"
-msgstr "Grafische MEpg instellingen"
+msgid "GraphMultiEpg Settings"
+msgstr ""
 
 msgid "Graphical Multi EPG"
 msgstr "Grafische Multi EPG"
@@ -2408,6 +2410,9 @@ msgstr "Italiaans"
 msgid "Items per Page "
 msgstr "Items per pagina"
 
+msgid "Items per Page for Listscreen"
+msgstr ""
+
 msgid "Job View"
 msgstr "Voortgang"
 
@@ -2478,6 +2483,9 @@ msgstr "DVD-speler afsluiten?"
 msgid "Left"
 msgstr "Links"
 
+msgid "Leisure hobies"
+msgstr ""
+
 #. TRANSLATORS: (aspect ratio policy: black bars on top/bottom) in doubt, keep english term.
 msgid "Letterbox"
 msgstr "Letterbox"
@@ -2518,6 +2526,9 @@ msgstr "Verbind titels met een DVD menu"
 msgid "List available networks"
 msgstr "Toon beschikbare netwerken"
 
+msgid "List mode"
+msgstr ""
+
 msgid "List of Storage Devices"
 msgstr "Lijst van opslagmedia"
 
@@ -2527,6 +2538,9 @@ msgstr "Lijst type"
 #, python-format
 msgid "List version %d, found %d channels"
 msgstr "Lijst versie %d, %d kanalen gevonden"
+
+msgid "Listscreen default at start user interface"
+msgstr ""
 
 msgid "Lithuanian"
 msgstr "Litouws"
@@ -2642,6 +2656,10 @@ msgstr "Bericht"
 msgid "Message..."
 msgstr "Boodschap..."
 
+#, python-format
+msgid "Minimum age %d years"
+msgstr ""
+
 msgid "Missing "
 msgstr "Ontbrekend"
 
@@ -2708,6 +2726,9 @@ msgstr "Film selectie"
 msgid "Movie location"
 msgstr "Opname lokatie"
 
+msgid "Movie/Drama"
+msgstr ""
+
 msgid "Movielist menu"
 msgstr "Opnamelijst menu"
 
@@ -2740,6 +2761,9 @@ msgstr "Multiplex"
 
 msgid "Multisat"
 msgstr "Multisat"
+
+msgid "Music/Ballet/Dance"
+msgstr ""
 
 msgid "Mute"
 msgstr "Geluid uit"
@@ -2837,6 +2861,9 @@ msgstr "Nieuwe PIN"
 
 msgid "New version:"
 msgstr "Nieuwe versie:"
+
+msgid "News Current Affairs"
+msgstr ""
 
 msgid "Next"
 msgstr "Volgende"
@@ -2988,8 +3015,8 @@ msgstr "Nee, vanaf begin herstarten"
 msgid "No, do nothing."
 msgstr "nee, geen actie."
 
-msgid "No, just start my dreambox"
-msgstr "Nee, uitsluitend ontvanger starten"
+msgid "No, just start my receiver"
+msgstr ""
 
 msgid "No, never"
 msgstr "Nee, nooit"
@@ -3009,6 +3036,9 @@ msgstr "Geen"
 #. TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
 msgid "Nonlinear"
 msgstr "Nonlineair"
+
+msgid "Normal mode"
+msgstr ""
 
 msgid "North"
 msgstr "Noord"
@@ -3036,6 +3066,9 @@ msgstr ""
 
 msgid "Nothing to upgrade"
 msgstr "Geen updates gevonden"
+
+msgid "Now"
+msgstr ""
 
 msgid "Now Playing"
 msgstr "Weergave loopt"
@@ -3085,6 +3118,9 @@ msgstr "Ok"
 
 msgid "On"
 msgstr "Aan"
+
+msgid "On end of movie"
+msgstr ""
 
 msgid "One"
 msgstr "Een"
@@ -3189,6 +3225,12 @@ msgstr "Telefoonnummer"
 msgid "PiPSetup"
 msgstr "PiP Instellingen"
 
+msgid "Picon"
+msgstr ""
+
+msgid "Picon and Service Name"
+msgstr ""
+
 msgid "PicturePlayer"
 msgstr "PicturePlayer"
 
@@ -3219,6 +3261,12 @@ msgstr "Audio in de achtergrond afspelen"
 
 msgid "Play next"
 msgstr "Volgende afspelen"
+
+msgid "Play next (return to movie list)"
+msgstr ""
+
+msgid "Play next (return to previous service)"
+msgstr ""
 
 msgid "Play previous"
 msgstr "Vorige afspelen"
@@ -3316,6 +3364,9 @@ msgstr "Druk op OK om door te gaan."
 
 msgid "Please press OK!"
 msgstr "Druk op OK a.u.b!"
+
+msgid "Please select a default EPG type..."
+msgstr ""
 
 msgid "Please select a playlist to delete..."
 msgstr "Selecteer de afspeellijst die u wilt verwijderen..."
@@ -3618,6 +3669,13 @@ msgstr "Ram Disk"
 msgid "Random"
 msgstr "Random"
 
+#, python-format
+msgid "Rating defined by broadcaster - %d"
+msgstr ""
+
+msgid "Rating undefined"
+msgstr ""
+
 msgid "Really close without saving settings?"
 msgstr "Afsluiten zonder opslaan?"
 
@@ -3778,6 +3836,9 @@ msgstr "Benodigd medium type"
 
 msgid "Reread partition table"
 msgstr "Herlees de partitietabel"
+
+msgid "Reserved"
+msgstr ""
 
 msgid "Reset"
 msgstr "Herstel"
@@ -4097,6 +4158,9 @@ msgstr "Selecteer een zender voor opname"
 msgid "Select copy destination for:"
 msgstr "Kies kopieerbestemming voor:"
 
+msgid "Select default EPG type..."
+msgstr ""
+
 msgid "Select desired image from feed list"
 msgstr "Selecteer de gewenste image uit feed lijst"
 
@@ -4163,11 +4227,17 @@ msgstr "Servisch"
 msgid "Service"
 msgstr "Stream informatie"
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Service Scan"
 msgstr "Zenders zoeken"
 
 msgid "Service Searching"
 msgstr "Zenders zoeken"
+
+msgid "Service Title mode"
+msgstr ""
 
 msgid "Service has been added to the favourites."
 msgstr "De zender is toegevoegd aan de favorieten."
@@ -4273,17 +4343,14 @@ msgstr "Korte bestandsnamen"
 msgid "Show EIT now/next in infobar"
 msgstr "Toon EIT nu/straks in infobalk"
 
+msgid "Show Games show"
+msgstr ""
+
 msgid "Show Info"
 msgstr "Info weergeven"
 
 msgid "Show Message when Recording starts"
 msgstr "Toon bericht wanneer opname begint"
-
-msgid "Show Picons"
-msgstr "Picons weergeven"
-
-msgid "Show Service Names "
-msgstr "Kanaalnamen weergeven"
 
 msgid "Show WLAN Status"
 msgstr "WLAN status weergeven"
@@ -4345,8 +4412,8 @@ msgstr "Geeft de status van uw WiFi verbinding weer.\n"
 msgid "Shutdown"
 msgstr "Afsluiten"
 
-msgid "Shutdown Dreambox after"
-msgstr "Slaaptimer activeren na"
+msgid "Shutdown receiver after"
+msgstr ""
 
 msgid "Side by Side"
 msgstr "Naast elkaar"
@@ -4430,6 +4497,9 @@ msgstr "Langzaam"
 msgid "Slow Motion speeds"
 msgstr "Stap snelheid"
 
+msgid "Social/Political/Economics"
+msgstr ""
+
 msgid "SoftCam / CI"
 msgstr "Softcam / CI"
 
@@ -4476,6 +4546,10 @@ msgstr ""
 "Sorry uw back-up bestemming is niet beschrijfbaar.\n"
 "Kies een andere."
 
+msgid ""
+"Sorry, deleting directories can (for now) only be done through the trash can."
+msgstr ""
+
 msgid "Sorry, no Details available!"
 msgstr "Sorry, geen detail gegevens beschikbaar!"
 
@@ -4516,6 +4590,9 @@ msgstr "Spaans"
 
 msgid "Split preview mode"
 msgstr "Split preview-modus"
+
+msgid "Sports"
+msgstr ""
 
 msgid "Standby"
 msgstr "Stand-by"
@@ -4654,6 +4731,9 @@ msgstr "Verwissel SNR in db met SNR percentage in de OSD"
 msgid "Swap Services"
 msgstr "Zenders omwisselen"
 
+msgid "Swap from normal to list mode"
+msgstr ""
+
 msgid "Swedish"
 msgstr "Zweeds"
 
@@ -4729,8 +4809,8 @@ msgstr "Test Type"
 msgid "Test mode"
 msgstr "Test modus"
 
-msgid "Test the network configuration of your Dreambox.\n"
-msgstr "Test de netwerk configuratie van uw ontvanger.\n"
+msgid "Test the network configuration of your receiver.\n"
+msgstr ""
 
 msgid "Test-Messagebox?"
 msgstr "Test-berichtbox?"
@@ -4753,19 +4833,14 @@ msgstr ""
 
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your receiver."
 msgstr ""
-"Bedankt voor het gebruik van deze wizard. Uw ontvanger is klaar voor "
-"gebruik.\n"
-"Druk op OK om verder te gaan."
 
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
-"create a Dreambox format data DVD (which will not play in stand-alone DVD "
+"create a special format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
-"De DVD standaard ondersteunt geen H.264 (HDTV) video. Wil je een ontvanger "
-"formaat data DVD maken (deze speelt niet af in een DVD speler) ?"
 
 msgid ""
 "The NetworkWizard extension is not installed!\n"
@@ -4849,10 +4924,8 @@ msgstr "De installatie van de standaard zenderlijst is voltooid."
 
 msgid ""
 "The installation of the default settings is finished. You can now continue "
-"configuring your Dreambox by pressing the OK button on the remote control."
+"configuring your receiver by pressing the OK button on the remote control."
 msgstr ""
-"De installatie van de standaard zenderlijst is voltooid. U kunt nu uw "
-"ontvanger verder configureren door op OK te drukken."
 
 msgid "The md5sum validation failed, the file may be corrupted!"
 msgstr "De md5sum validatie is mislukt, het bestand kan beschadigd zijn!"
@@ -4963,31 +5036,18 @@ msgstr ""
 "Dit DVD-RW medium is reeds geformatteerd - herformatteren zal alles wissen "
 "op deze disk."
 
-#, python-format
-msgid "This Dreambox can't decode %s streams!"
-msgstr "Deze ontvanger kan geen %s decoderen!"
-
 msgid "This is step number 2."
 msgstr "Dit is stap nummer 2."
 
 msgid ""
 "This plugin creates a USB stick which can be used to update the firmware of "
-"your Dreambox without the need for a network or WLAN connection.\n"
+"your receiver without the need for a network or WLAN connection.\n"
 "First, a USB stick needs to be prepared so that it becomes bootable.\n"
 "In the next step, an NFI image file can be downloaded from the update server "
 "and saved on the USB stick.\n"
 "If you already have a prepared bootable USB stick, please insert it now. "
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
-"Deze plugin zorgt voor een USB-stick welke gebruikt kan worden om de "
-"firmware van je Dreambox te updaten zonder de noodzaak van een netwerk of "
-"WLAN-verbinding. \n"
-"Als eerste moet een USB-stick worden voorbereid, zodat die opstartbaar "
-"wordt. \n"
-"In de volgende stap, kan een NFI image-bestand van de update-server "
-"gedownload en opgeslagen worden, op de USB-stick. \n"
-"Als u al een voorbereide bootable USB-stick hebt, kunt u deze nu plaatsen. "
-"Plug anders een USB-stick in met een minimale grootte van 64 MB!"
 
 msgid "This plugin is installed."
 msgstr "Deze plugin is geïnstalleerd."
@@ -5000,6 +5060,10 @@ msgstr "Deze plugin wordt geïnstalleerd."
 
 msgid "This plugin will be removed."
 msgstr "Deze plugin wordt verwijderd."
+
+#, python-format
+msgid "This receiver can't decode %s streams!"
+msgstr ""
 
 msgid ""
 "This test checks for configured Nameservers.\n"
@@ -5160,19 +5224,13 @@ msgid "To subtitle selection"
 msgstr "Naar ondertitel selectie"
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your receiver firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and make sure the bootable "
 "USB stick is plugged in.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
-"Volg de volgende stappen om uw Dreambox te updaten:\n"
-"1) Schakel uw box aan de achterkant uit en verzeker u ervan dat een "
-"opstartbare USB-stick is ingestoken.\n"
-"2) Schakel de spanning in en hou de 'naar beneden Pijl-toets' op het "
-"voorpaneel minimaal 10 seconden ingedrukt.\n"
-"3) Wacht op het bootlogo en volg de instructies van de wizzard. "
 
 msgid "Today"
 msgstr "Vandaag"
@@ -5369,14 +5427,14 @@ msgstr "Upgraden en vragen om herstarten"
 msgid "Upgrade finished."
 msgstr "Upgrade voltooid."
 
-msgid "Upgrade finished. Do you want to reboot your Dreambox?"
-msgstr "Software update gereed. Uw ontvanger herstarten?"
+msgid "Upgrade finished. Do you want to reboot your receiver?"
+msgstr ""
 
 msgid "Upgrading"
 msgstr "Bezig met update"
 
-msgid "Upgrading Dreambox... Please wait"
-msgstr "Update loopt... Een ogenblik geduld a.u.b."
+msgid "Upgrading receiver... Please wait"
+msgstr ""
 
 msgid "Use"
 msgstr "Gebruik"
@@ -5463,6 +5521,9 @@ msgstr "Gebruikte zoekmethode"
 
 msgid "User - bouquets"
 msgstr "Gebruiker - bouquets"
+
+msgid "User Interface"
+msgstr ""
 
 msgid "User defined"
 msgstr "Door u ingesteld"
@@ -5690,54 +5751,34 @@ msgstr ""
 
 msgid ""
 "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading "
-"the firmware of your Dreambox by providing a backup facility for your "
+"the firmware of your receiver by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
-"Welkom bij de software update wizard. De wizard biedt u hulp bij het "
-"vernieuwen van de software in uw ontvanger, het maken van een back-up van uw "
-"huidige instellingen en geeft u een korte uitleg over dit proces."
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be "
+"To ensure stable operation of your receiver, the internal memory should be "
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
-"Welkom bij de cleanup wizard.\n"
-"\n"
-"De beschikbare hoeveelheid intern geheugen is minder dan 2 MB.\n"
-"Om een stabiele werking van uw ontvanger te garanderen zou er meer geheugen "
-"vrijgemaakt moeten worden.\n"
-"Deze wizard kan u hierbij helpen.\n"
 
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide "
-"you through the basic network setup of your Dreambox.\n"
+"If you want to connect your receiver to the Internet, this wizard will guide "
+"you through the basic network setup of your receiver.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
-"Welkom.\n"
-"\n"
-"Als u uw ontvanger wenst te verbinden met het internet, kan deze wizard u "
-"helpen bij de basis netwerkinstellingen van uw ontvanger .\n"
-"\n"
-"Druk op  OK om uw netwerk te configureren."
 
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your receiver.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
-"Welkom.\n"
-"\n"
-"De installatiewizard biedt u hulp bij de basisinstellingen van uw "
-"ontvanger.\n"
-"Druk op de OK toets van de afstandsbediening om door te gaan."
 
 msgid "Welcome..."
 msgstr "Welkom..."
@@ -5883,8 +5924,8 @@ msgstr "Je kunt TV enz. blijven kijken terwijl dit zijn werk doet."
 msgid "You can install this plugin."
 msgstr "Deze plugin kunt u installeren."
 
-msgid "You can only burn Dreambox recordings!"
-msgstr "Je kunt alleen Dreambox opnamen branden!"
+msgid "You can only burn receiver recordings!"
+msgstr ""
 
 msgid "You can remove this plugin."
 msgstr "Deze plugin kunt u verwijderen."
@@ -5937,17 +5978,12 @@ msgid "You have to wait %s!"
 msgstr "Wacht op %s!"
 
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, "
+"You need a PC connected to your receiver. If you need further instructions, "
 "please visit the website http://www.dm7025.de.\n"
-"Your dreambox will now be halted. After you have performed the update "
+"Your receiver will now be halted. After you have performed the update "
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
-"U moet uw PC met uw ontvanger verbinden. Voor meer informatie verwijzen wij "
-"u naar de website http://www.dm7025.de.\n"
-"De ontvanger word nu uitgeschakeld. Indien u deze aanwijzingen nauwgezet "
-"volgt, zal de ontvanger u na de update vragen of u uw instellingen terug "
-"wilt plaatsen."
 
 msgid ""
 "You need to set a PIN code and hide it from your children.\n"
@@ -5972,22 +6008,6 @@ msgstr ""
 "\n"
 
 msgid ""
-"Your Dreambox is now ready to use.\n"
-"\n"
-"Your internet connection is working now.\n"
-"\n"
-"Please press OK to continue."
-msgstr ""
-"Uw ontvanger is klaar voor gebruik.\n"
-"\n"
-"Uw internetverbinding is in orde.\n"
-"\n"
-"Druk op OK om verder te gaan."
-
-msgid "Your Dreambox will restart after pressing OK on your remote control."
-msgstr "Uw ontvanger zal herstarten nadat u op OK drukt."
-
-msgid ""
 "Your backup succeeded. We will now continue to explain the further upgrade "
 "process."
 msgstr ""
@@ -6003,16 +6023,6 @@ msgstr ""
 
 msgid "Your current collection will get lost!"
 msgstr "Uw huidige collectie zal verloren gaan!"
-
-msgid "Your dreambox is shutting down. Please stand by..."
-msgstr "Uw ontvanger wordt nu afgesloten. Een ogenblik a.u.b..."
-
-msgid ""
-"Your dreambox isn't connected to the internet properly. Please check it and "
-"try again."
-msgstr ""
-"Uw ontvanger heeft geen verbinding met het internet kunnen maken. Controleer "
-"instellingen en kabels en probeer opnieuw."
 
 msgid "Your email address:"
 msgstr "Uw e-mailadres:"
@@ -6043,11 +6053,30 @@ msgstr "Uw naam (optioneel):"
 msgid "Your network configuration has been activated."
 msgstr "Configuratie van uw netwerk is geactiveerd."
 
+msgid ""
+"Your receiver is now ready to use.\n"
+"\n"
+"Your internet connection is working now.\n"
+"\n"
+"Please press OK to continue."
+msgstr ""
+
 msgid "Your receiver is rebooting"
 msgstr "De ontvanger wordt opnieuw opgestart"
 
 msgid "Your receiver is shutting down"
 msgstr "De ontvanger gaat uit"
+
+msgid "Your receiver is shutting down. Please stand by..."
+msgstr ""
+
+msgid ""
+"Your receiver isn't connected to the internet properly. Please check it and "
+"try again."
+msgstr ""
+
+msgid "Your receiver will restart after pressing OK on your remote control."
+msgstr ""
 
 msgid ""
 "Your wireless LAN internet connection could not be started!\n"
@@ -6059,6 +6088,9 @@ msgstr ""
 "Heeft u de USB WLAN Stick in de box geplaatst?\n"
 "\n"
 "Kies wat u hierna wilt doen."
+
+msgid "Zap"
+msgstr ""
 
 msgid "Zap back to previously tuned service?"
 msgstr "Wilt u terug naar het vorige kanaal?"
@@ -6174,8 +6206,17 @@ msgstr "Zender toevoegen aan favorieten"
 msgid "add to parental protection"
 msgstr "Zender op kinderslot zetten"
 
+msgid "adult movie/drama"
+msgstr ""
+
 msgid "advanced"
 msgstr "geavanceerd"
+
+msgid "adventure/western/war"
+msgstr ""
+
+msgid "advertisement/shopping"
+msgstr ""
 
 msgid "alphabetic reverse"
 msgstr "alfabetisch terug"
@@ -6190,6 +6231,12 @@ msgstr ""
 "weet u zeker dat u deze instellingen terug\n"
 "wilt zetten:\n"
 
+msgid "arts/culture (without music, general)"
+msgstr ""
+
+msgid "arts/culture magazine"
+msgstr ""
+
 msgid "assigned CAIds:"
 msgstr "toegewezen CAIds:"
 
@@ -6201,6 +6248,9 @@ msgstr "aan het begin"
 
 msgid "at end"
 msgstr "aan het einde"
+
+msgid "athletics"
+msgstr ""
 
 #, python-format
 msgid "audio track (%s) format"
@@ -6228,11 +6278,21 @@ msgstr "achtergrond bestand"
 msgid "backgroundcolor"
 msgstr "Achtergrond kleur"
 
+msgid "ballet"
+msgstr ""
+
+#, python-format
+msgid "bc%s"
+msgstr ""
+
 msgid "better"
 msgstr "beter"
 
 msgid "black"
 msgstr "zwart"
+
+msgid "black & white"
+msgstr ""
 
 msgid "blacklist"
 msgstr "zwarte lijst"
@@ -6240,9 +6300,15 @@ msgstr "zwarte lijst"
 msgid "blue"
 msgstr "blauw"
 
+msgid "broadcasting/press"
+msgstr ""
+
 #, python-format
 msgid "burn audio track (%s)"
 msgstr "Schrijf audio spoor (%s)"
+
+msgid "cartoon/puppets"
+msgstr ""
 
 msgid "center"
 msgstr "centrum"
@@ -6256,6 +6322,9 @@ msgstr "Wijzig opname eindtijd"
 msgid "chapters"
 msgstr "hoofdstukken"
 
+msgid "childrens's/youth program (general)"
+msgstr ""
+
 msgid "circular left"
 msgstr "circular links"
 
@@ -6264,6 +6333,9 @@ msgstr "circular rechts"
 
 msgid "clear playlist"
 msgstr "Afspeellijst leeg maken"
+
+msgid "comedy"
+msgstr ""
 
 msgid "complex"
 msgstr "complex"
@@ -6279,6 +6351,9 @@ msgstr "Verbonden"
 
 msgid "continue"
 msgstr "Doorgaan"
+
+msgid "cooking"
+msgstr ""
 
 msgid "copy to bouquets"
 msgstr "Kopieer naar boeketten"
@@ -6317,6 +6392,9 @@ msgstr "Wissen..."
 msgid "descramble and record ecm"
 msgstr "ecm ontcijferen en opnemen"
 
+msgid "detective/thriller"
+msgstr ""
+
 msgid "disable"
 msgstr "deactiveren"
 
@@ -6329,11 +6407,17 @@ msgstr "gedeactiveerd"
 msgid "disconnected"
 msgstr "Verbroken"
 
+msgid "discussion/interview/debate"
+msgstr ""
+
 msgid "do not change"
 msgstr "niet schakelen"
 
 msgid "do nothing"
 msgstr "Geen actie"
+
+msgid "documentary"
+msgstr ""
 
 msgid "don't descramble, record ecm"
 msgstr "ecm niet ontcijferen maar wel opnemen"
@@ -6362,8 +6446,14 @@ msgstr "Afstandsbediening (standaard)"
 msgid "east"
 msgstr "oost"
 
+msgid "economics/social advisory"
+msgstr ""
+
 msgid "edit alternatives"
 msgstr "Alternatieven bewerken"
+
+msgid "education/science/factual topics (general)"
+msgstr ""
 
 msgid "empty"
 msgstr "leeg"
@@ -6398,8 +6488,17 @@ msgstr "Favorieten bewerken deactiveren "
 msgid "enigma2 and network"
 msgstr "enigma2 en netwerk"
 
+msgid "entertainment (10-16 year old)"
+msgstr ""
+
+msgid "entertainment (6-14 year old)"
+msgstr ""
+
 msgid "equal to"
 msgstr "gelijk aan"
+
+msgid "equestrian"
+msgstr ""
 
 msgid "exit DVD player or return to file browser"
 msgstr "DVD-speler afsluiten of terug naar bestandslijst"
@@ -6422,8 +6521,14 @@ msgstr "verlaat netwerkinterface lijst"
 msgid "exit networkadapter setup menu"
 msgstr "verlaat netwerkadapter instellingen menu"
 
+msgid "experimental film/video"
+msgstr ""
+
 msgid "false"
 msgstr "onwaar"
+
+msgid "fashion"
+msgstr ""
 
 msgid "fileformats (BMP, PNG, JPG, GIF)"
 msgstr "Bestandsformaat (BMP, PNG, JPG, GIF)"
@@ -6431,11 +6536,29 @@ msgstr "Bestandsformaat (BMP, PNG, JPG, GIF)"
 msgid "filename"
 msgstr "bestandnaam"
 
+msgid "film/cinema"
+msgstr ""
+
+msgid "fine arts"
+msgstr ""
+
 msgid "fine-tune your display"
 msgstr "Uw scherm fijn-afstellen"
 
+msgid "fitness & health"
+msgstr ""
+
 msgid "fixed"
 msgstr "vast"
+
+msgid "folk/traditional music"
+msgstr ""
+
+msgid "football/soccer"
+msgstr ""
+
+msgid "foreign countries/expeditions"
+msgstr ""
 
 msgid "forward to the next chapter"
 msgstr "Vooruit naar volgend hoofdstuk"
@@ -6449,6 +6572,15 @@ msgstr "ruimte vrij..."
 msgid "full transparency"
 msgstr "volledige transparantie"
 
+msgid "further education"
+msgstr ""
+
+msgid "game show/quiz/contest"
+msgstr ""
+
+msgid "gardening"
+msgstr ""
+
 msgid "go to deep standby"
 msgstr "uitschakelen"
 
@@ -6460,6 +6592,9 @@ msgstr "Neem een screenshot"
 
 msgid "green"
 msgstr "groen"
+
+msgid "handicraft"
+msgstr ""
 
 msgid "hear radio..."
 msgstr "Luister naar radio..."
@@ -6479,6 +6614,9 @@ msgstr "horizontaal"
 msgid "immediate shutdown"
 msgstr "Onmiddellijk uitschakelen"
 
+msgid "information/education/school program"
+msgstr ""
+
 msgid "init module"
 msgstr "CI module initializeren"
 
@@ -6490,6 +6628,9 @@ msgstr "Markeerpunt invoegen"
 
 msgid "invalid type"
 msgstr "ongeldig type"
+
+msgid "jazz"
+msgstr ""
 
 msgid "jump back to the previous title"
 msgstr "terug naar vorige titel"
@@ -6509,11 +6650,17 @@ msgstr "spring naar de volgende markering"
 msgid "jump to previous marked position"
 msgstr "spring naar de vorige markering"
 
+msgid "languages"
+msgstr ""
+
 msgid "leave movie player..."
 msgstr "Opname menu afsluiten"
 
 msgid "left"
 msgstr "links"
+
+msgid "leisure hobbies (general)"
+msgstr ""
 
 msgid "length"
 msgstr "lengte"
@@ -6536,6 +6683,12 @@ msgstr "Weergave: Standaard"
 msgid "list style single line"
 msgstr "Weergave: Enkele regel"
 
+msgid "literature"
+msgstr ""
+
+msgid "live broadcast"
+msgstr ""
+
 msgid "load playlist"
 msgstr "Afspeellijst laden"
 
@@ -6545,8 +6698,17 @@ msgstr "Ja"
 msgid "loopthrough to"
 msgstr "Doorlus naar"
 
+msgid "magazines/reports/documentary"
+msgstr ""
+
 msgid "manual"
 msgstr "handmatig"
+
+msgid "martial sports"
+msgstr ""
+
+msgid "medicine/physiology/psychology"
+msgstr ""
 
 msgid "menu"
 msgstr "menu"
@@ -6559,6 +6721,12 @@ msgstr "minuten"
 
 msgid "month"
 msgstr "maand"
+
+msgid "motor sport"
+msgstr ""
+
+msgid "motoring"
+msgstr ""
 
 msgid "move PiP to main picture"
 msgstr "PiP naar hoofdbeeld"
@@ -6578,11 +6746,35 @@ msgstr "verplaats omhoog naar vorige ingave"
 msgid "movie list"
 msgstr "Opnamelijst"
 
+msgid "movie/drama (general)"
+msgstr ""
+
 msgid "multinorm"
 msgstr "multinorm"
 
+msgid "music/ballet/dance (general)"
+msgstr ""
+
+msgid "musical/opera"
+msgstr ""
+
+msgid "nature/animals/environment"
+msgstr ""
+
 msgid "never"
 msgstr "nooit"
+
+msgid "new media"
+msgstr ""
+
+msgid "news magazine"
+msgstr ""
+
+msgid "news/current affairs (general)"
+msgstr ""
+
+msgid "news/weather report"
+msgstr ""
 
 msgid "next channel"
 msgstr "Volgende zender"
@@ -6656,6 +6848,9 @@ msgstr "aan"
 msgid "on READ ONLY medium."
 msgstr "op ALLEEN LEZEN medium."
 
+msgid "on end of movie"
+msgstr ""
+
 msgid "once"
 msgstr "éénmalig"
 
@@ -6674,11 +6869,17 @@ msgstr "Open zenderlijst (omhoog)"
 msgid "original"
 msgstr "origineel"
 
+msgid "original language"
+msgstr ""
+
 msgid "pass"
 msgstr "passage"
 
 msgid "pause"
 msgstr "pause"
+
+msgid "performing arts"
+msgstr ""
 
 msgid "play as picture in picture"
 msgstr "speel als picture in picture"
@@ -6701,11 +6902,20 @@ msgstr "druk op OK als u gereed bent"
 msgid "please wait, loading picture..."
 msgstr "Een ogenblikje geduld, de foto wordt geladen..."
 
+msgid "popular culture/traditional arts"
+msgstr ""
+
+msgid "pre-school children's program"
+msgstr ""
+
 msgid "previous channel"
 msgstr "Vorige zender"
 
 msgid "previous channel in history"
 msgstr "Vorige zender in geschiedenis"
+
+msgid "receiver software because updates are available."
+msgstr ""
 
 msgid "record"
 msgstr "opname"
@@ -6718,6 +6928,12 @@ msgstr "rood"
 
 msgid "relative"
 msgstr "relatief"
+
+msgid "religion"
+msgstr ""
+
+msgid "remarkable people"
+msgstr ""
 
 msgid "remove a nameserver entry"
 msgstr "verwijder een nameserver "
@@ -6770,6 +6986,12 @@ msgstr "terugspoelen naar vorig hoofdstuk"
 msgid "right"
 msgstr "rechts"
 
+msgid "rock/pop"
+msgstr ""
+
+msgid "romance"
+msgstr ""
+
 msgid "save last directory on exit"
 msgstr "Bij verlaten bewaar laatste map"
 
@@ -6788,6 +7010,9 @@ msgstr "Bezig met zoeken - %d%% voltooid."
 
 msgid "scan state"
 msgstr "status"
+
+msgid "science fiction/fantasy/horror"
+msgstr ""
 
 msgid "second cable of motorized LNB"
 msgstr "2e kabel van gemotoriseerde LNB"
@@ -6815,6 +7040,12 @@ msgstr "Selecteer opname"
 
 msgid "select the movie path"
 msgstr "Selecteer het opname pad"
+
+msgid "serious music/classic music"
+msgstr ""
+
+msgid "serious/classical/religious/historical movie/drama"
+msgstr ""
 
 msgid "service PIN"
 msgstr "service PIN"
@@ -6855,11 +7086,20 @@ msgstr "Afsluitmenu weergeven"
 msgid "show single service EPG..."
 msgstr "Zender EPG weergeven..."
 
+msgid "show softwaremanager in setup menu"
+msgstr ""
+
+msgid "show softwaremanager on blue button"
+msgstr ""
+
 msgid "show tag menu"
 msgstr "Markeringsmenu weergeven"
 
 msgid "show transponder info"
 msgstr "Transponder info weergeven"
+
+msgid "show/game show (general)"
+msgstr ""
 
 msgid "shuffle"
 msgstr "willekeurig"
@@ -6891,6 +7131,15 @@ msgstr "Verspring voorwaarts (tijd invoeren)"
 msgid "slide picture in loop"
 msgstr "Toon foto's in een loop"
 
+msgid "soap/melodram/folkloric"
+msgstr ""
+
+msgid "social/political issues/economics (general)"
+msgstr ""
+
+msgid "social/spiritual science"
+msgstr ""
+
 msgid "sort by date"
 msgstr "Sorteer op datum en tijd"
 
@@ -6899,6 +7148,18 @@ msgstr "sorteren van afspeellijsten"
 
 msgid "special characters"
 msgstr "speciale tekens"
+
+msgid "special events"
+msgstr ""
+
+msgid "special format data DVD (HDTV compatible)"
+msgstr ""
+
+msgid "sports (general)"
+msgstr ""
+
+msgid "sports magazine"
+msgstr ""
 
 msgid "standard"
 msgstr "Standaard"
@@ -6957,8 +7218,20 @@ msgstr "Volgend audio spoor"
 msgid "switch to the next subtitle language"
 msgstr "Volgende ondertitel taal"
 
+msgid "talk show"
+msgstr ""
+
+msgid "team sports"
+msgstr ""
+
+msgid "technology/natural science"
+msgstr ""
+
 msgid "template file"
 msgstr "template bestand"
+
+msgid "tennis/squash"
+msgstr ""
 
 msgid "textcolor"
 msgstr "Tekstkleur"
@@ -6977,6 +7250,9 @@ msgstr "Tijd, hoofdstuk, audio en ondertitels instellen"
 
 msgid "top"
 msgstr "top"
+
+msgid "tourism/travel"
+msgstr ""
 
 msgid "true"
 msgstr "waar"
@@ -6999,11 +7275,17 @@ msgstr "onbekend"
 msgid "unknown service"
 msgstr "onbekende zender"
 
+msgid "unpublished"
+msgstr ""
+
 msgid "until standby/restart"
 msgstr "tot standby/herstart"
 
 msgid "user defined"
 msgstr "door u gedefinieerd"
+
+msgid "variety show"
+msgstr ""
 
 msgid "vertical"
 msgstr "vertikaal"
@@ -7026,6 +7308,9 @@ msgstr "ingepland"
 msgid "was removed successfully"
 msgstr "is succesvol verwijderd"
 
+msgid "water sport"
+msgstr ""
+
 msgid "weekly"
 msgstr "wekelijks"
 
@@ -7040,6 +7325,9 @@ msgstr "witte lijst"
 
 msgid "width"
 msgstr "breedte"
+
+msgid "winter sport"
+msgstr ""
 
 msgid "wireless network interface"
 msgstr "draadloze netwerk interface"
@@ -7057,11 +7345,9 @@ msgid "yes (keep feeds)"
 msgstr "ja (bewaar feeds)"
 
 msgid ""
-"your dreambox might be unusable now. Please consult the manual for further "
-"assistance before rebooting your dreambox."
+"your receiver might be unusable now. Please consult the manual for further "
+"assistance before rebooting your receiver."
 msgstr ""
-"uw ontvanger is nu mogelijk onbruikbaar. Raadpleeg de handleiding voordat u "
-"de ontvanger herstart."
 
 msgid "zap"
 msgstr "zap"

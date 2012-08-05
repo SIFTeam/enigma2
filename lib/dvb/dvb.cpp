@@ -713,11 +713,8 @@ PyObject *eDVBResourceManager::setFrontendSlotInformations(ePyObject list)
 		}
 	}
 	if (assigned != m_frontend.size()) {
-		char blasel[256];
-		sprintf(blasel, "eDVBResourceManager::setFrontendSlotInformations .. assigned %zd socket informations, but %d registered frontends!",
+		eDebug("eDVBResourceManager::setFrontendSlotInformations .. assigned %zd socket informations, but %d registered frontends!",
 			m_frontend.size(), assigned);
-		PyErr_SetString(PyExc_StandardError, blasel);
-		return NULL;
 	}
 	for (eSmartPtrList<eDVBRegisteredFrontend>::iterator i(m_simulate_frontend.begin()); i != m_simulate_frontend.end(); ++i)
 	{
@@ -1092,10 +1089,10 @@ RESULT eDVBResourceManager::allocatePVRChannel(const eDVBChannelID &channelid, e
 	ePtr<eDVBChannel> ch = new eDVBChannel(this, 0);
 	if (channelid)
 	{
-		/* 
-		 * user provided a channelid, with the clear intention for 
+		/*
+		 * user provided a channelid, with the clear intention for
 		 * this channel to be registered at the resource manager.
-		 * (allowing e.g. epgcache to be started) 
+		 * (allowing e.g. epgcache to be started)
 		 */
 		ePtr<iDVBFrontendParameters> feparm;
 		ch->setChannel(channelid, feparm);
@@ -1115,7 +1112,7 @@ RESULT eDVBResourceManager::addChannel(const eDVBChannelID &chid, eDVBChannel *c
 	}
 	std::list<active_channel> &active_channels = simulate ? m_active_simulate_channels : m_active_channels;
 	active_channels.push_back(active_channel(chid, ch));
-	if (!simulate) 
+	if (!simulate)
 	{
 		/* emit */ m_channelAdded(ch);
 	}
@@ -1771,17 +1768,17 @@ void eDVBChannel::getNextSourceSpan(off_t current_offset, size_t bytes_read, off
 			eDebug("frame skipping failed, reverting to byte-skipping");
 		}
 	}
-	
+
 	if (!frame_skip_success)
 	{
 		current_offset += align(m_skipmode_m, blocksize);
-		
+
 		if (m_skipmode_m)
 		{
 			eDebug("we are at %llx, and we try to find the iframe here:", current_offset);
 			size_t iframe_len;
 			off_t iframe_start = current_offset;
-			
+
 			int direction = (m_skipmode_m < 0) ? -1 : +1;
 			m_tstools_lock.lock();
 			int r = m_tstools.findFrame(iframe_start, iframe_len, direction);
@@ -1883,7 +1880,7 @@ void eDVBChannel::getNextSourceSpan(off_t current_offset, size_t bytes_read, off
 			eDebug("get offset for pts=%llu failed!", pts);
 			continue;
 		}
-		
+
 		eDebug("ok, resolved skip (rel: %d, diff %lld), now at %08llx", relative, pts, offset);
 		current_offset = align(offset, blocksize); /* in case tstools return non-aligned offset */
 	}
