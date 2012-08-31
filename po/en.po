@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 10:00+0200\n"
-"PO-Revision-Date: 2005-11-17 20:53+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-08-30 16:54+0200\n"
+"PO-Revision-Date: 2012-08-12 13:36+0100\n"
+"Last-Translator: \n"
 "Language-Team: none\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -364,7 +364,7 @@ msgstr "9"
 
 #
 msgid "<Current movielist location>"
-msgstr "<Current movielist location>"
+msgstr "<Current filelist location>"
 
 #
 msgid "<Default movie location>"
@@ -493,7 +493,7 @@ msgstr ""
 
 #
 msgid "A/V Settings"
-msgstr "A/V Settings"
+msgstr "Audio/Video"
 
 #
 msgid "AA"
@@ -528,11 +528,11 @@ msgstr "Accesspoint:"
 
 #
 msgid "Action on long powerbutton press"
-msgstr "Action on long powerbutton press"
+msgstr "Action on long power button press"
 
 #
 msgid "Action on short powerbutton press"
-msgstr "Action on short powerbutton press"
+msgstr "Action on short power button press"
 
 #
 msgid "Action:"
@@ -682,7 +682,7 @@ msgid "Allocate unused memory index"
 msgstr ""
 
 msgid "Allow Subtitle equals Audio mask"
-msgstr ""
+msgstr "Allow subtitle equals audio mask"
 
 msgid "Allow hearing impaired subtitles"
 msgstr ""
@@ -800,16 +800,16 @@ msgid "Audio PID"
 msgstr ""
 
 msgid "Audio language selection 1"
-msgstr ""
+msgstr "Audio language selection - 1"
 
 msgid "Audio language selection 2"
-msgstr ""
+msgstr "Audio language selection - 2"
 
 msgid "Audio language selection 3"
-msgstr ""
+msgstr "Audio language selection - 3"
 
 msgid "Audio language selection 4"
-msgstr ""
+msgstr "Audio language selection - 4"
 
 #
 msgid "Author: "
@@ -839,11 +839,11 @@ msgid "Auto focus commencing ..."
 msgstr ""
 
 msgid "Auto language selection"
-msgstr ""
+msgstr "Auto Language Selection"
 
 #
 msgid "Auto scart switching"
-msgstr "Auto scart switching"
+msgstr "Auto SCART switching"
 
 msgid "Auto-focus"
 msgstr ""
@@ -939,23 +939,23 @@ msgstr "Begin time"
 
 #
 msgid "Behavior of 'pause' when paused"
-msgstr "Behavior of 'pause' when paused"
+msgstr "Behavior of 'pause' button when paused"
 
 #
 msgid "Behavior of 0 key in PiP-mode"
-msgstr "Behavior of 0 key in PiP-mode"
+msgstr "Behavior of '0' button in PiP mode"
 
 #
 msgid "Behavior when a movie is started"
-msgstr "Behavior when a movie is started"
+msgstr "Behavior when a video file is started"
 
 #
 msgid "Behavior when a movie is stopped"
-msgstr "Behavior when a movie is stopped"
+msgstr "Behavior when a video file is stopped"
 
 #
 msgid "Behavior when a movie reaches the end"
-msgstr "Behavior when a movie reaches the end"
+msgstr "Behavior when a video file reaches the end"
 
 #
 msgid "Bitrate:"
@@ -1126,7 +1126,7 @@ msgstr "Channel:"
 
 #
 msgid "Channellist menu"
-msgstr "Channellist menu"
+msgstr "Channel list menu"
 
 #
 msgid "Chap."
@@ -1146,7 +1146,7 @@ msgstr "Check"
 
 #
 msgid "Checking Filesystem..."
-msgstr "Checking Filesystem..."
+msgstr "Filesystem check in progress..."
 
 msgid "Children/Youth"
 msgstr ""
@@ -1204,11 +1204,11 @@ msgstr "Cleanup Wizard"
 
 #
 msgid "Cleanup Wizard settings"
-msgstr "Cleanup Wizard settings"
+msgstr "Cleanup Wizard Settings"
 
 #
 msgid "CleanupWizard"
-msgstr "CleanupWizard"
+msgstr "Cleanup Wizard"
 
 msgid "Clear"
 msgstr ""
@@ -1252,7 +1252,7 @@ msgstr "Collection name"
 
 #
 msgid "Collection settings"
-msgstr "Collection settings"
+msgstr "Collection Settings"
 
 #
 msgid "Color Format"
@@ -1389,7 +1389,7 @@ msgid "Convert ext3 to ext4..."
 msgstr ""
 
 msgid "Convert filesystem ext3 to ext4"
-msgstr ""
+msgstr "Convert ext3 to ext4"
 
 msgid "Copy"
 msgstr ""
@@ -1449,7 +1449,7 @@ msgid "Create more detailed crash log"
 msgstr ""
 
 msgid "Create movie directory"
-msgstr ""
+msgstr "Create movie directory"
 
 #
 #, python-format
@@ -1490,15 +1490,15 @@ msgstr ""
 
 #
 msgid "Custom skip time for '1'/'3'-keys"
-msgstr "Custom skip time for '1'/'3'-keys"
+msgstr "Custom skip time for '1'/'3'-keys (sec)"
 
 #
 msgid "Custom skip time for '4'/'6'-keys"
-msgstr "Custom skip time for '4'/'6'-keys"
+msgstr "Custom skip time for '4'/'6'-keys (sec)"
 
 #
 msgid "Custom skip time for '7'/'9'-keys"
-msgstr "Custom skip time for '7'/'9'-keys"
+msgstr "Custom skip time for '7'/'9'-keys (sec)"
 
 msgid "Custom text alignment"
 msgstr ""
@@ -1508,7 +1508,7 @@ msgstr ""
 
 #
 msgid "Customize"
-msgstr "Customize"
+msgstr "Other Settings"
 
 #
 msgid "Cut"
@@ -1653,7 +1653,7 @@ msgid "Depth"
 msgstr ""
 
 msgid "Descramble http streams"
-msgstr ""
+msgstr "Descramble HTTP streams"
 
 #
 msgid "Description"
@@ -1777,14 +1777,14 @@ msgstr "Display >16:9 content as"
 
 #
 msgid "Display Setup"
-msgstr "Display Setup"
+msgstr "Receiver's Display Setup"
 
 #
 msgid "Display and Userinterface"
 msgstr "Display and Userinterface"
 
 msgid "Display message before next played movie"
-msgstr ""
+msgstr "Display message before next played video file"
 
 #
 #, python-format
@@ -1954,7 +1954,7 @@ msgstr "Download .NFI-Files for USB-Flasher"
 
 #
 msgid "Download Plugins"
-msgstr "Download Plugins"
+msgstr "Download"
 
 #
 msgid "Downloadable new plugins"
@@ -1966,11 +1966,11 @@ msgstr "Downloadable plugins"
 
 #
 msgid "Downloading"
-msgstr "Downloading"
+msgstr "Downloading..."
 
 #
 msgid "Downloading plugin information. Please wait..."
-msgstr "Downloading plugin information. Please wait..."
+msgstr "Downloading plugin information... Please wait!"
 
 #
 msgid "Dutch"
@@ -1984,6 +1984,9 @@ msgstr "Dynamic contrast"
 msgid "E"
 msgstr "E"
 
+msgid "EPG"
+msgstr ""
+
 #
 msgid "EPG Selection"
 msgstr "EPG Selection"
@@ -1995,7 +1998,7 @@ msgid "EPG language selection 2"
 msgstr ""
 
 msgid "EPG settings"
-msgstr ""
+msgstr "Electronic Program Guide"
 
 #
 #, python-format
@@ -2080,10 +2083,10 @@ msgid "Enable Netmed EPG"
 msgstr ""
 
 msgid "Enable ViaSat EPG"
-msgstr ""
+msgstr "Enable Viasat EPG"
 
 msgid "Enable freesat EPG"
-msgstr ""
+msgstr "Enable Freesat EPG"
 
 #
 msgid "Enable multiple bouquets"
@@ -2232,6 +2235,9 @@ msgstr "Exit"
 msgid "Exit EPG"
 msgstr ""
 
+msgid "Exit Movieplayer?"
+msgstr ""
+
 #
 msgid "Exit editor"
 msgstr "Exit editor"
@@ -2261,7 +2267,7 @@ msgstr "Expert"
 
 #
 msgid "Extended Networksetup Plugin..."
-msgstr "Extended Networksetup Plugin..."
+msgstr "Extended Network Setup Plugin..."
 
 #
 msgid "Extended Setup..."
@@ -2292,7 +2298,7 @@ msgstr ""
 
 #
 msgid "Factory reset"
-msgstr "Factory reset"
+msgstr "Factory Reset"
 
 #
 msgid "Failed"
@@ -2344,7 +2350,7 @@ msgstr ""
 
 #
 msgid "Filesystem Check"
-msgstr "Filesystem Check"
+msgstr "Filesystem check"
 
 msgid "Final position at"
 msgstr ""
@@ -2451,19 +2457,19 @@ msgstr "Gateway"
 
 #
 msgid "General AC3 Delay"
-msgstr "General AC3 Delay"
+msgstr "General AC3 sound delay"
 
 #
 msgid "General AC3 delay (ms)"
-msgstr "General AC3 delay (ms)"
+msgstr "General AC3 sound delay (ms)"
 
 #
 msgid "General PCM Delay"
-msgstr "General PCM Delay"
+msgstr "General PCM sound delay"
 
 #
 msgid "General PCM delay (ms)"
-msgstr "General PCM delay (ms)"
+msgstr "General PCM sound delay (ms)"
 
 #
 msgid "Genre"
@@ -2487,10 +2493,10 @@ msgid "Go down the list"
 msgstr ""
 
 msgid "Go to first movie or last item"
-msgstr ""
+msgstr "Go to first video file or last item"
 
 msgid "Go to first movie or top of list"
-msgstr ""
+msgstr "Go to first video file or top of list"
 
 msgid "Go up the list"
 msgstr ""
@@ -2578,15 +2584,15 @@ msgstr ""
 
 #
 msgid "Harddisk"
-msgstr "Harddisk"
+msgstr "Hard drive"
 
 #
 msgid "Harddisk setup"
-msgstr "Harddisk setup"
+msgstr "Hard drive Setup"
 
 #
 msgid "Harddisk standby after"
-msgstr "Harddisk standby after"
+msgstr "HDD goes to standby after"
 
 msgid "Hardware: "
 msgstr ""
@@ -2601,7 +2607,7 @@ msgid "Hide CI messages"
 msgstr ""
 
 msgid "Hide zap errors"
-msgstr ""
+msgstr "Hide zapping errors"
 
 #
 msgid "Hierarchy Information"
@@ -2705,13 +2711,13 @@ msgstr ""
 "In order to record a timer, the TV was switched to the recording service!\n"
 
 msgid "Include AIT in http streams"
-msgstr ""
+msgstr "Include AIT in HTTP streams"
 
 msgid "Include ECM in http streams"
-msgstr ""
+msgstr "Include ECM in HTTP streams"
 
 msgid "Include EIT in http streams"
-msgstr ""
+msgstr "Include EIT in HTTP streams"
 
 #
 msgid "Include your email and name (optional) in the mail?"
@@ -2780,10 +2786,10 @@ msgstr ""
 
 #
 msgid "Input"
-msgstr "Input"
+msgstr "Selection Screen"
 
 msgid "Input device setup"
-msgstr ""
+msgstr "Input device Setup"
 
 msgid "Input devices"
 msgstr ""
@@ -2913,7 +2919,7 @@ msgid "Just Scale"
 msgstr "Just Scale"
 
 msgid "Keep old timers for how many days"
-msgstr ""
+msgstr "Keep old timers for (days)"
 
 msgid "Kernel Version: "
 msgstr ""
@@ -2924,7 +2930,7 @@ msgstr "Keyboard"
 
 #
 msgid "Keyboard Map"
-msgstr "Keyboard Map"
+msgstr "Keyboard mapping"
 
 #
 msgid "Keyboard Setup"
@@ -2962,7 +2968,7 @@ msgstr "Language"
 
 #
 msgid "Language selection"
-msgstr "Language selection"
+msgstr "Language Selection"
 
 msgid "Last Upgrade: "
 msgstr ""
@@ -3070,7 +3076,7 @@ msgstr "Load"
 
 #
 msgid "Load Length of Movies in Movielist"
-msgstr "Load Length of Movies in Movielist"
+msgstr "Show length of video files in filelist"
 
 #
 msgid "Local Network"
@@ -3123,7 +3129,7 @@ msgid "Mainmenu"
 msgstr "Mainmenu"
 
 msgid "Maintain old EPG data for"
-msgstr ""
+msgstr "Maintain old EPG data for (minutes)"
 
 #
 msgid "Make this mark an 'in' point"
@@ -3162,11 +3168,11 @@ msgstr "Manufacturer"
 
 #
 msgid "Margin after record"
-msgstr "Margin after record"
+msgstr "Margin after record ends (minutes)"
 
 #
 msgid "Margin before record (minutes)"
-msgstr "Margin before record (minutes)"
+msgstr "Margin before record starts (minutes)"
 
 #
 msgid "Max. Bitrate: "
@@ -3215,7 +3221,7 @@ msgstr ""
 
 #
 msgid "Mode"
-msgstr "Mode"
+msgstr "Resolution"
 
 #
 msgid "Model: "
@@ -3279,10 +3285,10 @@ msgid "Movement"
 msgstr ""
 
 msgid "Movie List Configuration"
-msgstr ""
+msgstr "File List Configuration"
 
 msgid "Movie Selection"
-msgstr ""
+msgstr "Video file Selection"
 
 #
 msgid "Movie location"
@@ -3293,7 +3299,7 @@ msgstr ""
 
 #
 msgid "Movielist menu"
-msgstr "Movielist menu"
+msgstr "Filelist menu"
 
 msgid "Moving"
 msgstr ""
@@ -3393,11 +3399,11 @@ msgstr "Netmask"
 
 #
 msgid "Network"
-msgstr "Network"
+msgstr "Network Setup"
 
 #
 msgid "Network Configuration..."
-msgstr "Network Configuration..."
+msgstr "Network Configuration"
 
 msgid "Network ID"
 msgstr ""
@@ -3420,7 +3426,7 @@ msgstr "Network scan"
 
 #
 msgid "Network setup"
-msgstr "Network setup"
+msgstr "Network Setup"
 
 #
 msgid "Network test"
@@ -3439,7 +3445,7 @@ msgstr "Network:"
 
 #
 msgid "NetworkWizard"
-msgstr "NetworkWizard"
+msgstr "Network Wizard"
 
 msgid "Networkname (SSID)"
 msgstr ""
@@ -3458,9 +3464,13 @@ msgstr "New version:"
 msgid "News Current Affairs"
 msgstr ""
 
-#
+msgctxt "button label, 'next screen'"
 msgid "Next"
-msgstr "Next"
+msgstr ""
+
+msgctxt "now/next: 'next' event label"
+msgid "Next"
+msgstr ""
 
 #
 msgid "No"
@@ -3558,7 +3568,7 @@ msgstr "No satellite frontend found!!"
 
 #
 msgid "No tags are set on these movies."
-msgstr "No tags are set on these movies."
+msgstr "No tags are set on these video files."
 
 #
 msgid "No to all"
@@ -3698,6 +3708,7 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr ""
 
+msgctxt "now/next: 'now' event label"
 msgid "Now"
 msgstr ""
 
@@ -3760,7 +3771,7 @@ msgid "On"
 msgstr "On"
 
 msgid "On end of movie"
-msgstr ""
+msgstr "On end of video file"
 
 #
 msgid "One"
@@ -3848,7 +3859,7 @@ msgstr "Parent Directory"
 
 #
 msgid "Parental control"
-msgstr "Parental control"
+msgstr "Parental Control"
 
 #
 msgid "Parental control services Editor"
@@ -3856,7 +3867,7 @@ msgstr "Parental control services Editor"
 
 #
 msgid "Parental control setup"
-msgstr "Parental control setup"
+msgstr "Parental control Setup"
 
 #
 msgid "Parental control type"
@@ -3868,7 +3879,13 @@ msgstr "Password"
 
 #
 msgid "Pause movie at end"
-msgstr "Pause movie at end"
+msgstr "Pause video file at end"
+
+msgid "Percentage Left"
+msgstr ""
+
+msgid "Percentage Right"
+msgstr ""
 
 msgid "Permanently delete all recordings in the trash can?"
 msgstr ""
@@ -3885,7 +3902,7 @@ msgstr "Phone number"
 
 #
 msgid "PiPSetup"
-msgstr "PiPSetup"
+msgstr "PiP Setup"
 
 msgid "Picon"
 msgstr ""
@@ -3933,7 +3950,7 @@ msgid "Play next"
 msgstr ""
 
 msgid "Play next (return to movie list)"
-msgstr ""
+msgstr "Play next (return to filelist)"
 
 msgid "Play next (return to previous service)"
 msgstr ""
@@ -3943,7 +3960,7 @@ msgstr ""
 
 #
 msgid "Play recorded movies..."
-msgstr "Play recorded movies..."
+msgstr "Play recorded files..."
 
 #
 msgid "Please Select Medium to be Scanned"
@@ -4098,7 +4115,7 @@ msgstr "Please select tag to filter..."
 
 #
 msgid "Please select the movie path..."
-msgstr "Please select the movie path..."
+msgstr "Please select the video file path..."
 
 #
 msgid ""
@@ -4240,7 +4257,7 @@ msgid "Portuguese"
 msgstr "Portuguese"
 
 msgid "Position of finished Timers in Timerlist"
-msgstr ""
+msgstr "Position of finished timers in timerlist"
 
 msgid "Position stored at index"
 msgstr ""
@@ -4251,7 +4268,7 @@ msgstr "Positioner"
 
 #
 msgid "Positioner setup"
-msgstr "Positioner setup"
+msgstr "Positioner Setup"
 
 #
 msgid "Power threshold in mA"
@@ -4262,10 +4279,10 @@ msgid "Predefined transponder"
 msgstr "Predefined transponder"
 
 msgid "Prefer AC3"
-msgstr ""
+msgstr "Prefer AC3 sound"
 
 msgid "Prefer DVB-grafical subtitles"
-msgstr ""
+msgstr "Prefer DVB subtitles"
 
 msgid "Prefer audio stream stored by service"
 msgstr ""
@@ -4340,9 +4357,9 @@ msgstr "Press OK to toggle the selection."
 msgid "Press yellow to set this interface as default interface."
 msgstr "Press yellow to set this interface as default interface."
 
-#
+msgctxt "button label, 'previous screen'"
 msgid "Prev"
-msgstr "Prev"
+msgstr ""
 
 #
 msgid "Preview"
@@ -4351,6 +4368,9 @@ msgstr "Preview"
 #
 msgid "Preview menu"
 msgstr "Preview menu"
+
+msgid "Preview selected channel"
+msgstr ""
 
 #
 msgid "Primary DNS"
@@ -4367,6 +4387,12 @@ msgstr "Process"
 msgid "Progress"
 msgstr ""
 
+msgid "Progress Bar Left"
+msgstr ""
+
+msgid "Progress Bar Right"
+msgstr ""
+
 msgid "Progress Small"
 msgstr ""
 
@@ -4380,7 +4406,7 @@ msgstr "Protect services"
 
 #
 msgid "Protect setup"
-msgstr "Protect setup"
+msgstr "Protect Setup"
 
 #
 msgid "Provider"
@@ -4482,7 +4508,7 @@ msgstr "Reception Settings"
 
 #
 msgid "Record"
-msgstr "Record"
+msgstr "Recording and FileList"
 
 #
 #, python-format
@@ -4497,15 +4523,12 @@ msgstr "Recorded files..."
 msgid "Recording"
 msgstr "Recording"
 
-msgid "Recording data sync size"
-msgstr ""
-
 msgid "Recording in progress"
 msgstr ""
 
 #
 msgid "Recording paths"
-msgstr "Recording paths"
+msgstr "Recording Paths"
 
 msgid "Recording type"
 msgstr ""
@@ -4530,7 +4553,7 @@ msgstr ""
 
 #
 msgid "Refresh Rate"
-msgstr "Refresh Rate"
+msgstr "Refresh rate"
 
 #
 msgid "Refresh rate selection."
@@ -4566,7 +4589,7 @@ msgstr "Remove Bookmark"
 
 #
 msgid "Remove Plugins"
-msgstr "Remove Plugins"
+msgstr "Remove"
 
 #
 msgid "Remove a mark"
@@ -4585,7 +4608,7 @@ msgid "Remove finished."
 msgstr "Remove finished."
 
 msgid "Remove items from trash after (days)"
-msgstr ""
+msgstr "Remove items from trash can after (days)"
 
 #
 msgid "Remove plugins"
@@ -4668,14 +4691,14 @@ msgstr "Resolution"
 
 #
 msgid "Restart"
-msgstr "Restart"
+msgstr "Full Restart"
 
 #
 msgid "Restart GUI now?"
 msgstr "Restart GUI now?"
 
 msgid "Restart enigma"
-msgstr ""
+msgstr "Restart Enigma"
 
 #
 msgid "Restart network"
@@ -4731,7 +4754,7 @@ msgstr "Resuming playback"
 
 #
 msgid "Return to movie list"
-msgstr "Return to movie list"
+msgstr "Return to filelist"
 
 #
 msgid "Return to previous service"
@@ -5025,7 +5048,7 @@ msgstr "Select Network Adapter"
 
 #
 msgid "Select a movie"
-msgstr "Select a movie"
+msgstr "Select a video file"
 
 #
 msgid "Select audio track"
@@ -5178,7 +5201,7 @@ msgstr ""
 
 #
 msgid "Serviceinfo"
-msgstr "Serviceinfo"
+msgstr "Service info"
 
 #
 msgid "Services"
@@ -5254,7 +5277,7 @@ msgid "Short filenames"
 msgstr ""
 
 msgid "Show EIT now/next in infobar"
-msgstr ""
+msgstr "Show EIT now/next event in infobar"
 
 msgid "Show Games show"
 msgstr ""
@@ -5265,17 +5288,17 @@ msgstr "Show Info"
 
 #
 msgid "Show Message when Recording starts"
-msgstr "Show Message when Recording starts"
+msgstr "Show message when recording starts"
 
 #
 msgid "Show WLAN Status"
 msgstr "Show WLAN Status"
 
 msgid "Show animation while busy"
-msgstr ""
+msgstr "Show animation while receiver is busy"
 
 msgid "Show background in Radio Mode"
-msgstr ""
+msgstr "Show background in radio mode"
 
 msgid "Show bouquet selection menu"
 msgstr ""
@@ -5320,11 +5343,11 @@ msgid "Show services beginning with"
 msgstr "Show services beginning with"
 
 msgid "Show status icons in Movielist"
-msgstr ""
+msgstr "Show status icons in filelist"
 
 #
 msgid "Show the radio player..."
-msgstr "Show the radio player..."
+msgstr "Show the radio player"
 
 #
 msgid "Show the tv player..."
@@ -5458,7 +5481,7 @@ msgid "Software management"
 msgstr "Software management"
 
 msgid "Software manager setup"
-msgstr ""
+msgstr "Software manager Setup"
 
 #
 msgid "Software restore"
@@ -5466,7 +5489,7 @@ msgstr "Software restore"
 
 #
 msgid "Software update"
-msgstr "Software update"
+msgstr "Software Update"
 
 msgid "Softwaremanager information"
 msgstr ""
@@ -5564,7 +5587,7 @@ msgstr "Standby"
 
 #
 msgid "Standby / Restart"
-msgstr "Standby / Restart"
+msgstr "Power Management"
 
 #
 #, python-format
@@ -5631,7 +5654,7 @@ msgstr "Stop current event but not coming events"
 
 #
 msgid "Stop playing this movie?"
-msgstr "Stop playing this movie?"
+msgstr "Stop playing this video?"
 
 msgid "Stop recording"
 msgstr ""
@@ -5680,29 +5703,29 @@ msgid "Subservices"
 msgstr "Subservices"
 
 msgid "Subtitle delay when timing lacks"
-msgstr ""
+msgstr "Subtitle delay when timing is bad"
 
 msgid "Subtitle language selection 1"
-msgstr ""
+msgstr "Subtitle language selection - 1"
 
 msgid "Subtitle language selection 2"
-msgstr ""
+msgstr "Subtitle language selection - 2"
 
 msgid "Subtitle language selection 3"
-msgstr ""
+msgstr "Subtitle language selection - 3"
 
 msgid "Subtitle language selection 4"
-msgstr ""
+msgstr "Subtitle language selection - 4"
 
 #
 msgid "Subtitle selection"
-msgstr "Subtitle selection"
+msgstr "Subtitle Selection"
 
 msgid "Subtitle selection..."
 msgstr ""
 
 msgid "Subtitle settings"
-msgstr ""
+msgstr "OpenPLi Advanced Subtitles"
 
 #
 msgid "Subtitles"
@@ -5717,7 +5740,7 @@ msgid "Sunday"
 msgstr "Sunday"
 
 msgid "Swap SNR in db with SNR in percentage on OSD"
-msgstr ""
+msgstr "Swap SNR in db with SNR in % in infobar"
 
 #
 msgid "Swap Services"
@@ -5761,7 +5784,7 @@ msgstr ""
 
 #
 msgid "System"
-msgstr "System"
+msgstr "System Settings"
 
 #
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
@@ -5807,7 +5830,7 @@ msgstr "Terrestrial provider"
 
 #
 msgid "Test DiSEqC settings"
-msgstr "Test DiSEqC settings"
+msgstr "Test DiSEqC Settings"
 
 #
 msgid "Test Type"
@@ -6345,7 +6368,7 @@ msgid "Transponder Type"
 msgstr "Transponder Type"
 
 msgid "Trashcan"
-msgstr ""
+msgstr "Trash can"
 
 #
 msgid "Tries left:"
@@ -6396,7 +6419,7 @@ msgstr "Tuner Slot"
 
 #
 msgid "Tuner configuration"
-msgstr "Tuner configuration"
+msgstr "Tuner Configuration"
 
 #
 msgid "Tuner status"
@@ -6438,7 +6461,7 @@ msgstr "USB Stick"
 
 #
 msgid "USB stick wizard"
-msgstr "USB stick wizard"
+msgstr "USB stick Wizard"
 
 msgid ""
 "Unattended upgrade in progress\n"
@@ -6584,11 +6607,11 @@ msgstr "Use power measurement"
 
 #
 msgid "Use the Networkwizard to configure selected network adapter"
-msgstr "Use the Networkwizard to configure selected network adapter"
+msgstr "Use the Network Wizard to configure selected network adapter"
 
 #
 msgid "Use the Networkwizard to configure your Network\n"
-msgstr "Use the Networkwizard to configure your Network\n"
+msgstr "Use the Network Wizard to configure your Network\n"
 
 #
 msgid ""
@@ -6623,11 +6646,11 @@ msgid "Use time of currently running service"
 msgstr "Use time of currently running service"
 
 msgid "Use trashcan in movielist"
-msgstr ""
+msgstr "Use trash can in filelist"
 
 #
 msgid "Use usals for this sat"
-msgstr "Use usals for this sat"
+msgstr "Use USALS for this sat"
 
 #
 msgid "Use wizard to set up basic features"
@@ -6641,7 +6664,7 @@ msgid "User - bouquets"
 msgstr ""
 
 msgid "User Interface"
-msgstr ""
+msgstr "Graphical User Interface"
 
 #
 msgid "User defined"
@@ -6685,7 +6708,7 @@ msgstr "Video Fine-Tuning Wizard"
 
 #
 msgid "Video Output"
-msgstr "Video Output"
+msgstr "Video output"
 
 msgid "Video PID"
 msgstr ""
@@ -6700,15 +6723,15 @@ msgstr "Video Wizard"
 
 #
 msgid "Video enhancement preview"
-msgstr "Video enhancement preview"
+msgstr "Video enhancement Preview"
 
 #
 msgid "Video enhancement settings"
-msgstr "Video enhancement settings"
+msgstr "Video enhancement Settings"
 
 #
 msgid "Video enhancement setup"
-msgstr "Video enhancement setup"
+msgstr "Video enhancement Setup"
 
 #
 msgid ""
@@ -6745,7 +6768,7 @@ msgstr ""
 
 #
 msgid "View Movies..."
-msgstr "View Movies..."
+msgstr "View videos..."
 
 #
 msgid "View Photos..."
@@ -7001,10 +7024,10 @@ msgid "Wireless Network"
 msgstr "Wireless Network"
 
 msgid "Wireless network connection setup"
-msgstr ""
+msgstr "Wireless network connection Setup"
 
 msgid "Wireless network connection setup."
-msgstr ""
+msgstr "Wireless network connection Setup."
 
 msgid "Wireless network state"
 msgstr ""
@@ -7029,7 +7052,7 @@ msgid "Yellow DVB subtitles"
 msgstr ""
 
 msgid "Yellow pango subtitles"
-msgstr ""
+msgstr "Yellow pango subtitles (.srt for example)"
 
 #
 msgid "Yes"
@@ -7044,7 +7067,7 @@ msgstr ""
 
 #
 msgid "Yes, and delete this movie"
-msgstr "Yes, and delete this movie"
+msgstr "Yes, and delete this video file"
 
 #
 msgid "Yes, and don't ask again"
@@ -7076,7 +7099,7 @@ msgstr "Yes, restore the settings now"
 
 #
 msgid "Yes, returning to movie list"
-msgstr "Yes, returning to movie list"
+msgstr "Yes, returning to filelist"
 
 #
 msgid "Yes, view the tutorial"
@@ -7400,7 +7423,7 @@ msgstr "add bookmark"
 
 #
 msgid "add bouquet"
-msgstr "add bouquet"
+msgstr "add new bouquet"
 
 #
 msgid "add directory to playlist"
@@ -7420,19 +7443,19 @@ msgstr "add marker"
 
 #
 msgid "add recording (enter recording duration)"
-msgstr "add recording (enter recording duration)"
+msgstr "new recording (enter recording duration)"
 
 #
 msgid "add recording (enter recording endtime)"
-msgstr "add recording (enter recording endtime)"
+msgstr "new recording (enter recording endtime)"
 
 #
 msgid "add recording (indefinitely)"
-msgstr "add recording (indefinitely)"
+msgstr "new recording (indefinitely)"
 
 #
 msgid "add recording (stop after current event)"
-msgstr "add recording (stop after current event)"
+msgstr "new recording (stop after current event)"
 
 #
 msgid "add service to bouquet"
@@ -7709,7 +7732,7 @@ msgstr ""
 
 #
 msgid "don't record"
-msgstr "don't record"
+msgstr "exit"
 
 #
 msgid "done!"
@@ -7810,7 +7833,7 @@ msgstr "exit mediaplayer"
 
 #
 msgid "exit movielist"
-msgstr "exit movielist"
+msgstr "exit filelist"
 
 #
 msgid "exit nameserver configuration"
@@ -7986,7 +8009,7 @@ msgstr ""
 
 #
 msgid "leave movie player..."
-msgstr "leave movie player..."
+msgstr "leave multimedia player..."
 
 #
 msgid "left"
@@ -8097,7 +8120,7 @@ msgstr "move up to previous entry"
 
 #
 msgid "movie list"
-msgstr "movie list"
+msgstr "file list"
 
 msgid "movie/drama (general)"
 msgstr ""
@@ -8223,7 +8246,7 @@ msgid "on READ ONLY medium."
 msgstr "on READ ONLY medium."
 
 msgid "on end of movie"
-msgstr ""
+msgstr "on end of video"
 
 #
 msgid "once"
@@ -8457,7 +8480,7 @@ msgstr "select menu entry"
 
 #
 msgid "select movie"
-msgstr "select movie"
+msgstr "select video file"
 
 #
 msgid "select the movie path"
@@ -8841,3 +8864,11 @@ msgstr "zap"
 #
 msgid "zapped"
 msgstr "zapped"
+
+#
+#~ msgid "Next"
+#~ msgstr "Next"
+
+#
+#~ msgid "Prev"
+#~ msgstr "Prev"

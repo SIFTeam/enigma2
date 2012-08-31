@@ -27,7 +27,7 @@ def InitUsageConfig():
 	config.usage.show_infobar_on_zap = ConfigYesNo(default = True)
 	config.usage.show_infobar_on_skip = ConfigYesNo(default = True)
 	config.usage.show_infobar_on_event_change = ConfigYesNo(default = False)
-	config.usage.show_second_infobar = ConfigSelection(default = None, choices = [(None, _("None")), ("0", _("no timeout"))] + choicelist) 
+	config.usage.show_second_infobar = ConfigSelection(default = None, choices = [(None, _("None")), ("0", _("no timeout"))] + choicelist + [("EPG",_("EPG"))]) 
 	config.usage.show_spinner = ConfigYesNo(default = True)
 	config.usage.enable_tt_caching = ConfigYesNo(default = True)
 	choicelist = []
@@ -95,9 +95,11 @@ def InitUsageConfig():
 	config.usage.frontend_priority = ConfigSelection(default = "-1", choices = nims)
 	config.misc.disable_background_scan = ConfigYesNo(default = False)
 
-	config.usage.show_event_progress_in_servicelist = ConfigSelection(default = 'right', choices = [
-		('left', _("Left")),
-		('right', _("Right")),
+	config.usage.show_event_progress_in_servicelist = ConfigSelection(default = 'barright', choices = [
+		('barleft', _("Progress Bar Left")),
+		('barright', _("Progress Bar Right")),
+		('percleft', _("Percentage Left")),
+		('percright', _("Percentage Right")),
 		('no', _("No")) ])
 	config.usage.show_channel_numbers_in_servicelist = ConfigYesNo(default = True)
 
@@ -222,17 +224,6 @@ def InitUsageConfig():
 
 	config.seek.speeds_backward.addNotifier(updateEnterBackward, immediate_feedback = False)
 
-	def updateFlushSize(el):
-		enigma.setFlushSize(int(el.value))
-		print "[SETTING] getFlushSize=", enigma.getFlushSize()
-	config.misc.flush_size = ConfigSelection(default = "0", choices = [
-		("0", "Off"),
-		("524288", "512kB"),
-		("1048576", "1 MB"),
-		("2097152", "2 MB"),
-		("4194304", "4 MB")])
-	config.misc.flush_size.addNotifier(updateFlushSize, immediate_feedback = False)
-	
 	def updateEraseSpeed(el):
 		enigma.eBackgroundFileEraser.getInstance().setEraseSpeed(int(el.value))
 	def updateEraseFlags(el):

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 10:00+0200\n"
-"PO-Revision-Date: 2012-07-26 23:57+0100\n"
+"POT-Creation-Date: 2012-08-30 16:54+0200\n"
+"PO-Revision-Date: 2012-08-05 11:33+0100\n"
 "Last-Translator: blzr <blzr@o2.pl>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -33,6 +33,8 @@ msgid ""
 "\n"
 "Backup your receiver settings."
 msgstr ""
+"\n"
+"Wykonaj kopię ustawień."
 
 msgid ""
 "\n"
@@ -45,11 +47,15 @@ msgid ""
 "\n"
 "Manage extensions or plugins for your receiver"
 msgstr ""
+"\n"
+"Zarządzaj rozszerzeniami lub pluginami"
 
 msgid ""
 "\n"
 "Online update of your receiver software."
 msgstr ""
+"\n"
+"Aktualizacja oprogramowania online."
 
 #
 msgid ""
@@ -71,11 +77,15 @@ msgid ""
 "\n"
 "Restore your receiver settings."
 msgstr ""
+"\n"
+"Przywróć własne ustawienia odbiornika."
 
 msgid ""
 "\n"
 "Restore your receiver with a new firmware."
 msgstr ""
+"\n"
+"Przywróć własne ustawienia odbiornika w nowym sofcie"
 
 msgid ""
 "\n"
@@ -404,11 +414,15 @@ msgid ""
 "A finished record timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"Wykonany timer nagrywania chce przełączyć\n"
+"odbiornik w stan czuwania. Zrobić to teraz?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"Wykonany timer nagrywanie chce wyłączyć\n"
+"odbiornik. Wyłączyć teraz?"
 
 #
 msgid "A graphical EPG for all services of an specific bouquet"
@@ -475,11 +489,15 @@ msgid ""
 "A sleep timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"Wyłącznik czasowy chce przełączyć\n"
+"odbiornik w tryb czuwania. Zrobić to teraz?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"Wyłącznik czasowy chce wyłączyć\n"
+"odbiornik. Wyłączyć teraz?"
 
 #
 msgid "A small overview of the available icon states and actions."
@@ -663,6 +681,8 @@ msgid ""
 "After the start wizard is completed, you need to protect single services. "
 "Refer to your receiver's manual on how to do that."
 msgstr ""
+"Po zakończeniu działania kreatora, należy zabezpieczyć pojedyncze serwisy. "
+"Opis w instrukcji obsługi..."
 
 #
 msgid "Album"
@@ -1489,7 +1509,7 @@ msgid "Current device: "
 msgstr "Bieżące urządzenie:"
 
 msgid "Current event EPG"
-msgstr ""
+msgstr "EPG aktualego wydarzenia"
 
 #
 msgid "Current settings:"
@@ -1895,7 +1915,7 @@ msgid "Do you want to download the image to %s ?"
 msgstr "Czy chcesz pobrać image do %s ?"
 
 msgid "Do you want to enable the parental control feature on your receiver?"
-msgstr ""
+msgstr "Czy chcesz włączyć kontrolę rodzicielską w odbiorniku?"
 
 #
 msgid "Do you want to install the package:\n"
@@ -1910,7 +1930,7 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "Czy chcesz obejrzeć DVD przed jego nagraniem?"
 
 msgid "Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Chcesz uruchomić ponownie odbiornik?"
 
 #
 msgid "Do you want to remove the package:\n"
@@ -1930,12 +1950,14 @@ msgid ""
 msgstr ""
 
 msgid "Do you want to update your receiver?"
-msgstr ""
+msgstr "Chcesz zaktualizować oprogramowanie odbiornika?"
 
 msgid ""
 "Do you want to update your receiver?\n"
 "After pressing OK, please wait!"
 msgstr ""
+"Czy chcesz zaktualizować oprogramowanie odbiornika?\n"
+"Po naciśnięciu OK czekaj!"
 
 #
 msgid "Do you want to upgrade the package:\n"
@@ -2012,6 +2034,9 @@ msgstr "Dynamiczny kontrast"
 msgid "E"
 msgstr "E"
 
+msgid "EPG"
+msgstr ""
+
 #
 msgid "EPG Selection"
 msgstr "Wybór EPG"
@@ -2068,10 +2093,10 @@ msgid "Edit settings"
 msgstr "Edytuj ustawienia"
 
 msgid "Edit the Nameserver configuration of your receiver.\n"
-msgstr ""
+msgstr "Edytuj ustawienia namservera odbiornika.\n"
 
 msgid "Edit the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Edytuj ustawienia sieci.\n"
 
 #
 msgid "Edit title"
@@ -2259,6 +2284,9 @@ msgstr "Wyjście"
 
 msgid "Exit EPG"
 msgstr "Wyjdź z EPG"
+
+msgid "Exit Movieplayer?"
+msgstr ""
 
 #
 msgid "Exit editor"
@@ -2577,7 +2605,7 @@ msgid "GotoX calibration"
 msgstr ""
 
 msgid "GraphMultiEpg Settings"
-msgstr ""
+msgstr "Ustawienia GraphMultiEpg"
 
 #
 msgid "Graphical Multi EPG"
@@ -3511,9 +3539,13 @@ msgstr "Nowa wersja:"
 msgid "News Current Affairs"
 msgstr "Wiadmości"
 
-#
+msgctxt "button label, 'next screen'"
 msgid "Next"
-msgstr "Następny"
+msgstr ""
+
+msgctxt "now/next: 'next' event label"
+msgid "Next"
+msgstr ""
 
 #
 msgid "No"
@@ -3695,7 +3727,7 @@ msgid "No, do nothing."
 msgstr "Nie, nie rób nic."
 
 msgid "No, just start my receiver"
-msgstr ""
+msgstr "Nie, po prostu włącz odbiornik"
 
 msgid "No, never"
 msgstr "Nie, nigdy"
@@ -3756,8 +3788,9 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr "Brak aktualizacji"
 
+msgctxt "now/next: 'now' event label"
 msgid "Now"
-msgstr "Teraz"
+msgstr ""
 
 #
 msgid "Now Playing"
@@ -3931,6 +3964,12 @@ msgstr "Hasło"
 msgid "Pause movie at end"
 msgstr "Zatrzymaj film na końcu"
 
+msgid "Percentage Left"
+msgstr ""
+
+msgid "Percentage Right"
+msgstr ""
+
 #
 msgid "Permanently delete all recordings in the trash can?"
 msgstr "Trwale usunąć wszystkie nagrania z 'Kosza'?"
@@ -3955,7 +3994,7 @@ msgid "Picon"
 msgstr ""
 
 msgid "Picon and Service Name"
-msgstr ""
+msgstr "Picon i nazwa"
 
 #
 msgid "PicturePlayer"
@@ -4121,7 +4160,7 @@ msgid "Please press OK!"
 msgstr "Wciśnij OK!"
 
 msgid "Please select a default EPG type..."
-msgstr ""
+msgstr "Wybierz domyślny typ EPG..."
 
 #
 msgid "Please select a playlist to delete..."
@@ -4409,9 +4448,9 @@ msgstr "Wciśnij OK, aby zmienić wybór"
 msgid "Press yellow to set this interface as default interface."
 msgstr "Wciśnij 'żółty', aby ustawić ten interfejs jako domyślny"
 
-#
+msgctxt "button label, 'previous screen'"
 msgid "Prev"
-msgstr "Poprzedni"
+msgstr ""
 
 #
 msgid "Preview"
@@ -4420,6 +4459,9 @@ msgstr "Podgląd"
 #
 msgid "Preview menu"
 msgstr "Menu podglądu"
+
+msgid "Preview selected channel"
+msgstr ""
 
 #
 msgid "Primary DNS"
@@ -4436,6 +4478,12 @@ msgstr "Proces"
 #
 msgid "Progress"
 msgstr "Pasek postępu"
+
+msgid "Progress Bar Left"
+msgstr ""
+
+msgid "Progress Bar Right"
+msgstr ""
 
 #
 msgid "Progress Small"
@@ -4569,10 +4617,6 @@ msgstr "Nagrane pliki..."
 #
 msgid "Recording"
 msgstr "Nagranie"
-
-#
-msgid "Recording data sync size"
-msgstr "Rozmiar 'data sync' dla nagrywania"
 
 msgid "Recording in progress"
 msgstr "Nagrywanie w toku"
@@ -5126,7 +5170,7 @@ msgid "Select copy destination for:"
 msgstr "Wybierz miejsce docelowe kopii dla:"
 
 msgid "Select default EPG type..."
-msgstr ""
+msgstr "Wybierz domyślny typ EPG..."
 
 #
 msgid "Select desired image from feed list"
@@ -5215,7 +5259,7 @@ msgid "Service"
 msgstr "O serwisie..."
 
 msgid "Service Name"
-msgstr ""
+msgstr "Nazwa kanału"
 
 #
 msgid "Service Scan"
@@ -5226,7 +5270,7 @@ msgid "Service Searching"
 msgstr "Szukanie kanałów"
 
 msgid "Service Title mode"
-msgstr ""
+msgstr "Identyfikacja kanału"
 
 #
 msgid "Service has been added to the favourites."
@@ -5441,7 +5485,7 @@ msgid "Shutdown"
 msgstr "Wyłącz"
 
 msgid "Shutdown receiver after"
-msgstr ""
+msgstr "Wyłącz odbiornik po"
 
 msgid "Side by Side"
 msgstr ""
@@ -5938,7 +5982,7 @@ msgid "Test mode"
 msgstr "Tryb testowy"
 
 msgid "Test the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Testuj konfiguracjię sieci.\n"
 
 #
 msgid "Test-Messagebox?"
@@ -5953,7 +5997,7 @@ msgid "Text font size"
 msgstr "Rozmiar czcionki napisów"
 
 msgid "Thai"
-msgstr ""
+msgstr "Tajski"
 
 #
 msgid ""
@@ -5967,12 +6011,17 @@ msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
 "Please press OK to start using your receiver."
 msgstr ""
+"Dziękuję za skorzystanie z kreatora. Odbiornik jest już gotowy do użycia.\n"
+"Wciśnij OK aby kontynuować."
 
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
 "create a special format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
+"Standard DVD nie wspiera strumienia video H.264 (HDTV). Czy zamiast tego "
+"nagrać dane w formacie data DVD? Dane nie będą czytane w stacjonarnych "
+"odtwarzaczach DVD."
 
 #
 msgid ""
@@ -6062,6 +6111,8 @@ msgid ""
 "The installation of the default settings is finished. You can now continue "
 "configuring your receiver by pressing the OK button on the remote control."
 msgstr ""
+"Instalacja domyślnej listy kanałów została zakończona. Aby kontynuować "
+"konfigurację odbiornika naciśnij przycisk OK."
 
 #
 msgid "The md5sum validation failed, the file may be corrupted!"
@@ -6226,7 +6277,7 @@ msgstr "Plugin zostanie usunięty"
 
 #, python-format
 msgid "This receiver can't decode %s streams!"
-msgstr ""
+msgstr "Ten odbiornik nie może zdekodować %s strumieni!"
 
 #
 msgid ""
@@ -6670,14 +6721,14 @@ msgid "Upgrade finished."
 msgstr "Aktualizacja zakończona."
 
 msgid "Upgrade finished. Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Aktualizacja zakończona. Czy chcesz zrestartować odbiornik?"
 
 #
 msgid "Upgrading"
 msgstr "Aktualizowanie"
 
 msgid "Upgrading receiver... Please wait"
-msgstr ""
+msgstr "Aktualizacja... Proszę czekać"
 
 #
 msgid "Use"
@@ -7032,7 +7083,7 @@ msgid "Warn if free space drops below (kB):"
 msgstr "Ostrzegaj jeśli ilość wolnego miejsca spadnie poniżej (kB):"
 
 msgid "Warning: no LNB; using factory defaults."
-msgstr ""
+msgstr "UWAGA: brak NB; użyto ustawień domyślnych"
 
 #
 msgid "Wed"
@@ -7071,6 +7122,9 @@ msgid ""
 "the firmware of your receiver by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
+"Witaj w kreatorze aktualizacji oprogramowania. Kreator będzie asystował przy "
+"aktualizacji oprogramowania odbiornika ułatwiając backup aktualnych ustawień "
+"i krótko wyjaśni jak zaktualizować oprogramowanie."
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
@@ -7089,6 +7143,11 @@ msgid ""
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
+"Witam. \n"
+"\n"
+"Jeśli chcesz się połączyć z internetem, ten kreator przeprowdzi cię przez "
+"uproszczoną konfigurację odbiornika. \n"
+"Nacisnij OK aby rozpocząć konfigurację sieci."
 
 msgid ""
 "Welcome.\n"
@@ -7096,6 +7155,10 @@ msgid ""
 "This start wizard will guide you through the basic setup of your receiver.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
+"Witaj.\n"
+"\n"
+"Ten kreator przeprowadzi Cię przez podstawowe ustawienia odbiornika.\n"
+"Wciśnij OK, aby przejść do kolejnego kroku."
 
 #
 msgid "Welcome..."
@@ -7276,7 +7339,7 @@ msgid "You can install this plugin."
 msgstr "Możesz zainstalować ten plugin"
 
 msgid "You can only burn receiver recordings!"
-msgstr ""
+msgstr "\"Możesz wypalać tylko nagrania!"
 
 #
 msgid "You can remove this plugin."
@@ -7339,6 +7402,10 @@ msgid ""
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
+"Potrzebujesz PC połączonego z odbiornikiem. Więcej informacji na stronie "
+"http://www.dm7025.de.\n"
+"Teraz odbiornik zostanie wyłączony. Po wykonaniu  instrukcji aktualizacji ze "
+"strony, nowe oprogramowanie zapyta czy przywrócić ustawienia."
 
 msgid ""
 "You need to set a PIN code and hide it from your children.\n"
@@ -7426,6 +7493,11 @@ msgid ""
 "\n"
 "Please press OK to continue."
 msgstr ""
+"Odbiornik jest gotowy do użytku.\n"
+"\n"
+"Połączenie z internetem jest aktywne.\n"
+"\n"
+"Wciśnij OK aby kontynuować"
 
 msgid "Your receiver is rebooting"
 msgstr "Trwa restart odbiornika"
@@ -7434,15 +7506,17 @@ msgid "Your receiver is shutting down"
 msgstr "Trwa wyłączanie odbiornika"
 
 msgid "Your receiver is shutting down. Please stand by..."
-msgstr ""
+msgstr "Trwa wyłączanie odbiornika"
 
 msgid ""
 "Your receiver isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
+"Odbiornik nie jest właściwie połączony z internetem. Sprawdź i spróbuj "
+"ponownie."
 
 msgid "Your receiver will restart after pressing OK on your remote control."
-msgstr ""
+msgstr "Odbiornik zostanie zrestartowany po wciśnięciu OK."
 
 #
 msgid ""
@@ -8477,7 +8551,7 @@ msgid "previous channel in history"
 msgstr "Poprzedni kanał w historii"
 
 msgid "receiver software because updates are available."
-msgstr ""
+msgstr "Oprogramowanie odbiornika ponieważ aktualizacje są dostępne"
 
 #
 msgid "record"
@@ -8774,7 +8848,7 @@ msgid "special events"
 msgstr "Wydarzenia specjalne"
 
 msgid "special format data DVD (HDTV compatible)"
-msgstr ""
+msgstr "Format danych DVD (kompatybilny z HDTV)"
 
 msgid "sports (general)"
 msgstr "Sport"
@@ -9015,6 +9089,8 @@ msgid ""
 "your receiver might be unusable now. Please consult the manual for further "
 "assistance before rebooting your receiver."
 msgstr ""
+"Odbiornik może być teraz niezdatny do użytku. Zajrzyj do instrukcji "
+"użytkownika przed ponownym uruchomieniem."
 
 #
 msgid "zap"
@@ -9023,3 +9099,18 @@ msgstr "Przełącz"
 #
 msgid "zapped"
 msgstr "Przełączony"
+
+#
+#~ msgid "Next"
+#~ msgstr "Następny"
+
+#~ msgid "Now"
+#~ msgstr "Teraz"
+
+#
+#~ msgid "Prev"
+#~ msgstr "Poprzedni"
+
+#
+#~ msgid "Recording data sync size"
+#~ msgstr "Rozmiar 'data sync' dla nagrywania"

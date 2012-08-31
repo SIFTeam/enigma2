@@ -11,6 +11,7 @@
 #include <lib/dvb/esection.h>
 #include <lib/dvb/scan.h>
 #include <lib/dvb/frontend.h>
+#include <lib/dvb/db.h>
 #include <lib/base/eenv.h>
 #include <lib/base/eerror.h>
 #include <lib/base/estring.h>
@@ -926,7 +927,7 @@ void eDVBScan::channelDone()
 							parm.frequency/1000,
 							parm.polarisation ? 'V' : 'H',
 							m_pmt_in_progress->first);
-					snprintf(pname, 255, "%s %s %d%c %d.%d°%c",
+					snprintf(pname, 255, "%s %s %d%c %d.%dÂ°%c",
 						parm.system ? "DVB-S2" : "DVB-S",
 						parm.modulation == 1 ? "QPSK" : "8PSK",
 						parm.frequency/1000,
@@ -1267,6 +1268,7 @@ void eDVBScan::insertInto(iDVBChannelList *db, bool backgroundscanresult)
 				bouquet->m_services.push_back(service->first);
 			}
 			bouquet->flushChanges();
+			eDVBDB::getInstance()->renumberBouquet();
 		}
 		else
 		{

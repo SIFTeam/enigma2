@@ -319,7 +319,7 @@ class ScanSetup(ConfigListScreen, Screen, CableTransponderSearchSupport):
 		del self.feinfo
 		del self.service
 
-		self.session.postScanService = session.infobar.servicelist.servicelist.getCurrent()
+		self.session.postScanService = session.nav.getCurrentlyPlayingServiceReference()
 
 		self["actions"] = NumberActionMap(["SetupActions", "MenuActions"],
 		{
@@ -938,6 +938,8 @@ class ScanSimple(ConfigListScreen, Screen, CableTransponderSearchSupport):
 			"cancel": self.keyCancel,
 			"menu": self.doCloseRecursive,
 		}, -2)
+
+		self.session.postScanService = session.nav.getCurrentlyPlayingServiceReference()
 
 		self.list = []
 		tlist = []

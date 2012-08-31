@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ENIGMA 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 10:00+0200\n"
-"PO-Revision-Date: 2012-08-02 11:24+0100\n"
+"POT-Creation-Date: 2012-08-30 16:54+0200\n"
+"PO-Revision-Date: 2012-08-11 18:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: OldSkul from www.linux-sprejemniki.info\n"
 "Language: \n"
@@ -213,7 +213,7 @@ msgstr[2] "%d sekund"
 #
 #, python-format
 msgid "%d services found!"
-msgstr "%d kanalov najdenih!"
+msgstr "Najdenih je %d kanalov!"
 
 msgid "%d-%m"
 msgstr ""
@@ -427,7 +427,7 @@ msgid ""
 "A recording is currently running.\n"
 "What do you want to do?"
 msgstr ""
-"Trenutno poteka snemanje kanal.\n"
+"Trenutno poteka snemanje kanala.\n"
 "Kaj želite storiti?"
 
 #
@@ -442,8 +442,8 @@ msgid ""
 "A recording is currently running. Please stop the recording before trying to "
 "scan."
 msgstr ""
-"Trenutno v ozadju poteka snemanje. Če želite pričeti z skeniranjem, ustavite "
-"snemanje."
+"Trenutno v ozadju poteka snemanje. Če želite pričeti s pregledovanjem, "
+"ustavite snemanje."
 
 #
 msgid ""
@@ -559,7 +559,7 @@ msgstr "Dodajanje"
 
 #
 msgid "Add Bookmark"
-msgstr "Dodajanje zaznamka"
+msgstr "Nov zaznamkek"
 
 #
 msgid "Add WLAN configuration?"
@@ -567,11 +567,11 @@ msgstr "Želite dodati nastavitve brezzične mreže?"
 
 #
 msgid "Add a mark"
-msgstr "Dodajanje zaznamka"
+msgstr "Nov zaznamek"
 
 #
 msgid "Add a new title"
-msgstr "Dodajanje novega naslova"
+msgstr "Nov naslov"
 
 #
 msgid "Add network configuration?"
@@ -1324,7 +1324,8 @@ msgstr "Ponovno nastavite omrežje"
 
 msgid "Configure your network settings, and press OK to start the scan"
 msgstr ""
-"Nastavite mrežne nastavitve in za pričetek skeniranja, pritisnite tipko OK."
+"Nastavite mrežne nastavitve in za pričetek pregledovanja, pritisnite tipko "
+"OK."
 
 #
 msgid "Configure your wireless LAN again"
@@ -1742,7 +1743,7 @@ msgstr "Izklop Slike v Sliki"
 
 #
 msgid "Disable background scanning"
-msgstr "Izklop pregledovanja (skeniranje) v ozadju"
+msgstr "Izklop pregledovanja (skeniranja) v ozadju"
 
 #
 msgid "Disable crashlog reporting"
@@ -1993,6 +1994,9 @@ msgstr "Dinamični kontrast"
 msgid "E"
 msgstr "E"
 
+msgid "EPG"
+msgstr ""
+
 #
 msgid "EPG Selection"
 msgstr "EPG izbira"
@@ -2241,6 +2245,9 @@ msgstr "Izhod"
 
 msgid "Exit EPG"
 msgstr "Izhod iz EPG"
+
+msgid "Exit Movieplayer?"
+msgstr ""
 
 #
 msgid "Exit editor"
@@ -2757,7 +2764,7 @@ msgstr "Informacijska vrstica"
 
 #
 msgid "Infobar timeout"
-msgstr "Trajanje prikaza informacijske vrstice (v sekundah)"
+msgstr "Trajanje prikaza informacijske vrstice"
 
 #
 msgid "Information"
@@ -3485,9 +3492,13 @@ msgstr "Nova verzija:"
 msgid "News Current Affairs"
 msgstr ""
 
-#
+msgctxt "button label, 'next screen'"
 msgid "Next"
-msgstr "Naslednji"
+msgstr ""
+
+msgctxt "now/next: 'next' event label"
+msgid "Next"
+msgstr ""
 
 #
 msgid "No"
@@ -3727,8 +3738,9 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr "Nadgradnja ni na voljo."
 
+msgctxt "now/next: 'now' event label"
 msgid "Now"
-msgstr "Zdaj"
+msgstr ""
 
 #
 msgid "Now Playing"
@@ -3899,6 +3911,12 @@ msgstr "Geslo"
 #
 msgid "Pause movie at end"
 msgstr "Ustavite film na koncu"
+
+msgid "Percentage Left"
+msgstr ""
+
+msgid "Percentage Right"
+msgstr ""
 
 msgid "Permanently delete all recordings in the trash can?"
 msgstr "Trajno izbrišem vse posnetke, ki se nahajajo v smetnjaku?"
@@ -4370,9 +4388,9 @@ msgstr "Za preklapljanje med izbiro pritisnite tipko OK."
 msgid "Press yellow to set this interface as default interface."
 msgstr "Pritisnite rumeno tipko za izbor izbranega vmesnika kot privzetega."
 
-#
+msgctxt "button label, 'previous screen'"
 msgid "Prev"
-msgstr "Pred"
+msgstr ""
 
 #
 msgid "Preview"
@@ -4381,6 +4399,9 @@ msgstr "Predogled"
 #
 msgid "Preview menu"
 msgstr "Predogled meni"
+
+msgid "Preview selected channel"
+msgstr ""
 
 #
 msgid "Primary DNS"
@@ -4397,6 +4418,12 @@ msgstr "Proces"
 #
 msgid "Progress"
 msgstr "Napredek"
+
+msgid "Progress Bar Left"
+msgstr ""
+
+msgid "Progress Bar Right"
+msgstr ""
 
 #
 msgid "Progress Small"
@@ -4514,7 +4541,7 @@ msgstr "Nastavitve sprejema"
 
 #
 msgid "Record"
-msgstr "Snemanje"
+msgstr "Snemanje in seznam datotek"
 
 #
 #, python-format
@@ -4528,9 +4555,6 @@ msgstr "Posnete datoteke:"
 #
 msgid "Recording"
 msgstr "Snemanje"
-
-msgid "Recording data sync size"
-msgstr ""
 
 msgid "Recording in progress"
 msgstr "Trenutno poteka snemanje!"
@@ -4997,7 +5021,7 @@ msgstr "Pregledovanje %s..."
 
 #, python-format
 msgid "Scanning completed, %d channels found"
-msgstr "Pregledovanje uspešno! Najdeno je bilo %d kanalov."
+msgstr "Pregledovanje je uspešno zaključeno! Najdeno je bilo %d kanalov."
 
 msgid "Scanning failed!"
 msgstr "Pregledovanje ni uspelo!"
@@ -5009,7 +5033,7 @@ msgstr "Pregledovanje..."
 msgid ""
 "Scans default lamedbs sorted by satellite with a connected dish positioner"
 msgstr ""
-"Isknje privzetih lamedbs razvrščenih po satelitih s povezanimi pozicionerji."
+"Iskanje privzetih lamedbs razvrščenih po satelitih s povezanimi pozicionerji."
 
 #
 msgid "Search east"
@@ -5298,7 +5322,7 @@ msgstr "Kratka imena datotek"
 
 #
 msgid "Show EIT now/next in infobar"
-msgstr "Prikaz trenutnega/naslednjega dogodka v info. vrstici"
+msgstr "Prikaz EIT trenutnega/naslednjega dogodka v info. vrstici"
 
 msgid "Show Games show"
 msgstr ""
@@ -5313,7 +5337,7 @@ msgstr "Prikaz obvestila ob začetku snemanja"
 
 #
 msgid "Show WLAN Status"
-msgstr "Prikaz stanja brezzične mreže"
+msgstr "Stanje brezzične mreže"
 
 #
 msgid "Show animation while busy"
@@ -5758,7 +5782,7 @@ msgstr "Izbira podnapisov"
 
 #
 msgid "Subtitle settings"
-msgstr "Podnapisi"
+msgstr "Napredni OpenPLi podnapisi"
 
 #
 msgid "Subtitles"
@@ -7460,15 +7484,15 @@ msgstr "aktiviranje omrežnih nastavitev"
 
 #
 msgid "add Provider"
-msgstr "dodajanje ponudnika"
+msgstr "Nov ponudnik"
 
 #
 msgid "add Service"
-msgstr "dodajanje kanala"
+msgstr "Nov kanal"
 
 #
 msgid "add a nameserver entry"
-msgstr "nov imenski strežnik"
+msgstr "Nov imenski strežnik"
 
 #
 msgid "add alternatives"
@@ -7476,11 +7500,11 @@ msgstr "Dodajanje alternativ"
 
 #
 msgid "add bookmark"
-msgstr "dodajanje zaznamka"
+msgstr "Nov zaznamek"
 
 #
 msgid "add bouquet"
-msgstr "dodajanje paketa"
+msgstr "Nov paket"
 
 #
 msgid "add directory to playlist"
@@ -7500,19 +7524,19 @@ msgstr "Dodajanje oznak (tags)"
 
 #
 msgid "add recording (enter recording duration)"
-msgstr "Dodajte snemanje (potreben je vnos dolžine snemanja)"
+msgstr "Novo snemanje (potreben je vnos dolžine snemanja)"
 
 #
 msgid "add recording (enter recording endtime)"
-msgstr "Dodajte snemanje (potreben je vnos časa konca snemanja)"
+msgstr "Novo snemanje (potreben je vnos časa konca snemanja)"
 
 #
 msgid "add recording (indefinitely)"
-msgstr "Dodajte snemanje (čas je nedoločen)"
+msgstr "Novo snemanje (čas je nedoločen)"
 
 #
 msgid "add recording (stop after current event)"
-msgstr "Dodajte snemanje (snemanje se zaključi po koncu trenutnega dogodka)"
+msgstr "Novo snemanje (snemanje se zaključi po koncu trenutnega dogodka)"
 
 #
 msgid "add service to bouquet"
@@ -7520,7 +7544,7 @@ msgstr "Premik kanala v drug paket"
 
 #
 msgid "add service to favourites"
-msgstr "Dodajte kanal med priljubljene"
+msgstr "Prenos kanala med priljubljene"
 
 #
 msgid "add to parental protection"
@@ -7628,7 +7652,7 @@ msgid "black"
 msgstr "črno"
 
 msgid "black & white"
-msgstr ""
+msgstr " črno/belo"
 
 #
 msgid "blacklist"
@@ -7636,7 +7660,7 @@ msgstr "črni seznam"
 
 #
 msgid "blue"
-msgstr "modro"
+msgstr "Modra tipka"
 
 msgid "broadcasting/press"
 msgstr ""
@@ -7989,7 +8013,7 @@ msgstr ""
 
 #
 msgid "green"
-msgstr "zeleno"
+msgstr "Zelena tipka"
 
 msgid "handicraft"
 msgstr ""
@@ -8439,7 +8463,7 @@ msgstr "odstranitev mape"
 
 #
 msgid "remove entry"
-msgstr "Izbris kanala"
+msgstr "Izbris vnosa"
 
 #
 msgid "remove from parental protection"
@@ -8496,7 +8520,7 @@ msgstr "ob izhodu se naj shrani seznam predvajanja"
 
 #
 msgid "scan done!"
-msgstr "iskanje končano!"
+msgstr "Iskanje je zaključeno!"
 
 #
 #, python-format
@@ -8904,7 +8928,7 @@ msgstr "deluje"
 
 #
 msgid "yellow"
-msgstr "rumena"
+msgstr "Rumena tipka"
 
 #
 msgid "yes"
@@ -8926,3 +8950,287 @@ msgstr "preklop"
 #
 msgid "zapped"
 msgstr "preklopljen"
+
+#
+#~ msgid ""
+#~ "\n"
+#~ "Backup your Dreambox settings."
+#~ msgstr ""
+#~ "\n"
+#~ "POMEMBNA FUNKCIJA! Varnostno kopiranje nastavitev sprejemnika."
+
+#
+#~ msgid ""
+#~ "\n"
+#~ "Manage extensions or plugins for your Dreambox"
+#~ msgstr ""
+#~ "\n"
+#~ "Upravljanje z razširitvami in vtičniki sprejemnika."
+
+#
+#~ msgid ""
+#~ "\n"
+#~ "Online update of your Dreambox software."
+#~ msgstr ""
+#~ "\n"
+#~ "POMEMBNA FUNKCIJA! Omogoča nadgradnjo na najnovejšo verzijo OpenPLi slike."
+
+#
+#~ msgid ""
+#~ "\n"
+#~ "Restore your Dreambox settings."
+#~ msgstr ""
+#~ "\n"
+#~ "Obnovitev varnostne kopije nastavitev sprejemnika."
+
+#
+#~ msgid ""
+#~ "\n"
+#~ "Restore your Dreambox with a new firmware."
+#~ msgstr ""
+#~ "\n"
+#~ "Ta funkcija nima koristnega namena."
+
+#
+#~ msgid ""
+#~ "A finished record timer wants to set your\n"
+#~ "Dreambox to standby. Do that now?"
+#~ msgstr ""
+#~ "Zaključen časovnik snemanja želi vaš\n"
+#~ "sprejemnik poslati v stanje pripravljenosti. Se strinjate s tem dejanjem?"
+
+#
+#~ msgid ""
+#~ "A finished record timer wants to shut down\n"
+#~ "your Dreambox. Shutdown now?"
+#~ msgstr ""
+#~ "Zaključen časovnik snemanja želi izklopiti vaš\n"
+#~ "sprejemnik. Se strinjate s tem dejanjem?"
+
+#
+#~ msgid ""
+#~ "A sleep timer wants to set your\n"
+#~ "Dreambox to standby. Do that now?"
+#~ msgstr ""
+#~ "Časovnik mirovanja želi vaš sprejemnik\n"
+#~ "poslati v stanje pripravljenosti. Se strinjate?"
+
+#
+#~ msgid ""
+#~ "A sleep timer wants to shut down\n"
+#~ "your Dreambox. Shutdown now?"
+#~ msgstr ""
+#~ "Časovnik mirovanja želi izklopiti vaš\n"
+#~ "sprejemnik. Se strinjate?"
+
+#
+#~ msgid ""
+#~ "After the start wizard is completed, you need to protect single services. "
+#~ "Refer to your dreambox's manual on how to do that."
+#~ msgstr ""
+#~ "Ko se čarovnik zaključi, zaščitite posamezne kanale. Za podrobno razlago "
+#~ "postopka, preverite priložena navodila."
+
+#
+#~ msgid "Could not connect to Dreambox .NFI Image Feed Server:"
+#~ msgstr "Povezava z Dreambox .NFI izvornim strežnikom ni uspela:"
+
+#
+#~ msgid ""
+#~ "Crashlogs found!\n"
+#~ "Send them to Dream Multimedia?"
+#~ msgstr "Najdeni dnevniki napak! Jih pošljem k Dream Multimedii?"
+
+#
+#~ msgid "Do you want to enable the parental control feature on your dreambox?"
+#~ msgstr ""
+#~ "Želite na vašem sprejemniku omogočiti funkcijo starševskega nadzora?"
+
+#
+#~ msgid "Do you want to reboot your Dreambox?"
+#~ msgstr "Želite ponovno zagnati vaš sprejemnik?"
+
+#
+#~ msgid "Do you want to update your Dreambox?"
+#~ msgstr "Želite nadgraditi vaš sprejemnik?"
+
+#
+#~ msgid ""
+#~ "Do you want to update your Dreambox?\n"
+#~ "After pressing OK, please wait!"
+#~ msgstr ""
+#~ "Želite nadgraditi vaš sprejemnik?\n"
+#~ "Po pritisku tipke OK, počakajte na zaključek opravila!"
+
+#
+#~ msgid "Dreambox format data DVD (HDTV compatible)"
+#~ msgstr "Dreambox/VU+ oblika podatkov DVD (HDTV združljiva)"
+
+#
+#~ msgid "Edit the Nameserver configuration of your Dreambox.\n"
+#~ msgstr "Spremenite nastavitve imenskega strežnika sprejemnika.\n"
+
+#
+#~ msgid "Edit the network configuration of your Dreambox.\n"
+#~ msgstr "Spremenite mrežne nastavitve sprejemnika.\n"
+
+#
+#~ msgid "Next"
+#~ msgstr "Naslednji"
+
+#
+#~ msgid "No, just start my dreambox"
+#~ msgstr "Ne, samo zaženi moj sprejemnik"
+
+#~ msgid "Now"
+#~ msgstr "Zdaj"
+
+#
+#~ msgid "Prev"
+#~ msgstr "Pred"
+
+#~ msgid "Show Picons"
+#~ msgstr "Prikaz piconsov"
+
+#~ msgid "Show Service Names "
+#~ msgstr "Prikaz imena kanalov"
+
+#
+#~ msgid "Shutdown Dreambox after"
+#~ msgstr "Izklopi sprejemnik po"
+
+#
+#~ msgid "Test the network configuration of your Dreambox.\n"
+#~ msgstr "Preverite omrežne nastavitve vašega sprejemnika.\n"
+
+#
+#~ msgid ""
+#~ "Thank you for using the wizard. Your box is now ready to use.\n"
+#~ "Please press OK to start using your Dreambox."
+#~ msgstr ""
+#~ "Hvala, da ste uporabili čarovnik. Sprejemnik je sedaj pripravljen za "
+#~ "uporabo.\n"
+#~ "Za nadaljevanje pritisnite OK!"
+
+#
+#~ msgid ""
+#~ "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want "
+#~ "to create a Dreambox format data DVD (which will not play in stand-alone "
+#~ "DVD players) instead?"
+#~ msgstr ""
+#~ "Standarden DVD ne podpira H.264 (HD) video zapisa. Ali želite namesto "
+#~ "tega ustvariti Dreambox obliko podatkovnega DVD (le-tega ne boste mogli "
+#~ "predvajati v samostojnih DVD predvajalnikih)?"
+
+#
+#~ msgid ""
+#~ "The installation of the default settings is finished. You can now "
+#~ "continue configuring your Dreambox by pressing the OK button on the "
+#~ "remote control."
+#~ msgstr ""
+#~ "Namestitev privzetih nastavitev je končana. Sedaj lahko nadaljujete s "
+#~ "spreminjanjem nastavitev vašega sprejemnika - pritisnite tipko OK."
+
+#
+#~ msgid "This Dreambox can't decode %s streams!"
+#~ msgstr "Sprejemnik ne more odkleniti %s tokov!"
+
+#~ msgid ""
+#~ "To update your Dreambox firmware, please follow these steps:\n"
+#~ "1) Turn off your box with the rear power switch and make sure the "
+#~ "bootable USB stick is plugged in.\n"
+#~ "2) Turn mains back on and hold the DOWN button on the front panel pressed "
+#~ "for 10 seconds.\n"
+#~ "3) Wait for bootup and follow instructions of the wizard."
+#~ msgstr ""
+#~ "Za posodobitev  programske opreme sprejemnika sledite naslednjim "
+#~ "korakom:\n"
+#~ "1) Izklopite napravo s pomočjo stikala na zadnji strani sprejemnika in "
+#~ "priklopite USB ključ.\n"
+#~ "2) Ponovno prižgite sprejemnik in držite pritisnjeno tipko DOL na "
+#~ "sprednji strani naprave 10 sekund.\n"
+#~ "3) Počakajte na ponovni zagon in sledite navodilom čarovnika."
+
+#~ msgid "Upgrade finished. Do you want to reboot your Dreambox?"
+#~ msgstr "Nadgradnja je končana. Želite izvesti ponovni zagon sprejemnika?"
+
+#
+#~ msgid "Upgrading Dreambox... Please wait"
+#~ msgstr "Poteka posodabljanje sprejemnika... Prosim počakajte!"
+
+#
+#~ msgid ""
+#~ "Welcome to the Image upgrade wizard. The wizard will assist you in "
+#~ "upgrading the firmware of your Dreambox by providing a backup facility "
+#~ "for your current settings and a short explanation of how to upgrade your "
+#~ "firmware."
+#~ msgstr ""
+#~ "Dobrodošli v čarovniku za nadgradnjo. Čarovnik vam bo pomagal pri "
+#~ "nadgradnji sprejemnika in nudil varno hrambo vaših trenutnih nastavitev "
+#~ "ter kratko razlago postopka nadgradnje vašega firmware-a."
+
+#
+#~ msgid ""
+#~ "Welcome.\n"
+#~ "\n"
+#~ "This start wizard will guide you through the basic setup of your "
+#~ "Dreambox.\n"
+#~ "Press the OK button on your remote control to move to the next step."
+#~ msgstr ""
+#~ "Dobrodošli.\n"
+#~ "\n"
+#~ "Začetni čarovnik vas bo vodil skozi osnovne nastavitve vašega "
+#~ "sprejemnika.\n"
+#~ "Za nadaljevanje pritisnite tipko OK."
+
+#
+#~ msgid ""
+#~ "You need a PC connected to your dreambox. If you need further "
+#~ "instructions, please visit the website http://www.dm7025.de.\n"
+#~ "Your dreambox will now be halted. After you have performed the update "
+#~ "instructions from the website, your new firmware will ask you to restore "
+#~ "your settings."
+#~ msgstr ""
+#~ "Na vaš sprejemnik morate povezati na računalnik. Če potrebujete dodatna "
+#~ "navodila, prosim obiščite stran http://www.dm7025.de.\n"
+#~ "Vaš Dreambox bo sedaj ustavljen. Ko končate nadgradnjo sistema po "
+#~ "navodilih iz spletne strani bo vaša nova programska oprema zahtevala "
+#~ "izdelavo varne kopije vaših nastavitev."
+
+#
+#~ msgid ""
+#~ "Your Dreambox is now ready to use.\n"
+#~ "\n"
+#~ "Your internet connection is working now.\n"
+#~ "\n"
+#~ "Please press OK to continue."
+#~ msgstr ""
+#~ "Vaš sprejemnik je zdaj pripravljen na uporabo.\n"
+#~ "\n"
+#~ "Vaša internetna povezava zdaj deluje.\n"
+#~ "\n"
+#~ "Za nadaljevanje pritisnite OK."
+
+#
+#~ msgid "Your Dreambox will restart after pressing OK on your remote control."
+#~ msgstr "Vaš sprejemnik se bo po pritisku na tipko OK ponovno zagnal."
+
+#
+#~ msgid "Your dreambox is shutting down. Please stand by..."
+#~ msgstr "Poteka postopek ugašanja sprejemnika... Prosim počakajte!"
+
+#
+#~ msgid ""
+#~ "Your dreambox isn't connected to the internet properly. Please check it "
+#~ "and try again."
+#~ msgstr ""
+#~ "Vaš sprejemnik ni pravilno povezan na omrežje. Prosim preverite omrežne "
+#~ "nastavitve in poskusite znova."
+
+#
+#~ msgid ""
+#~ "your dreambox might be unusable now. Please consult the manual for "
+#~ "further assistance before rebooting your dreambox."
+#~ msgstr ""
+#~ "vaš sprejemnik je sedaj možno uporabljati. Pred ponovnim zagonom "
+#~ "sprejemnika preverite uporabniška navodila."

@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 10:00+0200\n"
-"PO-Revision-Date: 2012-07-26 08:34+0100\n"
-"Last-Translator: daddelfalk <openpli.org forum>\n"
+"POT-Creation-Date: 2012-08-30 16:54+0200\n"
+"PO-Revision-Date: 2012-08-31 09:32+0100\n"
+"Last-Translator: Steffen\n"
 "Language-Team: OpenPLi <openpli.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -15,9 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Pootle 2.0.3\n"
-"X-Poedit-Language: German\n"
 "X-Poedit-SourceCharset: iso-8859-15\n"
-"X-Poedit-Country: GERMANY\n"
 
 #
 msgid ""
@@ -39,6 +37,8 @@ msgid ""
 "\n"
 "Backup your receiver settings."
 msgstr ""
+"\n"
+"Sichern Ihrer Receiver-Einstellungen."
 
 #
 msgid ""
@@ -52,11 +52,15 @@ msgid ""
 "\n"
 "Manage extensions or plugins for your receiver"
 msgstr ""
+"\n"
+"Verwalten Sie die Erweiterungen und Plugins Ihres Receivers"
 
 msgid ""
 "\n"
 "Online update of your receiver software."
 msgstr ""
+"\n"
+"Online-Update Ihrer Receiver-Software."
 
 #
 msgid ""
@@ -78,11 +82,15 @@ msgid ""
 "\n"
 "Restore your receiver settings."
 msgstr ""
+"\n"
+"Wiederherstellen Ihrer Receiver-Einstellungen."
 
 msgid ""
 "\n"
 "Restore your receiver with a new firmware."
 msgstr ""
+"\n"
+"Wiederherstellen Ihres Receivers mit einer neuen Firmware."
 
 #
 msgid ""
@@ -156,7 +164,7 @@ msgid "%2d:%02d:%02d"
 msgstr "%2d:%02d:%02d"
 
 msgid "%A %d %B"
-msgstr ""
+msgstr "%A %d %B"
 
 #. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
 msgid "%A %e %B"
@@ -216,7 +224,7 @@ msgid "%d services found!"
 msgstr "%d Kanäle gefunden!"
 
 msgid "%d-%m"
-msgstr ""
+msgstr "%d-%m"
 
 #
 msgid "%d.%B %Y"
@@ -400,11 +408,15 @@ msgid ""
 "A finished record timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"Ein Aufnahmetimer will Ihren Receiver in den Standby-Modus schalten.\n"
+"Jetzt ausführen?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"Ein Aufnahmetimer will Ihren Receiver ausschalten.\n"
+"Jetzt ausschalten?"
 
 #
 msgid "A graphical EPG for all services of an specific bouquet"
@@ -473,11 +485,15 @@ msgid ""
 "A sleep timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"Ein Ausschalt-Timer möchte Ihren Receiver in\n"
+"den Standby-Modus schalten. Dies jetzt tun?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"Ein Ausschalt-Timer möchte Ihren Receiver\n"
+"ausschalten. Jetzt herunterfahren?"
 
 #
 msgid "A small overview of the available icon states and actions."
@@ -597,6 +613,8 @@ msgid ""
 "Adds enigma2 settings and receiver model informations like SN, rev... if "
 "enabled."
 msgstr ""
+"Fügt Ihre Benutzeroberflächen-Einstellungen und modellspezifische "
+"Informationen wie SN, Rev. hinzu, falls aktiviert."
 
 #
 msgid "Adds network configuration if enabled."
@@ -662,6 +680,9 @@ msgid ""
 "After the start wizard is completed, you need to protect single services. "
 "Refer to your receiver's manual on how to do that."
 msgstr ""
+"Nachdem der Startassistent beendet wurde, müssen Sie noch die einzelnen "
+"Sender schützen. Wie Sie dies tun können, entnehmen Sie bitte dem Handbuch "
+"Ihres Receivers."
 
 #
 msgid "Album"
@@ -1402,6 +1423,8 @@ msgstr "Kopieren"
 
 msgid "Could not connect to receiver .NFI Image Feed Server:"
 msgstr ""
+"Verbindung zum Receiver .NFI Image Feed Server konnte nicht hergestellt "
+"werden:"
 
 #
 msgid "Could not load Medium! No disc inserted?"
@@ -1440,6 +1463,8 @@ msgid ""
 "Crashlogs found!\n"
 "Send them to the Image Developper?"
 msgstr ""
+"Crashlogs gefunden!\n"
+"Diese an die Image-Entwickler senden?"
 
 #
 msgid "Create DVD-ISO"
@@ -1477,7 +1502,7 @@ msgid "Current device: "
 msgstr "Aktuelles Gerät:"
 
 msgid "Current event EPG"
-msgstr ""
+msgstr "Aktuelle Sendung EPG"
 
 #
 msgid "Current settings:"
@@ -1873,7 +1898,7 @@ msgid "Do you want to download the image to %s ?"
 msgstr "Wollen Sie das Image nach %s herunterladen?"
 
 msgid "Do you want to enable the parental control feature on your receiver?"
-msgstr ""
+msgstr "Möchten Sie den Jugendschutz Ihres Receivers aktivieren?"
 
 #
 msgid "Do you want to install the package:\n"
@@ -1888,7 +1913,7 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "Wollen Sie vor dem Brennen eine Vorschau der DVD ansehen?"
 
 msgid "Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Wollen Sie Ihren Receiver neu starten?"
 
 #
 msgid "Do you want to remove the package:\n"
@@ -1911,12 +1936,14 @@ msgstr ""
 "nötig, kontaktieren können?"
 
 msgid "Do you want to update your receiver?"
-msgstr ""
+msgstr "Wollen Sie Ihren Receiver aktualisieren?"
 
 msgid ""
 "Do you want to update your receiver?\n"
 "After pressing OK, please wait!"
 msgstr ""
+"Möchten Sie Ihren Receiver aktualisieren?\n"
+"Nach dem Druck auf OK bitte warten!"
 
 #
 msgid "Do you want to upgrade the package:\n"
@@ -1991,6 +2018,9 @@ msgstr "Dynamischer Kontrast"
 msgid "E"
 msgstr "O"
 
+msgid "EPG"
+msgstr "EPG"
+
 #
 msgid "EPG Selection"
 msgstr "EPG-Auswahl"
@@ -2004,7 +2034,7 @@ msgid "EPG language selection 2"
 msgstr "EPG Sprachwahl 2"
 
 msgid "EPG settings"
-msgstr "EPG Einstellungen"
+msgstr "EPG-Einstellungen"
 
 #
 #, python-format
@@ -2047,10 +2077,10 @@ msgid "Edit settings"
 msgstr "Einstellungen bearbeiten"
 
 msgid "Edit the Nameserver configuration of your receiver.\n"
-msgstr ""
+msgstr "Bearbeiten Sie die Nameserver-Einstellungen Ihres Receivers.\n"
 
 msgid "Edit the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Bearbeiten Sie die Netzwerk-Konfiguration Ihres Receivers.\n"
 
 #
 msgid "Edit title"
@@ -2245,7 +2275,10 @@ msgid "Exit"
 msgstr "Beenden"
 
 msgid "Exit EPG"
-msgstr "Verlasse EPG"
+msgstr "EPG verlassen?"
+
+msgid "Exit Movieplayer?"
+msgstr "Movieplayer verlassen?"
 
 #
 msgid "Exit editor"
@@ -2559,7 +2592,7 @@ msgid "GotoX calibration"
 msgstr "Gehe zur X Kalibrierung"
 
 msgid "GraphMultiEpg Settings"
-msgstr ""
+msgstr "GraphMultiEpg Einstellungen"
 
 #
 msgid "Graphical Multi EPG"
@@ -2582,10 +2615,10 @@ msgid "HD list"
 msgstr "HD Liste"
 
 msgid "Handle standby from TV"
-msgstr "STB mit Fernseher in den Standby versetzen"
+msgstr "Receiver mit Fernseher in den Standby versetzen"
 
 msgid "Handle wakeup from TV"
-msgstr "STB mit Fernseher aufwachen"
+msgstr "Receiver mit Fernseher aufwachen"
 
 #
 msgid "Harddisk"
@@ -3216,7 +3249,7 @@ msgstr "Nachricht..."
 
 #, python-format
 msgid "Minimum age %d years"
-msgstr "Mindestalter %d years"
+msgstr "Mindestalter %d Jahre"
 
 msgid "Missing "
 msgstr "Fehlend"
@@ -3350,7 +3383,7 @@ msgstr "N/V"
 
 #
 msgid "NEXT"
-msgstr "NÄCHSTE"
+msgstr "DANACH"
 
 #
 msgid "NFI Image Flashing"
@@ -3467,9 +3500,13 @@ msgstr "Neue Version:"
 msgid "News Current Affairs"
 msgstr "Nachrichten/Aktuelles Tagesgeschehen"
 
-#
+msgctxt "button label, 'next screen'"
 msgid "Next"
 msgstr "Vor"
+
+msgctxt "now/next: 'next' event label"
+msgid "Next"
+msgstr "DANACH"
 
 #
 msgid "No"
@@ -3652,7 +3689,7 @@ msgid "No, do nothing."
 msgstr "Nein, nichts tun"
 
 msgid "No, just start my receiver"
-msgstr ""
+msgstr "Nein, starte nur den Receiver"
 
 msgid "No, never"
 msgstr "Nein, niemals"
@@ -3711,8 +3748,9 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr "Keine Aktualisierungen"
 
+msgctxt "now/next: 'now' event label"
 msgid "Now"
-msgstr "Jetzt"
+msgstr "JETZT"
 
 #
 msgid "Now Playing"
@@ -3883,6 +3921,12 @@ msgstr "Passwort"
 msgid "Pause movie at end"
 msgstr "Am Filmende pausieren"
 
+msgid "Percentage Left"
+msgstr "Prozentangabe links"
+
+msgid "Percentage Right"
+msgstr "Prozentangabe rechts"
+
 msgid "Permanently delete all recordings in the trash can?"
 msgstr "Alle Aufnahmen im Mülleimer löschen?"
 
@@ -3901,10 +3945,10 @@ msgid "PiPSetup"
 msgstr "PiP-Einstellung"
 
 msgid "Picon"
-msgstr ""
+msgstr "Picon"
 
 msgid "Picon and Service Name"
-msgstr ""
+msgstr "Picon und Kanalname"
 
 #
 msgid "PicturePlayer"
@@ -4072,7 +4116,7 @@ msgid "Please press OK!"
 msgstr "Bitte OK drücken"
 
 msgid "Please select a default EPG type..."
-msgstr ""
+msgstr "Bitte einen Standard-EPG-Typ wählen..."
 
 #
 msgid "Please select a playlist to delete..."
@@ -4357,7 +4401,7 @@ msgstr "Drücken Sie OK, um die Auswahl umzuschalten."
 msgid "Press yellow to set this interface as default interface."
 msgstr "Drücken Sie Gelb, um diese Schnittstelle als Standard zu setzen."
 
-#
+msgctxt "button label, 'previous screen'"
 msgid "Prev"
 msgstr "Zurück"
 
@@ -4368,6 +4412,9 @@ msgstr "Vorschau"
 #
 msgid "Preview menu"
 msgstr "Vorschau des DVD-Menüs"
+
+msgid "Preview selected channel"
+msgstr "Vorschau des ausgewählten Kanals"
 
 #
 msgid "Primary DNS"
@@ -4384,6 +4431,12 @@ msgstr "Aktivitätsanzeige"
 #
 msgid "Progress"
 msgstr "Fortschritt"
+
+msgid "Progress Bar Left"
+msgstr "Fortschrittsbalken links"
+
+msgid "Progress Bar Right"
+msgstr "Fortschrittsbalken rechts"
 
 #
 msgid "Progress Small"
@@ -4489,7 +4542,8 @@ msgstr ""
 
 msgid "Really upgrade your settop box and reboot now?"
 msgstr ""
-"Wollen Sie Ihre STB wirklich aktualisieren und anschließend neu starten?"
+"Wollen Sie Ihren Receiver wirklich aktualisieren und anschließend neu "
+"starten?"
 
 #
 msgid "Reboot"
@@ -4518,10 +4572,6 @@ msgstr "Aufgenommene Dateien..."
 #
 msgid "Recording"
 msgstr "Aufnahme"
-
-#
-msgid "Recording data sync size"
-msgstr "Data Sync-Speicher für das Aufnehmen"
 
 msgid "Recording in progress"
 msgstr "Aktive Aufnahmen"
@@ -4714,7 +4764,7 @@ msgstr "Test wiederholen"
 
 #
 msgid "Restart your network connection and interfaces.\n"
-msgstr "Neustart der Netzwerk-Konfiguration Ihrer STB.\n"
+msgstr "Neustart der Netzwerk-Konfiguration Ihres Receivers.\n"
 
 #
 msgid "Restore"
@@ -5069,7 +5119,7 @@ msgid "Select copy destination for:"
 msgstr "Wähle Zielverzeichnis für:"
 
 msgid "Select default EPG type..."
-msgstr ""
+msgstr "Wähle Standard-EPG-Typ..."
 
 msgid "Select desired image from feed list"
 msgstr "Bestimmtes Image vom Feed-Server herunterladen"
@@ -5155,7 +5205,7 @@ msgid "Service"
 msgstr "Kanal"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Kanalname"
 
 #
 msgid "Service Scan"
@@ -5166,7 +5216,7 @@ msgid "Service Searching"
 msgstr "Kanalsuche"
 
 msgid "Service Title mode"
-msgstr ""
+msgstr "Kanal Titel Modus"
 
 #
 msgid "Service has been added to the favourites."
@@ -5193,7 +5243,7 @@ msgstr ""
 "(SID nicht in PAT gefunden)"
 
 msgid "Service reference"
-msgstr "Service Referenz"
+msgstr "Kanal Referenz"
 
 #
 msgid "Service scan"
@@ -5378,7 +5428,7 @@ msgid "Shutdown"
 msgstr "Ausschalten"
 
 msgid "Shutdown receiver after"
-msgstr ""
+msgstr "Receiver ausschalten nach"
 
 msgid "Side by Side"
 msgstr "Side by Side"
@@ -5775,7 +5825,7 @@ msgid "Swedish"
 msgstr "Schwedisch"
 
 msgid "Switch TV to correct input"
-msgstr "Fernseher auf STB HDMI-Eingang schalten"
+msgstr "Fernseher auf Receiver HDMI-Eingang schalten"
 
 #
 msgid "Switch to next subservice"
@@ -5861,7 +5911,7 @@ msgid "Test mode"
 msgstr "Testmodus"
 
 msgid "Test the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Testen der Netzwerkkonfiguration des Receivers.\n"
 
 #
 msgid "Test-Messagebox?"
@@ -5890,12 +5940,18 @@ msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
 "Please press OK to start using your receiver."
 msgstr ""
+"Vielen Dank, dass Sie den Assistenten benutzt haben.\n"
+"Ihr Receiver ist nun bereit zur Verwendung.\n"
+"Drücken Sie OK zum Fortfahren."
 
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
 "create a special format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
+"Der DVD-Standard unterstützt keine H.264 (HDTV) Videos. Soll stattdessen "
+"eine Daten-DVD im Receiver-Format (die nicht in einem herkömmlichen DVD-"
+"Player abspielbar ist) erstellt werden?"
 
 #
 msgid ""
@@ -5927,13 +5983,13 @@ msgstr ""
 "Sie können nun eine NFI-Imagedatei herunterladen!"
 
 msgid "The User Interface of your receiver is restarting"
-msgstr "Die Benutzeroberfläche der STB wird neu gestartet"
+msgstr "Die Benutzeroberfläche des Receivers wird neu gestartet"
 
 msgid ""
 "The User Interface of your receiver is restarting\n"
 "due to an error in mytest.py"
 msgstr ""
-"Die Benutzeroberfläche der STB wird aufgrund eines Fehlers\n"
+"Die Benutzeroberfläche des Receivers wird aufgrund eines Fehlers\n"
 "in mytest.py neu gestartet"
 
 #
@@ -5991,6 +6047,9 @@ msgid ""
 "The installation of the default settings is finished. You can now continue "
 "configuring your receiver by pressing the OK button on the remote control."
 msgstr ""
+"Die Installation der Standardeinstellungen wurde beendet. Sie können nun mit "
+"der Konfiguration Ihres Receivers fortfahren, indem Sie die OK-Taste auf "
+"Ihrer Fernbedienung drücken."
 
 msgid "The md5sum validation failed, the file may be corrupted!"
 msgstr ""
@@ -6137,6 +6196,14 @@ msgid ""
 "If you already have a prepared bootable USB stick, please insert it now. "
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
+"Dieses Plugin erzeugt einen USB-Stick, mit dessen Hilfe die Firmware Ihres "
+"Receivers aktualisiert werden kann, ohne dass dafür eine Netzwerk- oder WLAN-"
+"Verbindung notwendig ist. Zuerst muss ein USB-Stick vorbereitet und "
+"bootfähig gemacht werden. Im nächsten Schritt kann eine NFI-Imagedatei vom "
+"Update-Server heruntergeladen und auf diesem Stick gespeichert werden. Wenn "
+"Sie bereits einen bootfähigen USB-Stick vorbereitet haben, stecken Sie ihn "
+"bitte jetzt ein. Anderenfalls stecken Sie bitte einen USB-Stick mit einer "
+"Mindestgröße von 64 MB ein."
 
 #
 msgid "This plugin is installed."
@@ -6156,7 +6223,7 @@ msgstr "Dieses Plugin wird deinstalliert."
 
 #, python-format
 msgid "This receiver can't decode %s streams!"
-msgstr ""
+msgstr "Dieser Receiver kann keine %s Streams dekodieren!"
 
 #
 msgid ""
@@ -6355,6 +6422,13 @@ msgid ""
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
+"Um Ihre Receiver-Firmware zu aktualisieren, folgen Sie bitte diesen "
+"Anweisungen:\n"
+"1) Schalten Sie Ihren Receiver mit dem Schalter auf der Rückseite aus und "
+"achten Sie darauf, dass der bootfähige USB-Stick eingesteckt ist.\n"
+"2) Schalten Sie den Netzschalter wieder ein und halten dabei den \"nach unten"
+"\"-Knopf auf der Vorderseite für 10 Sekunden gedrückt.\n"
+"3) Nach dem Bootvorgang folgen Sie bitte den Instruktionen des Assistenten."
 
 #
 msgid "Today"
@@ -6506,7 +6580,7 @@ msgid ""
 "This may take a few minutes"
 msgstr ""
 "Stille Aktualisierung wird durchgeführt.\n"
-"Bitte warten Sie, bis Ihre STB automatisch neu startet.\n"
+"Bitte warten Sie, bis Ihr Receiver automatisch neu startet.\n"
 "Das könnte einige Minuten in Anspruch nehmen."
 
 msgid "Unattended upgrade without GUI and reboot system"
@@ -6570,7 +6644,7 @@ msgid "Updatefeed not available."
 msgstr "Update-Feed nicht verfügbar."
 
 msgid "Updates your receiver's software"
-msgstr "Aktualisiert die Software Ihrer STB"
+msgstr "Aktualisiert die Software Ihres Receivers"
 
 #
 msgid "Updating finished. Here is the result:"
@@ -6594,14 +6668,14 @@ msgid "Upgrade finished."
 msgstr "Upgrade beendet."
 
 msgid "Upgrade finished. Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Aktualisierung beendet. Wollen Sie den Receiver neu starten?"
 
 #
 msgid "Upgrading"
 msgstr "Aktualisiere"
 
 msgid "Upgrading receiver... Please wait"
-msgstr ""
+msgstr "Receiver wird aktualisiert... Bitte warten"
 
 #
 msgid "Use"
@@ -6840,7 +6914,7 @@ msgstr "Eine Liste der verfügbaren Common Interface-Erweiterungen anzeigen."
 #
 msgid "View list of available Display and Userinterface extensions."
 msgstr ""
-"Eine Liste der verfügbaren Display und Userinterface Erweiterungen anzeigen."
+"Eine Liste der verfügbaren Display- und Userinterface-Erweiterungen anzeigen."
 
 #
 msgid "View list of available EPG extensions."
@@ -6991,6 +7065,10 @@ msgid ""
 "the firmware of your receiver by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
+"Willkommen im Image-Upgrade-Assistenten. Der Assistent wird Ihnen bei der "
+"Aktualisierung der Firmware helfen. Sie können mit diesem Assistenten die "
+"aktuellen Einstellungen sichern und bekommen eine kleine Einweisung, wie Sie "
+"die Firmware aktualisieren können."
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
@@ -7000,6 +7078,13 @@ msgid ""
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
+"Willkommen.\n"
+"\n"
+"Es wurde festgestellt, dass Ihr verfügbarer interner Speicher unter den von "
+"Ihnen festgelegten Wert gefallen ist.\n"
+"Um einen stabilen Betrieb Ihres Receivers sicherzustellen, sollte der "
+"interne Speicher bereinigt werden.\n"
+"Sie können diesen Assistenten benutzen, um Erweiterungen zu entfernen.\n"
 
 msgid ""
 "Welcome.\n"
@@ -7009,6 +7094,12 @@ msgid ""
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
+"Willkommen.\n"
+"\n"
+"Wenn Sie Ihren Receiver mit dem Internet verbinden möchten, wird Sie dieser "
+"Assistent durch die grundlegenden Netzwerkeinstellungen führen.\n"
+"\n"
+"Drücken Sie OK, um Ihr Netzwerk zu konfigurieren"
 
 msgid ""
 "Welcome.\n"
@@ -7016,6 +7107,11 @@ msgid ""
 "This start wizard will guide you through the basic setup of your receiver.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
+"Willkommen.\n"
+"\n"
+"Der Startassistent wird Sie durch die Grundeinstellungen Ihres Receivers "
+"führen.\n"
+"Drücken Sie OK auf Ihrer Fernbedienung, um zum nächsten Schritt zu gelangen."
 
 #
 msgid "Welcome..."
@@ -7048,7 +7144,7 @@ msgstr ""
 "Wenn Sie die Werkseinstellungen wiederherstellen, verlieren Sie sämtliche "
 "Konfigurationsdateien\n"
 "(einschließlich Kanalliste, Tuner-Konfiguration...)\n"
-"Nach der Wiederherstellung wird die STB automatisch neu starten\n"
+"Nach der Wiederherstellung wird der Receiver automatisch neu starten\n"
 "\n"
 "Werkseinstellungen wirklich wiederherstellen?"
 
@@ -7186,15 +7282,15 @@ msgstr "Sie können wählen was Sie installieren möchten..."
 
 msgid "You can continue watching TV etc. while this is running."
 msgstr ""
-"Der Vorgang findet im Hintergrund statt, Sie können Ihre STB ganz normal "
-"weiter nutzen."
+"Der Vorgang findet im Hintergrund statt, Sie können Ihren Receiver ganz "
+"normal weiter nutzen."
 
 #
 msgid "You can install this plugin."
 msgstr "Sie können dieses Plugin installieren."
 
 msgid "You can only burn receiver recordings!"
-msgstr ""
+msgstr "Sie können nur Receiver-Aufnahmen brennen!"
 
 #
 msgid "You can remove this plugin."
@@ -7263,6 +7359,12 @@ msgid ""
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
+"Sie müssen einen PC mit Ihrem Receiver verbunden haben. Wenn Sie "
+"weiterführende Informationen benötigen, besuchen Sie die Webseite http://www."
+"dm7025.de.\n"
+"Der Receiver wird nun ausgeschaltet. Nachdem Sie das Update wie auf der "
+"Webseite beschrieben durchgeführt haben, wird Sie die neue Firmware fragen, "
+"ob Sie die Einstellungen wiederherstellen wollen."
 
 msgid ""
 "You need to set a PIN code and hide it from your children.\n"
@@ -7284,7 +7386,7 @@ msgid ""
 "Your internet connection is working now.\n"
 "\n"
 msgstr ""
-"Ihre STB ist nun konfiguriert.\n"
+"Ihr Receiver ist nun konfiguriert.\n"
 "\n"
 "Ihre Internetverbindung funktioniert nun.\n"
 "\n"
@@ -7294,8 +7396,8 @@ msgid ""
 "Your backup succeeded. We will now continue to explain the further upgrade "
 "process."
 msgstr ""
-"Ihre Sicherung ist geglückt. Die STB wird nun den weiteren Aktualisierungs-"
-"Prozess erklären."
+"Ihre Sicherung ist geglückt. Der Receiver wird nun den weiteren "
+"Aktualisierungs-Prozess erklären."
 
 #
 msgid ""
@@ -7327,7 +7429,7 @@ msgid ""
 "This may take a few minutes"
 msgstr ""
 "Ihr Frontprozessor wird aktualisiert\n"
-"Bitte warten Sie, bis Ihre STB neu startet\n"
+"Bitte warten Sie, bis Ihr Receiver neu startet\n"
 "Das kann einige Minuten dauern"
 
 #
@@ -7353,23 +7455,31 @@ msgid ""
 "\n"
 "Please press OK to continue."
 msgstr ""
+"Ihr Receiver ist jetzt konfiguriert.\n"
+"\n"
+"Ihre Internetverbindung funktioniert nun.\n"
+"\n"
+"Bitte OK drücken zum Fortfahren."
 
 msgid "Your receiver is rebooting"
-msgstr "Ihre STB startet neu"
+msgstr "Ihr Receiver startet neu"
 
 msgid "Your receiver is shutting down"
-msgstr "Ihre STB wird ausgeschaltet"
+msgstr "Ihr Receiver wird ausgeschaltet"
 
 msgid "Your receiver is shutting down. Please stand by..."
-msgstr ""
+msgstr "Ihr Receiver schaltet sich nun aus. Bitte warten Sie einen Moment..."
 
 msgid ""
 "Your receiver isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
+"Ihr Receiver ist nicht korrekt mit dem Internet verbunden. Bitte beheben Sie "
+"dies und versuchen Sie es dann erneut."
 
 msgid "Your receiver will restart after pressing OK on your remote control."
 msgstr ""
+"Ihr Receiver startet neu nach einem Druck auf die OK-Taste der Fernbedienung."
 
 #
 msgid ""
@@ -7684,11 +7794,11 @@ msgstr "Kinder/Jugendprogramm (Allgemein)"
 
 #
 msgid "circular left"
-msgstr "Links-Zirkulär"
+msgstr "Links-zirkular"
 
 #
 msgid "circular right"
-msgstr "Rechts-Zirkulär"
+msgstr "Rechts-zirkular"
 
 #
 msgid "clear playlist"
@@ -7810,19 +7920,19 @@ msgid "done!"
 msgstr "Erledigt!"
 
 msgid "dreambox advanced remote control (native)"
-msgstr "STB Erweiterte Fernbedienung (nativ)"
+msgstr "Receiver Erweiterte Fernbedienung (nativ)"
 
 msgid "dreambox front panel"
-msgstr "STB Frontblende"
+msgstr "Receiver Frontdisplay"
 
 msgid "dreambox ir keyboard"
-msgstr "STB IR Tastatur"
+msgstr "Receiver IR Tastatur"
 
 msgid "dreambox ir mouse"
-msgstr "STB IR Maus"
+msgstr "Receiver IR Maus"
 
 msgid "dreambox remote control (native)"
-msgstr "STB Fernbedienung (nativ)"
+msgstr "Receiver Fernbedienung (nativ)"
 
 msgid "east"
 msgstr "Osten"
@@ -8394,7 +8504,7 @@ msgid "previous channel in history"
 msgstr "Vorheriger Kanal im Verlauf"
 
 msgid "receiver software because updates are available."
-msgstr ""
+msgstr "Receiver Software, weil Updates verfügbar sind."
 
 #
 msgid "record"
@@ -8608,7 +8718,7 @@ msgid "show single service EPG..."
 msgstr "Zeige einfaches Sender-EPG..."
 
 msgid "show softwaremanager in setup menu"
-msgstr "Zeige Softwaremanager unter Erweiterungen"
+msgstr "Zeige Softwaremanager unter Einstellungen"
 
 msgid "show softwaremanager on blue button"
 msgstr "Zeige Softwaremanager auf blauer Taste"
@@ -8687,7 +8797,7 @@ msgid "special events"
 msgstr "Sonderveranstaltungen"
 
 msgid "special format data DVD (HDTV compatible)"
-msgstr ""
+msgstr "spezielles Format Daten-DVD (HDTV-kompatibel)"
 
 msgid "sports (general)"
 msgstr "Sport (Allgemein)"
@@ -8923,6 +9033,8 @@ msgid ""
 "your receiver might be unusable now. Please consult the manual for further "
 "assistance before rebooting your receiver."
 msgstr ""
+"Ihr Receiver könnte jetzt unbenutzbar sein. Bitte konsultieren Sie das "
+"Handbuch, bevor Sie Ihren Receiver neustarten."
 
 #
 msgid "zap"

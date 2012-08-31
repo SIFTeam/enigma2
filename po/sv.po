@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 10:00+0200\n"
-"PO-Revision-Date: 2012-07-31 13:02+0100\n"
+"POT-Creation-Date: 2012-08-30 16:54+0200\n"
+"PO-Revision-Date: 2012-08-05 15:36+0100\n"
 "Last-Translator: Magnus Nilsson <mag_nilsson@hotmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -37,6 +37,8 @@ msgid ""
 "\n"
 "Backup your receiver settings."
 msgstr ""
+"\n"
+"Backup av din mottagares inställningar."
 
 #
 msgid ""
@@ -50,11 +52,15 @@ msgid ""
 "\n"
 "Manage extensions or plugins for your receiver"
 msgstr ""
+"\n"
+"Hantera utökningar eller plugins för din mottagare"
 
 msgid ""
 "\n"
 "Online update of your receiver software."
 msgstr ""
+"\n"
+"Online uppdatering av din mottagares mjukvara."
 
 #
 msgid ""
@@ -76,11 +82,15 @@ msgid ""
 "\n"
 "Restore your receiver settings."
 msgstr ""
+"\n"
+"Återställ din mottagares inställningar."
 
 msgid ""
 "\n"
 "Restore your receiver with a new firmware."
 msgstr ""
+"\n"
+"Återställ din mottagare med en ny firmware."
 
 #
 msgid ""
@@ -154,7 +164,7 @@ msgid "%2d:%02d:%02d"
 msgstr "%2d:%02d:%02d"
 
 msgid "%A %d %B"
-msgstr ""
+msgstr "%A %d %B"
 
 #. TRANSLATORS: long date representations dayname daynum monthname in strftime() format! See 'man strftime'
 msgid "%A %e %B"
@@ -213,7 +223,7 @@ msgid "%d services found!"
 msgstr "%d kanaler hittades!"
 
 msgid "%d-%m"
-msgstr ""
+msgstr "%d-%m"
 
 msgid "%d.%B %Y"
 msgstr "%d.%B %Y"
@@ -396,11 +406,15 @@ msgid ""
 "A finished record timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"En utförd inspelningstimer vill försätta din\n"
+"mottagare i standby. Utföra det nu?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"En utförd inspelningstimer vill stänga av\n"
+"din mottagare. Stänga av nu?"
 
 #
 msgid "A graphical EPG for all services of an specific bouquet"
@@ -468,11 +482,15 @@ msgid ""
 "A sleep timer wants to set your\n"
 "receiver to standby. Do that now?"
 msgstr ""
+"En sovtimer vill försätta din\n"
+"mottagare i standby. Utföra det?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
 "your receiver. Shutdown now?"
 msgstr ""
+"En sovtimer vill stänga av\n"
+"din mottagare. Stänga av nu?"
 
 #
 msgid "A small overview of the available icon states and actions."
@@ -591,6 +609,8 @@ msgid ""
 "Adds enigma2 settings and receiver model informations like SN, rev... if "
 "enabled."
 msgstr ""
+"Lägger till enigma2 inställningar och mottagarens modellinformation såsom "
+"SN, rev... om aktiverad."
 
 #
 msgid "Adds network configuration if enabled."
@@ -652,6 +672,8 @@ msgid ""
 "After the start wizard is completed, you need to protect single services. "
 "Refer to your receiver's manual on how to do that."
 msgstr ""
+"Efter att startguiden är avslutad, behöver du skydda enskilda kanaler. Läs i "
+"din manual för mottagaren om hur du utför det."
 
 #
 msgid "Album"
@@ -1378,7 +1400,7 @@ msgid "Copy"
 msgstr "Kopiera"
 
 msgid "Could not connect to receiver .NFI Image Feed Server:"
-msgstr ""
+msgstr "Kunde inte ansluta till mottagare .NFI image feed Server:"
 
 #
 msgid "Could not load Medium! No disc inserted?"
@@ -1417,6 +1439,8 @@ msgid ""
 "Crashlogs found!\n"
 "Send them to the Image Developper?"
 msgstr ""
+"Crashlog hittad!\n"
+"Skicka den till Programutvecklaren?"
 
 #
 msgid "Create DVD-ISO"
@@ -1454,7 +1478,7 @@ msgid "Current device: "
 msgstr "Nuvarande enhet: "
 
 msgid "Current event EPG"
-msgstr ""
+msgstr "Nuvarande EPG Händelse"
 
 #
 msgid "Current settings:"
@@ -1849,7 +1873,7 @@ msgid "Do you want to download the image to %s ?"
 msgstr "Vill du ladda ner image till %s ?"
 
 msgid "Do you want to enable the parental control feature on your receiver?"
-msgstr ""
+msgstr "Vill du aktivera föräldrakontroll på din mottagare?"
 
 #
 msgid "Do you want to install the package:\n"
@@ -1864,7 +1888,7 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "Vill du förhandsvisa denna DVD innan bränning?"
 
 msgid "Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Vill du starta om din mottagare?"
 
 #
 msgid "Do you want to remove the package:\n"
@@ -1886,12 +1910,14 @@ msgstr ""
 "Vill du skicka med din epost och namn så vi kan kontakta dig om så behövs?"
 
 msgid "Do you want to update your receiver?"
-msgstr ""
+msgstr "Vill du uppdatera din mottagare?"
 
 msgid ""
 "Do you want to update your receiver?\n"
 "After pressing OK, please wait!"
 msgstr ""
+"Vill du uppdatera din mottagare?\n"
+"Tryck OK och vänligen vänta!"
 
 #
 msgid "Do you want to upgrade the package:\n"
@@ -1967,6 +1993,9 @@ msgstr "Dynamisk kontrast"
 msgid "E"
 msgstr "Ö"
 
+msgid "EPG"
+msgstr ""
+
 #
 msgid "EPG Selection"
 msgstr "EPG val"
@@ -2020,10 +2049,10 @@ msgid "Edit settings"
 msgstr "Ändra inställningar"
 
 msgid "Edit the Nameserver configuration of your receiver.\n"
-msgstr ""
+msgstr "Ändra namnserverkonfigurationen för din mottagare.\n"
 
 msgid "Edit the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Ändra nätverkskonfigurationen för din mottagare.\n"
 
 #
 msgid "Edit title"
@@ -2207,6 +2236,9 @@ msgstr "Avsluta"
 
 msgid "Exit EPG"
 msgstr "Lämna EPG"
+
+msgid "Exit Movieplayer?"
+msgstr ""
 
 #
 msgid "Exit editor"
@@ -2521,7 +2553,7 @@ msgid "GotoX calibration"
 msgstr "Gå till X-kalibrering"
 
 msgid "GraphMultiEpg Settings"
-msgstr ""
+msgstr "GraphMultiEpg Inställningar"
 
 #
 msgid "Graphical Multi EPG"
@@ -2867,10 +2899,10 @@ msgid "Italian"
 msgstr "Italienska"
 
 msgid "Items per Page "
-msgstr "Objekt per sida"
+msgstr "Kanaler per sida vid Normalt läge (PiG)"
 
 msgid "Items per Page for Listscreen"
-msgstr "Artiklar per sida för skärm"
+msgstr "Kanaler per sida vid Listläge"
 
 #
 msgid "Job View"
@@ -3420,9 +3452,13 @@ msgstr "Ny version:"
 msgid "News Current Affairs"
 msgstr "Nyheter/aktuella frågor"
 
-#
+msgctxt "button label, 'next screen'"
 msgid "Next"
-msgstr "Nästa"
+msgstr ""
+
+msgctxt "now/next: 'next' event label"
+msgid "Next"
+msgstr ""
 
 #
 msgid "No"
@@ -3597,7 +3633,7 @@ msgid "No, do nothing."
 msgstr "Nej, gör inget."
 
 msgid "No, just start my receiver"
-msgstr ""
+msgstr "Nej, starta bara mottagaren"
 
 msgid "No, never"
 msgstr "Nej, aldrig"
@@ -3657,8 +3693,9 @@ msgstr ""
 msgid "Nothing to upgrade"
 msgstr "Inget att uppgradera"
 
+msgctxt "now/next: 'now' event label"
 msgid "Now"
-msgstr "Nu"
+msgstr ""
 
 #
 msgid "Now Playing"
@@ -3828,6 +3865,12 @@ msgstr "Lösenord"
 msgid "Pause movie at end"
 msgstr "Pausa filmen"
 
+msgid "Percentage Left"
+msgstr ""
+
+msgid "Percentage Right"
+msgstr ""
+
 msgid "Permanently delete all recordings in the trash can?"
 msgstr ""
 "Är du säker på att du vill radera inspelningarna i papperskorgen permanent?"
@@ -3847,10 +3890,10 @@ msgid "PiPSetup"
 msgstr "BiB konfiguration"
 
 msgid "Picon"
-msgstr ""
+msgstr "Picon"
 
 msgid "Picon and Service Name"
-msgstr ""
+msgstr "Picon och kanalnamn"
 
 #
 msgid "PicturePlayer"
@@ -4014,7 +4057,7 @@ msgid "Please press OK!"
 msgstr "Vänligen tryck OK!"
 
 msgid "Please select a default EPG type..."
-msgstr ""
+msgstr "Vänligen välj en standard EPG typ..."
 
 #
 msgid "Please select a playlist to delete..."
@@ -4294,9 +4337,9 @@ msgstr "Tryck OK för att växla val."
 msgid "Press yellow to set this interface as default interface."
 msgstr "Tryck gul knapp för att ange detta interface som grundinterface."
 
-#
+msgctxt "button label, 'previous screen'"
 msgid "Prev"
-msgstr "Föregående"
+msgstr ""
 
 #
 msgid "Preview"
@@ -4305,6 +4348,9 @@ msgstr "Förhandsgranskning"
 #
 msgid "Preview menu"
 msgstr "Förvisningsmeny"
+
+msgid "Preview selected channel"
+msgstr ""
 
 #
 msgid "Primary DNS"
@@ -4320,6 +4366,12 @@ msgstr "Process"
 
 msgid "Progress"
 msgstr "Pågår"
+
+msgid "Progress Bar Left"
+msgstr ""
+
+msgid "Progress Bar Right"
+msgstr ""
 
 msgid "Progress Small"
 msgstr "Pågår"
@@ -4450,9 +4502,6 @@ msgstr "Inspelade filer..."
 #
 msgid "Recording"
 msgstr "Spelar in"
-
-msgid "Recording data sync size"
-msgstr "Synkstorlek för inspelningsdata"
 
 msgid "Recording in progress"
 msgstr "Inspelning pågår"
@@ -4990,7 +5039,7 @@ msgid "Select copy destination for:"
 msgstr "Välj destination att kopiera till för:"
 
 msgid "Select default EPG type..."
-msgstr ""
+msgstr "Välj en standard EPG typ..."
 
 msgid "Select desired image from feed list"
 msgstr "Välj önskad image från feedlistan"
@@ -5075,7 +5124,7 @@ msgid "Service"
 msgstr "Kanal"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Kanalnamn"
 
 #
 msgid "Service Scan"
@@ -5086,7 +5135,7 @@ msgid "Service Searching"
 msgstr "Kanalsökning"
 
 msgid "Service Title mode"
-msgstr ""
+msgstr "Kanal Titelläge"
 
 #
 msgid "Service has been added to the favourites."
@@ -5289,7 +5338,7 @@ msgid "Shutdown"
 msgstr "Stäng av"
 
 msgid "Shutdown receiver after"
-msgstr ""
+msgstr "Stäng av mottagaren efter"
 
 msgid "Side by Side"
 msgstr "Sida vid sida"
@@ -5358,7 +5407,7 @@ msgid "Skins"
 msgstr "Utseenden"
 
 msgid "Skip Empty Services"
-msgstr "Hoppa över tomma tjänster"
+msgstr "Hoppa över tomma Kanaler"
 
 #
 msgid "Sleep Timer"
@@ -5766,7 +5815,7 @@ msgid "Test mode"
 msgstr "Testläge"
 
 msgid "Test the network configuration of your receiver.\n"
-msgstr ""
+msgstr "Testa nätverkskonfigurationen för din mottagare.\n"
 
 #
 msgid "Test-Messagebox?"
@@ -5793,12 +5842,16 @@ msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
 "Please press OK to start using your receiver."
 msgstr ""
+"Tack för att du använde guiden. Din mottagare är nu konfigurerad.\n"
+"Tryck OK för att börja använda din mottagare."
 
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
 "create a special format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
+"DVD standarden stödjer inte H.264 (HDTV) videoströmmar. Vill du skapa en "
+"format data DVD (kommer ej kunnas spelas i vanlig DVD spelare) istället?"
 
 #
 msgid ""
@@ -5890,6 +5943,9 @@ msgid ""
 "The installation of the default settings is finished. You can now continue "
 "configuring your receiver by pressing the OK button on the remote control."
 msgstr ""
+"Installationen av grundinställningar är nu klar. Du kan nu slutföra din "
+"konfiguration av mottagaren genom att trycka på OK-knappen på din "
+"fjärrkontroll."
 
 msgid "The md5sum validation failed, the file may be corrupted!"
 msgstr "Validering av md5sum misslyckades, filen kan vara korrupt!"
@@ -6033,6 +6089,13 @@ msgid ""
 "If you already have a prepared bootable USB stick, please insert it now. "
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
+"Den här pluginen skapar en USB-sticka som kan användas för att uppdatera "
+"firmware i din mottagare utan behovet av nätverks- eller WLAN anslutning.\n"
+"Först, en USB-sticka måste förberedas så att den blir bootbar.\n"
+"Nästa steg, en NFI-image fil ska laddas ner från uppdateringsservern och "
+"sparas till USB-stickan.\n"
+"Om du redan har en förberedd bootbar USB-sticka, vänligen sätt in den nu. "
+"Annars anslut en USB-sticka med minsta storlek på 64 MB!"
 
 #
 msgid "This plugin is installed."
@@ -6052,7 +6115,7 @@ msgstr "Den pluginen kommer att tas bort."
 
 #, python-format
 msgid "This receiver can't decode %s streams!"
-msgstr ""
+msgstr "Den här mottagaren kan inte avkoda %s strömmar!"
 
 #
 msgid ""
@@ -6250,6 +6313,12 @@ msgid ""
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
+"För att uppdatera din mottagare, vänligen följ dessa anvisningar:\n"
+"1) Stäng av din box med strömbrytaren på baksidan och säkerställ att bootbar "
+"USB-sticka är ansluten.\n"
+"2) Slå på strömmen och håll NER knappen på framsidan intryckt i cirka 10 "
+"sekunder.\n"
+"3) Vänta på uppstart och följ instruktionerna från guiden."
 
 #
 msgid "Today"
@@ -6488,14 +6557,14 @@ msgid "Upgrade finished."
 msgstr "Uppgradering färdig."
 
 msgid "Upgrade finished. Do you want to reboot your receiver?"
-msgstr ""
+msgstr "Uppgradering färdig, vill du starta om din mottagare?"
 
 #
 msgid "Upgrading"
 msgstr "Uppgradering"
 
 msgid "Upgrading receiver... Please wait"
-msgstr ""
+msgstr "Uppgraderar mottagaren... Vänligen vänta"
 
 #
 msgid "Use"
@@ -6878,6 +6947,10 @@ msgid ""
 "the firmware of your receiver by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
+"Välkommen till uppgraderingsguiden för image. Guiden hjälper dig med "
+"uppgraderingen av mjukvaran i din mottagare genom att tillgodose en "
+"backupmöjlighet av dina aktuella inställningar och en kort förklaring hur du "
+"uppgraderar mjukvaran."
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
@@ -6887,6 +6960,12 @@ msgid ""
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
+"Välkommen till upprensningsguiden.\n"
+"\n"
+"Det har upptäckts att tillgängligt utrymme på interna minnet understiger "
+"2MB.\n"
+"För att uppnå en stabil mottagare bör interna minnet rensas upp.\n"
+"Du kan använda den här guiden för att ta bort vissa utökningar.\n"
 
 msgid ""
 "Welcome.\n"
@@ -6896,6 +6975,12 @@ msgid ""
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
+"Välkommen.\n"
+"\n"
+"Om du vill ansluta din mottagare till Internet, då kommer den här guiden "
+"hjälpa dig genom grundläggande konfiguration av din mottagare.\n"
+"\n"
+"Tryck OK för att starta konfigurationen av ditt nätverk"
 
 msgid ""
 "Welcome.\n"
@@ -6903,6 +6988,10 @@ msgid ""
 "This start wizard will guide you through the basic setup of your receiver.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
+"Välkommen.\n"
+"\n"
+"Den här guiden hjälper dig med grundinställningarna av din mottagare.\n"
+"Tryck OK på din fjärrkontroll för att komma till nästa steg."
 
 #
 msgid "Welcome..."
@@ -7076,7 +7165,7 @@ msgid "You can install this plugin."
 msgstr "Du kan installera den pluginen."
 
 msgid "You can only burn receiver recordings!"
-msgstr ""
+msgstr "Du kan bara bränna mottagare inspelningar!"
 
 #
 msgid "You can remove this plugin."
@@ -7144,6 +7233,11 @@ msgid ""
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
+"Du behöver ha en PC kopplad till din mottagare. Behöver du ytterligare "
+"instruktioner vänligen gå till websidan http://www.dm7025.de.\n"
+"Din mottagare kommer nu att stoppas. När du har genomfört uppdateringen "
+"enligt instruktionerna från websidan, kommer din nya mjukvara att fråga dig "
+"om du vill återställa dina inställningar."
 
 msgid ""
 "You need to set a PIN code and hide it from your children.\n"
@@ -7233,6 +7327,11 @@ msgid ""
 "\n"
 "Please press OK to continue."
 msgstr ""
+"Din mottagare är nu klar för användning.\n"
+"\n"
+"Din Internet anslutning fungerar nu.\n"
+"\n"
+"Vänligen tryck OK för att forsätta."
 
 msgid "Your receiver is rebooting"
 msgstr "Din mottagare startar om"
@@ -7241,15 +7340,18 @@ msgid "Your receiver is shutting down"
 msgstr "Din mottagare stängs av"
 
 msgid "Your receiver is shutting down. Please stand by..."
-msgstr ""
+msgstr "Din mottagare håller på att stängas av. Vänligen vänta..."
 
 msgid ""
 "Your receiver isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
+"Din mottagare är inte ansluten till Internet på ett korrekt sätt. Åtgärda "
+"och försök igen."
 
 msgid "Your receiver will restart after pressing OK on your remote control."
 msgstr ""
+"Din mottagare kommer att starta om när du trycker på OK på din fjärrkontroll."
 
 #
 msgid ""
@@ -7684,19 +7786,19 @@ msgid "done!"
 msgstr "klar!"
 
 msgid "dreambox advanced remote control (native)"
-msgstr "dreambox avancerad fjärrkontroll (native)"
+msgstr "mottagarens avancerade fjärrkontroll (native)"
 
 msgid "dreambox front panel"
 msgstr "mottagarens frontpanel"
 
 msgid "dreambox ir keyboard"
-msgstr "dreambox ir tangentbord"
+msgstr "mottagarens ir tangentbord"
 
 msgid "dreambox ir mouse"
-msgstr "dreambox ir mus"
+msgstr "mottagarens ir mus"
 
 msgid "dreambox remote control (native)"
-msgstr "dreambox fjärrkontroll (native)"
+msgstr "mottagarens fjärrkontroll (native)"
 
 msgid "east"
 msgstr "öst"
@@ -8269,7 +8371,7 @@ msgid "previous channel in history"
 msgstr "föregående kanal i historiken"
 
 msgid "receiver software because updates are available."
-msgstr ""
+msgstr "Mottagarens programvara för att uppdateringar finns tillgängliga."
 
 #
 msgid "record"
@@ -8559,7 +8661,7 @@ msgid "special events"
 msgstr "speciella evenemang"
 
 msgid "special format data DVD (HDTV compatible)"
-msgstr ""
+msgstr "speciell format data-DVD (HDTV kompatibel)"
 
 msgid "sports (general)"
 msgstr "sport (allmänt)"
@@ -8796,6 +8898,8 @@ msgid ""
 "your receiver might be unusable now. Please consult the manual for further "
 "assistance before rebooting your receiver."
 msgstr ""
+"din mottagare kanske inte fungerar längre. Vänligen läs manualen hur du får "
+"hjälp innan du startar om din mottagare."
 
 #
 msgid "zap"
@@ -8804,3 +8908,17 @@ msgstr "zap"
 #
 msgid "zapped"
 msgstr "zapped"
+
+#
+#~ msgid "Next"
+#~ msgstr "Nästa"
+
+#~ msgid "Now"
+#~ msgstr "Nu"
+
+#
+#~ msgid "Prev"
+#~ msgstr "Föregående"
+
+#~ msgid "Recording data sync size"
+#~ msgstr "Synkstorlek för inspelningsdata"

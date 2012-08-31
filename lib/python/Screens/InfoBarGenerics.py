@@ -218,7 +218,7 @@ class InfoBarShowHide:
 
 	def disconnectShowHideNotifier(self, fnc):
 		if fnc in self.onShowHideNotifiers:
-				self.onShowHideNotifiers.remove(fnc)
+			self.onShowHideNotifiers.remove(fnc)
 
 	def serviceStarted(self):
 		if self.execing:
@@ -262,6 +262,8 @@ class InfoBarShowHide:
 			self.show()
 			if self.secondInfoBarScreen:
 				self.secondInfoBarScreen.hide()
+		elif isStandardInfoBar(self) and config.usage.show_second_infobar.value == "EPG":
+			self.showDefaultEPG()
 		elif self.secondInfoBarScreen and config.usage.show_second_infobar.value and not self.secondInfoBarScreen.shown:
 			self.secondInfoBarScreen.show()
 			self.startHideTimer()
@@ -368,32 +370,34 @@ class InfoBarNumberZap:
 	def searchNumberHelper(self, serviceHandler, num, bouquet):
 		servicelist = serviceHandler.list(bouquet)
 		if not servicelist is None:
-			while num:
+			serviceIterator = servicelist.getNext()
+			while serviceIterator.valid():
+				if num == serviceIterator.getChannelNum():
+					return serviceIterator
 				serviceIterator = servicelist.getNext()
-				if not serviceIterator.valid(): #check end of list
-					break
-				playable = not (serviceIterator.flags & (eServiceReference.isMarker|eServiceReference.isDirectory)) or (serviceIterator.flags & eServiceReference.isNumberedMarker)
-				if playable:
-					num -= 1
-			if not num: #found service with searched number ?
-				return serviceIterator, 0
-		return None, num
+		return None
 
 	def zapToNumber(self, number):
-		bouquet = self.servicelist.bouquet_root
+		bouquet = self.servicelist.getRoot()
 		service = None
 		serviceHandler = eServiceCenter.getInstance()
 		if not config.usage.multibouquet.value:
-			service, number = self.searchNumberHelper(serviceHandler, number, bouquet)
+			service = self.searchNumberHelper(serviceHandler, number, bouquet)
 		else:
-			bouquetlist = serviceHandler.list(bouquet)
-			if not bouquetlist is None:
-				while number:
-					bouquet = bouquetlist.getNext()
-					if not bouquet.valid(): #check end of list
-						break
-					if bouquet.flags & eServiceReference.isDirectory:
-						service, number = self.searchNumberHelper(serviceHandler, number, bouquet)
+			service = self.searchNumberHelper(serviceHandler, number, bouquet) #search the current bouqeut first
+			if service is None:
+				bouquet = self.servicelist.bouquet_root
+				bouquetlist = serviceHandler.list(bouquet)
+				if not bouquetlist is None:
+					while bouquet.valid():
+						if bouquet.flags & eServiceReference.isDirectory:
+							service = self.searchNumberHelper(serviceHandler, number, bouquet)
+							if service is not None:
+								playable = not (service.flags & (eServiceReference.isMarker|eServiceReference.isDirectory)) or (service.flags & eServiceReference.isNumberedMarker)
+								if not playable:
+									service = None
+								break
+						bouquet = bouquetlist.getNext()
 		if not service is None:
 			if self.servicelist.getRoot() != bouquet: #already in correct bouquet?
 				self.servicelist.clearPath()
@@ -607,15 +611,16 @@ class SimpleServicelist:
 class InfoBarEPG:
 	""" EPG - Opens an EPG list when the showEPGList action fires """
 	def __init__(self):
-		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
-			{
-				iPlayableService.evUpdatedEventInfo: self.__evEventInfoChanged,
-			})
 		self.is_now_next = False
 		self.dlg_stack = [ ]
 		self.bouquetSel = None
 		self.eventView = None
+		self.epglist = []
 		self.defaultEPGType = self.getDefaultEPGtype()
+		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
+			{
+				iPlayableService.evUpdatedEventInfo: self.__evEventInfoChanged,
+			})
 
 		self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
 			{
@@ -647,15 +652,23 @@ class InfoBarEPG:
 			self.toggleShow()
 			return 1
 
-	def zapToService(self, service):
-		if not service is None:
+	def zapToService(self, service, preview = False, zapback = False):
+		if self.servicelist.startServiceRef is None:
+			self.servicelist.startServiceRef = self.session.nav.getCurrentlyPlayingServiceReference()
+		if service is not None:
 			if self.servicelist.getRoot() != self.epg_bouquet: #already in correct bouquet?
 				self.servicelist.clearPath()
 				if self.servicelist.bouquet_root != self.epg_bouquet:
 					self.servicelist.enterPath(self.servicelist.bouquet_root)
 				self.servicelist.enterPath(self.epg_bouquet)
 			self.servicelist.setCurrentSelection(service) #select the service in servicelist
+		if not zapback or preview:
 			self.servicelist.zap(enable_pipzap = True)
+		if (self.servicelist.dopipzap or zapback) and not preview:
+			self.servicelist.zapBack()
+		if not preview:
+			self.servicelist.startServiceRef = None
+			self.servicelist.startRoot = None
 
 	def getBouquetServices(self, bouquet):
 		services = [ ]
@@ -757,7 +770,8 @@ class InfoBarEPG:
 				services = self.getBouquetServices(current_path)
 				self.serviceSel = SimpleServicelist(services)
 				if self.serviceSel.selectService(ref):
-					self.session.openWithCallback(self.SingleServiceEPGClosed, EPGSelection, ref, serviceChangeCB = self.changeServiceCB)
+					self.epg_bouquet = current_path
+					self.session.openWithCallback(self.SingleServiceEPGClosed, EPGSelection, ref, self.zapToService, serviceChangeCB = self.changeServiceCB)
 				else:
 					self.session.openWithCallback(self.SingleServiceEPGClosed, EPGSelection, ref)
 			else:
@@ -805,8 +819,7 @@ class InfoBarEPG:
 	def __evEventInfoChanged(self):
 		if self.is_now_next and len(self.dlg_stack) == 1:
 			self.getNowNext()
-			assert self.eventView
-			if self.epglist:
+			if self.eventView and self.epglist:
 				self.eventView.setEvent(self.epglist[0])
 
 	def getFullEPG(self):
@@ -841,7 +854,7 @@ class InfoBarEPG:
 		else:
 			self.is_now_next = True
 		if epglist:
-			self.eventView = self.session.openWithCallback(self.closed, EventViewEPGSelect, self.epglist[0], ServiceReference(ref), self.eventViewCallback, self.openSingleServiceEPG, self.openMultiServiceEPG, self.openSimilarList)
+			self.eventView = self.session.openWithCallback(self.closed, EventViewEPGSelect, epglist[0], ServiceReference(ref), self.eventViewCallback, self.openSingleServiceEPG, self.openMultiServiceEPG, self.openSimilarList)
 			self.dlg_stack.append(self.eventView)
 		else:
 			print "no epg for the service avail.. so we show multiepg instead of eventinfo"
@@ -1677,15 +1690,15 @@ class InfoBarPiP:
 				del self.session.pip
 
 	def swapPiP(self):
-		swapservice = self.servicelist.servicelist.getCurrent()
+		swapservice = self.session.nav.getCurrentlyPlayingServiceReference()
 		pipref = self.session.pip.getCurrentService()
 		if swapservice and pipref and pipref.toString() != swapservice.toString():
-				currentServicePath = self.servicelist.getCurrentServicePath()
-				self.servicelist.setCurrentServicePath(self.session.pip.servicePath)	
-				self.session.pip.playService(swapservice)
-				self.session.nav.stopService() # stop portal
-				self.session.nav.playService(pipref) # start subservice
-				self.session.pip.servicePath = currentServicePath
+			currentServicePath = self.servicelist.getCurrentServicePath()
+			self.servicelist.setCurrentServicePath(self.session.pip.servicePath)	
+			self.session.pip.playService(swapservice)
+			self.session.nav.stopService() # stop portal
+			self.session.nav.playService(pipref) # start subservice
+			self.session.pip.servicePath = currentServicePath
 
 	def movePiP(self):
 		self.session.open(PiPSetup, pip = self.session.pip)
@@ -1852,8 +1865,11 @@ class InfoBarInstantRecord:
 			self.session.nav.RecordTimer.timeChanged(entry)
 
 	def instantRecord(self):
-		if not findSafeRecordPath(preferredInstantRecordPath()) and not findSafeRecordPath(defaultMoviePath()):
-			self.session.open(MessageBox, _("Missing ") + "\n" + preferredInstantRecordPath() +
+		pirr = preferredInstantRecordPath()
+		if not findSafeRecordPath(pirr) and not findSafeRecordPath(defaultMoviePath()):
+			if not pirr:
+				pirr = ""
+			self.session.open(MessageBox, _("Missing ") + "\n" + pirr +
 						 "\n" + _("No HDD found or HDD not initialized!"), MessageBox.TYPE_ERROR)
 			return
 

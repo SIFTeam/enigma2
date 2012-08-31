@@ -83,6 +83,7 @@ class Navigation:
 			if self.pnav:
 				self.pnav.stopService()
 				self.currentlyPlayingServiceReference = playref
+				self.currentlyPlayingSelectedServiceReference = ref
 				InfoBarInstance = InfoBar.instance
 				if InfoBarInstance is not None:
 					InfoBarInstance.servicelist.servicelist.setCurrent(ref)
@@ -94,9 +95,11 @@ class Navigation:
 			self.stopService()
 		return 1
 	
-	def getCurrentlyPlayingServiceReference(self):
+	def getCurrentlyPlayingServiceReference(self, selected = True):
+		if selected and self.currentlyPlayingServiceReference:
+			return self.currentlyPlayingSelectedServiceReference
 		return self.currentlyPlayingServiceReference
-	
+
 	def recordService(self, ref, simulate=False):
 		service = None
 		if not simulate: print "recording service: %s" % (str(ref))
@@ -125,6 +128,7 @@ class Navigation:
 	def stopService(self):
 		if self.pnav:
 			self.pnav.stopService()
+		self.currentlyPlayingServiceReference = None
 
 	def pause(self, p):
 		return self.pnav and self.pnav.pause(p)
