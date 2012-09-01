@@ -25,7 +25,12 @@ class SMFeeds(Screen):
 		
 		self.session = session
 		self.cachelist = []
-		self.feeds = sorted(os.listdir("/var/lib/opkg"))
+		try:
+			self.feeds = sorted(os.listdir("/var/lib/opkg/lists"))
+			self.feedspath = "/var/lib/opkg/lists"
+		except Exception, e:
+			self.feeds = sorted(os.listdir("/var/lib/opkg"))
+			self.feedspath = "/var/lib/opkg"
 		
 		self['list'] = List([])
 		self["key_green"] = Button("")
@@ -50,7 +55,7 @@ class SMFeeds(Screen):
 	def readFeed(self):
 		self.packages = []
 		
-		feed = open("/var/lib/opkg/" + self.feeds[self.index], "r")
+		feed = open(self.feedspath + "/" + self.feeds[self.index], "r")
 		pkgstmp = feed.read().split("\n\n")
 		for pkgtmp in pkgstmp:
 			package = {}
