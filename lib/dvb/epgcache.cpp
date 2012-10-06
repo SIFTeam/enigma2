@@ -7,6 +7,7 @@
 #include <lib/service/event.h>
 #endif
 
+#include <fstream>
 #include <time.h>
 #include <unistd.h>  // for usleep
 #include <sys/vfs.h> // for statfs
@@ -23,7 +24,7 @@
 int eventData::CacheSize=0;
 bool eventData::isCacheCorrupt = 0;
 descriptorMap eventData::descriptors;
-__u8 eventData::data[4108];
+__u8 eventData::data[2 * 4096 + 12];
 extern const uint32_t crc32_table[256];
 
 const eServiceReference &handleGroup(const eServiceReference &ref)
@@ -215,27 +216,28 @@ eventData::eventData(const eit_event_struct* e, int size, int type, int tsidonid
 
 const eit_event_struct* eventData::get() const
 {
-	int pos = 12;
-	int tmp = ByteSize-10;
+	unsigned int pos = 12;
+	int tmp = ByteSize - 10;
 	memcpy(data, EITdata, 10);
-	int descriptors_length=0;
-	__u32 *p = (__u32*)(EITdata+10);
-	while(tmp>3)
+	unsigned int descriptors_length = 0;
+	__u32 *p = (__u32*)(EITdata + 10);
+	while (tmp > 3)
 	{
-		descriptorMap::iterator it =
-			descriptors.find(*p++);
-		if ( it != descriptors.end() )
+		descriptorMap::iterator it = descriptors.find(*p++);
+		if (it != descriptors.end())
 		{
-			int b = it->second.second[1]+2;
-			memcpy(data+pos, it->second.second, b );
-			pos += b;
-			descriptors_length += b;
+			unsigned int b = it->second.second[1] + 2;
+			if (pos + b < sizeof(data))
+			{
+				memcpy(data + pos, it->second.second, b);
+				pos += b;
+				descriptors_length += b;
+			}
 		}
 		else
 			cacheCorrupt("eventData::get");
-		tmp-=4;
+		tmp -= 4;
 	}
-	ASSERT(pos <= 4108);
 	data[10] = (descriptors_length >> 8) & 0x0F;
 	data[11] = descriptors_length & 0xFF;
 	return (eit_event_struct*)data;
@@ -344,6 +346,14 @@ eEPGCache::eEPGCache()
 	CONNECT(messages.recv_msg, eEPGCache::gotMessage);
 	CONNECT(eDVBLocalTimeHandler::getInstance()->m_timeUpdated, eEPGCache::timeUpdated);
 	CONNECT(cleanTimer->timeout, eEPGCache::cleanLoop);
+
+	std::ifstream onid_file;
+	onid_file.open("/etc/enigma2/blacklist.onid");
+	int tmp_onid;
+
+	while (onid_file >> std::hex >>tmp_onid)
+	         onid_blacklist.insert(onid_blacklist.end(),1,tmp_onid);
+	onid_file.close();
 
 	ePtr<eDVBResourceManager> res_mgr;
 	eDVBResourceManager::getInstance(res_mgr);
@@ -720,6 +730,10 @@ void eEPGCache::sectionRead(const __u8 *data, int source, channel_data *channel)
 			eit_event->start_time_4,
 			eit_event->start_time_5,
 			&event_hash);
+
+		std::vector<int>::iterator m_it=find(onid_blacklist.begin(),onid_blacklist.end(),onid);
+		if (m_it != onid_blacklist.end())
+			goto next;
 
 		if ( (TM != 3599) &&		// NVOD Service
 		     (now <= (TM+duration)) &&	// skip old events

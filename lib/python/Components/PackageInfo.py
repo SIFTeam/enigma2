@@ -1,13 +1,11 @@
-# -*- coding: iso-8859-1 -*-
 import xml.sax
-from Tools.Directories import crawlDirectory, resolveFilename, SCOPE_CONFIG, SCOPE_SKIN, SCOPE_METADIR, copyfile, copytree
+from Tools.Directories import crawlDirectory, resolveFilename, SCOPE_CONFIG, SCOPE_SKIN, copyfile, copytree
 from Components.NimManager import nimmanager
 from Components.Ipkg import IpkgComponent
 from Components.config import config, configfile
 from Tools.HardwareInfo import HardwareInfo
 from enigma import eConsoleAppContainer, eDVBDB
 import os
-from re import compile as re_compile, search as re_search, IGNORECASE
 
 class InfoHandlerParseError(Exception):
 	def __init__(self, value):
@@ -28,11 +26,9 @@ class InfoHandler(xml.sax.ContentHandler):
 		self.data = ""
 
 	def printError(self, error):
-		print "Error in defaults xml files:", error
 		raise InfoHandlerParseError, error
 
 	def startElement(self, name, attrs):
-		#print name, ":", attrs.items()
 		self.elements.append(name)
 
 		if name in ("hardware", "bcastsystem", "satellite", "tag", "flag"):
@@ -56,7 +52,6 @@ class InfoHandler(xml.sax.ContentHandler):
 					self.attributes["filestype"] = "directories"
 				elif attrs["type"] == "package":
 					self.attributes["filestype"] = "package"
-				# TODO add a compressed archive type
 
 		if name == "file":
 			self.prerequisites = {}
@@ -94,11 +89,8 @@ class InfoHandler(xml.sax.ContentHandler):
 				self.attributes["screenshot"] = str(attrs["src"])
 
 	def endElement(self, name):
-		#print "endElement", name
-		#print "self.elements:", self.elements
 		self.elements.pop()
 		if name == "file":
-			#print "prerequisites:", self.prerequisites
 			if len(self.prerequisites) == 0 or self.prerequisitesMet(self.prerequisites):
 				if not self.attributes.has_key(self.filetype):
 					self.attributes[self.filetype] = []
@@ -129,10 +121,9 @@ class InfoHandler(xml.sax.ContentHandler):
 		if self.elements[-1] == "description":
 			self.data += data.strip()
 			self.attributes["description"] = str(self.data)
-		#print "characters", data
 
 
-class DreamInfoHandler:
+class PackageInfoHandler:
 	STATUS_WORKING = 0
 	STATUS_DONE = 1
 	STATUS_ERROR = 2
@@ -163,40 +154,33 @@ class DreamInfoHandler:
 		self.packageDetails = []
 
 	def readInfo(self, directory, file):
-		print "Reading .info file", file
 		handler = InfoHandler(self.prerequisiteMet, directory)
 		try:
 			xml.sax.parse(file, handler)
 			for entry in handler.list:
 				self.packageslist.append((entry,file)) 
 		except InfoHandlerParseError:
-			print "file", file, "ignored due to errors in the file"
-		#print handler.list
+			pass
 
 	def readIndex(self, directory, file):
-		print "Reading .xml meta index file", directory, file
 		handler = InfoHandler(self.prerequisiteMet, directory)
 		try:
 			xml.sax.parse(file, handler)
 			for entry in handler.list:
 				self.packagesIndexlist.append((entry,file))
 		except InfoHandlerParseError:
-			print "file", file, "ignored due to errors in the file"
-		#print handler.list
+			pass
 
 	def readDetails(self, directory, file):
 		self.packageDetails = []
-		print "Reading .xml meta details file", file
 		handler = InfoHandler(self.prerequisiteMet, directory)
 		try:
 			xml.sax.parse(file, handler)
 			for entry in handler.list:
 				self.packageDetails.append((entry,file))
 		except InfoHandlerParseError:
-			print "file", file, "ignored due to errors in the file"
-		#print handler.list
+			pass
 
-	# prerequisites = True: give only packages matching the prerequisites
 	def fillPackagesList(self, prerequisites = True):
 		self.packageslist = []
 		packages = []
@@ -215,7 +199,6 @@ class DreamInfoHandler:
 					self.packageslist.remove(package)
 		return self.packageslist
 
-	# prerequisites = True: give only packages matching the prerequisites
 	def fillPackagesIndexList(self, prerequisites = True):
 		self.packagesIndexlist = []
 		indexfileList = []
@@ -241,7 +224,6 @@ class DreamInfoHandler:
 					self.packagesIndexlist.remove(package)
 		return self.packagesIndexlist
 
-	# prerequisites = True: give only packages matching the prerequisites
 	def fillPackageDetails(self, details = None):
 		self.packageDetails = []
 		detailsfile = details
@@ -251,8 +233,6 @@ class DreamInfoHandler:
 		return self.packageDetails
 			
 	def prerequisiteMet(self, prerequisites):
-		# TODO: we need to implement a hardware detection here...
-		print "prerequisites:", prerequisites
 		met = True
 		if self.neededTag is None:
 			if prerequisites.has_key("tag"):
@@ -274,7 +254,7 @@ class DreamInfoHandler:
 				if not self.neededFlag in prerequisites["flag"]:
 					return False
 			else:
-				return True # No flag found, assuming all flags valid
+				return True
 				
 		if prerequisites.has_key("satellite"):
 			for sat in prerequisites["satellite"]:
@@ -297,21 +277,16 @@ class DreamInfoHandler:
 		return True
 	
 	def installPackages(self, indexes):
-		print "installing packages", indexes
 		if len(indexes) == 0:
 			self.setStatus(self.STATUS_DONE)
 			return
 		self.installIndexes = indexes
-		print "+++++++++++++++++++++++bla"
 		self.currentlyInstallingMetaIndex = 0
 		self.installPackage(self.installIndexes[self.currentlyInstallingMetaIndex])
 
 	def installPackage(self, index):
-		print "self.packageslist:", self.packageslist
 		if len(self.packageslist) <= index:
-			print "no package with index", index, "found... installing nothing"
 			return
-		print "installing package with index", index, "and name", self.packageslist[index][0]["attributes"]["name"]
 		
 		attributes = self.packageslist[index][0]["attributes"]
 		self.installingAttributes = attributes
@@ -331,16 +306,12 @@ class DreamInfoHandler:
 
 		self.currentIndex += 1
 		attributes = self.installingAttributes
-		#print "attributes:", attributes
 		
-		if self.currentAttributeIndex >= len(self.attributeNames): # end of package reached
-			print "end of package reached"
+		if self.currentAttributeIndex >= len(self.attributeNames):
 			if self.currentlyInstallingMetaIndex is None or self.currentlyInstallingMetaIndex >= len(self.installIndexes) - 1:
-				print "set status to DONE"
 				self.setStatus(self.STATUS_DONE)
 				return
 			else:
-				print "increment meta index to install next package"
 				self.currentlyInstallingMetaIndex += 1
 				self.currentAttributeIndex = 0
 				self.installPackage(self.installIndexes[self.currentlyInstallingMetaIndex])
@@ -348,18 +319,15 @@ class DreamInfoHandler:
 		
 		self.setStatus(self.STATUS_WORKING)		
 		
-		print "currentAttributeIndex:", self.currentAttributeIndex
 		currentAttribute = self.attributeNames[self.currentAttributeIndex]
 		
-		print "installing", currentAttribute, "with index", self.currentIndex
-		
 		if attributes.has_key(currentAttribute):
-			if self.currentIndex >= len(attributes[currentAttribute]): # all jobs done for current attribute
+			if self.currentIndex >= len(attributes[currentAttribute]):
 				self.currentIndex = -1
 				self.currentAttributeIndex += 1
 				self.installNext()
 				return
-		else: # nothing to install here
+		else:
 			self.currentIndex = -1
 			self.currentAttributeIndex += 1
 			self.installNext()
@@ -393,7 +361,6 @@ class DreamInfoHandler:
 		return lines
 			
 	def mergeConfig(self, directory, name, merge = True):
-		print "merging config:", directory, " - ", name
 		if os.path.isfile(directory + name):
 			config.loadFromFile(directory + name, base_file=False)
 			configfile.save()
@@ -409,25 +376,20 @@ class DreamInfoHandler:
 			self.ipkg.startCmd(IpkgComponent.CMD_INSTALL, {'package': directory + name})
 		
 	def ipkgCallback(self, event, param):
-		print "ipkgCallback"
 		if event == IpkgComponent.EVENT_DONE:
 			self.installNext()
 		elif event == IpkgComponent.EVENT_ERROR:
 			self.installNext()
 	
 	def installSkin(self, directory, name):
-		print "installing skin:", directory, " - ", name
-		print "cp -a %s %s" % (directory, resolveFilename(SCOPE_SKIN))
 		if self.blocking:
 			copytree(directory, resolveFilename(SCOPE_SKIN))
 			self.installNext()
 		else:
 			if self.console.execute("cp -a %s %s" % (directory, resolveFilename(SCOPE_SKIN))):
-				print "execute failed"
 				self.installNext()
 
 	def mergeServices(self, directory, name, merge = False):
-		print "merging services:", directory, " - ", name
 		if os.path.isfile(directory + name):
 			db = eDVBDB.getInstance()
 			db.reloadServicelist()
@@ -436,7 +398,6 @@ class DreamInfoHandler:
 		self.installNext()
 
 	def installFavourites(self, directory, name):
-		print "installing favourites:", directory, " - ", name
 		self.reloadFavourites = True
 
 		if self.blocking:
@@ -444,5 +405,4 @@ class DreamInfoHandler:
 			self.installNext()
 		else:
 			if self.console.execute("cp %s %s" % ((directory + name), resolveFilename(SCOPE_CONFIG))):
-				print "execute failed"
 				self.installNext()

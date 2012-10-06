@@ -3,6 +3,7 @@ from Plugins.Plugin import PluginDescriptor
 from Components.SystemInfo import SystemInfo
 from Components.ConfigList import ConfigListScreen
 from Components.config import getConfigListEntry, config, ConfigBoolean, ConfigNothing, ConfigSlider
+from Components.Label import Label
 from Components.Sources.StaticText import StaticText
 
 from VideoHardware import video_hw
@@ -15,7 +16,7 @@ class VideoSetup(Screen, ConfigListScreen):
 		Screen.__init__(self, session)
 		# for the skin: first try VideoSetup, then Setup, this allows individual skinning
 		self.skinName = ["VideoSetup", "Setup" ]
-		self.setup_title = _("A/V Settings")
+		self.setup_title = _("A/V settings")
 		self.hw = hw
 		self.onChangedEntry = [ ]
 
@@ -36,6 +37,7 @@ class VideoSetup(Screen, ConfigListScreen):
 
 		self["key_red"] = StaticText(_("Cancel"))
 		self["key_green"] = StaticText(_("OK"))
+		self["description"] = Label(_(""))
 
 		self.createSetup()
 		self.grabLastGoodMode()
@@ -54,17 +56,17 @@ class VideoSetup(Screen, ConfigListScreen):
 		level = config.usage.setup_level.index
 
 		self.list = [
-			getConfigListEntry(_("Video Output"), config.av.videoport)
+			getConfigListEntry(_("Video output"), config.av.videoport, _("This option configures which video output connector will be used."))
 		]
 
 		# if we have modes for this port:
 		if config.av.videoport.value in config.av.videomode:
 			# add mode- and rate-selection:
-			self.list.append(getConfigListEntry(_("Mode"), config.av.videomode[config.av.videoport.value]))
+			self.list.append(getConfigListEntry(pgettext("Video output mode", "Mode"), config.av.videomode[config.av.videoport.value], _("This option configures the video output mode (or resolution).")))
 			if config.av.videomode[config.av.videoport.value].value == 'PC':
-				self.list.append(getConfigListEntry(_("Resolution"), config.av.videorate[config.av.videomode[config.av.videoport.value].value]))
+				self.list.append(getConfigListEntry(_("Resolution"), config.av.videorate[config.av.videomode[config.av.videoport.value].value], _("This option configures the screen resolution in PC output mode.")))
 			else:
-				self.list.append(getConfigListEntry(_("Refresh Rate"), config.av.videorate[config.av.videomode[config.av.videoport.value].value]))
+				self.list.append(getConfigListEntry(_("Refresh rate"), config.av.videorate[config.av.videomode[config.av.videoport.value].value], _("This option configures the screen refresh rate.")))
 
 		port = config.av.videoport.value
 		if port not in config.av.videomode:
@@ -76,38 +78,38 @@ class VideoSetup(Screen, ConfigListScreen):
 		force_wide = self.hw.isWidescreenMode(port, mode)
 
 		if not force_wide:
-			self.list.append(getConfigListEntry(_("Aspect Ratio"), config.av.aspect))
+			self.list.append(getConfigListEntry(_("Aspect ratio"), config.av.aspect, _("This option configures the screen aspect ratio.")))
 
 		if force_wide or config.av.aspect.value in ("16_9", "16_10"):
 			self.list.extend((
-				getConfigListEntry(_("Display 4:3 content as"), config.av.policy_43),
-				getConfigListEntry(_("Display >16:9 content as"), config.av.policy_169)
+				getConfigListEntry(_("Display 4:3 content as"), config.av.policy_43, _("When the content has an aspect ratio of 4:3, choose whether to scale/stretch the picture.")),
+				getConfigListEntry(_("Display >16:9 content as"), config.av.policy_169, _("When the content has an aspect ratio of 16:9, choose whether to scale/stretch the picture."))
 			))
 		elif config.av.aspect.value == "4_3":
-			self.list.append(getConfigListEntry(_("Display 16:9 content as"), config.av.policy_169))
+			self.list.append(getConfigListEntry(_("Display 16:9 content as"), config.av.policy_169, _("When the content has an aspect ratio of 16:9, choose whether to scale/stretch the picture.")))
 
 #		if config.av.videoport.value == "DVI":
 #			self.list.append(getConfigListEntry(_("Allow Unsupported Modes"), config.av.edid_override))
 		if config.av.videoport.value == "Scart":
-			self.list.append(getConfigListEntry(_("Color Format"), config.av.colorformat))
+			self.list.append(getConfigListEntry(_("Color format"), config.av.colorformat, _("When using scart connection, choose what color format to use.")))
 			if level >= 1:
-				self.list.append(getConfigListEntry(_("WSS on 4:3"), config.av.wss))
+				self.list.append(getConfigListEntry(_("WSS on 4:3"), config.av.wss, _("When the content has an aspect ratio of 4:3, choose whether to stretch the picture to fill the screen.")))
 				if SystemInfo["ScartSwitch"]:
-					self.list.append(getConfigListEntry(_("Auto scart switching"), config.av.vcrswitch))
+					self.list.append(getConfigListEntry(_("Auto scart switching"), config.av.vcrswitch, _("Choose whether to control the A/V input of your TV with the scart connection.")))
 
 		if level >= 1:
 			if SystemInfo["CanDownmixAC3"]:
-				self.list.append(getConfigListEntry(_("AC3/DTS downmix"), config.av.downmix_ac3))
+				self.list.append(getConfigListEntry(_("AC3/DTS downmix"), config.av.downmix_ac3, _("Choose whether multi channel sound tracks should be downmixed to stereo.")))
 			self.list.extend((
-				getConfigListEntry(_("General AC3 Delay"), config.av.generalAC3delay),
-				getConfigListEntry(_("General PCM Delay"), config.av.generalPCMdelay)
+				getConfigListEntry(_("General AC3 delay"), config.av.generalAC3delay, _("This option configures the general audio delay of Dolby Digital sound tracks.")),
+				getConfigListEntry(_("General PCM delay"), config.av.generalPCMdelay, _("This option configures the general audio delay of stereo sound tracks."))
 			))
 
 		if SystemInfo["CanChangeOsdAlpha"]:
-			self.list.append(getConfigListEntry(_("OSD visibility"), config.av.osd_alpha))
+			self.list.append(getConfigListEntry(_("OSD transparency"), config.av.osd_alpha, _("This option configures the transparency of the OSD.")))
 
 		if not isinstance(config.av.scaler_sharpness, ConfigNothing):
-			self.list.append(getConfigListEntry(_("Scaler sharpness"), config.av.scaler_sharpness))
+			self.list.append(getConfigListEntry(_("Scaler sharpness"), config.av.scaler_sharpness, _("This option configures the picture sharpness.")))
 
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
@@ -142,7 +144,7 @@ class VideoSetup(Screen, ConfigListScreen):
 		if (port, mode, rate) != self.last_good:
 			self.hw.setMode(port, mode, rate)
 			from Screens.MessageBox import MessageBox
-			self.session.openWithCallback(self.confirm, MessageBox, _("Is this videomode ok?"), MessageBox.TYPE_YESNO, timeout = 20, default = False)
+			self.session.openWithCallback(self.confirm, MessageBox, _("Is this video mode ok?"), MessageBox.TYPE_YESNO, timeout = 20, default = False)
 		else:
 			self.keySave()
 
@@ -156,6 +158,9 @@ class VideoSetup(Screen, ConfigListScreen):
 
 	def getCurrentValue(self):
 		return str(self["config"].getCurrent()[1].getText())
+
+	def getCurrentDescription(self):
+		return self["config"].getCurrent() and len(self["config"].getCurrent()) > 2 and self["config"].getCurrent()[2] or ""
 
 	def createSummary(self):
 		from Screens.Setup import SetupSummary
@@ -218,7 +223,7 @@ def startSetup(menuid):
 	if menuid != "system": 
 		return [ ]
 
-	return [(_("A/V Settings"), videoSetupMain, "av_setup", 40)]
+	return [(_("A/V settings"), videoSetupMain, "av_setup", 40)]
 
 def VideoWizard(*args, **kwargs):
 	from VideoWizard import VideoWizard
@@ -227,8 +232,8 @@ def VideoWizard(*args, **kwargs):
 def Plugins(**kwargs):
 	list = [
 #		PluginDescriptor(where = [PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc = autostart),
-		PluginDescriptor(name=_("Video Setup"), description=_("Advanced Video Setup"), where = PluginDescriptor.WHERE_MENU, needsRestart = False, fnc=startSetup) 
+		PluginDescriptor(name=_("Video setup"), description=_("Advanced video setup"), where = PluginDescriptor.WHERE_MENU, needsRestart = False, fnc=startSetup) 
 	]
 	if config.misc.videowizardenabled.value:
-		list.append(PluginDescriptor(name=_("Video Wizard"), where = PluginDescriptor.WHERE_WIZARD, needsRestart = False, fnc=(0, VideoWizard)))
+		list.append(PluginDescriptor(name=_("Video wizard"), where = PluginDescriptor.WHERE_WIZARD, needsRestart = False, fnc=(0, VideoWizard)))
 	return list

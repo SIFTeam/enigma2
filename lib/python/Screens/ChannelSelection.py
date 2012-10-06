@@ -202,7 +202,7 @@ class ChannelContextMenu(Screen):
 						append_when_current_valid(current, menu, (_("end alternatives edit"), self.bouquetMarkEnd), level = 0)
 						append_when_current_valid(current, menu, (_("abort alternatives edit"), self.bouquetMarkAbort), level = 0)
 
-		menu.append(ChoiceEntryComponent(text = (_("back"), self.cancelClick)))
+		menu.append(ChoiceEntryComponent(text = (_("Configuration..."), boundFunction(self.openSetup, "channelselection"))))
 		self["menu"] = ChoiceList(menu)
 
 	def playMain(self):
@@ -214,6 +214,10 @@ class ChannelContextMenu(Screen):
 
 	def okbuttonClick(self):
 		self["menu"].getCurrent()[0][1]()
+
+	def openSetup(self, key):
+		from Screens.Setup import Setup
+		self.session.open(Setup, key)
 
 	def cancelClick(self):
 		self.close(False)
@@ -1060,7 +1064,7 @@ class ChannelSelectionBase(Screen):
 									service_name = ("%d.%d" + h) % (orbpos / 10, orbpos % 10)
 							service.setName("%s - %s" % (service_name, service_type))
 							self.servicelist.addService(service)
-						cur_ref = self.session.nav.getCurrentlyPlayingServiceReference()
+						cur_ref = self.session.nav.getCurrentlyPlayingServiceReference(False)
 						if cur_ref:
 							pos = self.service_types.rfind(':')
 							refstr = '%s (channelID == %08x%04x%04x) && %s ORDER BY name' %(self.service_types[:pos+1],
@@ -1224,7 +1228,7 @@ class ChannelSelectionBase(Screen):
 				info = service.info()
 				if info:
 					provider = info.getInfoString(iServiceInformation.sProvider)
-					op = int("".join(self.session.nav.getCurrentlyPlayingServiceReference().toString().split(':', 10)[6:7])[:-4],16)
+					op = int(self.session.nav.getCurrentlyPlayingServiceReference().toString().split(':')[6][:-4] or "0",16)
 					refstr = '1:7:0:0:0:0:0:0:0:0:(provider == \"%s\") && (satellitePosition == %s) && %s ORDER BY name:%s'%(provider,op,self.service_types[self.service_types.rfind(':')+1:],provider)
 					self.servicelist.setCurrent(eServiceReference(refstr))
 		else:
@@ -1447,13 +1451,13 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 				if self.startServiceRef is None or nref != self.startServiceRef:
 					self.addToHistory(nref)
 
-			# Yes, we might double-check this, but we need to re-select pipservice if pipzap is active
-			# and we just wanted to zap in mainwindow once
-			# XXX: do we really want this? this also resets the service when zapping from context menu
-			#      which is irritating
-			if enable_pipzap and self.dopipzap:
-				# This unfortunately won't work with subservices
-				self.setCurrentSelection(self.session.pip.getCurrentService())
+				# Yes, we might double-check this, but we need to re-select pipservice if pipzap is active
+				# and we just wanted to zap in mainwindow once
+				# XXX: do we really want this? this also resets the service when zapping from context menu
+				#      which is irritating
+				if self.dopipzap:
+					# This unfortunately won't work with subservices
+					self.setCurrentSelection(self.session.pip.getCurrentService())
 
 	def newServicePlayed(self):
 		ret = self.new_service_played
@@ -1577,11 +1581,11 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 
 	def cancel(self):
 		if self.revertMode is None:
+			self.restoreRoot()
 			if self.dopipzap:
 				# This unfortunately won't work with subservices
 				self.setCurrentSelection(self.session.pip.getCurrentService())
 			else:
-				self.restoreRoot()
 				lastservice = eServiceReference(self.lastservice.value)
 				if lastservice.valid() and self.getCurrentSelection() != lastservice:
 					self.setCurrentSelection(lastservice)
@@ -1608,6 +1612,9 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 			self.saveChannel(self.startServiceRef)
 		self.startServiceRef = None
 		self.startRoot = None
+		if self.dopipzap:
+			# This unfortunately won't work with subservices
+			self.setCurrentSelection(self.session.pip.getCurrentService())
 
 class RadioInfoBar(Screen):
 	def __init__(self, session):

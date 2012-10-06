@@ -7,7 +7,7 @@ from Components.About import about
 from Components.ScrollLabel import ScrollLabel
 from Components.config import config
 
-from Tools.DreamboxHardware import getFPVersion
+from Tools.StbHardware import getFPVersion
 
 class About(Screen):
 	def __init__(self, session):
@@ -30,7 +30,7 @@ class About(Screen):
 		EnigmaVersion = "Enigma: " + about.getEnigmaVersionString() + " SIFTeam (based on openpli)"
 		self["EnigmaVersion"] = StaticText(EnigmaVersion)
 		AboutText += EnigmaVersion + "\n"
-		
+
 		ImageVersion = _("Last Upgrade: ") + about.getImageVersionString()
 		self["ImageVersion"] = StaticText(ImageVersion)
 		AboutText += ImageVersion + "\n"
@@ -43,7 +43,7 @@ class About(Screen):
 			AboutText += fp_version + "\n"
 
 		self["FPVersion"] = StaticText(fp_version)
-		
+
 		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
 		AboutText += "\n" + _("Detected NIMs:") + "\n"
 
@@ -75,7 +75,7 @@ class About(Screen):
 		AboutText += hddinfo
 		self["AboutScrollLabel"] = ScrollLabel(AboutText)
 
-		self["actions"] = ActionMap(["SetupActions", "ColorActions", "DirectionActions"], 
+		self["actions"] = ActionMap(["SetupActions", "ColorActions", "DirectionActions"],
 			{
 				"cancel": self.close,
 				"ok": self.close,
@@ -116,7 +116,7 @@ class TranslationInfo(Screen):
 
 		self["TranslatorName"] = StaticText(translator_name)
 
-		self["actions"] = ActionMap(["SetupActions"], 
+		self["actions"] = ActionMap(["SetupActions"],
 			{
 				"cancel": self.close,
 				"ok": self.close,
