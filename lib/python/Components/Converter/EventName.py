@@ -44,7 +44,7 @@ class EventName(Converter, object):
 			return ""
 			
 		if self.type == self.NAME:
-			if event.getEventName() == "Visibile gratis su tv terrestre e TivùSat":
+			if event.getEventName() == "Visibile gratis su tv terrestre e TivAuSat":
 				return event.getShortDescription().title()
 			else:
 				return event.getEventName()
