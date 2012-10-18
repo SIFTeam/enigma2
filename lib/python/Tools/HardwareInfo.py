@@ -43,5 +43,7 @@ class HardwareInfo:
 	def get_device_version(self):
 		return HardwareInfo.device_version
 
-	def has_hdmi(self):
-		return (HardwareInfo.device_name == 'me' or HardwareInfo.device_name == 'minime' or HardwareInfo.device_name == 'elite' or HardwareInfo.device_name == 'premium' or HardwareInfo.device_name == 'premium+' or HardwareInfo.device_name == 'ultra' or HardwareInfo.device_name == 'dm800se' or HardwareInfo.device_name == 'dm500hd' or HardwareInfo.device_name == 'Gigablue' or (HardwareInfo.device_name == 'dm8000' and HardwareInfo.device_version != None))
+		def has_hdmi(self):
+			dvi_devices = [ "dm800", "dm8000" ]
+			return HardwareInfo.device_name not in dvi_devices
+
