@@ -20,6 +20,17 @@ class EmuCamInfo(Poll, Converter, object):
 	NAME_SLIM = 11
 	BASIC_INFO = 12
 	CRYPT_INFO = 13
+	SYSTEM_VALUE = 14
+	CAID_VALUE = 15
+	PID_VALUE = 16
+	PROTOCOL_VALUE = 17
+	ADDRESS_VALUE = 18
+	PROVID_VALUE = 19
+	TIME_VALUE = 20
+	HOPS_VALUE = 21
+	CW0_VALUE = 22
+	CW1_VALUE = 23
+	NAME_VALUE = 24
 	
 	type = -1
 	
@@ -57,7 +68,29 @@ class EmuCamInfo(Poll, Converter, object):
 			self.type = self.BASIC_INFO
 		elif type == "CryptInfo":
 			self.type = self.CRYPT_INFO
-
+		elif type == "SystemValue":
+			self.type = self.SYSTEM_VALUE
+		elif type == "CaIDValue":
+			self.type = self.CAID_VALUE
+		elif type == "PidValue":
+			self.type = self.PID_VALUE
+		elif type == "ProtocolValue":
+			self.type = self.PROTOCOL_VALUE
+		elif type == "AddressValue" or type == "ServerInfoValue":
+			self.type = self.ADDRESS_VALUE
+		elif type == "ProvIDValue":
+			self.type = self.PROVID_VALUE
+		elif type == "TimeValue" or type == "ECMTimeValue":
+			self.type = self.TIME_VALUE
+		elif type == "HopsValue":
+			self.type = self.HOPS_VALUE
+		elif type == "CW0Value":
+			self.type = self.CW0_VALUE
+		elif type == "CW1Value":
+			self.type = self.CW1_VALUE
+		elif type == "NameValue":
+			self.type = self.NAME_VALUE
+		
 	@cached
 	def getText(self):
 		if self.type == self.SYSTEM:
@@ -88,6 +121,29 @@ class EmuCamInfo(Poll, Converter, object):
 			return "%s %s:%s %s" % (emud.getInfoSystem(), emud.getInfoCaID(), emud.getInfoProvID(), emud.getInfoPid())
 		elif self.type == self.CRYPT_INFO:
 			return "CaID: %s Pid: %s" % (emud.getInfoCaID(), emud.getInfoPid())
+		elif self.type == self.SYSTEM_VALUE:
+			return str(emud.getInfoSystem())
+		elif self.type == self.CAID_VALUE:
+			return str(emud.getInfoCaID())
+		elif self.type == self.PID_VALUE:
+			return str(emud.getInfoPid())
+		elif self.type == self.PROTOCOL_VALUE:
+			return str(emud.getInfoProtocol())
+		elif self.type == self.ADDRESS_VALUE:
+			return str(emud.getInfoAddress())
+		elif self.type == self.PROVID_VALUE:
+			return str(emud.getInfoProvID())
+		elif self.type == self.TIME_VALUE:
+			return str(emud.getInfoTime())
+		elif self.type == self.HOPS_VALUE:
+			return str(emud.getInfoHops())
+		elif self.type == self.CW0_VALUE:
+			return str(emud.getInfoCW0())
+		elif self.type == self.CW1_VALUE:
+			return str(emud.getInfoCW1())
+		elif self.type == self.NAME_VALUE:
+			return str(emud.getInfoName())
+		
 		return "Error"
 		
 	text = property(getText)
