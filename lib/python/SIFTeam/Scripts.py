@@ -39,8 +39,11 @@ class Scripts(Screen):
 		
 	def populateSL(self):
 		self.scriptdesc = []
-		myscripts = listdir(self.scriptsPath)
-		print myscripts
+		try:
+			myscripts = listdir(self.scriptsPath)
+		except Exception, e:
+			return
+			
 		for fil in myscripts:
 			if (fil.find(".sh") != -1):
 				fil2 = fil[:-3]
