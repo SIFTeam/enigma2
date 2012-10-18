@@ -155,6 +155,8 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, \
 
 	ENABLE_RESUME_SUPPORT = True
 	ALLOW_SUSPEND = True
+	
+	instance = None
 		
 	def __init__(self, session, service, slist = None, lastservice = None):
 		Screen.__init__(self, session)
@@ -188,8 +190,12 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, \
 		self.cur_service = service
 		self.returning = False
 		self.onClose.append(self.__onClose)
+		
+		assert MoviePlayer.instance is None, "class InfoBar is a singleton class and just one instance of this class is allowed!"
+		MoviePlayer.instance = self
 
 	def __onClose(self):
+		MoviePlayer.instance = None
 		from Screens.MovieSelection import playlist
 		del playlist[:]
 		self.session.nav.playService(self.lastservice)

@@ -1,8 +1,11 @@
 import time
 import os
 import enigma
+import Components.Task
 from Components.config import config
 from Components import Harddisk
+from Components.GUIComponent import GUIComponent
+from Components.VariableText import VariableText
 from twisted.internet import threads
 
 def getTrashFolder(path):
@@ -33,6 +36,14 @@ def enumTrashFolders():
 			result = os.path.join(mountpoint, ".Trash")
 			if os.path.isdir(result):
 				yield result
+
+def get_size(start_path = '.'):
+	total_size = 0
+	for dirpath, dirnames, filenames in os.walk(start_path):
+		for f in filenames:
+			fp = os.path.join(dirpath, f)
+			total_size += os.path.getsize(fp)
+	return total_size
 
 class Trashcan:
 	def __init__(self):
@@ -159,3 +170,97 @@ def init(session):
 	instance.init(session)
 
 instance = Trashcan()
+
+class CleanTrashTask(Components.Task.PythonTask):
+	def openFiles(self, ctimeLimit, reserveBytes):
+		self.ctimeLimit = ctimeLimit
+		self.reserveBytes = reserveBytes
+
+	def work(self):
+		mounts=[]
+		matches = []
+		print "[Trashcan] probing folders"
+		f = open('/proc/mounts', 'r')
+		for line in f.readlines():
+			parts = line.strip().split()
+			mounts.append(parts[1])
+		f.close()
+
+ 		for mount in mounts:
+			if os.path.isdir(os.path.join(mount,'.Trash')):
+				matches.append(os.path.join(mount,'.Trash'))
+			if os.path.isdir(os.path.join(mount,'movie/.Trash')):
+				matches.append(os.path.join(mount,'movie/.Trash'))
+
+		print "[Trashcan] found following trashcan's:",matches
+		if len(matches):
+			for trashfolder in matches:
+				print "[Trashcan] looking in trashcan",trashfolder
+				trashsize = get_size(trashfolder)
+				diskstat = os.statvfs(trashfolder)
+				free = diskstat.f_bfree * diskstat.f_bsize
+				bytesToRemove = self.reserveBytes - free
+				print "[Trashcan] " + str(trashfolder) + ": Size:",trashsize
+				candidates = []
+				size = 0
+				for root, dirs, files in os.walk(trashfolder, topdown=False):
+					for name in files:
+						try:
+							fn = os.path.join(root, name)
+							st = os.stat(fn)
+							if st.st_ctime < self.ctimeLimit:
+								enigma.eBackgroundFileEraser.getInstance().erase(fn)
+								bytesToRemove -= st.st_size
+							else:
+								candidates.append((st.st_ctime, fn, st.st_size))
+								size += st.st_size
+						except Exception, e:
+							print "[Trashcan] Failed to stat %s:"% name, e
+					# Remove empty directories if possible
+					for name in dirs:
+						try:
+							os.rmdir(os.path.join(root, name))
+						except:
+							pass
+					candidates.sort()
+					# Now we have a list of ctime, candidates, size. Sorted by ctime (=deletion time)
+					for st_ctime, fn, st_size in candidates:
+						if bytesToRemove < 0:
+							break
+						enigma.eBackgroundFileEraser.getInstance().erase(fn)
+						bytesToRemove -= st_size
+						size -= st_size
+					print "[Trashcan] " + str(trashfolder) + ": Size now:",size
+
+class TrashInfo(VariableText, GUIComponent):
+	FREE = 0
+	USED = 1
+	SIZE = 2
+
+	def __init__(self, path, type, update = True):
+		GUIComponent.__init__(self)
+		VariableText.__init__(self)
+		self.type = type
+		if update:
+			self.update(path)
+
+	def update(self, path):
+		try:
+			total_size = get_size(getTrashFolder(path))
+		except OSError:
+			return -1
+
+		if self.type == self.USED:
+			try:
+				if total_size < 10000000:
+					total_size = _("%d Kb") % (total_size >> 10)
+				elif total_size < 10000000000:
+					total_size = _("%d Mb") % (total_size >> 20)
+				else:
+					total_size = _("%d Gb") % (total_size >> 30)
+				self.setText(_("Trashcan:") + " " + total_size)
+			except:
+				# occurs when f_blocks is 0 or a similar error
+				self.setText("-?-")
+
+	GUI_WIDGET = enigma.eLabel

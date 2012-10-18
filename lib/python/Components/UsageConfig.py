@@ -12,6 +12,7 @@ import enigma
 
 def InitUsageConfig():
 	config.misc.boxtype = ConfigText(default = getHWType())
+	config.misc.remotecontrol_text_support = ConfigYesNo(default = False)
 
 	config.usage = ConfigSubsection();
 	config.usage.showdish = ConfigYesNo(default = True)
