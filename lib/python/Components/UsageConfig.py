@@ -37,6 +37,7 @@ def InitUsageConfig():
 	config.usage.show_infobar_on_event_change = ConfigYesNo(default = False)
 	config.usage.show_second_infobar = ConfigSelection(default = None, choices = [(None, _("None")), ("0", _("no timeout"))] + choicelist + [("EPG",_("EPG"))]) 
 	config.usage.show_spinner = ConfigYesNo(default = True)
+	config.usage.sort_settings = ConfigYesNo(default = False)	# unused by sif.. just for compatibility with oe-alliance mount manager
 	config.usage.enable_tt_caching = ConfigYesNo(default = True)
 	choicelist = []
 	for i in (10, 30):

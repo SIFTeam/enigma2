@@ -842,7 +842,7 @@ class AdapterSetupConfiguration(Screen, HelpableScreen):
 
 		self.extended = None
 		self.extendedSetup = None		
-		for p in plugins.getPlugins(PluginDescriptor.WHERE_NETWORKSETUP):
+		for p in plugins.getPlugins(PluginDescriptor.WHERE_NETWORKMOUNTS):
 			callFnc = p.__call__["ifaceSupported"](self.iface)
 			if callFnc is not None:
 				self.extended = callFnc
