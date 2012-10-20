@@ -43,7 +43,6 @@ class HardwareInfo:
 	def get_device_version(self):
 		return HardwareInfo.device_version
 
-		def has_hdmi(self):
-			dvi_devices = [ "dm800", "dm8000" ]
-			return HardwareInfo.device_name not in dvi_devices
+	def has_hdmi(self):
+		return HardwareInfo.device_name not in [ "dm800", "dm8000" ]
 
