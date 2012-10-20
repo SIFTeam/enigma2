@@ -98,6 +98,10 @@ addSkin('skin_display.xml')
 if addSkin('skin_display96.xml'):
 	# Color OLED
 	display_skin_id = 2
+if addSkin('skin_display220.xml'):
+	# GigaBlue Color OLED
+	display_skin_id = 2
+
 addSkin('skin_text.xml')
 
 addSkin('skin_subtitles.xml')
