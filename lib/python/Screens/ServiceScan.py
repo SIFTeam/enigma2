@@ -42,6 +42,7 @@ class ServiceScan(Screen):
 				
 			if `self.currentInfobar`.endswith(".InfoBar'>"):
 				if self.currentServiceList is not None:
+					self.currentServiceList.setTvMode()
 					bouquets = self.currentServiceList.getBouquetList()
 					for x in bouquets:
 						if x[0] == 'Last Scanned':

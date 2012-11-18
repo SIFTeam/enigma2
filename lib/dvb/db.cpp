@@ -4,6 +4,7 @@
 #include <lib/dvb/dvb.h>
 #include <lib/dvb/frontend.h>
 #include <lib/dvb/epgcache.h>
+#include <lib/base/cfile.h>
 #include <lib/base/eenv.h>
 #include <lib/base/eerror.h>
 #include <lib/base/estring.h>
@@ -79,27 +80,27 @@ RESULT eBouquet::moveService(const eServiceReference &ref, unsigned int pos)
 RESULT eBouquet::flushChanges()
 {
 	std::string filename = eEnv::resolve("${sysconfdir}/enigma2/" + m_filename);
-	FILE *f = fopen((filename + ".writing").c_str(), "w");
-	if (!f)
-		return -1;
-	if ( fprintf(f, "#NAME %s\r\n", m_bouquet_name.c_str()) < 0 )
-		goto err;
-	for (list::iterator i(m_services.begin()); i != m_services.end(); ++i)
 	{
-		eServiceReference tmp = *i;
-		std::string str = tmp.path;
-		if ( fprintf(f, "#SERVICE %s\r\n", tmp.toString().c_str()) < 0 )
+		CFile f((filename + ".writing").c_str(), "w");
+		if (!f)
 			goto err;
-		if ( i->name.length() )
-			if ( fprintf(f, "#DESCRIPTION %s\r\n", i->name.c_str()) < 0 )
+		if ( fprintf(f, "#NAME %s\r\n", m_bouquet_name.c_str()) < 0 )
+			goto err;
+		for (list::iterator i(m_services.begin()); i != m_services.end(); ++i)
+		{
+			eServiceReference tmp = *i;
+			std::string str = tmp.path;
+			if ( fprintf(f, "#SERVICE %s\r\n", tmp.toString().c_str()) < 0 )
 				goto err;
+			if ( i->name.length() )
+				if ( fprintf(f, "#DESCRIPTION %s\r\n", i->name.c_str()) < 0 )
+					goto err;
+		}
+		f.sync();
 	}
-	fsync(fileno(f));
-	fclose(f);
 	rename((filename + ".writing").c_str(), filename.c_str());
 	return 0;
 err:
-	fclose(f);
 	eDebug("couldn't write file %s", m_filename.c_str());
 	return -1;
 }
@@ -335,11 +336,10 @@ void eDVBDB::parseServiceData(ePtr<eDVBService> s, std::string str)
 	}
 }
 
-	/* THIS CODE IS BAD. it should be replaced by somethine better. */
 void eDVBDB::loadServicelist(const char *file)
 {
 	eDebug("---- opening lame channel db");
-	FILE *f=fopen(file, "rt");
+	CFile f(file, "rt");
 	if (!f) {
 		eDebug("can't open %s: %m", file);
 		return;
@@ -350,14 +350,12 @@ void eDVBDB::loadServicelist(const char *file)
 	if ((!fgets(line, 256, f)) || sscanf(line, "eDVB services /%d/", &version) != 1)
 	{
 		eDebug("not a valid servicefile");
-		fclose(f);
 		return;
 	}
 	eDebug("reading services (version %d)", version);
 	if ((!fgets(line, 256, f)) || strcmp(line, "transponders\n"))
 	{
 		eDebug("services invalid, no transponders");
-		fclose(f);
 		return;
 	}
 
@@ -413,9 +411,9 @@ void eDVBDB::loadServicelist(const char *file)
 			} else if (line[1]=='t')
 			{
 				eDVBFrontendParametersTerrestrial ter;
-				int frequency, bandwidth, code_rate_HP, code_rate_LP, modulation, transmission_mode, guard_interval, hierarchy, inversion, flags=0;
+				int frequency, bandwidth, code_rate_HP, code_rate_LP, modulation, transmission_mode, guard_interval, hierarchy, inversion, flags = 0, plpid = 0;
 				int system = eDVBFrontendParametersTerrestrial::System_DVB_T;
-				sscanf(line+3, "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d", &frequency, &bandwidth, &code_rate_HP, &code_rate_LP, &modulation, &transmission_mode, &guard_interval, &hierarchy, &inversion, &flags, &system);
+				sscanf(line+3, "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d", &frequency, &bandwidth, &code_rate_HP, &code_rate_LP, &modulation, &transmission_mode, &guard_interval, &hierarchy, &inversion, &flags, &system, &plpid);
 				ter.frequency = frequency;
 				switch (bandwidth)
 				{
@@ -436,6 +434,7 @@ void eDVBDB::loadServicelist(const char *file)
 				ter.hierarchy = hierarchy;
 				ter.inversion = inversion;
 				ter.system = system;
+				ter.plpid = plpid;
 				feparm->setDVBT(ter);
 				feparm->setFlags(flags);
 			} else if (line[1]=='c')
@@ -516,15 +515,14 @@ void eDVBDB::loadServicelist(const char *file)
 	free(linebuf);
 
 	eDebug("loaded %d services", count);
-
-	fclose(f);
 }
 
 void eDVBDB::saveServicelist(const char *file)
 {
 	eDebug("---- saving lame channel db");
 	std::string filename = file;
-	FILE *f = fopen((filename + ".writing").c_str(), "w");
+	{
+	CFile f((filename + ".writing").c_str(), "w");
 	int channels=0, services=0;
 	if (!f)
 		eFatal("couldn't save lame channel db!");
@@ -631,8 +629,8 @@ void eDVBDB::saveServicelist(const char *file)
 	}
 	fprintf(f, "end\nHave a lot of bugs!\n");
 	eDebug("saved %d channels and %d services!", channels, services);
-	fsync(fileno(f));
-	fclose(f);
+	f.sync();
+	}
 	rename((filename + ".writing").c_str(), filename.c_str());
 }
 
@@ -665,7 +663,7 @@ int eDVBDB::loadBouquet(const char *path, int startChannelNum)
 	std::string p = eEnv::resolve("${sysconfdir}/enigma2/");
 	p+=path;
 	eDebug("loading bouquet... %s %d", p.c_str(), startChannelNum);
-	FILE *fp=fopen(p.c_str(), "rt");
+	CFile fp(p.c_str(), "rt");
 	if (!fp)
 	{
 		eDebug("can't open %s: %m", p.c_str());
@@ -760,7 +758,6 @@ int eDVBDB::loadBouquet(const char *path, int startChannelNum)
 			bouquet.m_bouquet_name=line+6;
 	}
 	free(line);
-	fclose(fp);
 	eDebug("%d entries in Bouquet %s", entries, bouquet_name.c_str());
 	return startChannelNum;
 }
@@ -1206,7 +1203,7 @@ PyObject *eDVBDB::readTerrestrials(ePyObject ter_list, ePyObject tp_dict)
 	const Attribute *at;
 	std::string name;
 	int tmp, *dest,
-		freq, bw, constellation, crh, crl, guard, transm, hierarchy, inv, system;
+		freq, bw, constellation, crh, crl, guard, transm, hierarchy, inv, system, plpid;
 	char *end_ptr;
 	const ElementList &root_elements = root->getElementList();
 	for (ElementConstIterator it(root_elements.begin()); it != root_elements.end(); ++it)
@@ -1257,6 +1254,7 @@ PyObject *eDVBDB::readTerrestrials(ePyObject ter_list, ePyObject tp_dict)
 				hierarchy = eDVBFrontendParametersTerrestrial::Hierarchy_Auto;
 				inv = eDVBFrontendParametersTerrestrial::Inversion_Unknown;
 				system = eDVBFrontendParametersTerrestrial::System_DVB_T;
+				plpid = 0;
 				for (AttributeConstIterator it(tp_attributes.begin()); it != end; ++it)
 				{
 //					eDebug("\t\tattr: %s", at->name().c_str());
@@ -1273,6 +1271,7 @@ PyObject *eDVBDB::readTerrestrials(ePyObject ter_list, ePyObject tp_dict)
 					else if (name == "hierarchy_information") dest = &hierarchy;
 					else if (name == "inversion") dest = &inv;
 					else if (name == "system") dest = &system;
+					else if (name == "plp_id") dest = &plpid;
 					else continue;
 					if (dest)
 					{
@@ -1298,7 +1297,7 @@ PyObject *eDVBDB::readTerrestrials(ePyObject ter_list, ePyObject tp_dict)
 						crh = eDVBFrontendParametersTerrestrial::FEC_Auto;
 					if (crl > eDVBFrontendParametersTerrestrial::FEC_8_9)
 						crl = eDVBFrontendParametersTerrestrial::FEC_Auto;
-					tuple = PyTuple_New(11);
+					tuple = PyTuple_New(12);
 					PyTuple_SET_ITEM(tuple, 0, PyInt_FromLong(2));
 					PyTuple_SET_ITEM(tuple, 1, PyInt_FromLong(freq));
 					PyTuple_SET_ITEM(tuple, 2, PyInt_FromLong(bw));
@@ -1310,6 +1309,7 @@ PyObject *eDVBDB::readTerrestrials(ePyObject ter_list, ePyObject tp_dict)
 					PyTuple_SET_ITEM(tuple, 8, PyInt_FromLong(hierarchy));
 					PyTuple_SET_ITEM(tuple, 9, PyInt_FromLong(inv));
 					PyTuple_SET_ITEM(tuple, 10, PyInt_FromLong(system));
+					PyTuple_SET_ITEM(tuple, 11, PyInt_FromLong(plpid));
 					PyList_Append(tplist, tuple);
 					Py_DECREF(tuple);
 				}

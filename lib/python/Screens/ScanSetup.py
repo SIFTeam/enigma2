@@ -15,7 +15,7 @@ from enigma import eTimer, eDVBFrontendParametersSatellite, eComponentScan, \
 def buildTerTransponder(frequency,
 		inversion=2, bandwidth = 7000000, fechigh = 6, feclow = 6,
 		modulation = 2, transmission = 2, guard = 4,
-		hierarchy = 4, system = 0):
+		hierarchy = 4, system = 0, plpid = 0):
 #	print "freq", frequency, "inv", inversion, "bw", bandwidth, "fech", fechigh, "fecl", feclow, "mod", modulation, "tm", transmission, "guard", guard, "hierarchy", hierarchy
 	parm = eDVBFrontendParametersTerrestrial()
 	parm.frequency = frequency
@@ -28,6 +28,7 @@ def buildTerTransponder(frequency,
 	parm.guard_interval = guard
 	parm.hierarchy = hierarchy
 	parm.system = system
+	parm.plpid = plpid
 	return parm
 
 def getInitialTransponderList(tlist, pos):
@@ -70,7 +71,7 @@ def getInitialTerrestrialTransponderList(tlist, region):
 
 	for x in list:
 		if x[0] == 2: #TERRESTRIAL
-			parm = buildTerTransponder(x[1], x[9], x[2], x[4], x[5], x[3], x[7], x[6], x[8], x[10])
+			parm = buildTerTransponder(x[1], x[9], x[2], x[4], x[5], x[3], x[7], x[6], x[8], x[10], x[11])
 			tlist.append(parm)
 
 cable_bands = {
@@ -168,7 +169,7 @@ class CableTransponderSearchSupport:
 					parm.modulation = qam[data[4]]
 					parm.inversion = inv[data[5]]
 					self.__tlist.append(parm)
-				tmpstr = _("Try to find used Transponders in cable network.. please wait...")
+				tmpstr = _("Try to find used transponders in cable network.. please wait...")
 				tmpstr += "\n\n"
 				tmpstr += data[1]
 				tmpstr += " kHz "
@@ -418,7 +419,7 @@ class ScanSetup(ConfigListScreen, Screen, CableTransponderSearchSupport):
 				self.list.append(getConfigListEntry(_("Hierarchy info"), self.scan_ter.hierarchy))
 		self.list.append(getConfigListEntry(_("Network scan"), self.scan_networkScan))
 		self.list.append(getConfigListEntry(_("Clear before scan"), self.scan_clearallservices))
-		self.list.append(getConfigListEntry(_("Only Free scan"), self.scan_onlyfree))
+		self.list.append(getConfigListEntry(_("Only free scan"), self.scan_onlyfree))
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
 
@@ -964,7 +965,7 @@ class ScanSimple(ConfigListScreen, Screen, CableTransponderSearchSupport):
 				self.list.append(getConfigListEntry(_("Scan ") + nim.slot_name + " (" + nim.friendly_type + ")", nimconfig))
 
 		ConfigListScreen.__init__(self, self.list)
-		self["header"] = Label(_("Automatic Scan"))
+		self["header"] = Label(_("Automatic scan"))
 		self["footer"] = Label(_("Press OK to scan"))
 
 	def runAsync(self, finished_cb):

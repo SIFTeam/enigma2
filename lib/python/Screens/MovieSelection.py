@@ -95,7 +95,7 @@ def getPreferredTagEditor():
 	return preferredTagEditor
 
 def isTrashFolder(ref):
-	if not ref.flags & eServiceReference.mustDescent:
+	if not config.usage.movielist_trashcan.value or not ref.flags & eServiceReference.mustDescent:
 		return False
 	return os.path.realpath(ref.getPath()).endswith('.Trash') or os.path.realpath(ref.getPath()).endswith('.Trash/')
 
@@ -203,22 +203,25 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 		self.onChangedEntry = [ ]
 		cfg = ConfigSubsection()
 		self.cfg = cfg
-		cfg.moviesort = ConfigSelection(default=str(config.movielist.moviesort.getValue()), choices = l_moviesort)
-		cfg.description = ConfigYesNo(default=(config.movielist.description.getValue() != MovieList.HIDE_DESCRIPTION))
-		configList = []
-		configList.append(getConfigListEntry(_("Fontsize"), config.movielist.fontsize, _("This allows you change the font size relative to skin size, so 1 increases by 1 point size, and -1 decreases by 1 point size")))
-		configList.append(getConfigListEntry(_("Number of rows"), config.movielist.itemsperpage, _("This allows you change the number of rows shown.")))
-		configList.append(getConfigListEntry(_("Use slim screen"), config.movielist.useslim, _("Use the alternative screen")))
-		configList.append(getConfigListEntry(_("Sort"), cfg.moviesort, _("Set the default sorting method.")))
-		configList.append(getConfigListEntry(_("show extended description"), cfg.description, _("Show or hide the extended description, (skin dependent).")))
-		configList.append(getConfigListEntry(_("Remember these settings for each folder"), config.movielist.settings_per_directory, _("When set each folder will show the previous state used, when off the default values will be shown.")))
-		configList.append(getConfigListEntry(_("Behavior when a movie reaches the end"), config.usage.on_movie_eof,_("On reaching the end of a file during playback, you can choose the box's behavior.")))
-		configList.append(getConfigListEntry(_("Show status icons in Movielist"), config.usage.show_icons_in_movielist, _("Shows the watched status of the movie.")))
-		if config.usage.show_icons_in_movielist.getValue():
-			configList.append(getConfigListEntry(_("Show icon for new/unseen items"), config.usage.movielist_unseen, _("Shows the icons when new/unseen, else will not show an icon.")))
-		configList.append(getConfigListEntry(_("Play audio in background"), config.movielist.play_audio_internal, _("Keeps MovieList open whilst playing audio files.")))
-		configList.append(getConfigListEntry(_("Root directory"), config.movielist.root, _("Sets the root folder of movie list, to remove the '..' from benign shown in that folder.")))
-		configList.append(getConfigListEntry(_("Show live tv when movie stopped"), config.movielist.show_live_tv_in_movielist, _("When set the PIG will return to live after a movie has stopped playing.")))
+		cfg.moviesort = ConfigSelection(default=str(config.movielist.moviesort.value), choices = l_moviesort)
+		cfg.listtype = ConfigSelection(default=str(config.movielist.listtype.value), choices = l_listtype)
+		cfg.description = ConfigYesNo(default=(config.movielist.description.value != MovieList.HIDE_DESCRIPTION))
+		configList = [
+			getConfigListEntry(_("Fontsize"), config.movielist.fontsize),
+			getConfigListEntry(_("Number of rows"), config.movielist.itemsperpage),
+			getConfigListEntry(_("Use slim screen"), config.movielist.useslim),
+			getConfigListEntry(_("Sort"), cfg.moviesort),
+			getConfigListEntry(_("Show extended description"), cfg.description),
+			getConfigListEntry(_("Type"), cfg.listtype),
+			getConfigListEntry(_("Remember these settings for each folder"), config.movielist.settings_per_directory),
+			getConfigListEntry(_("Behavior when a movie reaches the end"), config.usage.on_movie_eof),
+			getConfigListEntry(_("Load length of movies in movie list"), config.usage.load_length_of_movies_in_moviellist),
+			getConfigListEntry(_("Show status icons in movie list"), config.usage.show_icons_in_movielist),
+			getConfigListEntry(_("Show icon for new/unseen items"), config.usage.movielist_unseen),
+			getConfigListEntry(_("Play audio in background"), config.movielist.play_audio_internal),
+			getConfigListEntry(_("Root directory"), config.movielist.root),
+			getConfigListEntry(_("Show live tv when movie stopped"), config.movielist.show_live_tv_in_movielist),
+			]
 		for btn in ('red', 'green', 'yellow', 'blue', 'TV', 'Radio', 'Text'):
 			configList.append(getConfigListEntry(_("Button") + " " + _(btn), userDefinedButtons[btn], _("Allows you setup the button to do what you choose.")))
 		ConfigListScreen.__init__(self, configList, session = self.session, on_change = self.changedEntry)
@@ -328,6 +331,7 @@ class MovieContextMenu(Screen):
 				if isTrashFolder(service):
 					menu.append((_("Permanently remove all deleted items"), csel.purgeAll))
 				else:
+					menu.append((_("Delete"), csel.do_delete))
 					menu.append((_("Move"), csel.do_move))
 					menu.append((_("Rename"), csel.do_rename))
 			else:
@@ -340,7 +344,11 @@ class MovieContextMenu(Screen):
 				# Plugins expect a valid selection, so only include them if we selected a non-dir
 				menu.extend([(p.description, boundFunction(p, session, service)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
 
-		self["config"] = MenuList(menu)
+		menu.append((_("Add bookmark"), csel.do_addbookmark))
+		menu.append((_("create directory"), csel.do_createdir))
+		menu.append((_("Network") + "...", csel.showNetworkSetup))
+		menu.append((_("Settings") + "...", csel.configure))
+		self["menu"] = MenuList(menu)
 
 	def createSummary(self):
 		return MovieContextMenuSummary
@@ -470,6 +478,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 
 		self.playGoTo = None #1 - preview next item / -1 - preview previous
 
+		title = _("Movie selection")
+		self.setTitle(title)
+
 		# Need list for init
 		SelectionEventInfo.__init__(self)
 
@@ -490,10 +501,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 
 		self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
 			{
-				"showMovies": (self.doPathSelect, _("select the movie path")),
+				"showMovies": (self.doPathSelect, _("Select the movie path")),
 				"showRadio": (self.btn_radio, "?"),
 				"showTv": (self.btn_tv, _("Home")),
-				"showText": (self.btn_text, _("on end of movie")),
+				"showText": (self.btn_text, _("On end of movie")),
 			})
 
 		self["NumberActions"] =  NumberActionMap(["NumberActions", "InputAsciiActions"],
@@ -521,21 +532,21 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			})
 		self["MovieSelectionActions"] = HelpableActionMap(self, "MovieSelectionActions",
 			{
-				"contextMenu": (self.doContext, _("menu")),
-				"showEventInfo": (self.showEventInformation, _("show event details")),
+				"contextMenu": (self.doContext, _("Menu")),
+				"showEventInfo": (self.showEventInformation, _("Show event details")),
 			})
 
 		self["ColorActions"] = HelpableActionMap(self, "ColorActions",
 			{
-				"red": (self.btn_red, _("delete...")),
+				"red": (self.btn_red, _("Delete...")),
 				"green": (self.btn_green, _("Move to other directory")),
-				"yellow": (self.btn_yellow, _("select the movie path")),
-				"blue": (self.btn_blue, _("show tag menu")),
+				"yellow": (self.btn_yellow, _("Select the movie path")),
+				"blue": (self.btn_blue, _("Show tag menu")),
 			})
 		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
 			{
-				"cancel": (self.abort, _("exit movielist")),
-				"ok": (self.itemSelected, _("select movie")),
+				"cancel": (self.abort, _("Exit movie list")),
+				"ok": (self.itemSelected, _("Select movie")),
 			})
 		self["DirectionActions"] = HelpableActionMap(self, "DirectionActions",
 			{
@@ -592,7 +603,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 				'copy': _("Copy"),
 				'reset': _("Reset"),
 				'tags': _("Tags"),
-				'addbookmark': _("Add Bookmark"),
+				'addbookmark': _("Add bookmark"),
 				'bookmarks': _("Location"),
 				'rename': _("Rename"),
 				'gohome': _("Home"),
@@ -1247,7 +1258,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			else:
 				mbox=self.session.open(
 					MessageBox,
-					_("Directory %s nonexistent.") % (res),
+					_("Directory %s does not exist.") % (res),
 					type = MessageBox.TYPE_ERROR,
 					timeout = 5
 					)
