@@ -684,10 +684,6 @@ msgid "Advanced options"
 msgstr "Pokročilé možnosti"
 
 #
-msgid "Advanced pptions"
-msgstr "Pokročilé možnosti"
-
-#
 msgid "Advanced restore"
 msgstr "Pokročilá obnova"
 
@@ -766,7 +762,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Chyba při stahování seznamu balíčků. Prosím, zkuste to znovu."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Vyskytla se neznámá chyba!"
 
 msgid "Any activity"
@@ -1527,7 +1523,7 @@ msgstr "Nastavuje druhý jazyk zvuku."
 msgid "Configure the second subtitle language."
 msgstr "Nastavuje druhý jazyk titulků."
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr "Nastavuje sekundárního jazyka EPG."
 
 msgid "Configure the sharpness of the video scaling."
@@ -2218,15 +2214,6 @@ msgstr "Stáhnout"
 msgid "Download %s from server"
 msgstr "Stahnout %s ze serveru"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Stáhnout .NFI-Files pro USB-Flasher"
-
-#
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Stáhnout .NFI-soubory pro USB-Flasher"
-
-#
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Stáhnout .NFI-soubory pro USB-Flasher"
 
@@ -2720,7 +2707,7 @@ msgstr "Funkce tlačítka OK"
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Pro uplatnění skinu je potřeba restartovat GUI\n"
 "Chcete nyní restartovat GUI?"
@@ -5396,7 +5383,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Poslat DiSEqC pouze při změně satelitu"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Samostatné tituly s hlavní nabídkou"
 
 #
@@ -7236,7 +7223,7 @@ msgstr "Středa"
 msgid "Weekday"
 msgstr "Všední den "
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Vážená pozice"
 
 #
@@ -7459,7 +7446,7 @@ msgstr "Bezdrátová LAN"
 msgid "Wireless network"
 msgstr "Bezdrátová síť"
 
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Nastavení bezdrátové sítě..."
 
 msgid "Wireless network connection setup"

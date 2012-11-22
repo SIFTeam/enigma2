@@ -587,10 +587,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Optiuni avansate"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Optiuni avansate"
-
 msgid "Advanced restore"
 msgstr "Restaurare avansata"
 
@@ -664,7 +660,7 @@ msgstr ""
 "A intervenit o eroare in timpul descarcarii listei. Va rugam incercati din "
 "nou."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "S-a produs o eroare necunoscuta!"
 
 msgid "Any activity"
@@ -1347,7 +1343,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "mergi la urmatoarea limba pentru subtitrari"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1964,14 +1960,6 @@ msgstr "Descarcare"
 msgid "Download %s from server"
 msgstr ""
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Descarca fisiere .NFI pentru USB-Flasher"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Descarca fisiere .NFI pentru USB-Flasher"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Descarca fisiere .NFI pentru USB-Flasher"
 
@@ -2383,7 +2371,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Interfata grafica necesita repornirea pentru aplicarea noilor "
 "decoratiuniDoriti repornirea interfetei grafice acum?"
@@ -4703,7 +4691,7 @@ msgstr "Trimite DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Trimite DiSEqC numai la schimbarea satelitului"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Titluri separate cu meniu princpial"
 
 msgid "Sequence repeat"
@@ -6338,7 +6326,7 @@ msgstr "Miercuri\t"
 msgid "Weekday"
 msgstr "Saptamanal"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #, fuzzy
@@ -6615,7 +6603,7 @@ msgid "Wireless network"
 msgstr "Wireless Network"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Configurare retea..."
 
 msgid "Wireless network connection setup"

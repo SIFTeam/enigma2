@@ -696,11 +696,6 @@ msgid "Advanced options"
 msgstr "Opciones avanzadas"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Opciones avanzadas"
-
-#
 msgid "Advanced restore"
 msgstr "Restauración avanzada"
 
@@ -787,7 +782,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Hay un error descargando la lista de paquetes. Intente de nuevo."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "¡Ocurrió un error desconocido!"
 
 msgid "Any activity"
@@ -1592,7 +1587,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "cambiar al siguiente idioma de subtítulos"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2319,17 +2314,6 @@ msgstr "Descargar"
 msgid "Download %s from server"
 msgstr "Descargar %s desde el Servidor"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Descargar ficheros .NFI para el USB-Flasher"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Descargar ficheros .NFI para el USB-Flasher"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Descargar ficheros .NFI para el USB-Flasher"
 
@@ -2834,7 +2818,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI necesita reiniciar para aplicar la nueva piel\n"
 "¿Quiere Reiniciar el GUI ahora?"
@@ -5658,7 +5642,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Enviar DISEqC sólo en cambio de satélite"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Separar títulos con un menú principal"
 
 #
@@ -7622,7 +7606,7 @@ msgstr "Miércoles"
 msgid "Weekday"
 msgstr "DiaSemana"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7910,7 +7894,7 @@ msgstr "Red Inalámbrica"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Configuración de Red..."
 
 msgid "Wireless network connection setup"

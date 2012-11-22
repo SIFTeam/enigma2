@@ -598,10 +598,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Rozšírené voľby"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Rozšírené voľby"
-
 msgid "Advanced restore"
 msgstr "Rozšírené obnovenie"
 
@@ -673,7 +669,7 @@ msgstr "Prázdny názov súboru je neplatný."
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Chyba pri sťahovaní zoznamu paketov. Zopakujte."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Objavila sa neznáma chyba!"
 
 msgid "Any activity"
@@ -1364,7 +1360,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "prepnúť na nasledujúci jazyk podtitulkov"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1980,14 +1976,6 @@ msgstr "Stiahnuť"
 msgid "Download %s from server"
 msgstr "Stiahnuť %s zo servera"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Stiahnuť súbory .NFI pre USB-Flasher"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Stiahnuť súbory .NFI pre USB-Flasher"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Stiahnuť súbory .NFI pre USB-Flasher"
 
@@ -2399,7 +2387,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Pre použitie nového vzhľadu sa musí reštartovať GUI\n"
 "Chcete teraz reštartovať GUI?"
@@ -4745,7 +4733,7 @@ msgstr "Poslať DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Poslať DiSEqC len pri zmene satelitu"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Samostatné tituly s hlavným menu"
 
 msgid "Sequence repeat"
@@ -6397,7 +6385,7 @@ msgstr "Streda"
 msgid "Weekday"
 msgstr "Pracovný deň"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #, fuzzy
@@ -6676,7 +6664,7 @@ msgid "Wireless network"
 msgstr "Bezdrôtová sieť"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Nastavenie bezdrôtovej siete."
 
 msgid "Wireless network connection setup"

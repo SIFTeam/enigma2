@@ -639,11 +639,6 @@ msgid "Advanced options"
 msgstr "אפשרויות מתקדמות"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "אפשרויות מתקדמות"
-
-#
 msgid "Advanced restore"
 msgstr "שחזור מתקדם"
 
@@ -727,7 +722,7 @@ msgstr "קובץ ריק לא חוקי"
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "There was an error downloading the packetlist. Please try again."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "! אירעה שגיאה לא ידועה"
 
 msgid "Any activity"
@@ -1456,7 +1451,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "העבר לשפת תרגום הבאה"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2093,13 +2088,6 @@ msgstr "הורד"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ""
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ""
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr ""
 
@@ -2546,10 +2534,10 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 
 #
 msgid "Gateway"
@@ -5075,8 +5063,8 @@ msgstr "Send DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Send DiSEqC only on satellite change"
 
-msgid "Seperate titles with a main menu"
-msgstr "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
+msgstr "Separate titles with a main menu"
 
 msgid "Sequence repeat"
 msgstr "Sequence repeat"
@@ -6875,7 +6863,7 @@ msgstr "יום רביעי"
 msgid "Weekday"
 msgstr "Weekday"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -7151,7 +7139,7 @@ msgid "Wireless network"
 msgstr "Wireless Network"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "...הגדרת רשת"
 
 msgid "Wireless network connection setup"

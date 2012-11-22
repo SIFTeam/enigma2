@@ -677,11 +677,6 @@ msgid "Advanced options"
 msgstr "Afansjearre Fideo Ynstellingen"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Afansjearre Fideo Ynstellingen"
-
-#
 msgid "Advanced restore"
 msgstr ""
 
@@ -762,7 +757,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "In unbekende flater !"
 
 msgid "Any activity"
@@ -1550,7 +1545,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "skeakelje nei de folgende undertiteling taal"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2268,17 +2263,6 @@ msgstr "Binnenhelje"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Binnenhelje fan .NFI triemen foar USB Flasher"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Binnenhelje fan .NFI triemen foar USB Flasher"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Binnenhelje fan .NFI triemen foar USB Flasher"
 
@@ -2786,7 +2770,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "De GUI moat opnij starte fan wege de nije skin\n"
 "Wolle jo de GUI no opnei starte ?"
@@ -5565,7 +5549,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Stjoer DiSEqC alline by feroarjen fan satellyt"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Aparte triemen mei in haad menu"
 
 #
@@ -7497,7 +7481,7 @@ msgstr "Woansdei"
 msgid "Weekday"
 msgstr "Wiekdei"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7780,7 +7764,7 @@ msgstr "Triidloas netwurk"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Netwurk configuraasje"
 
 msgid "Wireless network connection setup"

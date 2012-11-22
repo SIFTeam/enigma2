@@ -594,10 +594,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Options Avancées"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Options Avancées"
-
 msgid "Advanced restore"
 msgstr "Restauration avancée"
 
@@ -671,7 +667,7 @@ msgstr "Un nom de fichier vide est illégal."
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Erreur de téléchargement de la liste paquet! Veuillez réessayer."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Une erreur inconnue est survenue!"
 
 msgid "Any activity"
@@ -1365,7 +1361,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "basculer vers le langage sous-titre suivant"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1987,14 +1983,6 @@ msgstr "Télécharge"
 msgid "Download %s from server"
 msgstr "Télécharge %s depuis le Serveur"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Téléchargement fichiers .NFI pour USB-flasheur"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Téléchargement fichiers .NFI pour USB-flasheur"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Téléchargement fichiers .NFI pour USB-flasheur"
 
@@ -2408,7 +2396,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "L'interface doit redémarrer pour appliquer ce thème\n"
 "Voulez-vous relancer l'interface maintenant?"
@@ -4781,7 +4769,7 @@ msgstr "Envoyer DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Envoyer DiSEqC seulement pour changement satellite"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Titres séparés avec un menu principal"
 
 msgid "Sequence repeat"
@@ -6460,7 +6448,7 @@ msgstr "Mercredi"
 msgid "Weekday"
 msgstr "Jours ouvrables"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Position pondérée"
 
 #, fuzzy
@@ -6741,7 +6729,7 @@ msgid "Wireless network"
 msgstr "Réseau Sans Fil"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Configuration connexion réseau sans fil."
 
 msgid "Wireless network connection setup"

@@ -702,11 +702,6 @@ msgid "Advanced options"
 msgstr "Napredne opcije"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Napredne opcije"
-
-#
 msgid "Advanced restore"
 msgstr "Napredno vraćanje"
 
@@ -793,7 +788,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Greška kod skidanja liste paketa. Molimo pokušajte ponovo."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Nepoznata greška se desila"
 
 msgid "Any activity"
@@ -1599,7 +1594,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "Prebaci na sledeći jezik titla"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2325,17 +2320,6 @@ msgstr "Skidanje"
 msgid "Download %s from server"
 msgstr "Skidanje %s sa servera"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Skidanje .NFI datoteka za USB-Flešer"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Skidanje .NFI datoteka za USB-Flešer"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Skidanje .NFI datoteka za USB-Flešer"
 
@@ -2844,7 +2828,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI se treba restartovati da se primeni nova maska\n"
 " Želite li restartovati GUI sada ?"
@@ -5674,7 +5658,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Poslati DISEqC samo kod promene satelita"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Odvojite naslove sa glavnim meniem"
 
 #
@@ -7648,7 +7632,7 @@ msgstr "Sreda"
 msgid "Weekday"
 msgstr "Nedeljnii dan"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7938,7 +7922,7 @@ msgstr "Bežična mreža"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Mrežna konfiguracija..."
 
 msgid "Wireless network connection setup"

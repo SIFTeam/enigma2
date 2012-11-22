@@ -677,11 +677,6 @@ msgid "Advanced options"
 msgstr "Расширенные опции"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Расширенные опции"
-
-#
 msgid "Advanced restore"
 msgstr "Расширенное восстановление"
 
@@ -768,7 +763,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Ошибка загрузки списка пактов. Пожалуйста, попробуйте еще раз."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Неизвестная ошибка!"
 
 msgid "Any activity"
@@ -1569,7 +1564,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "переключиться на следующий язык субтитров"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2295,17 +2290,6 @@ msgstr "Загрузить"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Загрузить .NFI-файлы для USB-флешера"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Загрузить .NFI-файлы для USB-флешера"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Загрузить .NFI-файлы для USB-флешера"
 
@@ -2813,7 +2797,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Для активации нового скина необходимо перезагрузить GUI\n"
 "Хотите перезагрузить GUI сейчас?"
@@ -5615,7 +5599,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Отправить DiSEqC только при смене спутника"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Отдельные главы в главном меню"
 
 #
@@ -7569,7 +7553,7 @@ msgstr "Среда"
 msgid "Weekday"
 msgstr "День недели"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7859,7 +7843,7 @@ msgstr "Беспроводная сеть"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Конфигурация сети..."
 
 msgid "Wireless network connection setup"

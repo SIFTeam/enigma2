@@ -686,11 +686,6 @@ msgid "Advanced options"
 msgstr "Gelişmiş seçenekler"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Gelişmiş seçenekler"
-
-#
 msgid "Advanced restore"
 msgstr "Gelişmiş geri yükleme"
 
@@ -775,7 +770,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Paket listesi indirilirken hata oluştu. Lütfen tekrar deneyin."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Bilinmeyen bir hata oluştu!"
 
 msgid "Any activity"
@@ -1578,7 +1573,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "sonraki alt yazı dilini seç"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2306,17 +2301,6 @@ msgstr "İndir"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "USB Flaşlayıcı için .NFI dosyası indir"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "USB Flaşlayıcı için .NFI dosyası indir"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "USB Flaşlayıcı için .NFI dosyası indir"
 
@@ -2823,7 +2807,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Yeni arayüzü etkinleştirmek için yeniden başlatma gerekiyor\n"
 "Grafik arayüzünü (GUI) yeniden başlatmak istiyor musunuz?"
@@ -5645,7 +5629,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Yalnızca uydu değiştiğinde DiSEqC gönder"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Ana menü ile başlıkları ayır"
 
 #
@@ -7598,7 +7582,7 @@ msgstr "Çarşamba"
 msgid "Weekday"
 msgstr "Haftaiçi"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7890,7 +7874,7 @@ msgstr "Kablosuz Ağ"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Ağ Yapılandırması..."
 
 msgid "Wireless network connection setup"

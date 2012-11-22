@@ -687,11 +687,6 @@ msgid "Advanced options"
 msgstr "Додаткові Опції"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Додаткові Опції"
-
-#
 msgid "Advanced restore"
 msgstr "Відновлення за датою"
 
@@ -778,7 +773,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Виникла помилка при завантаженні списку пакетів. Спробуйте ще раз."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Виникла невідома помилка!"
 
 msgid "Any activity"
@@ -1573,7 +1568,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "вибрати наступну мову субтитрів"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2302,17 +2297,6 @@ msgstr "Завантажити"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Завантажити файли .NFI з USB-флеші"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Завантажити файли .NFI з USB-флеші"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Завантажити файли .NFI з USB-флеші"
 
@@ -2820,7 +2804,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Для застосування нового скіну\n"
 "потрібно перезавантажити GUI.\n"
@@ -5625,7 +5609,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Посилати DiSEqC тільки при зміні супутників"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Окремі заголовки з головного меню"
 
 #
@@ -7579,7 +7563,7 @@ msgstr "Середа"
 msgid "Weekday"
 msgstr "День тижня"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7869,7 +7853,7 @@ msgstr "Безпровідна мережа"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Конфігурація мережі..."
 
 msgid "Wireless network connection setup"

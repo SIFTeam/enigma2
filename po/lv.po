@@ -695,11 +695,6 @@ msgid "Advanced options"
 msgstr "Paplašinātās opcijas"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Paplašinātās opcijas"
-
-#
 msgid "Advanced restore"
 msgstr "Paplašinātā atjaunošana"
 
@@ -785,7 +780,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Nezināma kļūda!"
 
 msgid "Any activity"
@@ -1585,7 +1580,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "iet uz nākamo subtitru valodu"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2316,17 +2311,6 @@ msgstr "Lejuplādēt"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Lejuplādēt .NFI-datnes priekš USB-ielādes"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Lejuplādēt .NFI-datnes priekš USB-ielādes"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Lejuplādēt .NFI-datnes priekš USB-ielādes"
 
@@ -2836,7 +2820,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI nepieciešams restartēt, lai lietotu jauno ādiņu\n"
 "Vai vēlaties restartēt GUI tagad?"
@@ -5626,7 +5610,7 @@ msgstr "Sūtīt DiSEqC tikai mainoties pavadonim"
 
 #
 # ???
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Atdalīt nosaukumus ar galveno izvēlni"
 
 #
@@ -7572,7 +7556,7 @@ msgstr "Trešdiena"
 msgid "Weekday"
 msgstr "Nedēļas diena"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7863,7 +7847,7 @@ msgstr "Bezvadu tīkls"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Tīkla konfigurācija..."
 
 msgid "Wireless network connection setup"

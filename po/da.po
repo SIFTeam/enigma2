@@ -681,11 +681,6 @@ msgid "Advanced options"
 msgstr "Avancerede indstillinger"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Avancerede indstillinger"
-
-#
 msgid "Advanced restore"
 msgstr "Avanceret gendannelse"
 
@@ -774,7 +769,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Der opstod en fejl under download af pakkelisten. Prøv venligst igen."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Der opstod en ukendt fejl!"
 
 msgid "Any activity"
@@ -1582,7 +1577,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "skift til næste undertekst sprog"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2315,17 +2310,6 @@ msgstr "Download"
 msgid "Download %s from server"
 msgstr "Download %s fra Server"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Download .NFI-filer til USB flash"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Download .NFI-filer til USB flash"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Download .NFI-filer til USB flash"
 
@@ -2836,7 +2820,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI skal genstartes for aktivering af nyt grafisk tema\n"
 "Vil du genstarte GUI nu?"
@@ -5670,7 +5654,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Sender DiSEqC kun ved satellite skifte"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Adskil titler med en hoved menu"
 
 #
@@ -7658,7 +7642,7 @@ msgstr "Onsdag"
 msgid "Weekday"
 msgstr "Ugedag"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Vægtet position"
 
 #
@@ -7947,7 +7931,7 @@ msgid "Wireless network"
 msgstr "Trådløst netværk"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Opsæt trådløs netværksforbindelse."
 
 msgid "Wireless network connection setup"

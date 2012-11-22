@@ -668,9 +668,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr ""
 
-msgid "Advanced pptions"
-msgstr ""
-
 #
 msgid "Advanced restore"
 msgstr ""
@@ -748,7 +745,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr ""
 
 msgid "Any activity"
@@ -1515,7 +1512,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr ""
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2212,13 +2209,6 @@ msgstr ""
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ""
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ""
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr ""
 
@@ -2715,7 +2705,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Cal reengegar la IGU per activar la nova aparença\n"
 "Vols fer-ho ara?"
@@ -5439,7 +5429,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr ""
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr ""
 
 #
@@ -7282,7 +7272,7 @@ msgstr "Dimecres"
 msgid "Weekday"
 msgstr "DiaSetmana"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -7554,7 +7544,7 @@ msgstr ""
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Configuració del sintonitzador"
 
 msgid "Wireless network connection setup"

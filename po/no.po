@@ -675,11 +675,6 @@ msgid "Advanced options"
 msgstr "Avansert Video Oppsett"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Avansert Video Oppsett"
-
-#
 msgid "Advanced restore"
 msgstr ""
 
@@ -760,7 +755,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr ""
 
 msgid "Any activity"
@@ -1539,7 +1534,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "bytt til neste tekstspråk"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2256,13 +2251,6 @@ msgstr ""
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ""
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ""
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr ""
 
@@ -2763,7 +2751,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI skal restartes for aktivering av nytt skin\n"
 "Vil du restarte GUI nå?"
@@ -5523,7 +5511,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr ""
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr ""
 
 #
@@ -7428,7 +7416,7 @@ msgstr "Onsdag"
 msgid "Weekday"
 msgstr "Ukedag"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -7702,7 +7690,7 @@ msgstr "Trådløst Nettverk"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Nettverkskonfigurasjon"
 
 msgid "Wireless network connection setup"

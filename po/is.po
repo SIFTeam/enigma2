@@ -672,10 +672,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Sérfræði stillingar"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Sérfræði stillingar"
-
 msgid "Advanced restore"
 msgstr "Sérfræði innsetning afrita"
 
@@ -749,7 +745,7 @@ msgstr "Það þarf að vera skráarnafn."
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Það varð villa við niðurhal pakka listans. Vinsamlega prófaðu aftur."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Óþekkt villa varð!"
 
 msgid "Any activity"
@@ -1453,7 +1449,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "skipta á næsta undirtexta"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2137,17 +2133,6 @@ msgstr "Hlaða niður"
 msgid "Download %s from server"
 msgstr "Hleð niður %s frá vefþjón"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Hlaða niður .NFI skrár fyrir keyranlegt USB"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Hlaða niður .NFI skrár fyrir keyranlegt USB"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Hlaða niður .NFI skrár fyrir keyranlegt USB"
 
@@ -2626,7 +2611,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Gluggakerfi þarf að endurræsa til að virkja nýtt skinn\n"
 "Viltu endurræsa gluggakerfi núna?"
@@ -5390,7 +5375,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Senda DiSEqC bara við að skipta á annan gevihnött"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Taka út titla af aðalvalmynd"
 
 #
@@ -7320,7 +7305,7 @@ msgstr "Miðvikudagur"
 msgid "Weekday"
 msgstr "Vikudagur"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -7609,7 +7594,7 @@ msgid "Wireless network"
 msgstr "Þráðlaust netkerfi"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Uppsetning á þráðlausu neti."
 
 msgid "Wireless network connection setup"

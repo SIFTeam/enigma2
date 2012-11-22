@@ -610,10 +610,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Haladó beállítások"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Haladó beállítások"
-
 msgid "Advanced restore"
 msgstr "Haladó visszaállítás"
 
@@ -689,7 +685,7 @@ msgstr ""
 "A szoftvercsomag-lista letöltése hiba miatt lehetetlen. Kérem, próbálja meg "
 "újra."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Ismeretlen hiba keletkezett!"
 
 msgid "Any activity"
@@ -1381,7 +1377,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "átkapcsolás a következő felirat nyelvre"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2009,14 +2005,6 @@ msgstr "Letöltés"
 msgid "Download %s from server"
 msgstr "%s letöltése a szerverről"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ".NFI fájlok letöltése az USB Flasherhez"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ".NFI fájlok letöltése az USB Flasherhez"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr ".NFI fájlok letöltése az USB Flasherhez"
 
@@ -2432,7 +2420,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Az új skin betöltéséhez újra kell indítani a kezelő felületet.\n"
 "Megtörténhet ez most azonnal?"
@@ -4817,7 +4805,7 @@ msgstr "DiSEqC-küldés"
 msgid "Send DiSEqC only on satellite change"
 msgstr "DiSEqC parancs küldésése csak műholdváltáskor"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Címek elválasztása egy főmenüvel"
 
 msgid "Sequence repeat"
@@ -6508,7 +6496,7 @@ msgstr "Szerda"
 msgid "Weekday"
 msgstr "Hétköznap"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Kiegyensúlyzozott pozíció"
 
 #, fuzzy
@@ -6806,7 +6794,7 @@ msgid "Wireless network"
 msgstr "Vezeték nélküli hálózat"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Vezeték nélküli hálózat beállítása."
 
 msgid "Wireless network connection setup"

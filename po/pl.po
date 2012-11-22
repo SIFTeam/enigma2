@@ -679,10 +679,6 @@ msgid "Advanced options"
 msgstr "Opcje zaawansowane"
 
 #
-msgid "Advanced pptions"
-msgstr "Opcje zaawansowane"
-
-#
 msgid "Advanced restore"
 msgstr "Przywracanie zaawansowane"
 
@@ -763,7 +759,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Wystąpił błąd podczas pobierania listy pakietów. Spróbuj ponownie."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Wystąpił nieznany błąd!"
 
 #
@@ -1529,7 +1525,7 @@ msgstr "Skonfiguruj język drugiej ścieżki audio."
 msgid "Configure the second subtitle language."
 msgstr "Skonfiguruj drugi język napisów."
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr "Skonfiguruj drugi język EPG."
 
 msgid "Configure the sharpness of the video scaling."
@@ -2224,12 +2220,6 @@ msgstr "Pobierz"
 msgid "Download %s from server"
 msgstr "Pobierz %s z serwera"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ""
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ""
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr ""
 
@@ -2727,7 +2717,7 @@ msgstr "Funkcie klawisza OK"
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI musi zostać zrestartowane, aby zastosować nowy skin\n"
 "Czy chcesz zrobić restart teraz?"
@@ -5425,7 +5415,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Wyślij DiSEqC tylko podczas zmiany satelity"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Oddziel tytuły posiadjące menu"
 
 #
@@ -7287,7 +7277,7 @@ msgstr "Środa"
 msgid "Weekday"
 msgstr "Dzień tygodnia"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Pozycja ważona"
 
 #
@@ -7510,7 +7500,7 @@ msgid "Wireless network"
 msgstr "Sieć bezprzewodowa"
 
 #
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Konfiguracja sieci bezprzewodowej..."
 
 #

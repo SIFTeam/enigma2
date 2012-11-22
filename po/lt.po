@@ -589,10 +589,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Išplėstiniai nustatymai"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Išplėstiniai nustatymai"
-
 msgid "Advanced restore"
 msgstr "Išplėstinis atkūrimas"
 
@@ -665,7 +661,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 "Įvyko klaida, parsisiunčiant paketo sąrašą. Prašome pabandyti dar kartą."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Įvyko nežinoma klaida!"
 
 msgid "Any activity"
@@ -1356,7 +1352,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "perjungti į kitą subtitrų kalbą"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1972,14 +1968,6 @@ msgstr "Parsisiuntimas"
 msgid "Download %s from server"
 msgstr "Parsisiųsta %s iš serverio"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Parsisiunčiami .NFI failai į USB diegėją"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Parsisiunčiami .NFI failai į USB diegėją"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Parsisiunčiami .NFI failai į USB diegėją"
 
@@ -2393,7 +2381,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Reikia paleisti iš naujo Enigma2 ,kad patvirtinti naują temą\n"
 "Jūs norite paleisti iš naujo Enigma2 dabar?"
@@ -4758,7 +4746,7 @@ msgstr "Siųskite DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Siųskite DiSEqC tik palydovo pakeitimui"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Pavadinimai su pagrindiniu meniu"
 
 msgid "Sequence repeat"
@@ -6416,7 +6404,7 @@ msgstr "Trečiadienis"
 msgid "Weekday"
 msgstr "Savaitės diena"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #, fuzzy
@@ -6697,7 +6685,7 @@ msgid "Wireless network"
 msgstr "Belaidis tinklas"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Belaidžio tinklo prisijungimo nustatymas."
 
 msgid "Wireless network connection setup"

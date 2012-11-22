@@ -696,11 +696,6 @@ msgid "Advanced options"
 msgstr "Napredne nastavitve"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Napredne nastavitve"
-
-#
 msgid "Advanced restore"
 msgstr "Napredna obnovitev"
 
@@ -791,7 +786,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Prišlo je do napake pri prenosu liste paketov. Poskusite ponovno."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Pojavila se je neznana napaka!"
 
 msgid "Any activity"
@@ -1604,7 +1599,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "preklop na naslednji jezik podnapisov"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2346,17 +2341,6 @@ msgstr "Prenesi"
 msgid "Download %s from server"
 msgstr "Prenesi %s iz serverja"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Prenesi .NFI-datoteke za programsko nadgradnjo preko USB"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Prenesi .NFI-datoteke za programsko nadgradnjo preko USB"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Prenesi .NFI-datoteke za programsko nadgradnjo preko USB"
 
@@ -2873,7 +2857,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Za spremembo predloge je potrebno ponovno zagnati uporabniški vmesnik "
 "(GUI)!\n"
@@ -5742,7 +5726,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Pošlji DiSEqC signal samo ob menjavi satelita"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Razdeljeni naslovi z glavnim menijem"
 
 #
@@ -7740,7 +7724,7 @@ msgstr "Sreda"
 msgid "Weekday"
 msgstr "Delovni dan"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -8033,7 +8017,7 @@ msgid "Wireless network"
 msgstr "Brezžično omrežje"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Nastavitve brezzične povezave."
 
 msgid "Wireless network connection setup"

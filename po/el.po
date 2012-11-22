@@ -793,12 +793,6 @@ msgstr "Προχωρημένες επιλογές"
 
 #
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Προχωρημένες επιλογές"
-
-#
-#
 msgid "Advanced restore"
 msgstr "Προχωρημένη αποκατάσταση"
 
@@ -908,7 +902,7 @@ msgstr ""
 
 #
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Συνέβη άγνωστο σφάλμα!"
 
 #
@@ -1856,7 +1850,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "μετάβαση σε επόμενη γλώσσα υποτίτλων"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2724,20 +2718,6 @@ msgstr "Λήψη"
 msgid "Download %s from server"
 msgstr "Λήψη %s από το διακομιστή"
 
-#
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Λήψη αρχείων .NFI για USB-Flasher"
-
-#
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Λήψη αρχείων .NFI για USB-Flasher"
-
-#
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Λήψη αρχείων .NFI για USB-Flasher"
 
@@ -3360,7 +3340,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Πρέπει να γίνει  επανεκκίνηση του GUI για να ενεργοποιηθεί το νέο θέμα. \n"
 "Να γίνει τώρα;"
@@ -6769,7 +6749,7 @@ msgstr "Αποστολή DiSEqC μόνο σε αλλαγή δορυφόρου"
 
 #
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Διαχωρισμός τίτλων με κεντρικό μενού"
 
 #
@@ -9125,7 +9105,7 @@ msgstr "Τετάρτη"
 msgid "Weekday"
 msgstr "Ημέρα εβδομάδος"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #
@@ -9428,7 +9408,7 @@ msgstr "Ασύρματο δίκτυο"
 
 #
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Ρύθμιση σύνδεσης ασύρματου δικτύου."
 
 #

@@ -676,11 +676,6 @@ msgid "Advanced options"
 msgstr "Laajennetut valinnat"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Laajennetut valinnat"
-
-#
 msgid "Advanced restore"
 msgstr "Laajennettu palautus"
 
@@ -766,7 +761,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Virhe ladattaessa IPKG-ohjelmapakettiluetteloa. Yritä uudestaan."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Tuntematon virhe!"
 
 msgid "Any activity"
@@ -1568,7 +1563,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "vaihda seuraavalle tekstityskielelle"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2299,17 +2294,6 @@ msgstr "Lataa"
 msgid "Download %s from server"
 msgstr "Lataa %s palvelimelta"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Lataa .NFI-tiedostoja USB-päivitysohjelmalle"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Lataa .NFI-tiedostoja USB-päivitysohjelmalle"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Lataa .NFI-tiedostoja USB-päivitysohjelmalle"
 
@@ -2803,7 +2787,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "Teema vaihtuu vasta kun laitteen\n"
 "käyttöliittymä on käynnistetty uudelleen.\n"
@@ -5611,7 +5595,7 @@ msgid "Send DiSEqC only on satellite change"
 msgstr "Lähetä DiSEqC vain satelliitin vaihdossa"
 
 #
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Erilliset tallenteet ja päävalikko"
 
 #
@@ -7575,7 +7559,7 @@ msgstr "Keskiviikko"
 msgid "Weekday"
 msgstr "Viikonpäivä"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr "Painotettu sijainti"
 
 #
@@ -7867,7 +7851,7 @@ msgid "Wireless network"
 msgstr "Langaton verkko"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "WLAN-verkon asetukset."
 
 msgid "Wireless network connection setup"

@@ -581,10 +581,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "ตัวเลือกขั้นสูง"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "ตัวเลือกขั้นสูง"
-
 msgid "Advanced restore"
 msgstr "นำข้อมูลกลับมาใช้แบบขั้นสูง"
 
@@ -656,7 +652,7 @@ msgstr "ชื่อไฟล์ห้ามเป็นช่องว่าง
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "พบข้อผิดพลาด ไม่สามารถดาวน์โหลดรายการของส่วนประกอบได้ กรุณาลองซ้ำอีกครั้ง...."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "เกิดข้อผิดพลาดขึ้น!"
 
 msgid "Any activity"
@@ -1345,7 +1341,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "เลือกซับไตเติ้ลต่อไป"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1959,14 +1955,6 @@ msgstr "ดาวน์โหลด"
 msgid "Download %s from server"
 msgstr ""
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "ดาวน์โหลด .NFI สำหรับ USB-Flasher"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "ดาวน์โหลด .NFI สำหรับ USB-Flasher"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "ดาวน์โหลด .NFI สำหรับ USB-Flasher"
 
@@ -2378,7 +2366,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "ต้องเริ่มงานโปรแกรม (GUI) ใหม่  จึงจะใช้สกินนี้ได้\n"
 "ต้องการเริ่มโปรแกรมใหม่หรือไม่?"
@@ -4701,7 +4689,7 @@ msgstr "ส่งคำสั่ง DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "ส่งคำสั่ง DiSEqC เฉพาะตอนเปลี่ยนช่อง"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "แยกเรื่องนี้ออกจากเมนูหลัก"
 
 msgid "Sequence repeat"
@@ -6328,7 +6316,7 @@ msgstr "วันพุธ"
 msgid "Weekday"
 msgstr "วันธรรมดา"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #, fuzzy
@@ -6605,7 +6593,7 @@ msgid "Wireless network"
 msgstr "เครือข่ายไร้สาย"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "ตั้งค่าเครือข่าย..."
 
 msgid "Wireless network connection setup"

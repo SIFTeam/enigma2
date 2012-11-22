@@ -692,11 +692,6 @@ msgid "Advanced options"
 msgstr "Opzioni avanzate"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Opzioni avanzate"
-
-#
 msgid "Advanced restore"
 msgstr "Ripristino avanzato"
 
@@ -783,7 +778,7 @@ msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Errore download elenco pacchetti! Riprovare."
 
 #
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Si è verificato un errore sconosciuto!"
 
 msgid "Any activity"
@@ -1582,7 +1577,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "Passare alla lingua sottotitoli successiva"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2301,17 +2296,6 @@ msgstr "Download"
 msgid "Download %s from server"
 msgstr "Scaricare %s dal server"
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Download file .nfi per flasher USB"
-
-#
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Download file .nfi per flasher USB"
-
-#
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Download file .nfi per flasher USB"
 
@@ -2811,7 +2795,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "L'attivazione della nuova skin richiede\n"
 "il riavvio di enigma2. Riavviare ora?"
@@ -5618,7 +5602,7 @@ msgstr "Inviare DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Inviare DiSEqC solo su cambio satellite"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "Separare i titoli con un menu principale"
 
 #
@@ -7564,7 +7548,7 @@ msgstr "Mercoledì"
 msgid "Weekday"
 msgstr "Giorno della settimana"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 #, fuzzy
@@ -7852,7 +7836,7 @@ msgid "Wireless network"
 msgstr "Rete wireless"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Configurazione connessione rete wireless."
 
 msgid "Wireless network connection setup"

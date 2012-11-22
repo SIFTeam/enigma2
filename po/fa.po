@@ -593,10 +593,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "گزینه های پیشرفته"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "گزینه های پیشرفته"
-
 msgid "Advanced restore"
 msgstr "بازگردانی پیشرفته"
 
@@ -668,7 +664,7 @@ msgstr "بدون نام بودن برای یک فایل غیر مجاز است"
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr ""
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "خطای نامشخصی رخ داد"
 
 msgid "Any activity"
@@ -1365,7 +1361,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr ""
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1985,14 +1981,6 @@ msgstr "دانلود"
 msgid "Download %s from server"
 msgstr "دانلود %s از سرور"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "دانلود فایل های NFI برای USB-Flasher"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "دانلود فایل های NFI برای USB-Flasher"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "دانلود فایل های NFI برای USB-Flasher"
 
@@ -2412,7 +2400,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "برای استفاده از پوسته جدید رابط گرافیکی باید دوباره راه اندازی شود\n"
 "آیا میخواهید الان رابط گرافیکی دوباره راه اندازی شود ؟"
@@ -4767,7 +4755,7 @@ msgstr "ارسال DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "ارسال DiSEqC فقط هنگام تغییر ماهواره"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "جدا کردن عناوین با یک منوی اصلی"
 
 msgid "Sequence repeat"
@@ -6366,7 +6354,7 @@ msgstr ""
 msgid "Weekday"
 msgstr ""
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -6632,7 +6620,7 @@ msgid "Wireless network"
 msgstr "اسکن شبکه های بدون سیم"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "پیکربندی شبکه"
 
 msgid "Wireless network connection setup"

@@ -580,10 +580,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Експертни Настройки"
 
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "Експертни Настройки"
-
 msgid "Advanced restore"
 msgstr "Експертно Възстановяване"
 
@@ -655,7 +651,7 @@ msgstr "Файл без име не се приема."
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "Грешка при изтегляне на списъка с пакети! Опитайте отново."
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "Случи се непозната грешка!"
 
 msgid "Any activity"
@@ -1340,7 +1336,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "превкл. на следващ език за субтитри"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -1951,14 +1947,6 @@ msgstr "Изтегли"
 msgid "Download %s from server"
 msgstr ""
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Изтегли .NFI-Файлове за USB-флашка"
-
-#, fuzzy
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Изтегли .NFI-Файлове за USB-флашка"
-
-#, fuzzy
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Изтегли .NFI-Файлове за USB-флашка"
 
@@ -2370,7 +2358,7 @@ msgstr ""
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI трябва да се рестартира за да приложи новата кожа\n"
 "Да рестартирам ли GUI сега?"
@@ -4697,7 +4685,7 @@ msgstr "Изпращай DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Изпращай DiSEqC само при смяна на сателит"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr ""
 
 msgid "Sequence repeat"
@@ -6332,7 +6320,7 @@ msgstr "Сряда"
 msgid "Weekday"
 msgstr "Делничен"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -6604,7 +6592,7 @@ msgid "Wireless network"
 msgstr "Безжична Мрежа"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "Мрежова Конфигурация..."
 
 msgid "Wireless network connection setup"

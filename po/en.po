@@ -539,9 +539,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Advanced options"
 
-msgid "Advanced pptions"
-msgstr "Advanced pptions"
-
 msgid "Advanced restore"
 msgstr "Advanced restore"
 
@@ -590,8 +587,8 @@ msgstr "An empty filename is illegal."
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "An error occurred while downloading the packetlist. Please try again."
 
-msgid "An unknown error occured!"
-msgstr "An unknown error occured!"
+msgid "An unknown error occurred!"
+msgstr "An unknown error occurred!"
 
 msgid "Any activity"
 msgstr "Any activity"
@@ -1466,12 +1463,6 @@ msgstr "Download"
 msgid "Download %s from server"
 msgstr "Download %s from server"
 
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr "Download .NFI-Files for USB-Flasher"
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr "Download .NFI-Files for USB-flasher"
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr "Download .NFI-files for USB-flasher"
 
@@ -1802,10 +1793,10 @@ msgstr "Function of OK button"
 
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 
 msgid "Gateway"
 msgstr "Gateway"
@@ -3670,8 +3661,8 @@ msgstr "Send DiSEqC"
 msgid "Send DiSEqC only on satellite change"
 msgstr "Send DiSEqC only on satellite change"
 
-msgid "Seperate titles with a main menu"
-msgstr "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
+msgstr "Separate titles with a main menu"
 
 msgid "Sequence repeat"
 msgstr "Sequence repeat"
@@ -4991,8 +4982,8 @@ msgstr "Wednesday"
 msgid "Weekday"
 msgstr "Weekday"
 
-msgid "Weigthed position"
-msgstr "Weigthed position"
+msgid "Weighted position"
+msgstr "Weighted position"
 
 msgid ""
 "Welcome to the cutlist editor.\n"
@@ -5067,8 +5058,8 @@ msgstr "Wireless LAN"
 msgid "Wireless network"
 msgstr "Wireless network"
 
-msgid "Wireless network configuartion..."
-msgstr "Wireless network configuartion..."
+msgid "Wireless network configuration..."
+msgstr "Wireless network configuration..."
 
 msgid "Wireless network state"
 msgstr "Wireless network state"
@@ -6527,8 +6518,8 @@ msgstr "Configure the second audio language."
 msgid "Configure the second subtitle language."
 msgstr "Configure the second subtitle language."
 
-msgid "Configure the secundary EPG language."
-msgstr "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
+msgstr "Configure the secondary EPG language."
 
 msgid "Configure the skip time interval for the '1'/'3' buttons."
 msgstr "Configure the skip time interval for the '1'/'3' buttons."

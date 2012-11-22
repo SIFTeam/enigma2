@@ -668,11 +668,6 @@ msgid "Advanced options"
 msgstr "إختيارات متقدمه"
 
 #
-#, fuzzy
-msgid "Advanced pptions"
-msgstr "إختيارات متقدمه"
-
-#
 msgid "Advanced restore"
 msgstr "إستعاده متقدمه"
 
@@ -756,7 +751,7 @@ msgstr "غير مسموح بملف بدون اسم"
 msgid "An error occurred while downloading the packetlist. Please try again."
 msgstr "حدث خطا اثناء تحميل قائمة الحزم. من فضلك حاول ثانيه"
 
-msgid "An unknown error occured!"
+msgid "An unknown error occurred!"
 msgstr "حدث خطأ غير معروف !"
 
 msgid "Any activity"
@@ -1486,7 +1481,7 @@ msgstr ""
 msgid "Configure the second subtitle language."
 msgstr "الانتقال الى لغة العناوين الفرعيه التاليه"
 
-msgid "Configure the secundary EPG language."
+msgid "Configure the secondary EPG language."
 msgstr ""
 
 msgid "Configure the sharpness of the video scaling."
@@ -2127,13 +2122,6 @@ msgstr "تحميل"
 msgid "Download %s from server"
 msgstr ""
 
-#
-msgid "Download .NFI-Files for USB-Flasher"
-msgstr ""
-
-msgid "Download .NFI-Files for USB-flasher"
-msgstr ""
-
 msgid "Download .NFI-files for USB-flasher"
 msgstr ""
 
@@ -2581,7 +2569,7 @@ msgstr ""
 #
 msgid ""
 "GUI needs a restart to apply a new skin\n"
-"Do you want to Restart the GUI now?"
+"Do you want to restart the GUI now?"
 msgstr ""
 "يجب إعادة تشغيل الاينجما2 لتطبيق الجلد \n"
 "هل تريد إعادة تشغيل الاينجما2 الان ؟"
@@ -5108,7 +5096,7 @@ msgstr "أرسل دايزك"
 msgid "Send DiSEqC only on satellite change"
 msgstr "ارسل دايزك عند تغيير القمر فقط"
 
-msgid "Seperate titles with a main menu"
+msgid "Separate titles with a main menu"
 msgstr "عناوين منفصله مع قائمة رئيسيه"
 
 msgid "Sequence repeat"
@@ -6914,7 +6902,7 @@ msgstr "الاربعاء"
 msgid "Weekday"
 msgstr "يوم الاسبوع"
 
-msgid "Weigthed position"
+msgid "Weighted position"
 msgstr ""
 
 msgid ""
@@ -7190,7 +7178,7 @@ msgid "Wireless network"
 msgstr "شبكه لا سلكيه"
 
 #, fuzzy
-msgid "Wireless network configuartion..."
+msgid "Wireless network configuration..."
 msgstr "تكوين الشبكه"
 
 msgid "Wireless network connection setup"
