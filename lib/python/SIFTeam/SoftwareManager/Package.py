@@ -29,7 +29,7 @@ class SMPackage(Screen):
 		else:
 			self["key_green"] = Button(_("Rank"))
 			
-		if fileExists("/usr/lib/opkg/info/%s.control" % packages["packages"][packageindex]["package"]):
+		if fileExists("/var/lib/opkg/info/%s.control" % packages["packages"][packageindex]["package"]):
 			self["key_red"] = Button(_("Remove"))
 		else:
 			self["key_red"] = Button(_("Install"))
@@ -94,7 +94,7 @@ class SMPackage(Screen):
 		if smstack.checkIfPending(self.package["package"]):
 			message = smstack.getMessage(self.package["package"])
 		else:
-			if fileExists("/usr/lib/opkg/info/%s.control" % self.package["package"]):
+			if fileExists("/var/lib/opkg/info/%s.control" % self.package["package"]):
 				message = "Status: installed"
 			else:
 				message = "Status: not installed"
@@ -138,7 +138,7 @@ class SMPackage(Screen):
 		if smstack.checkIfPending(self.package["package"]):
 			return
 			
-		if fileExists("/usr/lib/opkg/info/%s.control" % self.package["package"]):
+		if fileExists("/var/lib/opkg/info/%s.control" % self.package["package"]):
 			smstack.add(SMStack.REMOVE, self.package["package"])
 		else:
 			smstack.add(SMStack.INSTALL, self.package["package"])
