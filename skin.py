@@ -68,11 +68,8 @@ def skin_user_skinname():
 
 # example: loadSkin("nemesis_greenline/skin.xml")
 config.skin = ConfigSubsection()
-DEFAULT_SKIN = "adriatic_turquoise/skin.xml"
-# on koala, adriatic_turquoise will not be available
-if not fileExists(resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)):
-	DEFAULT_SKIN = "jules_black_hd/skin.xml"
-# on SD hardware, jules_black_hd will not be available
+DEFAULT_SKIN = "horizon/skin.xml"
+# on SD hardware, horizon will not be available
 if not fileExists(resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)):
 	# in that case, fallback to Magic (which is an SD skin)
 	DEFAULT_SKIN = "Magic/skin.xml"
