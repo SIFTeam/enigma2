@@ -45,7 +45,7 @@ from RecordTimer import RecordTimerEntry, RecordTimer, findSafeRecordPath
 from Menu import MainMenu, mdom
 
 from SIFTeam.Panel import Panel
-from SIFTeam.VideoSelection import VideoSelectionHelper
+from SIFTeam.VideoSelection import VideoSelectionMenu
 from SIFTeam.HddMount import HddFastRemove
 
 def isStandardInfoBar(self):
@@ -1950,8 +1950,7 @@ class InfoBarSIFTeam:
 		self.session.open(Panel, self.servicelist)
 		
 	def videoselection(self):
-		vs = VideoSelectionHelper(self.session)
-		vs.changeMode()
+		self.session.open(VideoSelectionMenu)
 		
 	def fastusbremove(self):
 		self.session.open(HddFastRemove)
