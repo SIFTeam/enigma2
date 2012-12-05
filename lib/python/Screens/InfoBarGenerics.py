@@ -1937,14 +1937,30 @@ class InfoBarAudioSelection:
 	def audioSelected(self, ret=None):
 		print "[infobar::audioSelected]", ret
 
+class InfoBarSIFTeam:
+	def __init__(self):
+		self["SIFTeamActions"] = HelpableActionMap(self, "InfobarSIFTeamActions",
+			{
+				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
+				"fastusbremove": (self.fastusbremove, _("Enter fast usb remove menu...")),
+				"videoselection": (self.videoselection, _("Change video mode on the fly..."))
+			})
+			
+	def sifpanel(self):
+		self.session.open(Panel, self.servicelist)
+		
+	def videoselection(self):
+		vs = VideoSelectionHelper(self.session)
+		vs.changeMode()
+		
+	def fastusbremove(self):
+		self.session.open(HddFastRemove)
+		
 class InfoBarSubserviceSelection:
 	def __init__(self):
 		self["SubserviceSelectionAction"] = HelpableActionMap(self, "InfobarSubserviceSelectionActions",
 			{
 				"subserviceSelection": (self.subserviceSelection, _("Subservice list...")),
-				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
-				"fastusbremove": (self.fastusbremove, _("Enter fast usb remove menu...")),
-				"videoselection": (self.videoselection, _("Video selection..."))
 			})
 
 		self["SubserviceQuickzapAction"] = HelpableActionMap(self, "InfobarSubserviceQuickzapActions",
@@ -1962,16 +1978,6 @@ class InfoBarSubserviceSelection:
 
 		self.bsel = None
 
-	def sifpanel(self):
-		self.session.open(Panel, self.servicelist)
-		
-	def videoselection(self):
-		vs = VideoSelectionHelper(self.session)
-		vs.changeMode()
-		
-	def fastusbremove(self):
-		self.session.open(HddFastRemove)
-		
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)
 

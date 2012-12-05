@@ -10,7 +10,7 @@ profile("LOAD:enigma")
 import enigma
 
 profile("LOAD:InfoBarGenerics")
-from Screens.InfoBarGenerics import InfoBarShowHide, \
+from Screens.InfoBarGenerics import InfoBarShowHide, InfoBarSIFTeam, \
 	InfoBarNumberZap, InfoBarChannelSelection, InfoBarMenu, InfoBarRdsDecoder, \
 	InfoBarEPG, InfoBarSeek, InfoBarInstantRecord, InfoBarRedButton, \
 	InfoBarAudioSelection, InfoBarAdditionalInfo, InfoBarNotifications, InfoBarDish, InfoBarUnhandledKey, \
@@ -28,7 +28,7 @@ from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
 profile("LOAD:HelpableScreen")
 from Screens.HelpMenu import HelpableScreen
 
-class InfoBar(InfoBarBase, InfoBarShowHide,
+class InfoBar(InfoBarBase, InfoBarShowHide, InfoBarSIFTeam,
 	InfoBarNumberZap, InfoBarChannelSelection, InfoBarMenu, InfoBarEPG, InfoBarRdsDecoder,
 	InfoBarInstantRecord, InfoBarAudioSelection, InfoBarRedButton,
 	HelpableScreen, InfoBarAdditionalInfo, InfoBarNotifications, InfoBarDish, InfoBarUnhandledKey,
@@ -53,7 +53,7 @@ class InfoBar(InfoBarBase, InfoBarShowHide,
 		self.allowPiP = True
 		
 		for x in HelpableScreen, \
-				InfoBarBase, InfoBarShowHide, \
+				InfoBarBase, InfoBarShowHide, InfoBarSIFTeam, \
 				InfoBarNumberZap, InfoBarChannelSelection, InfoBarMenu, InfoBarEPG, InfoBarRdsDecoder, \
 				InfoBarInstantRecord, InfoBarAudioSelection, InfoBarRedButton, InfoBarUnhandledKey, \
 				InfoBarAdditionalInfo, InfoBarNotifications, InfoBarDish, InfoBarSubserviceSelection, \

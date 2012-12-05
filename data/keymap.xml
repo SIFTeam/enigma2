@@ -216,13 +216,14 @@
 		<key id="KEY_SUBTITLE" mapto="subtitleSelection" flags="m" />
 	</map>
 
+	<map context="InfobarSIFTeamActions">
+		<key id="KEY_YELLOW" mapto="videoselection" flags="b" />
+		<key id="KEY_BLUE" mapto="sifpanel" flags="m" />
+		<key id="KEY_RED" mapto="fastusbremove" flags="l" />
+	</map>
+
 	<map context="InfobarSubserviceSelectionActions">
-		<!--
 		<key id="KEY_GREEN" mapto="subserviceSelection" flags="b" />
-		-->
-		<key id="KEY_GREEN" mapto="videoselection" flags="b" />
-		<key id="KEY_BLUE" mapto="sifpanel" flags="b" />
-		<key id="KEY_BLUE" mapto="fastusbremove" flags="l" />
 	</map>
 
 	<map context="InfobarRedButtonActions">
