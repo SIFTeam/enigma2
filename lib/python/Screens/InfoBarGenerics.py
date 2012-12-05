@@ -46,7 +46,6 @@ from Menu import MainMenu, mdom
 
 from SIFTeam.Panel import Panel
 from SIFTeam.VideoSelection import VideoSelectionMenu
-from SIFTeam.HddMount import HddFastRemove
 
 def isStandardInfoBar(self):
 	return ".InfoBar'>" in `self`
@@ -1942,8 +1941,7 @@ class InfoBarSIFTeam:
 		self["SIFTeamActions"] = HelpableActionMap(self, "InfobarSIFTeamActions",
 			{
 				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
-				"fastusbremove": (self.fastusbremove, _("Enter fast usb remove menu...")),
-				"videoselection": (self.videoselection, _("Change video mode on the fly..."))
+				"videoselection": (self.videoselection, _("Change video mode..."))
 			})
 			
 	def sifpanel(self):
@@ -1951,9 +1949,6 @@ class InfoBarSIFTeam:
 		
 	def videoselection(self):
 		self.session.open(VideoSelectionMenu)
-		
-	def fastusbremove(self):
-		self.session.open(HddFastRemove)
 		
 class InfoBarSubserviceSelection:
 	def __init__(self):

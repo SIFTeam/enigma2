@@ -219,7 +219,6 @@
 	<map context="InfobarSIFTeamActions">
 		<key id="KEY_YELLOW" mapto="videoselection" flags="b" />
 		<key id="KEY_BLUE" mapto="sifpanel" flags="m" />
-		<key id="KEY_RED" mapto="fastusbremove" flags="l" />
 	</map>
 
 	<map context="InfobarSubserviceSelectionActions">

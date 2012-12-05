@@ -63,6 +63,7 @@
 				</menu>
 				-->
 				<item level="0" text="Harddisk" entryID="hardisk_selection"><screen module="SIFTeam.HddSetup" screen="HddSetup" /></item>
+				<item level="0" text="Harddisk Fast Umount" entryID="hardisk_umount"><screen module="SIFTeam.HddMount" screen="HddFastRemove" /></item>
 				<item level="0" text="Swap" entryID="swap"><screen module="SIFTeam.Swap" screen="Swap" /></item>
 				<!--<item text="Remote Control"><setup id="rc" /></item>-->
 				<!--<item text="OSD"><setup id="osd" /></item>-->
@@ -82,7 +83,7 @@
 			</menu>
 			<item weight="6" level="0" text="Software Manager" entryID="softwaremanager"><screen module="SIFTeam.SoftwareManagerHelper" screen="SMScreenHelper" /></item>
 			<item weight="6" level="0" text="Bouquets and channels" entryID="bouquets"><screen module="SIFTeam.SettingsHelper" screen="STScreenHelper" /></item>
-			<item weight="7" level="0" text="Panel setup" entryID="panel_setup"><screen module="SIFTeam.PanelConfig" screen="PanelConfig" /></item>
+			<item weight="7" level="0" text="SIF Blue Panel setup" entryID="panel_setup"><screen module="SIFTeam.PanelConfig" screen="PanelConfig" /></item>
 			<item weight="8" level="0" text="Preferences" entryID="preferences"><screen module="SIFTeam.Preferences" screen="Preferences" /></item>
 			<item weight="9" level="0" text="Daemons" entryID="daemons"><screen module="SIFTeam.DaemonsList" screen="DaemonsList" /></item>
 			<item weight="10" level="1" text="Common Interface" entryID="ci_setup" requires="CommonInterface"><screen module="Ci" screen="CiSelection" /></item>
