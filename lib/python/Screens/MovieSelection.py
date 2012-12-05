@@ -346,7 +346,6 @@ class MovieContextMenu(Screen):
 
 		menu.append((_("Add bookmark"), csel.do_addbookmark))
 		menu.append((_("create directory"), csel.do_createdir))
-		menu.append((_("Network") + "...", csel.showNetworkSetup))
 		menu.append((_("Settings") + "...", csel.configure))
 		self["menu"] = MenuList(menu)
 
