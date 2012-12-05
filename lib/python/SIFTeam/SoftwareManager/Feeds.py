@@ -73,6 +73,9 @@ class SMFeeds(Screen):
 			if len(package) == 0:
 				continue
 				
+			if "package" not in package:
+				continue
+				
 			package["name"] = package["package"]
 			if "section" not in package.keys() or len(package["section"]) == 0:
 				package["category"] = "Unknown"
