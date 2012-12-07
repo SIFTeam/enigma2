@@ -97,7 +97,7 @@ class HddInfo(ConfigListScreen, Screen):
 			if readCache:
 				self["readCache"].setText("Read disk cache speed: %s" % readCache[0].lstrip())
 		hdparm.close()
-		hddtemp = os.popen("/var/sbin/hddtemp -q %s" % device)
+		hddtemp = os.popen("/usr/sbin/hddtemp -q %s" % device)
 		for line in hddtemp:
 			temp = re.findall(tempRe, line)
 			if temp:
