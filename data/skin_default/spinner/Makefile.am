@@ -17,4 +17,6 @@ dist_install_DATA = \
 	wait14.png \
 	wait15.png \
 	wait16.png \
-	wait17.png
+	wait17.png \
+	wait18.png \
+	wait19.png
