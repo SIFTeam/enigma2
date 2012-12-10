@@ -204,7 +204,6 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 		cfg = ConfigSubsection()
 		self.cfg = cfg
 		cfg.moviesort = ConfigSelection(default=str(config.movielist.moviesort.value), choices = l_moviesort)
-		cfg.listtype = ConfigSelection(default=str(config.movielist.listtype.value), choices = l_listtype)
 		cfg.description = ConfigYesNo(default=(config.movielist.description.value != MovieList.HIDE_DESCRIPTION))
 		configList = [
 			getConfigListEntry(_("Fontsize"), config.movielist.fontsize),
@@ -212,7 +211,6 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 			getConfigListEntry(_("Use slim screen"), config.movielist.useslim),
 			getConfigListEntry(_("Sort"), cfg.moviesort),
 			getConfigListEntry(_("Show extended description"), cfg.description),
-			getConfigListEntry(_("Type"), cfg.listtype),
 			getConfigListEntry(_("Remember these settings for each folder"), config.movielist.settings_per_directory),
 			getConfigListEntry(_("Behavior when a movie reaches the end"), config.usage.on_movie_eof),
 			getConfigListEntry(_("Load length of movies in movie list"), config.usage.load_length_of_movies_in_moviellist),
@@ -244,7 +242,7 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 		self.selectionChanged()
 
 	def selectionChanged(self):
-		self["status"].setText(self["config"].getCurrent()[2])
+		self["status"].setText(self["config"].getCurrent()[1])
 
 	# for summary:
 	def changedEntry(self):
@@ -323,8 +321,10 @@ class MovieContextMenu(Screen):
 		menu = []
 		menu.append((_("Settings") + "...", csel.configure))
 		menu.append((_("Device Mounts") + "...", csel.showDeviceMounts))
-		menu.append((_("Network Mounts") + "...", csel.showNetworkMounts))
-		menu.append((_("Add Bookmark"), csel.do_addbookmark))
+		if config.movielist.last_videodir.getValue() in config.movielist.videodirs.getValue():
+			menu.append((_("Remove Bookmark"), csel.do_addbookmark))
+		else:
+			menu.append((_("Add Bookmark"), csel.do_addbookmark))
 		menu.append((_("Create Directory"), csel.do_createdir))
 		if service:
 			if (service.flags & eServiceReference.mustDescent):
@@ -344,10 +344,8 @@ class MovieContextMenu(Screen):
 				# Plugins expect a valid selection, so only include them if we selected a non-dir
 				menu.extend([(p.description, boundFunction(p, session, service)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
 
-		menu.append((_("Add bookmark"), csel.do_addbookmark))
-		menu.append((_("create directory"), csel.do_createdir))
 		menu.append((_("Settings") + "...", csel.configure))
-		self["menu"] = MenuList(menu)
+		self["config"] = MenuList(menu)
 
 	def createSummary(self):
 		return MovieContextMenuSummary
@@ -1789,10 +1787,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 		item = self.getCurrentSelection()
 		current = item[0]
 		Tools.Trashcan.cleanAll(os.path.split(current.getPath())[0])
-
-	def showNetworkMounts(self):
-		import NetworkSetup
-		self.session.open(NetworkSetup.NetworkMountsMenu)
 
 	def showDeviceMounts(self):
 		import SIFTeam.HddSetup
