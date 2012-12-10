@@ -30,6 +30,11 @@ if [ -e @libdir@/libpassthrough.so ]; then
 	LIBS="$LIBS @libdir@/libpassthrough.so"
 fi
 
+#check for specific pagecache helper lib
+if [ -e @libdir@/libpagecache.so ]; then
+	LIBS="$LIBS @libdir@/libpagecache.so" 
+fi
+
 sync
 LD_PRELOAD=$LIBS @bindir@/enigma2
 
