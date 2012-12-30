@@ -56,6 +56,7 @@ AC_SUBST(BOXTYPE)
 AC_DEFINE_UNQUOTED(BOXTYPE,"$BOXTYPE",[box type])
 
 AM_CONDITIONAL(GIGABLUE, test `echo "$BOXTYPE" | cut -b 1-5` == "gb800")
+AM_CONDITIONAL(VENTONHDX, test "$BOXTYPE" == ventonhdx)
 AM_CONDITIONAL(GB800SE, test "$BOXTYPE" == gb800se)
 AM_CONDITIONAL(GB800UE, test "$BOXTYPE" == gb800ue)
 AM_CONDITIONAL(GB800SOLO, test "$BOXTYPE" == gb800solo)
@@ -291,6 +292,8 @@ lib/python/Plugins/SystemPlugins/Videomode/meta/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/meta/Makefile
 lib/python/Plugins/SystemPlugins/VFDGiga/Makefile
+lib/python/Plugins/SystemPlugins/IniFanSetup/Makefile
+lib/python/Plugins/SystemPlugins/IniVFD/Makefile
 lib/python/Tools/Makefile
 lib/python/SIFTeam/Makefile
 lib/python/SIFTeam/Daemons/Makefile

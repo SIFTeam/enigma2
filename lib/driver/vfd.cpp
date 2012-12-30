@@ -12,7 +12,9 @@
 #include <lib/base/eerror.h>
 #include <lib/driver/vfd.h>
 
+#ifdef GIGABLUE
 #define VFD_DEVICE "/proc/vfd"
+#endif
 
 evfd* evfd::instance = NULL;
 
@@ -32,8 +34,13 @@ evfd::evfd()
 int vfd_init( void )
 {
 	evfd vfd;
+#ifdef GIGABLUE
 	vfd.vfd_led("1");
 	char str[]="RED";
+#else
+	vfd.vfd_symbol_network(0);
+	vfd.vfd_symbol_circle(0);
+#endif
 	return 0;
 }
 
@@ -47,6 +54,7 @@ evfd::~evfd()
 {
 }
 
+#ifdef GIGABLUE
 void evfd::vfd_led(char * led)
 {
 	FILE *f;
@@ -69,6 +77,30 @@ void evfd::vfd_write_string(char * str)
 	}
 	
 	fprintf(f,"%s", str);
-	
 	fclose(f);
 }
+#else
+void evfd::vfd_symbol_network(int net)
+{
+	FILE *f;
+	if((f = fopen("/proc/stb/lcd/symbol_network","w")) == NULL) {
+		eDebug("cannot open /proc/stb/lcd/symbol_network (%m)");
+		return;
+	}
+	
+	fprintf(f,"%i", net);
+	fclose(f);
+}
+
+void evfd::vfd_symbol_circle(int cir)
+{
+	FILE *f;
+	if((f = fopen("/proc/stb/lcd/symbol_circle","w")) == NULL) {
+		eDebug("cannotopen /proc/stb/lcd/symbol_circle (%m)");
+		return;
+	}
+	
+	fprintf(f,"%i", cir);
+	fclose(f);
+}
+#endif
