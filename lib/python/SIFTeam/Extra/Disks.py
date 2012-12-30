@@ -66,7 +66,7 @@ class Disks():
 		
 	# in this case device is full device with slice number... for example sda1
 	def getTypeName(self, device):
-		cmd = "/usr/sbin/sfdisk -c /dev/%s %s" % (device[:3], device[3:])
+		cmd = "/usr/sbin/sfdisk -c /dev/%s %s --force" % (device[:3], device[3:])
 		fdisk = os.popen(cmd, "r")
 		res = fdisk.read().strip()
 		fdisk.close()
@@ -75,7 +75,7 @@ class Disks():
 		return res
 		
 	def getType(self, device):
-		cmd = "/usr/sbin/sfdisk -c /dev/%s %s" % (device[:3], device[3:])
+		cmd = "/usr/sbin/sfdisk -c /dev/%s %s --force" % (device[:3], device[3:])
 		fdisk = os.popen(cmd, "r")
 		res = fdisk.read().strip()
 		fdisk.close()

@@ -51,6 +51,7 @@ class HddMount(Screen):
 		{
 			"blue": self.quit,
 			"green": self.green,
+			"ok": self.ok,
 			"red": self.ok,
 			"cancel": self.quit,
 		}, -2)
