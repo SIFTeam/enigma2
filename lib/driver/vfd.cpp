@@ -27,7 +27,9 @@ evfd* evfd::getInstance()
 
 evfd::evfd()
 {
+#ifdef GIGABLUE
 	file_vfd = 0;
+#endif
 }
 
 
