@@ -18,27 +18,34 @@ class SkinSelector(Screen):
 	# for i18n:
 	# _("Choose your Skin")
 	skinlist = []
+	skincache = []
+	skincache_filtered = []
 	root = eEnv.resolve("${datadir}/enigma2/")
+	parent = ""
 
 	def __init__(self, session, args = None):
 
 		Screen.__init__(self, session)
 
-		self.skinlist = []
+		self.skincache = []
 		self.previewPath = ""
+		self.parent = ""
 		path.walk(self.root, self.find, "")
+		self.countVariants()
+		self.fixLabels()
+		self.skincache = sorted(self.skincache, key=lambda k: k['label'])
+		self.buildSkinList("")
 
 		self["key_red"] = StaticText(_("Close"))
 		self["introduction"] = StaticText(_("Press OK to activate the selected skin."))
-		self.skinlist.sort()
 		self["SkinList"] = MenuList(self.skinlist)
 		self["Preview"] = Pixmap()
 
 		self["actions"] = NumberActionMap(["WizardActions", "InputActions", "EPGSelectActions"],
 		{
 			"ok": self.ok,
-			"back": self.close,
-			"red": self.close,
+			"back": self.back,
+			"red": self.back,
 			"up": self.up,
 			"down": self.down,
 			"left": self.left,
@@ -48,6 +55,35 @@ class SkinSelector(Screen):
 
 		self.onLayoutFinish.append(self.layoutFinished)
 
+	def incrementeVariantCounter(self, parent):
+		for entry in self.skincache:
+			if entry["dirname"] == parent:
+				entry["variant_count"] += 1
+		
+	def countVariants(self):
+		for entry in self.skincache:
+			if entry["parent"] != "":
+				self.incrementeVariantCounter(entry["parent"])
+		
+	def fixLabels(self):
+		for entry in self.skincache:
+			if entry["variant_count"] > 0:
+				entry["label"] = entry["original_label"] + (" (with %d variants)" % entry["variant_count"])
+			
+	def buildSkinList(self, parent):
+		self.skinlist = []
+		self.skincache_filtered = []
+		for entry in self.skincache:
+			if entry["parent"] == parent:
+				self.skincache_filtered.append(entry)
+				self.skinlist.append(entry["label"])
+				
+		if parent != "":
+			for entry in self.skincache:
+				if entry["dirname"] == parent:
+					self.skincache_filtered = [entry,] + self.skincache_filtered
+					self.skinlist = [entry["original_label"],] + self.skinlist
+				
 	def layoutFinished(self):
 		tmp = config.skin.primary_skin.value.find('/skin.xml')
 		if tmp != -1:
@@ -82,20 +118,47 @@ class SkinSelector(Screen):
 		aboutbox.setTitle(_("About..."))
 
 	def find(self, arg, dirname, names):
+		isSkin = False
+		parent = ""
+		label = ""
+		
 		for x in names:
 			if x == "skin.xml":
+				isSkin = True
+			elif x == ".label":
+				label = open(dirname + "/.label").read().strip()
+			elif x == ".parent":
+				parent = open(dirname + "/.parent").read().strip()
+				
+		if isSkin:
+			entry = {}
+			entry["dirname"] = dirname[len(self.root):]
+			if label == "":
 				if dirname <> self.root:
-					subdir = dirname[19:]
-					self.skinlist.append(subdir)
+					label = entry["dirname"].replace('_', ' ').title()
 				else:
-					subdir = "Default Skin"
-					self.skinlist.append(subdir)
+					label = "Default Skin"
+			entry["label"] = label
+			entry["original_label"] = label
+			entry["parent"] = parent
+			entry["variant_count"] = 0
+			
+			self.skincache.append(entry)
 
 	def ok(self):
-		if self["SkinList"].getCurrent() == "Default Skin":
+		index = self["SkinList"].getSelectedIndex()
+		if self.parent == "" and self.skincache_filtered[index]["variant_count"] > 0:
+			self.setTitle("Skin Selector - %s" % self.skincache_filtered[index]["original_label"])
+			self.parent = self.skincache_filtered[index]["dirname"]
+			self.buildSkinList(self.parent)
+			self["SkinList"].setList(self.skinlist)
+			self["SkinList"].moveToIndex(0)
+			return
+			
+		if self.skincache_filtered[index]["dirname"] == "":
 			skinfile = "skin.xml"
 		else:
-			skinfile = self["SkinList"].getCurrent()+"/skin.xml"
+			skinfile = self.skincache_filtered[index]["dirname"] + "/skin.xml"
 
 		print "Skinselector: Selected Skin: "+self.root+skinfile
 		config.skin.primary_skin.value = skinfile
@@ -104,10 +167,8 @@ class SkinSelector(Screen):
 		restartbox.setTitle(_("Restart GUI now?"))
 
 	def loadPreview(self):
-		if self["SkinList"].getCurrent() == "Default Skin":
-			pngpath = self.root+"/prev.png"
-		else:
-			pngpath = self.root+self["SkinList"].getCurrent()+"/prev.png"
+		index = self["SkinList"].getSelectedIndex()
+		pngpath = self.root + self.skincache_filtered[index]["dirname"] + "/prev.png"
 
 		if not path.exists(pngpath):
 			pngpath = resolveFilename(SCOPE_PLUGINS, "SystemPlugins/SkinSelector/noprev.png")
@@ -116,7 +177,18 @@ class SkinSelector(Screen):
 			self.previewPath = pngpath
 
 		self["Preview"].instance.setPixmapFromFile(self.previewPath)
-
+		
+	def back(self):
+		if self.parent != "":
+			self.setTitle("Skin Selector")
+			self.parent = ""
+			self.buildSkinList(self.parent)
+			self["SkinList"].setList(self.skinlist)
+			self["SkinList"].moveToIndex(0)
+			return
+			
+		self.close()
+			
 	def restartGUI(self, answer):
 		if answer is True:
 			self.session.open(TryQuitMainloop, 3)
