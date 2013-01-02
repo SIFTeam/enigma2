@@ -12,7 +12,7 @@
 #include <lib/base/eerror.h>
 #include <lib/driver/vfd.h>
 
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 #define VFD_DEVICE "/proc/vfd"
 #endif
 
@@ -27,7 +27,7 @@ evfd* evfd::getInstance()
 
 evfd::evfd()
 {
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	file_vfd = 0;
 #endif
 }
@@ -36,10 +36,10 @@ evfd::evfd()
 int vfd_init( void )
 {
 	evfd vfd;
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	vfd.vfd_led("1");
 	char str[]="RED";
-#else
+#elif defined(HAVE_VENTON_TEXTLCD)
 	vfd.vfd_symbol_network(0);
 	vfd.vfd_symbol_circle(0);
 #endif
@@ -56,7 +56,7 @@ evfd::~evfd()
 {
 }
 
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 void evfd::vfd_led(char * led)
 {
 	FILE *f;
@@ -81,7 +81,7 @@ void evfd::vfd_write_string(char * str)
 	fprintf(f,"%s", str);
 	fclose(f);
 }
-#else
+#elif defined(HAVE_VENTON_TEXTLCD)
 void evfd::vfd_symbol_network(int net)
 {
 	FILE *f;

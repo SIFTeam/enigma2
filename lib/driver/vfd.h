@@ -5,7 +5,7 @@ class evfd
 {
 protected:
 	static evfd *instance;
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	int file_vfd;
 #endif
 #ifdef SWIG
@@ -20,10 +20,10 @@ public:
 	void init();
 	static evfd* getInstance();
 
-#ifdef GIGABLUE
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	void vfd_write_string(char * string);
 	void vfd_led(char * led);
-#else
+#elif defined(HAVE_VENTON_TEXTLCD)
 	void vfd_symbol_network(int net);
 	void vfd_symbol_circle(int cir);
 #endif

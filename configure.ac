@@ -67,6 +67,12 @@ if test `echo "$BOXTYPE" | cut -b 1-2` == "dm"; then
 	AC_DEFINE(DREAMBOX, 1, [Dreambox hardware])
 	AC_DEFINE(KEY_PLAY_ACTUALLY_IS_KEY_PLAYPAUSE, 1,[define when rc sends a KEY_PLAY event for its KEY_PLAYPAUSE key])
 fi
+if test `echo "$BOXTYPE" | cut -b 1-5` == "gb800"; then
+	AC_DEFINE(HAVE_GIGABLUE_TEXTLCD, 1, [Define when using gigablue ascii based lcd device])
+fi
+if test "$BOXTYPE" == ventonhdx; then
+	AC_DEFINE(HAVE_VENTON_TEXTLCD, 1, [Define when using venton ascii based lcd device])
+fi
 
 AC_ARG_WITH(textlcd,
 	AC_HELP_STRING([--with-textlcd], [use ascii based lcd, yes or no]),
