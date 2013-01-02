@@ -56,9 +56,9 @@ evfd::~evfd()
 {
 }
 
-#if defined(HAVE_GIGABLUE_TEXTLCD)
 void evfd::vfd_led(char * led)
 {
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	FILE *f;
 	if((f = fopen("/proc/stb/fp/led0_pattern","w")) == NULL) {
 		eDebug("cannot open /proc/stb/fp/led0_pattern (%m)");
@@ -67,10 +67,12 @@ void evfd::vfd_led(char * led)
 	
 	fprintf(f,"%s", led);
 	fclose(f);
+#endif
 }
 
 void evfd::vfd_write_string(char * str)
 {
+#if defined(HAVE_GIGABLUE_TEXTLCD)
 	FILE *f;
 	if((f = fopen("/proc/vfd","w")) == NULL) {
 		eDebug("cannotopen /proc/vfd (%m)");
@@ -80,10 +82,12 @@ void evfd::vfd_write_string(char * str)
 	
 	fprintf(f,"%s", str);
 	fclose(f);
+#endif
 }
-#elif defined(HAVE_VENTON_TEXTLCD)
+
 void evfd::vfd_symbol_network(int net)
 {
+#if defined(HAVE_VENTON_TEXTLCD)
 	FILE *f;
 	if((f = fopen("/proc/stb/lcd/symbol_network","w")) == NULL) {
 		eDebug("cannot open /proc/stb/lcd/symbol_network (%m)");
@@ -92,10 +96,12 @@ void evfd::vfd_symbol_network(int net)
 	
 	fprintf(f,"%i", net);
 	fclose(f);
+#endif
 }
 
 void evfd::vfd_symbol_circle(int cir)
 {
+#if defined(HAVE_VENTON_TEXTLCD)
 	FILE *f;
 	if((f = fopen("/proc/stb/lcd/symbol_circle","w")) == NULL) {
 		eDebug("cannotopen /proc/stb/lcd/symbol_circle (%m)");
@@ -104,5 +110,5 @@ void evfd::vfd_symbol_circle(int cir)
 	
 	fprintf(f,"%i", cir);
 	fclose(f);
-}
 #endif
+}
