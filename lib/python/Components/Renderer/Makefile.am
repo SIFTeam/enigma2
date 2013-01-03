@@ -5,4 +5,4 @@ install_PYTHON = \
 	FixedLabel.py PositionGauge.py Canvas.py Picon.py Pig.py \
 	FrontpanelLed.py ChannelNumber.py VideoSize.py Analogic.py \
 	Cutext.py Roller.py ServiceName.py ServiceNumber.py NextEpgInfo.py \
-	VolumeText.py
+	VolumeText.py dmmMaxTemp.py
