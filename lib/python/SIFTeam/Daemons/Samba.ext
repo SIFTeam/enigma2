@@ -56,7 +56,7 @@ def SambaBoot(enabled):
 daemon_name = "Samba"
 daemon_description = "Share files with MS Windows"
 daemon_icon = "samba.png"
-daemon_package = "samba"
+daemon_package = "task-base-smbfs"
 daemon_fnc_status = SambaStatus
 daemon_fnc_installed = SambaInstalled
 daemon_fnc_stop = SambaStop
