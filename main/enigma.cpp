@@ -316,6 +316,11 @@ const char *getEnigmaVersionString()
 	return std::string(date + '-' + branch).c_str();
 }
 
+const char *getDistro()
+{
+        return DISTRO;
+}
+
 const char *getBoxType()
 {
 	return BOXTYPE;

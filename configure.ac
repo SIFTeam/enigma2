@@ -74,6 +74,13 @@ if test "$BOXTYPE" == ventonhdx; then
 	AC_DEFINE(HAVE_VENTON_TEXTLCD, 1, [Define when using venton ascii based lcd device])
 fi
 
+AC_ARG_WITH(distro,
+        [  --with-distro=NAME distro name [[openvix,openaaf,...]]],
+        [DISTRO="$withval"],[DISTRO="openisif"])
+AC_SUBST(DISTRO)
+AC_DEFINE_UNQUOTED(DISTRO,"$DISTRO",[distro name])
+
+
 AC_ARG_WITH(textlcd,
 	AC_HELP_STRING([--with-textlcd], [use ascii based lcd, yes or no]),
 	[[withtextlcd=$withval]],
