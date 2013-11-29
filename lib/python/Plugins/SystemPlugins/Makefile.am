@@ -18,9 +18,5 @@ if GIGABLUE
 SUBDIRS += VFDGiga
 endif
 
-if VENTONHDX
-SUBDIRS += IniVFD IniFanSetup
-endif
-
 install_PYTHON =	\
 	__init__.py
