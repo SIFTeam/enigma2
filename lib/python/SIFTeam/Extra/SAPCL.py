@@ -4,6 +4,7 @@ import os
 import re
 import urllib
 import httplib
+import socket
 import xml.etree.cElementTree
 
 class StatusCodeError(Exception):
@@ -12,6 +13,7 @@ class StatusCodeError(Exception):
 	def __str__(self):
 		return repr(self.value)
 
+sapcl_ipaddress_cache = None
 class SAPCL(object):
 	def __init__(self):
 		pass
@@ -20,7 +22,10 @@ class SAPCL(object):
 		return "api.sifteam.eu"
 		
 	def getIP(self):
-		return "85.17.231.249"
+		global sapcl_ipaddress_cache
+		if sapcl_ipaddress_cache is None:
+			sapcl_ipaddress_cache = socket.gethostbyname(self.getHost())
+		return sapcl_ipaddress_cache
 		
 	def getBranch(self):
 		try:
