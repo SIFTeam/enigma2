@@ -125,6 +125,7 @@ int exit_code;
 
 int main(int argc, char **argv)
 {
+
 	printf("Distro:  %s\n", DISTRO);
 	printf("Version: %s\n", IMAGEVERSION);
 	printf("Build:   %s\n", IMAGEBUILD);
