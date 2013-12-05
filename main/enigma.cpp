@@ -358,26 +358,6 @@ const char *getDriverDateString()
 	return DRIVERDATE;
 }
 
-const char *getDistro()
-{
-	return DISTRO;
-}
-
-const char *getImageVersionString()
-{
-	return IMAGEVERSION;
-}
-
-const char *getBuildVersionString()
-{
-	return IMAGEBUILD;
-}
-
-const char *getDriverDateString()
-{
-	return DRIVERDATE;
-}
-
 const char *getBoxType()
 {
 	return BOXTYPE;
